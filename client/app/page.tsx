@@ -1,10 +1,25 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
 
 export default function Home() {
+  const router = useRouter();
   const { isAuthenticated, user, logout } = useAuthStore();
+
+  // Redirect pros and admins away from homepage to their respective dashboards
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      if (user.role === 'pro') {
+        router.push('/pro/dashboard');
+      } else if (user.role === 'admin') {
+        router.push('/admin/dashboard');
+      }
+      // Homeowners can stay on homepage
+    }
+  }, [isAuthenticated, user, router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -16,6 +31,11 @@ export default function Home() {
               <h1 className="text-2xl font-bold text-neutral-900">Homezy</h1>
             </div>
             <div className="flex items-center space-x-4">
+              {!isAuthenticated && (
+                <Link href="/become-a-pro" className="text-neutral-700 hover:text-neutral-900 font-medium">
+                  Become a Pro
+                </Link>
+              )}
               {isAuthenticated ? (
                 <>
                   <span className="text-neutral-700">
@@ -49,10 +69,10 @@ export default function Home() {
           <h1 className="text-5xl font-bold text-neutral-900 mb-6">
             Find Trusted Home Improvement
             <br />
-            <span className="text-blue-600">Professionals in UAE</span>
+            <span className="text-blue-600">Pros in UAE</span>
           </h1>
           <p className="text-xl text-neutral-600 mb-8 max-w-2xl mx-auto">
-            Connect with verified professionals for your home improvement projects.
+            Connect with verified pros for your home improvement projects.
             Get quotes, compare services, and hire with confidence.
           </p>
           <div className="flex flex-col items-center space-y-4">
@@ -75,8 +95,8 @@ export default function Home() {
             {!isAuthenticated && (
               <p className="text-neutral-600">
                 Are you a professional?{' '}
-                <Link href="/auth/professional/register" className="text-blue-600 hover:text-blue-700 font-medium">
-                  Join as a pro
+                <Link href="/become-a-pro" className="text-blue-600 hover:text-blue-700 font-medium">
+                  Learn more
                 </Link>
               </p>
             )}
@@ -102,10 +122,10 @@ export default function Home() {
               </svg>
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 mb-2">
-              Verified Professionals
+              Verified Pros
             </h3>
             <p className="text-neutral-600">
-              All professionals are verified and background-checked for your safety
+              All pros are verified and background-checked for your safety
               and peace of mind.
             </p>
           </div>
@@ -130,7 +150,7 @@ export default function Home() {
               Competitive Quotes
             </h3>
             <p className="text-neutral-600">
-              Receive multiple quotes from professionals and choose the best fit
+              Receive multiple quotes from pros and choose the best fit
               for your budget.
             </p>
           </div>
@@ -155,7 +175,7 @@ export default function Home() {
               AI-Powered Matching
             </h3>
             <p className="text-neutral-600">
-              Our AI helps match you with the right professionals based on your
+              Our AI helps match you with the right pros based on your
               specific needs.
             </p>
           </div>

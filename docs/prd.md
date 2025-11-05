@@ -14,7 +14,7 @@ Homezy is an AI-powered platform connecting UAE homeowners with verified home im
 
 ## Product Vision
 
-Transform the home improvement experience in the UAE by making professional discovery, project planning, and expert advice accessible through a single AI-powered conversation. Homeowners get intelligent guidance from initial concept to project completion, while professionals access qualified leads and build their reputation.
+Transform the home improvement experience in the UAE by making professional discovery, project planning, and expert advice accessible through a single AI-powered conversation. Homeowners get intelligent guidance from initial concept to project completion, while professionals access qualified leads and build their reputation.ca
 
 ---
 
@@ -2144,13 +2144,16 @@ services:
 - ✅ Environment configuration with Zod validation
 
 #### Database Models
-- ✅ User model (homeowner/professional profiles, auth fields)
+- ✅ User model (homeowner/professional profiles, auth fields, verification status)
 - ✅ Lead model (with LeadClaim sub-model)
 - ✅ Quote model
 - ✅ Project model (with milestones)
 - ✅ Message model (chat + attachments)
 - ✅ Review model (ratings + verification)
-- ✅ Credit model (with CreditBalance, transactions, packages)
+- ✅ Credit models:
+  - CreditBalance (total, free credits, paid credits, lifetime stats)
+  - CreditTransaction (type, amount, FIFO tracking with remainingAmount, expiry)
+  - CreditPurchase (Stripe payment tracking, 6-month expiry)
 
 #### Authentication System
 - ✅ JWT authentication (access + refresh tokens)
@@ -2178,14 +2181,14 @@ services:
 - ✅ Environment configuration
 
 #### Authentication Pages
-- ✅ Homepage with hero section and features
-- ✅ Login page
+- ✅ Homepage with hero section and features (with role-based access control)
+- ✅ Login page with role-based redirects
 - ✅ Homeowner registration page (simplified)
-- ✅ Professional registration page (with required phone)
+- ✅ Professional registration page (with required phone, redirects to onboarding)
 - ✅ Auth layout wrapper
 - ✅ Real-time password validation with visual feedback
 - ✅ Form validation with error handling
-- ✅ Auto-redirect after authentication
+- ✅ Auto-redirect after authentication (role-aware)
 
 #### Logging & Monitoring
 - ✅ Backend: Enhanced error logging for validation, duplicates, and system errors
@@ -2193,18 +2196,67 @@ services:
 - ✅ Request/response logging with Morgan
 - ✅ Structured logging with Winston (error, combined, exceptions, rejections)
 
+#### Professional Onboarding & Dashboard
+- ✅ "Become a Pro" landing page with benefits and pricing
+- ✅ Pro registration flow (separate route: `/auth/pro/register`)
+- ✅ 5-step onboarding wizard (service selection, business basics, service area, profile photo, completion)
+- ✅ Pro dashboard layout with navigation and progress banner
+- ✅ Dashboard home page with stats, next steps, and market insights
+- ✅ Portfolio, verification, and profile placeholder pages
+- ✅ Role-based routing (pros → dashboard, homeowners → homepage)
+- ✅ Auth redirect guards preventing pros/admins from accessing homepage
+
+#### Professional Profile Management
+- ✅ Pro profile endpoints (CRUD operations)
+- ✅ Portfolio management (add, update, delete items)
+- ✅ Featured projects management (up to 6)
+- ✅ Verification document upload
+- ✅ Pro search and filtering endpoint
+- ✅ Public pro profile endpoint
+- ✅ Validation schemas for all pro operations
+
+#### Credit System (Phase 1 - COMPLETE)
+- ✅ Enhanced database models:
+  - CreditBalance (total, free credits, paid credits tracking)
+  - CreditTransaction (full audit trail with FIFO tracking)
+  - CreditPurchase (Stripe payment records with 6-month expiry)
+- ✅ Credit service with FIFO deduction logic:
+  - Free credits deducted first, then paid (oldest first)
+  - Dynamic pricing based on budget bracket, urgency, and verification
+  - Atomic transactions with MongoDB sessions
+  - Refund mechanism for failed lead claims
+- ✅ Stripe integration:
+  - 4 credit packages (Starter, Professional, Business, Enterprise)
+  - Checkout session creation
+  - Webhook handling (payment success, failure, refunds)
+  - Signature verification for security
+- ✅ Credit API endpoints:
+  - GET `/api/v1/credits/balance` - Current balance
+  - GET `/api/v1/credits/transactions` - Transaction history
+  - GET `/api/v1/credits/purchases` - Purchase history
+  - GET `/api/v1/credits/packages` - Available packages
+  - POST `/api/v1/credits/checkout` - Create Stripe checkout
+  - POST `/api/v1/credits/calculate-cost` - Preview credit cost
+  - POST `/api/v1/credits/webhook` - Stripe webhook (with raw body)
+  - POST `/api/v1/credits/admin/add` - Manual credit addition
+  - POST `/api/v1/credits/admin/refund` - Manual refund
+- ✅ Credit cost calculation:
+  - Base cost by budget bracket (2-25 credits)
+  - Urgency multipliers (1.0x - 1.5x for emergency)
+  - Verification discounts (5% basic, 15% comprehensive)
+- ✅ 6-month credit expiry system with background job support
+- ✅ Validation schemas for all credit operations
+
 ### 🚧 In Progress
 
 - AI chat integration (Claude Sonnet 4.5 API)
 - Lead CRUD endpoints
 - User profile management endpoints
-- Professional profile endpoints
 
 ### 📋 Upcoming (Phase 1 MVP)
 
 #### Core Features
 - Lead marketplace (create, browse, claim)
-- Credit system integration (purchase, spend, tracking)
 - Quote submission and acceptance flow
 - Professional verification workflow (basic + enhanced)
 - Real-time messaging with Socket.io

@@ -11,7 +11,7 @@ export interface RegisterData {
   firstName: string;
   lastName: string;
   phone?: string;
-  role: 'homeowner' | 'professional';
+  role: 'homeowner' | 'pro';
 }
 
 export interface AuthResponse {

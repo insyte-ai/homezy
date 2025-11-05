@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import type {
   User as UserType,
   HomeownerProfile,
-  ProfessionalProfile,
+  ProProfile,
   ServiceArea,
   VerificationDocument,
   PortfolioItem,
@@ -102,7 +102,7 @@ const ServiceAreaSchema = new Schema<ServiceArea>({
   extraTravelCost: Number,
 }, { _id: false });
 
-const ProfessionalProfileSchema = new Schema<ProfessionalProfile>({
+const ProProfileSchema = new Schema<ProProfile>({
   businessName: { type: String, required: true },
   tagline: String,
   bio: String,
@@ -115,8 +115,8 @@ const ProfessionalProfileSchema = new Schema<ProfessionalProfile>({
   // Verification
   verificationStatus: {
     type: String,
-    enum: ['pending', 'basic', 'comprehensive', 'rejected'],
-    default: 'pending',
+    enum: ['unverified', 'pending', 'basic', 'comprehensive', 'rejected'],
+    default: 'unverified',
   },
   verificationDocuments: [VerificationDocumentSchema],
 
@@ -173,7 +173,7 @@ const NotificationPreferencesSchema = new Schema<NotificationPreferences>({
 }, { _id: false });
 
 const HomeownerProfileSchema = new Schema<HomeownerProfile>({
-  favoriteProfessionals: [{ type: String }],
+  favoritePros: [{ type: String }],
   savedSearches: [SavedSearchSchema],
   notificationPreferences: {
     type: NotificationPreferencesSchema,
@@ -212,14 +212,7 @@ const UserSchema = new Schema<IUser>(
     },
     role: {
       type: String,
-      enum: [
-        'guest',
-        'homeowner',
-        'professional-pending',
-        'professional-basic',
-        'professional-comprehensive',
-        'admin',
-      ],
+      enum: ['guest', 'homeowner', 'pro', 'admin'],
       default: 'homeowner',
       index: true,
     },
@@ -237,7 +230,7 @@ const UserSchema = new Schema<IUser>(
       default: 0,
     },
     homeownerProfile: HomeownerProfileSchema,
-    professionalProfile: ProfessionalProfileSchema,
+    proProfile: ProProfileSchema,
   },
   {
     timestamps: true,
@@ -267,10 +260,10 @@ const UserSchema = new Schema<IUser>(
 // Indexes for performance
 UserSchema.index({ email: 1 });
 UserSchema.index({ role: 1 });
-UserSchema.index({ 'professionalProfile.categories': 1 });
-UserSchema.index({ 'professionalProfile.serviceAreas.emirate': 1 });
-UserSchema.index({ 'professionalProfile.verificationStatus': 1 });
-UserSchema.index({ 'professionalProfile.rating': -1 });
+UserSchema.index({ 'proProfile.categories': 1 });
+UserSchema.index({ 'proProfile.serviceAreas.emirate': 1 });
+UserSchema.index({ 'proProfile.verificationStatus': 1 });
+UserSchema.index({ 'proProfile.rating': -1 });
 
 // Pre-save hook to hash password
 UserSchema.pre('save', async function (next) {

@@ -41,13 +41,22 @@ export type UrgencyLevel = typeof URGENCY_LEVELS[number]['id'];
 export const USER_ROLES = {
   GUEST: 'guest',
   HOMEOWNER: 'homeowner',
-  PROFESSIONAL_PENDING: 'professional-pending',
-  PROFESSIONAL_BASIC: 'professional-basic',
-  PROFESSIONAL_COMPREHENSIVE: 'professional-comprehensive',
+  PRO: 'pro',
   ADMIN: 'admin',
 } as const;
 
 export type UserRole = typeof USER_ROLES[keyof typeof USER_ROLES];
+
+// Pro verification status (separate from role)
+export const PRO_VERIFICATION_STATUS = {
+  UNVERIFIED: 'unverified',
+  PENDING: 'pending',
+  BASIC: 'basic',
+  COMPREHENSIVE: 'comprehensive',
+  REJECTED: 'rejected',
+} as const;
+
+export type ProVerificationStatus = typeof PRO_VERIFICATION_STATUS[keyof typeof PRO_VERIFICATION_STATUS];
 
 // Lead status
 export const LEAD_STATUS = {

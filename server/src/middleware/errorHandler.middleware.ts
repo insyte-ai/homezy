@@ -49,6 +49,15 @@ export class ValidationError extends AppError {
 }
 
 /**
+ * Bad Request Error
+ */
+export class BadRequestError extends AppError {
+  constructor(message: string = 'Bad request', details?: any) {
+    super(message, 400, 'BAD_REQUEST', details);
+  }
+}
+
+/**
  * Unauthorized Error
  */
 export class UnauthorizedError extends AppError {

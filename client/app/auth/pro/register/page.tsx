@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
 
-export default function ProfessionalRegisterPage() {
+export default function ProRegisterPage() {
   const router = useRouter();
   const { register, isLoading, error, clearError, isAuthenticated } = useAuthStore();
 
@@ -15,7 +15,7 @@ export default function ProfessionalRegisterPage() {
     firstName: '',
     lastName: '',
     phone: '',
-    role: 'professional' as 'professional',
+    role: 'pro' as const,
   });
 
   const [validationErrors, setValidationErrors] = useState<{
@@ -33,7 +33,7 @@ export default function ProfessionalRegisterPage() {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      router.push('/');
+      router.push('/pro/onboarding');
     }
   }, [isAuthenticated, router]);
 
@@ -82,7 +82,8 @@ export default function ProfessionalRegisterPage() {
 
     try {
       await register(formData);
-      router.push('/');
+      // Redirect to onboarding for pros
+      router.push('/pro/onboarding');
     } catch (err) {
       // Error is already handled in the store
       console.error('Registration error:', err);
@@ -92,10 +93,10 @@ export default function ProfessionalRegisterPage() {
   return (
     <div>
       <h2 className="text-2xl font-bold text-neutral-900 mb-2">
-        Join as a Professional
+        Join as a Pro
       </h2>
       <p className="text-neutral-600 mb-6">
-        Create your professional account to connect with homeowners and grow your business.
+        Create your pro account to connect with homeowners and grow your business.
       </p>
 
       {error && (
@@ -259,7 +260,7 @@ export default function ProfessionalRegisterPage() {
             </div>
             <div className="ml-3">
               <p className="text-sm text-blue-800">
-                <strong>Next step:</strong> After registration, complete your professional profile to start receiving leads and connecting with homeowners.
+                <strong>Next step:</strong> After registration, complete your pro profile to start receiving leads and connecting with homeowners.
               </p>
             </div>
           </div>
@@ -270,7 +271,7 @@ export default function ProfessionalRegisterPage() {
           disabled={isLoading}
           className="btn btn-primary w-full"
         >
-          {isLoading ? 'Creating account...' : 'Create professional account'}
+          {isLoading ? 'Creating account...' : 'Create pro account'}
         </button>
       </form>
 

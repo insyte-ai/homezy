@@ -252,7 +252,7 @@ export default function RegisterPage() {
           </Link>
           <div className="text-center">
             <Link
-              href="/auth/professional/register"
+              href="/auth/pro/register"
               className="text-sm text-neutral-600 hover:text-neutral-900"
             >
               Are you a professional? <span className="font-medium">Sign up here</span>

@@ -7,19 +7,20 @@ import { useAuthStore } from '@/store/authStore';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, isLoading, error, clearError, isAuthenticated } = useAuthStore();
+  const { login, isLoading, error, clearError, isAuthenticated, user } = useAuthStore();
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
-  // Redirect if already authenticated
+  // Redirect if already authenticated (with role-based routing)
   useEffect(() => {
-    if (isAuthenticated) {
-      router.push('/');
+    if (isAuthenticated && user) {
+      const redirectPath = user.role === 'pro' ? '/pro/dashboard' : '/';
+      router.push(redirectPath);
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, user, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,7 +37,10 @@ export default function LoginPage() {
 
     try {
       await login(formData);
-      router.push('/');
+      // Redirect based on user role (user is now set in store after login)
+      const currentUser = useAuthStore.getState().user;
+      const redirectPath = currentUser?.role === 'pro' ? '/pro/dashboard' : '/';
+      router.push(redirectPath);
     } catch (err) {
       // Error is already handled in the store
       console.error('Login error:', err);

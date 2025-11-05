@@ -73,14 +73,16 @@ export const login = async (req: Request<{}, {}, LoginInput>, res: Response): Pr
   const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
 
   if (!user) {
-    throw new UnauthorizedError('Invalid email or password');
+    logger.warn('Login attempt with non-existent email', { email });
+    throw new UnauthorizedError('The email or password you entered is incorrect. Please check your credentials and try again.');
   }
 
   // Check password
   const isPasswordValid = await user.comparePassword(password);
 
   if (!isPasswordValid) {
-    throw new UnauthorizedError('Invalid email or password');
+    logger.warn('Login attempt with incorrect password', { userId: user._id, email: user.email });
+    throw new UnauthorizedError('The email or password you entered is incorrect. Please check your credentials and try again.');
   }
 
   // Generate tokens
@@ -122,26 +124,26 @@ export const refreshToken = async (req: Request<{}, {}, RefreshTokenInput>, res:
   const refreshToken = req.cookies.refreshToken || req.body.refreshToken;
 
   if (!refreshToken) {
-    throw new UnauthorizedError('Refresh token not provided');
+    throw new UnauthorizedError('Your session has expired. Please sign in again.');
   }
 
   // Verify refresh token
   const payload = verifyRefreshToken(refreshToken);
 
   if (!payload) {
-    throw new UnauthorizedError('Invalid or expired refresh token');
+    throw new UnauthorizedError('Your session has expired. Please sign in again.');
   }
 
   // Find user
   const user = await User.findById(payload.userId);
 
   if (!user) {
-    throw new NotFoundError('User not found');
+    throw new NotFoundError('Your account could not be found. Please contact support if this issue persists.');
   }
 
   // Check token version (for logout/invalidation)
   if (payload.tokenVersion !== user.refreshTokenVersion) {
-    throw new UnauthorizedError('Refresh token has been invalidated');
+    throw new UnauthorizedError('Your session has expired. Please sign in again.');
   }
 
   // Generate new tokens
@@ -199,7 +201,7 @@ export const getCurrentUser = async (req: Request, res: Response): Promise<void>
   const user = req.user;
 
   if (!user) {
-    throw new UnauthorizedError('Not authenticated');
+    throw new UnauthorizedError('You must be signed in to access this resource.');
   }
 
   res.status(200).json({

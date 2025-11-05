@@ -18,7 +18,7 @@ if ! docker info > /dev/null 2>&1; then
 fi
 
 # Check if node_modules exists
-if [ ! -d "server/node_modules" ] || [ ! -d "client/client/node_modules" ] || [ ! -d "shared/node_modules" ]; then
+if [ ! -d "server/node_modules" ] || [ ! -d "client/node_modules" ] || [ ! -d "shared/node_modules" ]; then
     echo -e "${YELLOW}📦 Installing dependencies...${NC}"
 
     # Install shared
@@ -40,9 +40,9 @@ if [ ! -d "server/node_modules" ] || [ ! -d "client/client/node_modules" ] || [ 
     fi
 
     # Install client
-    if [ ! -d "client/client/node_modules" ]; then
+    if [ ! -d "client/node_modules" ]; then
         echo -e "${YELLOW}📦 Installing client dependencies...${NC}"
-        cd client/client && npm install && cd ../..
+        cd client && npm install && cd ..
     fi
 fi
 
@@ -119,7 +119,7 @@ sleep 3
 
 # Start frontend in background
 echo -e "${GREEN}🎨 Starting frontend application...${NC}"
-(cd client/client && npm run dev) &
+(cd client && npm run dev) &
 FRONTEND_PID=$!
 
 # Wait for all background processes

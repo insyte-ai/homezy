@@ -8,7 +8,8 @@ interface User {
   email: string;
   firstName: string;
   lastName: string;
-  role: 'homeowner' | 'professional' | 'admin';
+  role: 'homeowner' | 'pro' | 'admin';
+  verificationStatus?: 'unverified' | 'pending' | 'basic' | 'comprehensive';
   isEmailVerified: boolean;
   phone?: string;
   avatar?: string;
@@ -95,8 +96,8 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       toast.success('Login successful!');
     } catch (error: any) {
-      const errorMessage = error.response?.data?.error
-        || error.response?.data?.message
+      const errorMessage = error.response?.data?.message
+        || error.response?.data?.error
         || error.message
         || 'Login failed';
 
@@ -110,6 +111,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         error: errorMessage,
       });
 
+      toast.error(errorMessage);
       throw error;
     }
   },
@@ -138,8 +140,8 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       toast.success('Registration successful!');
     } catch (error: any) {
-      const errorMessage = error.response?.data?.error
-        || error.response?.data?.message
+      const errorMessage = error.response?.data?.message
+        || error.response?.data?.error
         || error.message
         || 'Registration failed';
 
@@ -155,6 +157,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         error: errorMessage,
       });
 
+      toast.error(errorMessage);
       throw error;
     }
   },

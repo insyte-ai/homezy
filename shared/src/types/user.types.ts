@@ -13,16 +13,16 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
   homeownerProfile?: HomeownerProfile;
-  professionalProfile?: ProfessionalProfile;
+  proProfile?: ProProfile;
 }
 
 export interface HomeownerProfile {
-  favoriteProfessionals: string[];
+  favoritePros: string[];
   savedSearches: SavedSearch[];
   notificationPreferences: NotificationPreferences;
 }
 
-export interface ProfessionalProfile {
+export interface ProProfile {
   businessName: string;
   tagline?: string;
   bio?: string;
@@ -33,7 +33,7 @@ export interface ProfessionalProfile {
   languages: string[];
 
   // Verification
-  verificationStatus: 'pending' | 'basic' | 'comprehensive' | 'rejected';
+  verificationStatus: 'unverified' | 'pending' | 'basic' | 'comprehensive' | 'rejected';
   verificationDocuments: VerificationDocument[];
 
   // Portfolio

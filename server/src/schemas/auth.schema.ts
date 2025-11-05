@@ -14,7 +14,7 @@ export const registerSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters').max(50),
   lastName: z.string().min(2, 'Last name must be at least 2 characters').max(50),
   phone: z.string().optional(),
-  role: z.enum(['homeowner', 'professional-pending']).default('homeowner'),
+  role: z.enum(['homeowner', 'pro']).default('homeowner'),
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;

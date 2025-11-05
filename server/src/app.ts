@@ -9,6 +9,8 @@ import { errorHandler, notFoundHandler } from './middleware/errorHandler.middlew
 
 // Import routes
 import authRoutes from './routes/auth.routes';
+import proRoutes from './routes/pro.routes';
+import creditRoutes from './routes/credit.routes';
 
 /**
  * Create and configure Express application
@@ -28,7 +30,18 @@ export const createApp = (): Application => {
     optionsSuccessStatus: 200,
   }));
 
-  // Body parsing middleware
+  // Stripe webhook needs raw body for signature verification
+  // Must be registered BEFORE JSON body parser middleware
+  app.post(
+    `/api/${env.API_VERSION}/credits/webhook`,
+    express.raw({ type: 'application/json' }),
+    async (req, res, next) => {
+      const { handleWebhook } = await import('./controllers/credit.controller');
+      return handleWebhook(req, res).catch(next);
+    }
+  );
+
+  // Body parsing middleware (for all other routes)
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -62,6 +75,8 @@ export const createApp = (): Application => {
 
   // API Routes
   app.use(`/api/${env.API_VERSION}/auth`, authRoutes);
+  app.use(`/api/${env.API_VERSION}/pros`, proRoutes);
+  app.use(`/api/${env.API_VERSION}/credits`, creditRoutes);
 
   // 404 handler (must be after all routes)
   app.use(notFoundHandler);
