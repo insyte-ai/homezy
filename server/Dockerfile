@@ -3,18 +3,17 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy root package files for workspace
+# Copy package files
 COPY package*.json ./
-COPY server/package*.json ./server/
 
-# Install dependencies (workspace-aware)
-RUN npm ci --workspace=server --include-workspace-root
+# Install dependencies
+RUN npm ci
 
-# Copy server source code
-COPY server ./server
+# Copy source code
+COPY . .
 
 # Build TypeScript
-RUN npm run build --workspace=server
+RUN npm run build
 
 # Production stage
 FROM node:20-alpine
@@ -24,16 +23,15 @@ RUN apk add --no-cache curl
 
 WORKDIR /app
 
-# Copy root package files for workspace
+# Copy package files
 COPY package*.json ./
-COPY server/package*.json ./server/
 
-# Install production dependencies only (workspace-aware)
-RUN npm ci --workspace=server --include-workspace-root --omit=dev
+# Install production dependencies only
+RUN npm ci --omit=dev
 
-# Copy built application from builder
-COPY --from=builder /app/server/dist ./server/dist
-COPY --from=builder /app/server/package.json ./server/
+# Copy built application
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
@@ -53,5 +51,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:${PORT:-5000}/health || exit 1
 
 # Start the application
-WORKDIR /app/server
 CMD ["node", "dist/index.js"]
