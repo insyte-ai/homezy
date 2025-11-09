@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "echo 'Build-time NEXT_PUBLIC_API_URL:' $NEXT_PUBLIC_API_URL && next build",
     "start": "next start",
     "lint": "eslint"
   },
