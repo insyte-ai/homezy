@@ -101,7 +101,7 @@ Desktop.ini
 *~
 
 # Package manager
-package-lock.json
+# Note: package-lock.json is committed for consistent Railway deployments
 yarn.lock
 pnpm-lock.yaml
 .pnpm-store/

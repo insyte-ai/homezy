@@ -109,9 +109,11 @@ If you prefer simplicity over features:
 1. Click "+ New" → "GitHub Repo"
 2. Connect your homezy repository
 3. Configure service:
-   - **Root Directory**: `/server`
-   - **Build Command**: (Railway will auto-detect from package.json)
-   - **Start Command**: `npm start`
+   - **Root Directory**: `/` (leave as root - this is a monorepo)
+   - **Dockerfile Path**: `server/Dockerfile`
+   - **Watch Paths**: `/server/**` (optional - only rebuild when server changes)
+
+**Important:** Homezy uses npm workspaces (monorepo). Railway will build using the Dockerfile in the server directory, which requires access to the root package.json and package-lock.json.
 
 ### Configure Server Environment Variables
 
@@ -211,9 +213,11 @@ MAX_FILE_SIZE=5242880
 1. Click "+ New" → "GitHub Repo"
 2. Select the same homezy repository
 3. Configure service:
-   - **Root Directory**: `/client`
-   - **Build Command**: (Railway will auto-detect from package.json)
-   - **Start Command**: `npm start`
+   - **Root Directory**: `/` (leave as root - this is a monorepo)
+   - **Dockerfile Path**: `client/Dockerfile`
+   - **Watch Paths**: `/client/**` (optional - only rebuild when client changes)
+
+**Important:** The client Dockerfile is configured to work with the npm workspace structure.
 
 ### Configure Client Environment Variables
 
