@@ -108,12 +108,17 @@ If you prefer simplicity over features:
 ### Create Server Service
 1. Click "+ New" → "GitHub Repo"
 2. Connect your homezy repository
-3. Configure service:
-   - **Root Directory**: `/` (leave as root - this is a monorepo)
+3. Railway will auto-detect the `server/railway.json` configuration
+4. Alternatively, manually configure:
+   - **Root Directory**: `/` (must be root for monorepo)
+   - **Build**: Custom Dockerfile
    - **Dockerfile Path**: `server/Dockerfile`
    - **Watch Paths**: `/server/**` (optional - only rebuild when server changes)
 
-**Important:** Homezy uses npm workspaces (monorepo). Railway will build using the Dockerfile in the server directory, which requires access to the root package.json and package-lock.json.
+**Important:** The `server/railway.json` file configures Railway to:
+- Use the Dockerfile at `server/Dockerfile`
+- Build from root directory context (required for npm workspaces)
+- Access root `package.json` and `package-lock.json`
 
 ### Configure Server Environment Variables
 
@@ -212,12 +217,14 @@ MAX_FILE_SIZE=5242880
 ### Create Client Service
 1. Click "+ New" → "GitHub Repo"
 2. Select the same homezy repository
-3. Configure service:
-   - **Root Directory**: `/` (leave as root - this is a monorepo)
+3. Railway will auto-detect the `client/railway.json` configuration
+4. Alternatively, manually configure:
+   - **Root Directory**: `/` (must be root for monorepo)
+   - **Build**: Custom Dockerfile
    - **Dockerfile Path**: `client/Dockerfile`
    - **Watch Paths**: `/client/**` (optional - only rebuild when client changes)
 
-**Important:** The client Dockerfile is configured to work with the npm workspace structure.
+**Important:** The `client/railway.json` file configures Railway to build from root directory context for the npm workspace structure.
 
 ### Configure Client Environment Variables
 
