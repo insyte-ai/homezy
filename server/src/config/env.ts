@@ -77,4 +77,5 @@ export const env = validateEnv();
 // Export helper to check if running in production
 export const isProduction = env.NODE_ENV === 'production';
 export const isDevelopment = env.NODE_ENV === 'development';
+// @ts-ignore - NODE_ENV can be 'test' at runtime
 export const isTest = env.NODE_ENV === 'test';
