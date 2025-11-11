@@ -11,6 +11,7 @@ import { errorHandler, notFoundHandler } from './middleware/errorHandler.middlew
 import authRoutes from './routes/auth.routes';
 import proRoutes from './routes/pro.routes';
 import creditRoutes from './routes/credit.routes';
+import chatRoutes from './routes/chat.routes';
 
 /**
  * Create and configure Express application
@@ -77,6 +78,7 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/auth`, authRoutes);
   app.use(`/api/${env.API_VERSION}/pros`, proRoutes);
   app.use(`/api/${env.API_VERSION}/credits`, creditRoutes);
+  app.use(`/api/${env.API_VERSION}/chat`, chatRoutes);
 
   // 404 handler (must be after all routes)
   app.use(notFoundHandler);

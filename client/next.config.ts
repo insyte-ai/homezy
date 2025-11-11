@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   // Enable standalone output for optimized Docker builds
   output: 'standalone',
 
+  // Specify monorepo root to prevent Next.js from inferring it
+  turbopack: {
+    root: '../',
+  },
+
   images: {
     remotePatterns: [
       {

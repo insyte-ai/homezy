@@ -5,6 +5,7 @@ import { redisClient, sessionRedis, rateLimitRedis } from './config/redis';
 import { logger } from './utils/logger';
 import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
+import { setupChatSockets } from './sockets/chat.socket';
 
 /**
  * Start the server
@@ -34,16 +35,11 @@ const startServer = async (): Promise<void> => {
         origin: env.CORS_ORIGIN,
         credentials: true,
       },
+      transports: ['websocket', 'polling'],
     });
 
-    // Socket.IO connection handling (to be implemented)
-    io.on('connection', (socket) => {
-      logger.info('Client connected', { socketId: socket.id });
-
-      socket.on('disconnect', () => {
-        logger.info('Client disconnected', { socketId: socket.id });
-      });
-    });
+    // Set up chat sockets (AI streaming, function calling, real-time chat)
+    setupChatSockets(io);
 
     // Make io accessible to routes
     app.set('io', io);

@@ -2,8 +2,12 @@ import axios from 'axios';
 import { logger } from './logger';
 
 // Create axios instance
+const baseURL = process.env.NEXT_PUBLIC_API_URL
+  ? `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_BASE_PATH || '/api/v1'}`
+  : 'http://localhost:5001/api/v1';
+
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1',
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
