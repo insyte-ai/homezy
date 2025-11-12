@@ -12,6 +12,8 @@ import authRoutes from './routes/auth.routes';
 import proRoutes from './routes/pro.routes';
 import creditRoutes from './routes/credit.routes';
 import chatRoutes from './routes/chat.routes';
+import leadRoutes from './routes/lead.routes';
+import quoteRoutes, { leadQuoteRouter } from './routes/quote.routes';
 
 /**
  * Create and configure Express application
@@ -79,6 +81,11 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/pros`, proRoutes);
   app.use(`/api/${env.API_VERSION}/credits`, creditRoutes);
   app.use(`/api/${env.API_VERSION}/chat`, chatRoutes);
+  app.use(`/api/${env.API_VERSION}/leads`, leadRoutes);
+  app.use(`/api/${env.API_VERSION}/quotes`, quoteRoutes);
+
+  // Nested route: /leads/:leadId/quotes
+  app.use(`/api/${env.API_VERSION}/leads/:leadId/quotes`, leadQuoteRouter);
 
   // 404 handler (must be after all routes)
   app.use(notFoundHandler);

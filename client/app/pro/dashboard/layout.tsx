@@ -57,8 +57,11 @@ export default function ProDashboardLayout({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-8">
-              <Link href="/pro/dashboard" className="text-2xl font-bold text-neutral-900">
-                Homezy <span className="text-sm font-normal text-neutral-500">Pro</span>
+              <Link href="/pro/dashboard" className="flex items-center gap-2">
+                <span className="font-quicksand text-2xl font-bold text-gray-900">
+                  Home<span className="text-primary-500">zy</span>
+                </span>
+                <span className="text-sm font-normal text-neutral-500">Pro</span>
               </Link>
               <nav className="hidden md:flex space-x-6">
                 <Link href="/pro/dashboard" className="text-neutral-700 hover:text-neutral-900 font-medium">

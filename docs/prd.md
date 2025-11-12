@@ -2247,18 +2247,88 @@ services:
 - ✅ 6-month credit expiry system with background job support
 - ✅ Validation schemas for all credit operations
 
+#### AI Chat System (Home GPT - Phase 1 - COMPLETE)
+- ✅ Claude Sonnet 4.5 integration via Anthropic SDK
+- ✅ Real-time streaming responses via Socket.io
+- ✅ Conversation management (user and guest support)
+- ✅ Message history and context handling
+- ✅ Function calling / Tool execution:
+  - `estimate_budget` - Calculate project costs with AED breakdown (labor, materials, permits, VAT)
+  - `estimate_timeline` - Estimate realistic timelines considering UAE factors (weather, permits, labor)
+  - `search_knowledge_base` - Search home improvement guides and best practices
+- ✅ System prompts for home improvement specialist persona
+- ✅ Chat API endpoints:
+  - POST `/api/v1/chat/conversations` - Create/get conversation
+  - GET `/api/v1/chat/conversations/:id` - Get conversation details
+  - GET `/api/v1/chat/conversations/:id/messages` - Get message history
+- ✅ Socket.io events:
+  - `chat:message` - Send message to AI
+  - `chat:stream` - Receive streaming response chunks
+  - `chat:tool_use` - Tool execution notifications
+  - `chat:complete` - Message completion
+  - `chat:error` - Error handling
+- ✅ Guest mode for unauthenticated users
+- ✅ Conversation persistence in MongoDB
+- ✅ Token usage tracking
+
+#### Lead Management System (Phase 1 - COMPLETE)
+- ✅ Lead database model (with LeadClaim sub-model)
+- ✅ Quote database model (with QuoteItem schema)
+- ✅ Lead validation schemas (create, update, claim, filter, search)
+- ✅ Quote validation schemas (submit, accept, decline)
+- ✅ Lead service with complete business logic:
+  - Create, update, cancel leads (homeowner)
+  - Browse marketplace with filters (category, location, budget, urgency, search)
+  - Claim leads with credit deduction (professional)
+  - Get my leads/claims
+  - Credit cost calculation (budget + urgency + verification discount)
+  - Automatic refunds on lead cancellation
+- ✅ Quote service with complete business logic:
+  - Submit quotes (professional, must have claimed lead)
+  - Update/delete quotes (before acceptance)
+  - Accept/decline quotes (homeowner)
+  - Get quotes for lead (homeowner view)
+  - Get my quotes (professional view)
+  - Auto-decline other quotes on acceptance
+- ✅ Lead API endpoints (14 routes):
+  - POST `/api/v1/leads` - Create lead
+  - GET `/api/v1/leads/marketplace` - Browse marketplace
+  - GET `/api/v1/leads/my-leads` - Get my leads
+  - GET `/api/v1/leads/my-claims` - Get claimed leads
+  - GET `/api/v1/leads/:id` - Get lead details
+  - PATCH `/api/v1/leads/:id` - Update lead
+  - POST `/api/v1/leads/:id/cancel` - Cancel lead
+  - POST `/api/v1/leads/:id/claim` - Claim lead
+  - GET `/api/v1/leads/:id/claims` - Get claims for lead
+- ✅ Quote API endpoints (8 routes):
+  - POST `/api/v1/leads/:leadId/quotes` - Submit quote
+  - GET `/api/v1/leads/:leadId/quotes` - Get quotes for lead
+  - GET `/api/v1/quotes/my-quotes` - Get my quotes
+  - GET `/api/v1/quotes/:id` - Get quote details
+  - PATCH `/api/v1/quotes/:id` - Update quote
+  - DELETE `/api/v1/quotes/:id` - Delete quote
+  - POST `/api/v1/quotes/:id/accept` - Accept quote
+  - POST `/api/v1/quotes/:id/decline` - Decline quote
+- ✅ Lead lifecycle management:
+  - Open → Full (5 claims) → Quoted → Accepted/Expired/Cancelled
+  - 7-day automatic expiration
+  - Address privacy (hidden until claimed)
+  - Verification requirements enforcement
+- ✅ Quote workflow:
+  - Professional verification check (basic or comprehensive)
+  - Price validation (subtotal + VAT = total)
+  - Timeline validation (completion > start)
+  - Automatic status updates on acceptance
+
 ### 🚧 In Progress
 
-- AI chat integration (Claude Sonnet 4.5 API)
-- Lead CRUD endpoints
-- User profile management endpoints
+- Testing and refinement of lead management system
+- Testing AI chat system integration
 
 ### 📋 Upcoming (Phase 1 MVP)
 
 #### Core Features
-- Lead marketplace (create, browse, claim)
-- Quote submission and acceptance flow
-- Professional verification workflow (basic + enhanced)
+- Professional verification workflow (admin approval process)
 - Real-time messaging with Socket.io
 - Project management (milestones, documents, budget tracking)
 - Review and rating system
@@ -2267,14 +2337,15 @@ services:
 - Background jobs (BullMQ)
 
 #### Frontend Pages
-- Homeowner dashboard
-- Professional dashboard
-- Lead creation wizard (AI-assisted)
-- Lead marketplace with filters
+- Homeowner dashboard (with my leads view)
+- Professional dashboard (with leads/quotes views)
+- Lead creation wizard (AI-assisted, backend ready)
+- Lead marketplace with filters (backend ready)
+- Quote comparison interface (backend ready)
 - Professional profile pages (public + settings)
 - Project management dashboard
 - Messaging interface
-- Credit purchase flow
+- Credit purchase flow (backend complete)
 
 #### Integration & Testing
 - Stripe integration for credit purchases
@@ -2289,13 +2360,16 @@ services:
 **Phase 1a - Foundation (✅ COMPLETED)**
 - Week 1-2: Technical setup, auth system, basic pages
 
-**Phase 1b - Core Features (Current)**
-- Week 3-4: AI chat + Lead system
-- Week 5-6: Credit system + Professional profiles
-- Week 7-8: Messaging + Project management
+**Phase 1b - Core Backend (✅ COMPLETED)**
+- Week 3-4: AI chat + Lead management system
+- Week 5-6: Credit system + Quote workflow
+- Professional profile management (API complete)
 
-**Phase 1c - Launch Prep**
+**Phase 1c - Frontend & Integration (Current)**
+- Week 7-8: Frontend dashboards + UI integration
 - Week 9-10: Testing, refinement, bug fixes
+
+**Phase 1d - Launch Prep**
 - Week 11-12: Beta testing, SEO, deployment
 
 **Target MVP Launch:** Q1 2025
@@ -2304,26 +2378,43 @@ services:
 
 ## Next Steps
 
-1. **AI Chat Integration:**
-   - Implement Claude Sonnet 4.5 API client
-   - Create AI function calling tools
-   - Build chat interface with streaming responses
-   - Test photo analysis capabilities
+1. **Backend Testing:**
+   - End-to-end lead workflow testing (create lead → claim → quote → accept)
+   - Test credit deduction and refunds
+   - Test lead expiration logic
+   - Test all filters and search functionality
+   - Verify role-based access control
+   - Test AI chat streaming and tool execution
+   - Test conversation persistence
 
-2. **Lead Marketplace:**
-   - Lead CRUD endpoints
-   - Lead claiming system with credit deduction
-   - Lead matching algorithm
-   - Quote submission flow
+2. **AI Chat Enhancements (Future):**
+   - Add `create_lead` tool for AI-assisted lead creation
+   - Add `search_professionals` tool
+   - Implement photo analysis capabilities for project assessment
+   - Add more project types and knowledge base content
 
-3. **Professional Features:**
-   - Profile creation and management
-   - Verification workflow (basic tier)
-   - Portfolio and credentials upload
-   - Service area and specialization settings
+3. **Professional Verification (Admin Flow):**
+   - Admin dashboard for reviewing verification documents
+   - Document approval/rejection workflow
+   - Status notification system
+   - Background check integration (future)
 
-4. **Testing & Refinement:**
-   - End-to-end auth flow testing
+4. **Frontend Development:**
+   - Lead creation wizard (integrate with AI chat)
+   - Lead marketplace page with filters
+   - Quote comparison interface
+   - Professional dashboard (leads/quotes views)
+   - Homeowner dashboard (my leads view)
+
+5. **Additional Features:**
+   - Real-time messaging with Socket.io
+   - Project management tools
+   - Review and rating system
+   - Email notifications (Brevo)
+   - File upload integration (Cloudinary)
+
+6. **Testing & Refinement:**
    - Performance optimization
-   - Security hardening
+   - Security audit
+   - Load testing
    - Beta user recruitment

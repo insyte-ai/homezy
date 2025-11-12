@@ -6,15 +6,22 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies
-COPY package.json package-lock.json ./
+# Copy shared package first (from monorepo root context)
+COPY shared /shared
+
+# Install client dependencies
+COPY client/package.json client/package-lock.json ./
 RUN npm ci
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+
+# Copy shared package
+COPY shared /shared
+
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY client .
 
 # Accept build arguments from Railway
 ARG NEXT_PUBLIC_API_URL
@@ -39,6 +46,9 @@ ENV NODE_ENV=production
 # Create a non-root user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+
+# Copy shared package
+COPY --from=builder /shared ./shared
 
 # Copy built application
 COPY --from=builder /app/public ./public

@@ -10,6 +10,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-quicksand: var(--font-quicksand);
+
+  /* Homezy Brand Colors - Teal/Turquoise Accent */
+  --color-primary-50: #e6f9f7;
+  --color-primary-100: #ccf3ef;
+  --color-primary-200: #a1e4de;  /* Light shade */
+  --color-primary-300: #91dfd8;
+  --color-primary-400: #81d8d0;  /* Main accent color */
+  --color-primary-500: #81d8d0;  /* Main brand color */
+  --color-primary-600: #6cccc3;
+  --color-primary-700: #5ebeb5;  /* Dark shade */
+  --color-primary-800: #4a9c95;
+  --color-primary-900: #3a7d78;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,7 +47,7 @@ body {
   }
 
   .btn-primary {
-    @apply bg-neutral-900 text-white hover:bg-neutral-800 focus:ring-neutral-500;
+    @apply bg-primary-500 text-black hover:bg-primary-600 focus:ring-primary-500 font-semibold;
   }
 
   .btn-outline {
@@ -43,7 +56,7 @@ body {
 
   .input {
     @apply w-full px-4 py-3 border border-neutral-200 rounded-xl
-           focus:ring-2 focus:ring-blue-500 focus:border-transparent
+           focus:ring-2 focus:ring-primary-500 focus:border-transparent
            transition-all duration-200 text-sm;
   }
 
