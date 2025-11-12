@@ -6,6 +6,7 @@ import { X, MapPin, DollarSign, Clock, FileText } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { createLead } from '@/lib/services/leads';
 
 interface LeadFormProps {
   selectedServiceId?: string;
@@ -50,20 +51,27 @@ export function LeadForm({ selectedServiceId, onClose }: LeadFormProps) {
     setIsSubmitting(true);
 
     try {
-      // TODO: Call API to create lead
-      // const response = await apiClient.post('/leads', {
-      //   ...formData,
-      //   location: {
-      //     emirate: formData.emirate,
-      //     neighborhood: formData.neighborhood,
-      //   },
-      // });
+      await createLead({
+        title: formData.title,
+        description: formData.description,
+        category: formData.category,
+        location: {
+          emirate: formData.emirate,
+          neighborhood: formData.neighborhood || undefined,
+        },
+        budgetBracket: formData.budgetBracket,
+        urgency: formData.urgency,
+        timeline: formData.timeline || undefined,
+      });
 
       toast.success('Lead created successfully! Professionals will start submitting quotes soon.');
       onClose();
-      // router.push('/homeowner/leads'); // Navigate to leads page
+
+      // TODO: Navigate to homeowner dashboard when available
+      // router.push('/homeowner/leads');
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to create lead');
+      console.error('Failed to create lead:', error);
+      toast.error(error.response?.data?.message || 'Failed to create lead. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
