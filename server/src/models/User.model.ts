@@ -1,6 +1,7 @@
 // @ts-nocheck - Temporary: disable type checking for Railway deployment
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import type {
   User as UserType,
   HomeownerProfile,
@@ -17,8 +18,14 @@ import type {
 export interface IUser extends Omit<UserType, 'id' | 'createdAt' | 'updatedAt'>, Document {
   password: string;
   refreshTokenVersion: number;
+  magicLinkToken?: string;
+  magicLinkExpiry?: Date;
+  hasSetPassword: boolean;
+  isGuestAccount: boolean;
   comparePassword(candidatePassword: string): Promise<boolean>;
   incrementRefreshTokenVersion(): Promise<void>;
+  generateMagicLinkToken(): Promise<string>;
+  clearMagicLinkToken(): Promise<void>;
 }
 
 const WeeklyScheduleSchema = new Schema<WeeklySchedule>({
@@ -229,6 +236,18 @@ const UserSchema = new Schema<IUser>(
       type: Boolean,
       default: false,
     },
+    hasSetPassword: {
+      type: Boolean,
+      default: false,
+    },
+    magicLinkToken: {
+      type: String,
+      select: false,
+    },
+    magicLinkExpiry: {
+      type: Date,
+      select: false,
+    },
     profilePhoto: String,
     refreshTokenVersion: {
       type: Number,
@@ -297,6 +316,30 @@ UserSchema.methods.comparePassword = async function (
 // Method to increment refresh token version (for logout/invalidation)
 UserSchema.methods.incrementRefreshTokenVersion = async function (): Promise<void> {
   this.refreshTokenVersion += 1;
+  await this.save();
+};
+
+// Method to generate magic link token
+UserSchema.methods.generateMagicLinkToken = async function (): Promise<string> {
+  // Generate a secure random token
+  const token = crypto.randomBytes(32).toString('hex');
+
+  // Hash the token before storing
+  this.magicLinkToken = crypto.createHash('sha256').update(token).digest('hex');
+
+  // Set expiry to 24 hours from now
+  this.magicLinkExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+  await this.save();
+
+  // Return the unhashed token to send to user
+  return token;
+};
+
+// Method to clear magic link token
+UserSchema.methods.clearMagicLinkToken = async function (): Promise<void> {
+  this.magicLinkToken = undefined;
+  this.magicLinkExpiry = undefined;
   await this.save();
 };
 

@@ -9,6 +9,8 @@ import {
   loginSchema,
   refreshTokenSchema,
   guestSignupSchema,
+  verifyMagicLinkSchema,
+  setPasswordWithMagicLinkSchema,
 } from '../schemas/auth.schema';
 
 const router = Router();
@@ -80,6 +82,30 @@ router.post(
   rateLimitAuth,
   validate(guestSignupSchema),
   asyncHandler(authController.guestSignup)
+);
+
+/**
+ * @route   POST /api/v1/auth/verify-magic-link
+ * @desc    Verify magic link token and login or provide password setup access
+ * @access  Public
+ */
+router.post(
+  '/verify-magic-link',
+  rateLimitAuth,
+  validate(verifyMagicLinkSchema),
+  asyncHandler(authController.verifyMagicLink)
+);
+
+/**
+ * @route   POST /api/v1/auth/set-password
+ * @desc    Set password for guest account using magic link token
+ * @access  Public
+ */
+router.post(
+  '/set-password',
+  rateLimitAuth,
+  validate(setPasswordWithMagicLinkSchema),
+  asyncHandler(authController.setPasswordWithMagicLink)
 );
 
 export default router;

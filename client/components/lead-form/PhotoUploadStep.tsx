@@ -27,6 +27,8 @@ export function PhotoUploadStep() {
     setIsUploading(true);
 
     try {
+      const { api } = await import('@/lib/api');
+
       for (const file of Array.from(files)) {
         // Validate file type
         if (!file.type.startsWith('image/')) {
@@ -40,26 +42,21 @@ export function PhotoUploadStep() {
           continue;
         }
 
-        // Upload to Cloudinary
+        // Upload to backend API
         const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || 'homezy-leads');
-        formData.append('folder', 'leads');
+        formData.append('image', file);
 
-        const response = await fetch(
-          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-          {
-            method: 'POST',
-            body: formData,
-          }
-        );
+        const response = await api.post('/upload/lead-image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
-        if (!response.ok) {
-          throw new Error('Upload failed');
+        if (response.data.success) {
+          addPhoto(response.data.data.url);
+        } else {
+          throw new Error(response.data.message || 'Upload failed');
         }
-
-        const data = await response.json();
-        addPhoto(data.secure_url);
       }
 
       toast.success('Photos uploaded successfully');

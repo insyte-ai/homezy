@@ -14,6 +14,7 @@ import creditRoutes from './routes/credit.routes';
 import chatRoutes from './routes/chat.routes';
 import leadRoutes from './routes/lead.routes';
 import quoteRoutes, { leadQuoteRouter } from './routes/quote.routes';
+import uploadRoutes from './routes/upload.routes';
 
 /**
  * Create and configure Express application
@@ -59,6 +60,16 @@ export const createApp = (): Application => {
     app.use(morgan('combined', { stream: httpLoggerStream }));
   }
 
+  // Serve static files from uploads directory (for development)
+  // Add CORS headers for uploaded files
+  app.use('/uploads', (_req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', env.CORS_ORIGIN);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    next();
+  });
+  app.use('/uploads', express.static('uploads'));
+
   // Health check endpoint
   app.get('/health', (_req: Request, res: Response) => {
     res.status(200).json({
@@ -84,6 +95,7 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/chat`, chatRoutes);
   app.use(`/api/${env.API_VERSION}/leads`, leadRoutes);
   app.use(`/api/${env.API_VERSION}/quotes`, quoteRoutes);
+  app.use(`/api/${env.API_VERSION}/upload`, uploadRoutes);
 
   // Nested route: /leads/:leadId/quotes
   app.use(`/api/${env.API_VERSION}/leads/:leadId/quotes`, leadQuoteRouter);

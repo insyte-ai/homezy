@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.0",
+    "@getbrevo/brevo": "^3.0.1",
     "@homezy/shared": "file:../shared",
     "bcryptjs": "^2.4.3",
     "bullmq": "^5.1.5",
@@ -32,6 +33,7 @@
     "nodemailer": "^6.9.7",
     "rate-limiter-flexible": "^4.0.1",
     "redis": "^4.6.12",
+    "sharp": "^0.34.5",
     "socket.io": "^4.6.0",
     "stripe": "^19.3.0",
     "winston": "^3.11.0",

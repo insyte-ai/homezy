@@ -88,6 +88,30 @@ export const guestSignupSchema = z.object({
 
 export type GuestSignupInput = z.infer<typeof guestSignupSchema>;
 
+/**
+ * Verify magic link schema
+ */
+export const verifyMagicLinkSchema = z.object({
+  token: z.string().min(1, 'Magic link token is required'),
+});
+
+export type VerifyMagicLinkInput = z.infer<typeof verifyMagicLinkSchema>;
+
+/**
+ * Set password with magic link schema
+ */
+export const setPasswordWithMagicLinkSchema = z.object({
+  token: z.string().min(1, 'Magic link token is required'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .regex(/[0-9]/, 'Password must contain at least one number')
+    .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character'),
+});
+
+export type SetPasswordWithMagicLinkInput = z.infer<typeof setPasswordWithMagicLinkSchema>;
+
 export default {
   registerSchema,
   loginSchema,
@@ -96,4 +120,6 @@ export default {
   resetPasswordSchema,
   changePasswordSchema,
   guestSignupSchema,
+  verifyMagicLinkSchema,
+  setPasswordWithMagicLinkSchema,
 };

@@ -54,24 +54,15 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
     try {
       // If user is NOT authenticated, create guest account first
       if (!isAuthenticated) {
-        const guestSignupResponse = await fetch('/api/v1/auth/guest-signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            firstName: name || undefined,
-            phone: phone || undefined,
-          }),
+        const { api } = await import('@/lib/api');
+
+        const guestSignupResponse = await api.post('/auth/guest-signup', {
+          email,
+          firstName: name || undefined,
+          phone: phone || undefined,
         });
 
-        if (!guestSignupResponse.ok) {
-          const errorData = await guestSignupResponse.json();
-          throw new Error(errorData.message || 'Failed to create account');
-        }
-
-        const { data } = await guestSignupResponse.json();
+        const { data } = guestSignupResponse.data;
 
         // Store access token in localStorage and update auth store
         // This will authenticate the user for the lead creation
