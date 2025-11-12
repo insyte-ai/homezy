@@ -15,7 +15,8 @@ const envSchema = z.object({
   MONGODB_URI: z.string().url(),
   MONGODB_TEST_URI: z.string().url().optional(),
 
-  // Redis
+  // Redis (supports both REDIS_URL and individual config)
+  REDIS_URL: z.string().url().optional(),
   REDIS_HOST: z.string().default('localhost'),
   REDIS_PORT: z.string().transform(Number).default('6379'),
   REDIS_PASSWORD: z.string().optional(),

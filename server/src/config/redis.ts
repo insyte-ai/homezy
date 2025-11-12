@@ -4,19 +4,39 @@ import { logger } from '../utils/logger';
 
 /**
  * Redis client configuration
+ * Supports both REDIS_URL (Railway/production) and individual config (local dev)
  */
-const redisConfig = {
-  host: env.REDIS_HOST,
-  port: env.REDIS_PORT,
-  password: env.REDIS_PASSWORD || undefined,
-  retryStrategy: (times: number) => {
-    const delay = Math.min(times * 50, 2000);
-    return delay;
-  },
-  maxRetriesPerRequest: 3,
-  enableReadyCheck: true,
-  lazyConnect: false,
+const getRedisConfig = () => {
+  // If REDIS_URL is provided (Railway), use it
+  if (env.REDIS_URL) {
+    return {
+      url: env.REDIS_URL,
+      retryStrategy: (times: number) => {
+        const delay = Math.min(times * 50, 2000);
+        return delay;
+      },
+      maxRetriesPerRequest: 3,
+      enableReadyCheck: true,
+      lazyConnect: false,
+    };
+  }
+
+  // Otherwise use individual config (local development)
+  return {
+    host: env.REDIS_HOST,
+    port: env.REDIS_PORT,
+    password: env.REDIS_PASSWORD || undefined,
+    retryStrategy: (times: number) => {
+      const delay = Math.min(times * 50, 2000);
+      return delay;
+    },
+    maxRetriesPerRequest: 3,
+    enableReadyCheck: true,
+    lazyConnect: false,
+  };
 };
+
+const redisConfig = getRedisConfig();
 
 /**
  * Main Redis client for general caching
