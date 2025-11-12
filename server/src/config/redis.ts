@@ -6,67 +6,67 @@ import { logger } from '../utils/logger';
  * Redis client configuration
  * Supports both REDIS_URL (Railway/production) and individual config (local dev)
  */
-const getRedisConfig = () => {
-  // If REDIS_URL is provided (Railway), use it
-  if (env.REDIS_URL) {
-    return {
-      url: env.REDIS_URL,
-      retryStrategy: (times: number) => {
-        const delay = Math.min(times * 50, 2000);
-        return delay;
-      },
-      maxRetriesPerRequest: 3,
-      enableReadyCheck: true,
-      lazyConnect: false,
-    };
-  }
-
-  // Otherwise use individual config (local development)
-  return {
-    host: env.REDIS_HOST,
-    port: env.REDIS_PORT,
-    password: env.REDIS_PASSWORD || undefined,
-    retryStrategy: (times: number) => {
-      const delay = Math.min(times * 50, 2000);
-      return delay;
-    },
-    maxRetriesPerRequest: 3,
-    enableReadyCheck: true,
-    lazyConnect: false,
-  };
+const baseRedisOptions = {
+  retryStrategy: (times: number) => {
+    const delay = Math.min(times * 50, 2000);
+    return delay;
+  },
+  maxRetriesPerRequest: 3,
+  enableReadyCheck: true,
+  lazyConnect: false,
 };
-
-const redisConfig = getRedisConfig();
 
 /**
  * Main Redis client for general caching
  */
-export const redisClient = new Redis(redisConfig);
+export const redisClient = env.REDIS_URL
+  ? new Redis(env.REDIS_URL, baseRedisOptions)
+  : new Redis({
+      host: env.REDIS_HOST,
+      port: env.REDIS_PORT,
+      password: env.REDIS_PASSWORD || undefined,
+      ...baseRedisOptions,
+    });
 
 /**
  * Separate Redis client for session storage
  * Note: When using REDIS_URL, all clients share the same database
  */
-export const sessionRedis = new Redis({
-  ...redisConfig,
-  ...(env.REDIS_URL ? {} : { db: 1 }), // Only use different DB in local dev
-});
+export const sessionRedis = env.REDIS_URL
+  ? new Redis(env.REDIS_URL, baseRedisOptions)
+  : new Redis({
+      host: env.REDIS_HOST,
+      port: env.REDIS_PORT,
+      password: env.REDIS_PASSWORD || undefined,
+      db: 1,
+      ...baseRedisOptions,
+    });
 
 /**
  * Separate Redis client for rate limiting
  */
-export const rateLimitRedis = new Redis({
-  ...redisConfig,
-  ...(env.REDIS_URL ? {} : { db: 2 }), // Only use different DB in local dev
-});
+export const rateLimitRedis = env.REDIS_URL
+  ? new Redis(env.REDIS_URL, baseRedisOptions)
+  : new Redis({
+      host: env.REDIS_HOST,
+      port: env.REDIS_PORT,
+      password: env.REDIS_PASSWORD || undefined,
+      db: 2,
+      ...baseRedisOptions,
+    });
 
 /**
  * Separate Redis client for BullMQ job queues
  */
-export const queueRedis = new Redis({
-  ...redisConfig,
-  ...(env.REDIS_URL ? {} : { db: 3 }), // Only use different DB in local dev
-});
+export const queueRedis = env.REDIS_URL
+  ? new Redis(env.REDIS_URL, baseRedisOptions)
+  : new Redis({
+      host: env.REDIS_HOST,
+      port: env.REDIS_PORT,
+      password: env.REDIS_PASSWORD || undefined,
+      db: 3,
+      ...baseRedisOptions,
+    });
 
 // Redis connection event handlers
 redisClient.on('connect', () => {
