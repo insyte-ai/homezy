@@ -45,10 +45,11 @@ export const redisClient = new Redis(redisConfig);
 
 /**
  * Separate Redis client for session storage
+ * Note: When using REDIS_URL, all clients share the same database
  */
 export const sessionRedis = new Redis({
   ...redisConfig,
-  db: 1, // Use different database for sessions
+  ...(env.REDIS_URL ? {} : { db: 1 }), // Only use different DB in local dev
 });
 
 /**
@@ -56,7 +57,7 @@ export const sessionRedis = new Redis({
  */
 export const rateLimitRedis = new Redis({
   ...redisConfig,
-  db: 2, // Use different database for rate limiting
+  ...(env.REDIS_URL ? {} : { db: 2 }), // Only use different DB in local dev
 });
 
 /**
@@ -64,7 +65,7 @@ export const rateLimitRedis = new Redis({
  */
 export const queueRedis = new Redis({
   ...redisConfig,
-  db: 3, // Use different database for queues
+  ...(env.REDIS_URL ? {} : { db: 3 }), // Only use different DB in local dev
 });
 
 // Redis connection event handlers
