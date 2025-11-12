@@ -39,6 +39,7 @@ export const createApp = (): Application => {
     `/api/${env.API_VERSION}/credits/webhook`,
     express.raw({ type: 'application/json' }),
     async (req, res, next) => {
+      // @ts-expect-error - Dynamic import to avoid circular dependency
       const { handleWebhook } = await import('./controllers/credit.controller');
       return handleWebhook(req, res).catch(next);
     }
