@@ -1,0 +1,153 @@
+{
+  "serviceId": "electrical",
+  "serviceName": "Electrical",
+  "description": "Licensed electrical services for installations, repairs, and safety",
+  "questions": [
+    {
+      "id": "work_type",
+      "question": "What electrical work do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1.0,
+      "helpText": "Different electricians specialize in different types of work",
+      "options": [
+        {
+          "value": "new_installation",
+          "label": "New installation",
+          "icon": "⚡",
+          "weight": 0.9,
+          "tags": ["installation", "common"],
+          "matchType": "direct"
+        },
+        {
+          "value": "repair",
+          "label": "Repair/Fix problem",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": ["repair", "common"],
+          "matchType": "direct"
+        },
+        {
+          "value": "upgrade",
+          "label": "Upgrade existing",
+          "icon": "⬆️",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "direct"
+        },
+        {
+          "value": "inspection",
+          "label": "Inspection/Safety check",
+          "icon": "🔍",
+          "weight": 0.7,
+          "tags": ["inspection", "maintenance"],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "scope",
+      "question": "What's the scope of work?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.9,
+      "helpText": "This affects the time and cost estimate",
+      "options": [
+        {
+          "value": "single",
+          "label": "Single outlet/switch/fixture",
+          "icon": "🔌",
+          "weight": 0.6,
+          "tags": ["simple"],
+          "matchType": "partial"
+        },
+        {
+          "value": "room",
+          "label": "Entire room",
+          "icon": "🏠",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "multiple_rooms",
+          "label": "Multiple rooms",
+          "icon": "🏘️",
+          "weight": 0.9,
+          "tags": ["complex", "high_value"],
+          "matchType": "partial"
+        },
+        {
+          "value": "whole_house",
+          "label": "Whole house",
+          "icon": "🏡",
+          "weight": 1.0,
+          "tags": ["complex", "high_value", "specialized"],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "specific_work",
+      "question": "What specific work is needed?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "Select all that apply",
+      "options": [
+        {
+          "value": "outlets",
+          "label": "Outlets/Switches",
+          "icon": "🔌",
+          "weight": 0.7,
+          "tags": ["common", "simple"],
+          "matchType": "partial"
+        },
+        {
+          "value": "lighting",
+          "label": "Lighting fixtures",
+          "icon": "💡",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "ceiling_fan",
+          "label": "Ceiling fans",
+          "icon": "🌀",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "circuit_breaker",
+          "label": "Circuit breaker/Panel",
+          "icon": "⚡",
+          "weight": 0.9,
+          "tags": ["specialized", "complex"],
+          "matchType": "direct"
+        },
+        {
+          "value": "wiring",
+          "label": "Wiring",
+          "icon": "🔌",
+          "weight": 0.9,
+          "tags": ["specialized", "complex"],
+          "matchType": "direct"
+        },
+        {
+          "value": "generator",
+          "label": "Generator",
+          "icon": "🔋",
+          "weight": 1.0,
+          "tags": ["specialized", "high_value"],
+          "matchType": "direct"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-01-12",
+    "createdBy": "system"
+  }
+}

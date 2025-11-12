@@ -1,0 +1,199 @@
+{
+  "serviceId": "plumbing",
+  "serviceName": "Plumbing",
+  "description": "Professional plumbing services including repairs, installations, and emergency work",
+  "questions": [
+    {
+      "id": "work_type",
+      "question": "What kind of plumbing work do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1.0,
+      "helpText": "This helps us match you with the right type of plumber",
+      "options": [
+        {
+          "value": "repair",
+          "label": "Repair existing fixture",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": ["repair", "common"],
+          "matchType": "direct"
+        },
+        {
+          "value": "install",
+          "label": "Install new fixture",
+          "icon": "🚰",
+          "weight": 0.9,
+          "tags": ["installation", "common"],
+          "matchType": "direct"
+        },
+        {
+          "value": "emergency",
+          "label": "Emergency/Leak",
+          "icon": "🚨",
+          "weight": 1.0,
+          "tags": ["emergency", "urgent", "high_priority"],
+          "matchType": "direct"
+        },
+        {
+          "value": "inspection",
+          "label": "Inspection or maintenance",
+          "icon": "🔍",
+          "weight": 0.7,
+          "tags": ["inspection", "maintenance"],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "location",
+      "question": "Where is the plumbing work needed?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.7,
+      "helpText": "Some plumbers specialize in specific areas",
+      "options": [
+        {
+          "value": "kitchen",
+          "label": "Kitchen",
+          "icon": "🍳",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "bathroom",
+          "label": "Bathroom",
+          "icon": "🚿",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "laundry",
+          "label": "Laundry room",
+          "icon": "🧺",
+          "weight": 0.6,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "outdoor",
+          "label": "Outdoor",
+          "icon": "🏡",
+          "weight": 0.7,
+          "tags": ["specialized"],
+          "matchType": "partial"
+        },
+        {
+          "value": "multiple",
+          "label": "Multiple locations",
+          "icon": "📍",
+          "weight": 0.9,
+          "tags": ["complex"],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "fixtures",
+      "question": "What fixtures are involved?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "Select all that apply - this helps pros assess the work",
+      "options": [
+        {
+          "value": "sink",
+          "label": "Sink",
+          "icon": "🚰",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "faucet",
+          "label": "Faucet",
+          "icon": "💧",
+          "weight": 0.7,
+          "tags": ["common", "simple"],
+          "matchType": "partial"
+        },
+        {
+          "value": "toilet",
+          "label": "Toilet",
+          "icon": "🚽",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "shower",
+          "label": "Shower/Bathtub",
+          "icon": "🚿",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "pipes",
+          "label": "Pipes",
+          "icon": "🔧",
+          "weight": 0.9,
+          "tags": ["complex", "specialized"],
+          "matchType": "direct"
+        },
+        {
+          "value": "water_heater",
+          "label": "Water heater",
+          "icon": "♨️",
+          "weight": 0.9,
+          "tags": ["specialized", "high_value"],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "problem_duration",
+      "question": "When did this problem start?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.3,
+      "helpText": "Understanding the timeline helps assess urgency",
+      "options": [
+        {
+          "value": "recent",
+          "label": "Less than a week ago",
+          "weight": 0.8,
+          "tags": ["urgent"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "few_weeks",
+          "label": "A few weeks ago",
+          "weight": 0.6,
+          "tags": [],
+          "matchType": "flexible"
+        },
+        {
+          "value": "month_plus",
+          "label": "A month or longer",
+          "weight": 0.4,
+          "tags": [],
+          "matchType": "flexible"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "weight": 0.3,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-01-12",
+    "createdBy": "system"
+  }
+}

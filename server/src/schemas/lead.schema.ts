@@ -53,6 +53,20 @@ const leadPreferencesSchema = z.object({
 });
 
 /**
+ * Service answers schema (from JSON questionnaire)
+ */
+const serviceAnswersSchema = z.object({
+  serviceId: z.string(),
+  answers: z.record(z.union([
+    z.string(),
+    z.array(z.string()),
+    z.number()
+  ])),
+  answeredAt: z.string().datetime().or(z.date()),
+  updatedAt: z.string().datetime().optional().or(z.date().optional()),
+});
+
+/**
  * Create lead schema
  */
 export const createLeadSchema = z.object({
@@ -68,7 +82,9 @@ export const createLeadSchema = z.object({
   budgetBracket: budgetBracketEnum,
   urgency: urgencyEnum,
   timeline: z.string().max(500).optional(),
+  photos: z.array(z.string().url()).max(10, 'Maximum 10 photos allowed').optional(),
   attachments: z.array(attachmentSchema).max(10, 'Maximum 10 attachments allowed').default([]),
+  serviceAnswers: serviceAnswersSchema.optional(),
   preferences: leadPreferencesSchema.default({}),
 });
 

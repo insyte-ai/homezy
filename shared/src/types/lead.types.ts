@@ -7,6 +7,15 @@ import type {
   QuoteStatus,
 } from '../constants';
 
+export interface ServiceAnswers {
+  serviceId: string;
+  answers: {
+    [questionId: string]: string | string[] | number;
+  };
+  answeredAt: Date;
+  updatedAt?: Date;
+}
+
 export interface Lead {
   id: string;
   homeownerId: string;
@@ -18,6 +27,7 @@ export interface Lead {
   urgency: UrgencyLevel;
   timeline?: string;
   attachments: Attachment[];
+  serviceAnswers?: ServiceAnswers;
   preferences: LeadPreferences;
   status: LeadStatus;
   claimCount: number;

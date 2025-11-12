@@ -77,6 +77,17 @@ export const changePasswordSchema = z.object({
 
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
 
+/**
+ * Guest signup schema (email-only, no password)
+ */
+export const guestSignupSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  firstName: z.string().min(2, 'First name must be at least 2 characters').max(50).optional(),
+  phone: z.string().optional(),
+});
+
+export type GuestSignupInput = z.infer<typeof guestSignupSchema>;
+
 export default {
   registerSchema,
   loginSchema,
@@ -84,4 +95,5 @@ export default {
   forgotPasswordSchema,
   resetPasswordSchema,
   changePasswordSchema,
+  guestSignupSchema,
 };

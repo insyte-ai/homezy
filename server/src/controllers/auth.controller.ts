@@ -7,6 +7,7 @@ import type {
   RegisterInput,
   LoginInput,
   RefreshTokenInput,
+  GuestSignupInput,
 } from '../schemas/auth.schema';
 
 /**
@@ -212,10 +213,102 @@ export const getCurrentUser = async (req: Request, res: Response): Promise<void>
   });
 };
 
+/**
+ * Guest signup (email-only, no password)
+ * Creates a guest account that can be upgraded later
+ */
+export const guestSignup = async (req: Request<{}, {}, GuestSignupInput>, res: Response): Promise<void> => {
+  const { email, firstName, phone } = req.body;
+
+  // Check if user already exists
+  const existingUser = await User.findOne({ email: email.toLowerCase() });
+
+  if (existingUser) {
+    // If user exists, generate tokens and return
+    // This allows seamless flow for returning users
+    const tokens = generateTokenPair({
+      userId: existingUser._id.toString(),
+      email: existingUser.email,
+      role: existingUser.role,
+      tokenVersion: existingUser.refreshTokenVersion,
+    });
+
+    res.cookie('refreshToken', tokens.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    logger.info('Existing user signed in via guest flow', { userId: existingUser._id, email: existingUser.email });
+
+    res.status(200).json({
+      success: true,
+      message: 'Welcome back!',
+      data: {
+        user: existingUser.toJSON(),
+        accessToken: tokens.accessToken,
+        isNewUser: false,
+      },
+    });
+    return;
+  }
+
+  // Generate a random password for guest account
+  // User can set their own password later via "set password" flow
+  const randomPassword = Math.random().toString(36).slice(-12) + 'A1!';
+
+  // Create new guest user
+  const user = new User({
+    email: email.toLowerCase(),
+    password: randomPassword, // Will be hashed by pre-save hook
+    firstName: firstName || 'Guest',
+    lastName: 'User',
+    phone,
+    role: 'homeowner',
+    isEmailVerified: false,
+    isPhoneVerified: false,
+    isGuestAccount: true, // Flag to indicate this is a guest account
+  });
+
+  await user.save();
+
+  // Generate tokens
+  const tokens = generateTokenPair({
+    userId: user._id.toString(),
+    email: user.email,
+    role: user.role,
+    tokenVersion: user.refreshTokenVersion,
+  });
+
+  // Set refresh token in httpOnly cookie
+  res.cookie('refreshToken', tokens.refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+
+  logger.info('Guest user created successfully', { userId: user._id, email: user.email });
+
+  // TODO: Send magic link email to allow user to set password later
+
+  res.status(201).json({
+    success: true,
+    message: 'Account created successfully',
+    data: {
+      user: user.toJSON(),
+      accessToken: tokens.accessToken,
+      isNewUser: true,
+    },
+  });
+};
+
 export default {
   register,
   login,
   refreshToken,
   logout,
   getCurrentUser,
+  guestSignup,
 };

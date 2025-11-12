@@ -1,0 +1,219 @@
+{
+  "serviceId": "bathroom-remodeling",
+  "serviceName": "Bathroom Remodeling",
+  "description": "Complete bathroom renovation and remodeling services",
+  "questions": [
+    {
+      "id": "scope",
+      "question": "What's the scope of your bathroom remodel?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1.0,
+      "helpText": "This helps us match you with contractors experienced in your type of project",
+      "options": [
+        {
+          "value": "full_remodel",
+          "label": "Full bathroom remodel",
+          "icon": "🏗️",
+          "weight": 1.0,
+          "tags": ["complex", "high_value", "installation"],
+          "matchType": "direct"
+        },
+        {
+          "value": "shower_tub",
+          "label": "Shower/Tub replacement",
+          "icon": "🚿",
+          "weight": 0.8,
+          "tags": ["common", "installation"],
+          "matchType": "partial"
+        },
+        {
+          "value": "vanity_sink",
+          "label": "Vanity/Sink replacement",
+          "icon": "🚰",
+          "weight": 0.7,
+          "tags": ["common", "installation"],
+          "matchType": "partial"
+        },
+        {
+          "value": "toilet",
+          "label": "Toilet replacement",
+          "icon": "🚽",
+          "weight": 0.6,
+          "tags": ["simple", "installation"],
+          "matchType": "partial"
+        },
+        {
+          "value": "tile_flooring",
+          "label": "Tile/Flooring only",
+          "icon": "🧱",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "multiple",
+          "label": "Multiple elements",
+          "icon": "🔧",
+          "weight": 0.9,
+          "tags": ["complex", "high_value"],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "bathroom_type",
+      "question": "What type of bathroom?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.7,
+      "helpText": "Different bathrooms require different expertise and time",
+      "options": [
+        {
+          "value": "master",
+          "label": "Master bathroom",
+          "icon": "👑",
+          "weight": 0.9,
+          "tags": ["complex", "high_value"],
+          "matchType": "partial"
+        },
+        {
+          "value": "guest",
+          "label": "Guest bathroom",
+          "icon": "🏠",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "powder_room",
+          "label": "Powder room",
+          "icon": "💄",
+          "weight": 0.6,
+          "tags": ["simple"],
+          "matchType": "partial"
+        },
+        {
+          "value": "multiple",
+          "label": "Multiple bathrooms",
+          "icon": "🏘️",
+          "weight": 1.0,
+          "tags": ["complex", "high_value"],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "design_plans",
+      "question": "Do you have design plans ready?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.6,
+      "helpText": "Some contractors offer design services, others prefer to work with existing plans",
+      "options": [
+        {
+          "value": "complete_plans",
+          "label": "Yes, complete plans ready",
+          "icon": "📋",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "basic_idea",
+          "label": "Basic idea, need help finalizing",
+          "icon": "💡",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_designer",
+          "label": "No, need design services",
+          "icon": "🎨",
+          "weight": 0.9,
+          "tags": ["specialized", "high_value"],
+          "matchType": "direct"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure yet",
+          "icon": "❓",
+          "weight": 0.4,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "specific_needs",
+      "question": "What specific work is needed?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.5,
+      "helpText": "Select all that apply - helps contractors understand your needs",
+      "options": [
+        {
+          "value": "plumbing",
+          "label": "Plumbing work",
+          "icon": "🚰",
+          "weight": 0.9,
+          "tags": ["specialized"],
+          "matchType": "direct"
+        },
+        {
+          "value": "electrical",
+          "label": "Electrical work",
+          "icon": "⚡",
+          "weight": 0.8,
+          "tags": ["specialized"],
+          "matchType": "direct"
+        },
+        {
+          "value": "tile_work",
+          "label": "Tile work",
+          "icon": "🧱",
+          "weight": 0.8,
+          "tags": ["common", "specialized"],
+          "matchType": "partial"
+        },
+        {
+          "value": "waterproofing",
+          "label": "Waterproofing",
+          "icon": "💧",
+          "weight": 0.8,
+          "tags": ["specialized"],
+          "matchType": "direct"
+        },
+        {
+          "value": "painting",
+          "label": "Painting",
+          "icon": "🎨",
+          "weight": 0.6,
+          "tags": ["common", "simple"],
+          "matchType": "partial"
+        },
+        {
+          "value": "ventilation",
+          "label": "Ventilation/Exhaust fan",
+          "icon": "🌀",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "custom_work",
+          "label": "Custom cabinetry/vanity",
+          "icon": "🗄️",
+          "weight": 0.9,
+          "tags": ["specialized", "high_value"],
+          "matchType": "direct"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-01-12",
+    "createdBy": "system"
+  }
+}

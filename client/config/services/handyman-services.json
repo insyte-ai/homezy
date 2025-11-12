@@ -1,0 +1,193 @@
+{
+  "serviceId": "handyman-services",
+  "serviceName": "Handyman Services",
+  "description": "General handyman and repair services for various home maintenance tasks",
+  "questions": [
+    {
+      "id": "task_types",
+      "question": "What tasks do you need help with?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1.0,
+      "helpText": "Select all that apply - handymen often handle multiple tasks in one visit",
+      "options": [
+        {
+          "value": "assembly",
+          "label": "Furniture assembly",
+          "icon": "🛠️",
+          "weight": 0.6,
+          "tags": ["simple", "common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "mounting",
+          "label": "TV/Shelf mounting",
+          "icon": "📺",
+          "weight": 0.6,
+          "tags": ["simple", "common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "door_repair",
+          "label": "Door/Window repair",
+          "icon": "🚪",
+          "weight": 0.7,
+          "tags": ["common", "repair"],
+          "matchType": "partial"
+        },
+        {
+          "value": "drywall",
+          "label": "Drywall repair/Patching",
+          "icon": "🧱",
+          "weight": 0.7,
+          "tags": ["common", "repair"],
+          "matchType": "partial"
+        },
+        {
+          "value": "painting",
+          "label": "Painting/Touch-ups",
+          "icon": "🎨",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "fixtures",
+          "label": "Light fixtures/Fans",
+          "icon": "💡",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "plumbing_minor",
+          "label": "Minor plumbing fixes",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": ["common", "repair"],
+          "matchType": "partial"
+        },
+        {
+          "value": "electrical_minor",
+          "label": "Minor electrical fixes",
+          "icon": "⚡",
+          "weight": 0.8,
+          "tags": ["common", "repair"],
+          "matchType": "partial"
+        },
+        {
+          "value": "outdoor",
+          "label": "Outdoor repairs",
+          "icon": "🏡",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "other",
+          "label": "Other general repairs",
+          "icon": "🔧",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "complexity",
+      "question": "How would you describe the complexity?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.8,
+      "helpText": "This helps match you with the right level of expertise",
+      "options": [
+        {
+          "value": "simple",
+          "label": "Simple tasks (1-2 hours)",
+          "icon": "✅",
+          "weight": 0.6,
+          "tags": ["simple"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "moderate",
+          "label": "Moderate tasks (half day)",
+          "icon": "🔨",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "full_day",
+          "label": "Full day project",
+          "icon": "📅",
+          "weight": 0.9,
+          "tags": ["complex"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "multi_day",
+          "label": "Multi-day project",
+          "icon": "📆",
+          "weight": 1.0,
+          "tags": ["complex", "high_value"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❓",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "materials",
+      "question": "Do you have materials already?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "Some handymen can help source materials, others prefer you to provide them",
+      "options": [
+        {
+          "value": "have_materials",
+          "label": "Yes, I have everything",
+          "icon": "📦",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "flexible"
+        },
+        {
+          "value": "need_some",
+          "label": "Need help with some items",
+          "icon": "🛒",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "flexible"
+        },
+        {
+          "value": "need_all",
+          "label": "Need help sourcing everything",
+          "icon": "🏪",
+          "weight": 0.9,
+          "tags": [],
+          "matchType": "flexible"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure yet",
+          "icon": "❓",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-01-12",
+    "createdBy": "system"
+  }
+}

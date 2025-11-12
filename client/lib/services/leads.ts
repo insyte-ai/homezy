@@ -12,6 +12,14 @@ export interface CreateLeadInput {
   budgetBracket: string;
   urgency: string;
   timeline?: string;
+  photos?: string[];
+  serviceAnswers?: {
+    serviceId: string;
+    answers: {
+      [questionId: string]: string | string[] | number;
+    };
+    answeredAt: Date;
+  };
   preferredContactMethod?: 'phone' | 'email' | 'whatsapp';
   additionalNotes?: string;
 }

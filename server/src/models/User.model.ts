@@ -225,6 +225,10 @@ const UserSchema = new Schema<IUser>(
       type: Boolean,
       default: false,
     },
+    isGuestAccount: {
+      type: Boolean,
+      default: false,
+    },
     profilePhoto: String,
     refreshTokenVersion: {
       type: Number,

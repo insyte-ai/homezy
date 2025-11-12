@@ -20,7 +20,21 @@ export const createLead = async (
   res: Response
 ): Promise<void> => {
   const homeownerId = (req.user!._id as any).toString();
-  const data = req.body;
+  const { photos, ...data } = req.body;
+
+  // Convert photo URLs to attachments
+  if (photos && photos.length > 0) {
+    const photoAttachments = photos.map((url, index) => ({
+      id: `photo-${Date.now()}-${index}`,
+      type: 'image' as const,
+      url,
+      filename: `photo-${index + 1}.jpg`,
+      size: 0, // Size not tracked for Cloudinary uploads
+      uploadedAt: new Date(),
+    }));
+
+    data.attachments = [...(data.attachments || []), ...photoAttachments];
+  }
 
   const lead = await leadService.createLead(homeownerId, data);
 

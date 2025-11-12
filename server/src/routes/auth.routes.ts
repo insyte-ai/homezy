@@ -8,6 +8,7 @@ import {
   registerSchema,
   loginSchema,
   refreshTokenSchema,
+  guestSignupSchema,
 } from '../schemas/auth.schema';
 
 const router = Router();
@@ -67,6 +68,18 @@ router.get(
   '/me',
   authenticate,
   asyncHandler(authController.getCurrentUser)
+);
+
+/**
+ * @route   POST /api/v1/auth/guest-signup
+ * @desc    Create guest account with email only (no password)
+ * @access  Public
+ */
+router.post(
+  '/guest-signup',
+  rateLimitAuth,
+  validate(guestSignupSchema),
+  asyncHandler(authController.guestSignup)
 );
 
 export default router;

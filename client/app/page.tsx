@@ -8,7 +8,7 @@ import { useAuthStore } from "@/store/authStore";
 import { ChatInterface } from "@/components/chat/ChatInterface";
 import { SearchBar } from "@/components/home/SearchBar";
 import { PopularServices } from "@/components/home/PopularServices";
-import { LeadForm } from "@/components/home/LeadForm";
+import { MultiStepLeadForm } from "@/components/lead-form/MultiStepLeadForm";
 import { MessageCircle, X } from "lucide-react";
 
 export default function Home() {
@@ -43,13 +43,13 @@ export default function Home() {
       <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">
               <Image
                 src="/house-logo.svg"
                 alt="Homezy Logo"
                 width={40}
                 height={40}
-                className="w-10 h-10"
+                className="w-8 h-8"
               />
               <h1
                 className="font-quicksand text-[32px] font-bold text-gray-900 leading-none"
@@ -59,7 +59,7 @@ export default function Home() {
                   alignItems: "center",
                 }}
               >
-                Home<span className="text-primary-500">zy</span>
+                homezy
               </h1>
             </div>
             <div className="flex items-center gap-4">
@@ -240,10 +240,14 @@ export default function Home() {
       </button>
 
       {/* Lead Form Modal */}
-      {showLeadForm && (
-        <LeadForm
-          selectedServiceId={selectedServiceId}
+      {showLeadForm && selectedServiceId && (
+        <MultiStepLeadForm
+          serviceId={selectedServiceId}
           onClose={() => {
+            setShowLeadForm(false);
+            setSelectedServiceId(undefined);
+          }}
+          onSubmit={() => {
             setShowLeadForm(false);
             setSelectedServiceId(undefined);
           }}
@@ -253,19 +257,19 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gray-50 border-t border-gray-200 py-8 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-1">
             <Image
               src="/house-logo.svg"
               alt="Homezy"
               width={32}
               height={32}
-              className="w-8 h-8"
+              className="w-7 h-7"
             />
             <span
               className="font-quicksand text-[26px] font-bold text-gray-900 leading-none"
               style={{ height: "32px", display: "flex", alignItems: "center" }}
             >
-              Home<span className="text-primary-500">zy</span>
+              homezy
             </span>
           </div>
           <p className="text-sm text-gray-500">

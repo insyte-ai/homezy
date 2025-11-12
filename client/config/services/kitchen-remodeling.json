@@ -1,0 +1,219 @@
+{
+  "serviceId": "kitchen-remodeling",
+  "serviceName": "Kitchen Remodeling",
+  "description": "Complete kitchen renovation and remodeling services",
+  "questions": [
+    {
+      "id": "scope",
+      "question": "What's the scope of your kitchen remodel?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1.0,
+      "helpText": "This helps us understand the complexity and match you with the right contractor",
+      "options": [
+        {
+          "value": "full_remodel",
+          "label": "Full kitchen remodel",
+          "icon": "🏗️",
+          "weight": 1.0,
+          "tags": ["complex", "high_value", "installation"],
+          "matchType": "direct"
+        },
+        {
+          "value": "cabinets",
+          "label": "Cabinets only",
+          "icon": "🗄️",
+          "weight": 0.7,
+          "tags": ["common", "installation"],
+          "matchType": "partial"
+        },
+        {
+          "value": "countertops",
+          "label": "Countertops only",
+          "icon": "⬜",
+          "weight": 0.7,
+          "tags": ["common", "installation"],
+          "matchType": "partial"
+        },
+        {
+          "value": "appliances",
+          "label": "Appliance installation",
+          "icon": "🍴",
+          "weight": 0.6,
+          "tags": ["simple", "installation"],
+          "matchType": "partial"
+        },
+        {
+          "value": "backsplash",
+          "label": "Backsplash/Tile work",
+          "icon": "🧱",
+          "weight": 0.6,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "multiple",
+          "label": "Multiple elements",
+          "icon": "🔧",
+          "weight": 0.9,
+          "tags": ["complex", "high_value"],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "kitchen_size",
+      "question": "What size is your kitchen?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.8,
+      "helpText": "Size affects the timeline and cost of your project",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (< 70 sq ft)",
+          "icon": "📏",
+          "weight": 0.6,
+          "tags": ["simple"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (70-150 sq ft)",
+          "icon": "📐",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "large",
+          "label": "Large (150-250 sq ft)",
+          "icon": "📊",
+          "weight": 0.9,
+          "tags": ["complex"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "extra_large",
+          "label": "Extra Large (> 250 sq ft)",
+          "icon": "🏛️",
+          "weight": 1.0,
+          "tags": ["complex", "high_value"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❓",
+          "weight": 0.3,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "design_plans",
+      "question": "Do you have design plans ready?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.6,
+      "helpText": "Some contractors offer design services, others prefer to work with existing plans",
+      "options": [
+        {
+          "value": "complete_plans",
+          "label": "Yes, complete plans ready",
+          "icon": "📋",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "basic_idea",
+          "label": "Basic idea, need help finalizing",
+          "icon": "💡",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_designer",
+          "label": "No, need design services",
+          "icon": "🎨",
+          "weight": 0.9,
+          "tags": ["specialized", "high_value"],
+          "matchType": "direct"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure yet",
+          "icon": "❓",
+          "weight": 0.4,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "specific_needs",
+      "question": "What specific work is needed?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.5,
+      "helpText": "Select all that apply - helps contractors understand your needs",
+      "options": [
+        {
+          "value": "plumbing",
+          "label": "Plumbing work",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": ["specialized"],
+          "matchType": "direct"
+        },
+        {
+          "value": "electrical",
+          "label": "Electrical work",
+          "icon": "⚡",
+          "weight": 0.8,
+          "tags": ["specialized"],
+          "matchType": "direct"
+        },
+        {
+          "value": "flooring",
+          "label": "Flooring",
+          "icon": "🪵",
+          "weight": 0.7,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "painting",
+          "label": "Painting",
+          "icon": "🎨",
+          "weight": 0.6,
+          "tags": ["common", "simple"],
+          "matchType": "partial"
+        },
+        {
+          "value": "lighting",
+          "label": "Lighting fixtures",
+          "icon": "💡",
+          "weight": 0.6,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "custom_cabinets",
+          "label": "Custom cabinetry",
+          "icon": "🗄️",
+          "weight": 0.9,
+          "tags": ["specialized", "high_value"],
+          "matchType": "direct"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-01-12",
+    "createdBy": "system"
+  }
+}

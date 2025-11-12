@@ -1,0 +1,141 @@
+{
+  "serviceId": "hvac",
+  "serviceName": "HVAC (Air Conditioning)",
+  "description": "Air conditioning installation, repair, and maintenance services",
+  "questions": [
+    {
+      "id": "service_type",
+      "question": "What HVAC service do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1.0,
+      "helpText": "Different technicians specialize in different services",
+      "options": [
+        {
+          "value": "installation",
+          "label": "New AC installation",
+          "icon": "❄️",
+          "weight": 1.0,
+          "tags": ["installation", "high_value"],
+          "matchType": "direct"
+        },
+        {
+          "value": "repair",
+          "label": "Repair not cooling",
+          "icon": "🔧",
+          "weight": 0.9,
+          "tags": ["repair", "common", "urgent"],
+          "matchType": "direct"
+        },
+        {
+          "value": "maintenance",
+          "label": "Maintenance/Cleaning",
+          "icon": "🧹",
+          "weight": 0.7,
+          "tags": ["maintenance", "common"],
+          "matchType": "direct"
+        },
+        {
+          "value": "inspection",
+          "label": "Inspection",
+          "icon": "🔍",
+          "weight": 0.6,
+          "tags": ["inspection"],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "system_type",
+      "question": "What type of AC system?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.8,
+      "helpText": "Some technicians specialize in specific system types",
+      "options": [
+        {
+          "value": "split",
+          "label": "Split AC",
+          "icon": "❄️",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "direct"
+        },
+        {
+          "value": "central",
+          "label": "Central AC",
+          "icon": "🏢",
+          "weight": 0.9,
+          "tags": ["specialized", "high_value"],
+          "matchType": "direct"
+        },
+        {
+          "value": "duct",
+          "label": "Duct AC",
+          "icon": "🌬️",
+          "weight": 0.8,
+          "tags": ["specialized"],
+          "matchType": "direct"
+        },
+        {
+          "value": "window",
+          "label": "Window AC",
+          "icon": "🪟",
+          "weight": 0.6,
+          "tags": ["simple"],
+          "matchType": "direct"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❓",
+          "weight": 0.3,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "units",
+      "question": "How many units need service?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.7,
+      "helpText": "This affects pricing and time needed",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 unit",
+          "weight": 0.6,
+          "tags": ["simple"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "2-3",
+          "label": "2-3 units",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "4-5",
+          "label": "4-5 units",
+          "weight": 0.9,
+          "tags": ["complex"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "6+",
+          "label": "6 or more units",
+          "weight": 1.0,
+          "tags": ["complex", "high_value"],
+          "matchType": "flexible"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-01-12",
+    "createdBy": "system"
+  }
+}

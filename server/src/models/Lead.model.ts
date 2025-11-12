@@ -6,6 +6,7 @@ import type {
   Attachment,
   LeadPreferences,
   LeadClaim,
+  ServiceAnswers,
 } from '@homezy/shared';
 
 export interface ILead extends Omit<LeadType, 'id' | 'createdAt' | 'updatedAt' | 'expiresAt'>, Document {
@@ -53,6 +54,16 @@ const LeadPreferencesSchema = new Schema<LeadPreferences>({
   additionalRequirements: String,
 }, { _id: false });
 
+const ServiceAnswersSchema = new Schema<ServiceAnswers>({
+  serviceId: { type: String, required: true },
+  answers: {
+    type: Map,
+    of: Schema.Types.Mixed, // Allows string | string[] | number
+  },
+  answeredAt: { type: Date, required: true },
+  updatedAt: Date,
+}, { _id: false });
+
 const LeadSchema = new Schema<ILead>(
   {
     homeownerId: {
@@ -92,6 +103,7 @@ const LeadSchema = new Schema<ILead>(
     },
     timeline: String,
     attachments: [AttachmentSchema],
+    serviceAnswers: ServiceAnswersSchema,
     preferences: {
       type: LeadPreferencesSchema,
       default: () => ({}),
