@@ -9,6 +9,7 @@ import { ChatInterface } from "@/components/chat/ChatInterface";
 import { SearchBar } from "@/components/home/SearchBar";
 import { PopularServices } from "@/components/home/PopularServices";
 import { MultiStepLeadForm } from "@/components/lead-form/MultiStepLeadForm";
+import { ServicesDropdown } from "@/components/navigation/ServicesDropdown";
 import { MessageCircle, X } from "lucide-react";
 
 export default function Home() {
@@ -40,7 +41,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-[60]">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-1">
@@ -63,6 +64,11 @@ export default function Home() {
               </h1>
             </div>
             <div className="flex items-center gap-4">
+              {/* Services Dropdown */}
+              <div className="hidden md:block">
+                <ServicesDropdown />
+              </div>
+
               {!isAuthenticated && (
                 <Link
                   href="/become-a-pro"
