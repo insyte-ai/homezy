@@ -116,7 +116,7 @@ export interface AdminLead {
   category: string;
   budgetBracket: string;
   urgency: string;
-  status: 'open' | 'in_progress' | 'completed' | 'cancelled' | 'expired';
+  status: 'open' | 'quoted' | 'in_progress' | 'completed' | 'cancelled' | 'expired';
   homeowner: {
     _id: string;
     firstName: string;
@@ -154,7 +154,7 @@ export interface CreditTransaction {
     lastName: string;
     email: string;
   };
-  type: 'purchase' | 'usage' | 'refund' | 'bonus';
+  type: 'purchase' | 'spend' | 'refund' | 'bonus';
   amount: number;
   balance: {
     before: number;
@@ -205,7 +205,8 @@ export const getProfessionals = async (
   }
 ): Promise<PaginatedResponse<ProfessionalListItem>> => {
   const response = await api.get('/admin/professionals', { params });
-  return response.data.data;
+  const { items, pagination } = response.data.data;
+  return { data: items, pagination };
 };
 
 export const getProfessionalDetails = async (id: string): Promise<ProfessionalDetails> => {
@@ -260,7 +261,8 @@ export const getHomeowners = async (
   params: PaginationParams
 ): Promise<PaginatedResponse<HomeownerListItem>> => {
   const response = await api.get('/admin/homeowners', { params });
-  return response.data.data;
+  const { items, pagination } = response.data.data;
+  return { data: items, pagination };
 };
 
 export const getHomeownerDetails = async (id: string): Promise<HomeownerDetails> => {
@@ -280,7 +282,8 @@ export const getAdminLeads = async (
   }
 ): Promise<PaginatedResponse<AdminLead>> => {
   const response = await api.get('/admin/leads', { params });
-  return response.data.data;
+  const { items, pagination } = response.data.data;
+  return { data: items, pagination };
 };
 
 export const getAdminLeadDetails = async (id: string): Promise<AdminLead> => {
@@ -304,8 +307,9 @@ export const getCreditTransactions = async (
     type?: string;
   }
 ): Promise<PaginatedResponse<CreditTransaction>> => {
-  const response = await api.get('/admin/credits/transactions', { params });
-  return response.data.data;
+  const response = await api.get('/admin/credits', { params });
+  const { items, pagination } = response.data.data;
+  return { data: items, pagination };
 };
 
 export const refundCredits = async (

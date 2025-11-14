@@ -72,10 +72,10 @@ export function AdminDashboardSidebar() {
     <div
       className={`${
         isCollapsed ? 'w-20' : 'w-64'
-      } bg-white border-r border-gray-200 flex flex-col transition-all duration-300`}
+      } h-screen bg-white border-r border-gray-200 flex flex-col transition-all duration-300`}
     >
       {/* Logo & Toggle */}
-      <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
+      <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 flex-shrink-0">
         {!isCollapsed && (
           <Link href="/admin/dashboard" className="flex items-center gap-2">
             <span className="font-quicksand text-2xl font-bold text-gray-900">
@@ -99,7 +99,7 @@ export function AdminDashboardSidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.href);
@@ -132,7 +132,7 @@ export function AdminDashboardSidebar() {
       </nav>
 
       {/* Bottom Actions */}
-      <div className="border-t border-gray-200 p-3 space-y-1">
+      <div className="border-t border-gray-200 p-3 space-y-1 flex-shrink-0">
         {/* Notifications */}
         <Link
           href="/admin/notifications"

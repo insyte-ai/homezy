@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 // Get the API URL from environment variable
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!API_URL) {
+  throw new Error('NEXT_PUBLIC_API_URL environment variable is not set');
+}
 
 // Create axios instance
 const api = axios.create({
@@ -16,7 +20,7 @@ api.interceptors.request.use(
   (config) => {
     // Get token from localStorage
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('auth_token');
+      const token = localStorage.getItem('accessToken');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

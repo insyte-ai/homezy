@@ -49,7 +49,8 @@ export const useSocket = () => {
     };
 
     // Create new socket connection
-    const newSocket = io(process.env.NEXT_PUBLIC_API_URL!, {
+    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5001';
+    const newSocket = io(socketUrl, {
       auth: {
         token: getAuthToken(),
         guestId: getGuestId(),

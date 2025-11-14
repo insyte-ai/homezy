@@ -2,9 +2,11 @@ import axios from 'axios';
 import { logger } from './logger';
 
 // Create axios instance
-const baseURL = process.env.NEXT_PUBLIC_API_URL
-  ? `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_BASE_PATH || '/api/v1'}`
-  : 'http://localhost:5001/api/v1';
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!baseURL) {
+  throw new Error('NEXT_PUBLIC_API_URL environment variable is not set');
+}
 
 export const api = axios.create({
   baseURL,

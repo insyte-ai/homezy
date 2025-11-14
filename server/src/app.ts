@@ -15,6 +15,7 @@ import chatRoutes from './routes/chat.routes';
 import leadRoutes from './routes/lead.routes';
 import quoteRoutes, { leadQuoteRouter } from './routes/quote.routes';
 import uploadRoutes from './routes/upload.routes';
+import adminRoutes from './routes/admin.routes';
 
 /**
  * Create and configure Express application
@@ -96,6 +97,7 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/leads`, leadRoutes);
   app.use(`/api/${env.API_VERSION}/quotes`, quoteRoutes);
   app.use(`/api/${env.API_VERSION}/upload`, uploadRoutes);
+  app.use(`/api/${env.API_VERSION}/admin`, adminRoutes);
 
   // Nested route: /leads/:leadId/quotes
   app.use(`/api/${env.API_VERSION}/leads/:leadId/quotes`, leadQuoteRouter);

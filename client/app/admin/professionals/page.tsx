@@ -43,11 +43,12 @@ export default function ProfessionalsPage() {
         status: statusFilter,
         verificationStatus: verificationFilter,
       });
-      setProfessionals(response.data);
+      setProfessionals(response.data || []);
       setPagination(response.pagination);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to load professionals:', error);
       toast.error('Failed to load professionals');
+      setProfessionals([]);
     } finally {
       setLoading(false);
     }
@@ -102,23 +103,32 @@ export default function ProfessionalsPage() {
     {
       key: 'serviceCategories',
       header: 'Services',
-      render: (item) => (
-        <div className="flex flex-wrap gap-1">
-          {item.serviceCategories.slice(0, 2).map((category, index) => (
-            <span
-              key={index}
-              className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded"
-            >
-              {category}
-            </span>
-          ))}
-          {item.serviceCategories.length > 2 && (
-            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-              +{item.serviceCategories.length - 2}
-            </span>
-          )}
-        </div>
-      ),
+      render: (item) => {
+        const categories = item.serviceCategories || [];
+        return (
+          <div className="flex flex-wrap gap-1">
+            {categories.length > 0 ? (
+              <>
+                {categories.slice(0, 2).map((category, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded"
+                  >
+                    {category}
+                  </span>
+                ))}
+                {categories.length > 2 && (
+                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                    +{categories.length - 2}
+                  </span>
+                )}
+              </>
+            ) : (
+              <span className="text-gray-400 text-sm">No services</span>
+            )}
+          </div>
+        );
+      },
     },
     {
       key: 'verificationStatus',
