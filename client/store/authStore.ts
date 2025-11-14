@@ -13,6 +13,7 @@ interface User {
   isEmailVerified: boolean;
   phone?: string;
   avatar?: string;
+  createdAt?: string;
 }
 
 interface AuthState {

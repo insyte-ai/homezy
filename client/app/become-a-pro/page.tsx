@@ -13,30 +13,30 @@ export default function BecomeAProPage() {
     <div className="min-h-screen bg-neutral-50">
       <PublicHeader />
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-800 text-white py-20">
+      <section className="bg-gradient-to-br from-primary-500 to-primary-600 text-black py-20">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
               Grow Your Business with Homezy
             </h1>
-            <p className="text-xl sm:text-2xl text-primary-100 mb-8">
+            <p className="text-xl sm:text-2xl text-gray-800 mb-8">
               Connect with thousands of UAE homeowners looking for trusted professionals like you
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/auth/pro/register"
-                className="btn bg-white text-primary-700 hover:bg-primary-50 px-8 py-4 text-lg font-semibold"
+                className="btn bg-white text-primary-700 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-md"
               >
                 Get Started Free
               </Link>
               <a
                 href="#how-it-works"
-                className="btn btn-outline border-white text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold"
+                className="btn btn-outline border-black text-black hover:bg-black/10 px-8 py-4 text-lg font-semibold"
               >
                 Learn More
               </a>
             </div>
-            <p className="mt-6 text-primary-100">
+            <p className="mt-6 text-gray-800">
               No subscription fees. Pay only for leads you claim.
             </p>
           </div>
@@ -289,23 +289,23 @@ export default function BecomeAProPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-primary-600 to-primary-800 text-white">
+      <section className="py-16 bg-gradient-to-br from-primary-500 to-primary-600 text-black">
         <div className="container-custom text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">
             Ready to Grow Your Business?
           </h2>
-          <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
             Join hundreds of verified professionals already winning projects on Homezy
           </p>
           <Link
             href="/auth/pro/register"
-            className="btn bg-white text-primary-700 hover:bg-primary-50 px-8 py-4 text-lg font-semibold inline-block"
+            className="btn bg-white text-primary-700 hover:bg-gray-100 px-8 py-4 text-lg font-semibold inline-block shadow-md"
           >
             Get Started Free
           </Link>
-          <p className="mt-4 text-primary-100">
+          <p className="mt-4 text-gray-800">
             Already have an account?{' '}
-            <Link href="/auth/login" className="underline font-medium">
+            <Link href="/auth/login" className="underline font-medium hover:text-gray-900">
               Sign in
             </Link>
           </p>

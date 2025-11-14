@@ -79,7 +79,7 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: development
-      NEXT_PUBLIC_API_URL: http://localhost:5000
+      NEXT_PUBLIC_API_URL: http://localhost:5001/api/v1
     volumes:
       - ./client/client:/app
       - /app/node_modules

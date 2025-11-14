@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
 import {
@@ -78,9 +79,16 @@ export function AdminDashboardSidebar() {
       <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 flex-shrink-0">
         {!isCollapsed && (
           <Link href="/admin/dashboard" className="flex items-center gap-2">
-            <span className="font-quicksand text-2xl font-bold text-gray-900">
+            <Image
+              src="/house-logo.svg"
+              alt="Homezy Logo"
+              width={28}
+              height={28}
+              className="w-7 h-7"
+            />
+            <h1 className="font-quicksand text-[28px] font-bold text-gray-900 leading-none">
               homezy
-            </span>
+            </h1>
             <span className="px-2 py-0.5 bg-primary-100 text-primary-700 text-xs font-semibold rounded">
               ADMIN
             </span>

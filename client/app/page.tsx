@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChatInterface } from "@/components/chat/ChatInterface";
 import { SearchBar } from "@/components/home/SearchBar";
@@ -10,14 +11,30 @@ import { PublicHeader } from "@/components/layout/PublicHeader";
 import { PublicFooter } from "@/components/layout/PublicFooter";
 import { MessageCircle, X, Briefcase, ArrowRight } from "lucide-react";
 import { getMarketplace, Lead } from "@/lib/services/leads";
+import { useAuthStore } from "@/store/authStore";
 
 export default function Home() {
+  const router = useRouter();
+  const { user, isAuthenticated } = useAuthStore();
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<
     string | undefined
   >();
   const [showChat, setShowChat] = useState(false);
   const [latestLeads, setLatestLeads] = useState<Lead[]>([]);
+
+  // Redirect authenticated users to their dashboards
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      if (user.role === 'homeowner') {
+        router.push('/dashboard');
+      } else if (user.role === 'pro') {
+        router.push('/pro/dashboard');
+      } else if (user.role === 'admin') {
+        router.push('/admin/dashboard');
+      }
+    }
+  }, [isAuthenticated, user, router]);
 
   // Load latest leads for the jobs board section
   useEffect(() => {
@@ -77,12 +94,12 @@ export default function Home() {
             <div className="lg:col-span-1 hidden lg:block">
               <div className="sticky top-20">
                 <div className="bg-white border border-gray-200 rounded-lg overflow-hidden h-[600px] flex flex-col">
-                  <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4">
+                  <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-black p-4">
                     <h3 className="text-lg font-semibold flex items-center gap-2">
                       <MessageCircle className="h-5 w-5" />
                       Home GPT Assistant
                     </h3>
-                    <p className="text-sm text-gray-100 mt-1">
+                    <p className="text-sm text-gray-800 mt-1">
                       Ask me anything about your home improvement project
                     </p>
                   </div>
@@ -250,21 +267,21 @@ export default function Home() {
       {showChat && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden">
           <div className="bg-white h-full flex flex-col">
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-black p-4 flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold flex items-center gap-2">
                   <MessageCircle className="h-5 w-5" />
                   Home GPT Assistant
                 </h3>
-                <p className="text-sm text-gray-100 mt-1">
+                <p className="text-sm text-gray-800 mt-1">
                   Ask me anything about your home improvement project
                 </p>
               </div>
               <button
                 onClick={() => setShowChat(false)}
-                className="bg-white/20 rounded-full p-2 hover:bg-white/30"
+                className="bg-black/20 rounded-full p-2 hover:bg-black/30"
               >
-                <X className="h-6 w-6 text-white" />
+                <X className="h-6 w-6 text-black" />
               </button>
             </div>
             <div className="flex-1 overflow-hidden">
