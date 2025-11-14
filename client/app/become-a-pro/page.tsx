@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { PublicHeader } from '@/components/layout/PublicHeader';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 
 export const metadata: Metadata = {
   title: 'Become a Professional | Homezy',
@@ -9,9 +11,10 @@ export const metadata: Metadata = {
 export default function BecomeAProPage() {
   return (
     <div className="min-h-screen bg-neutral-50">
+      <PublicHeader />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-600 to-primary-800 text-white py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
               Grow Your Business with Homezy
@@ -42,7 +45,7 @@ export default function BecomeAProPage() {
 
       {/* Benefits Section */}
       <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               Why Join Homezy?
@@ -149,7 +152,7 @@ export default function BecomeAProPage() {
 
       {/* How It Works */}
       <section id="how-it-works" className="py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               How It Works
@@ -211,7 +214,7 @@ export default function BecomeAProPage() {
 
       {/* Pricing Section */}
       <section className="py-16 bg-neutral-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               Transparent Credit Pricing
@@ -287,7 +290,7 @@ export default function BecomeAProPage() {
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-br from-primary-600 to-primary-800 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container-custom text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">
             Ready to Grow Your Business?
           </h2>
@@ -308,6 +311,8 @@ export default function BecomeAProPage() {
           </p>
         </div>
       </section>
+
+      <PublicFooter />
     </div>
   );
 }

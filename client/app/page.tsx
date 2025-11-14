@@ -1,37 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import { useAuthStore } from "@/store/authStore";
 import { ChatInterface } from "@/components/chat/ChatInterface";
 import { SearchBar } from "@/components/home/SearchBar";
 import { PopularServices } from "@/components/home/PopularServices";
 import { MultiStepLeadForm } from "@/components/lead-form/MultiStepLeadForm";
-import { ServicesDropdown } from "@/components/navigation/ServicesDropdown";
-import { MessageCircle, X } from "lucide-react";
+import { PublicHeader } from "@/components/layout/PublicHeader";
+import { PublicFooter } from "@/components/layout/PublicFooter";
+import { MessageCircle, X, Briefcase, ArrowRight } from "lucide-react";
+import { getMarketplace, Lead } from "@/lib/services/leads";
 
 export default function Home() {
-  const router = useRouter();
-  const { isAuthenticated, user, logout } = useAuthStore();
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<
     string | undefined
   >();
   const [showChat, setShowChat] = useState(false);
+  const [latestLeads, setLatestLeads] = useState<Lead[]>([]);
 
-  // Redirect pros and admins away from homepage to their respective dashboards
+  // Load latest leads for the jobs board section
   useEffect(() => {
-    if (isAuthenticated && user) {
-      if (user.role === "pro") {
-        router.push("/pro/dashboard");
-      } else if (user.role === "admin") {
-        router.push("/admin/dashboard");
+    const loadLatestLeads = async () => {
+      try {
+        const data = await getMarketplace({ limit: 6 });
+        setLatestLeads(data.leads);
+      } catch (error) {
+        console.error("Failed to load latest leads:", error);
+        // Fail silently - homepage should still work without leads
       }
-      // Homeowners can stay on homepage
-    }
-  }, [isAuthenticated, user, router]);
+    };
+    loadLatestLeads();
+  }, []);
 
   const handleServiceSelect = (serviceId: string) => {
     setSelectedServiceId(serviceId);
@@ -39,107 +39,65 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-[60]">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-1">
-              <Image
-                src="/house-logo.svg"
-                alt="Homezy Logo"
-                width={40}
-                height={40}
-                className="w-8 h-8"
-              />
-              <h1
-                className="font-quicksand text-[32px] font-bold text-gray-900 leading-none"
-                style={{
-                  height: "40px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                homezy
-              </h1>
-            </div>
-            <div className="flex items-center gap-4">
-              {/* Services Dropdown */}
-              <div className="hidden md:block">
-                <ServicesDropdown />
+    <div className="min-h-screen bg-white">
+      <PublicHeader />
+
+      {/* Main Content */}
+      <main className="flex-1">
+        <div className="container-custom">
+          {/* Hero Section Container */}
+          <div className="grid lg:grid-cols-3 gap-12 py-16">
+            {/* Left Side - Service Search & Lead Form (2/3) */}
+            <div className="lg:col-span-2">
+              {/* Hero Section */}
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                  Find trusted home service
+                  <br />
+                  <span className="text-primary-500">professionals in UAE</span>
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Get matched with verified professionals. Compare quotes.
+                  Complete your project with confidence.
+                </p>
               </div>
 
-              {!isAuthenticated && (
-                <Link
-                  href="/become-a-pro"
-                  className="text-gray-700 hover:text-gray-900 font-medium text-sm hidden md:block"
-                >
-                  Become a Pro
-                </Link>
-              )}
-              {isAuthenticated ? (
-                <>
-                  <span className="text-gray-700 text-sm hidden md:block">
-                    Welcome, {user?.firstName}!
-                  </span>
-                  <button
-                    onClick={() => logout()}
-                    className="text-gray-700 hover:text-gray-900 text-sm font-medium"
-                  >
-                    Sign out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/auth/login"
-                    className="text-gray-700 hover:text-gray-900 text-sm font-medium"
-                  >
-                    Sign in
-                  </Link>
-                  <Link
-                    href="/auth/register"
-                    className="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors text-sm font-medium"
-                  >
-                    Sign up free
-                  </Link>
-                </>
-              )}
+              {/* Search Bar */}
+              <div className="mb-12">
+                <SearchBar onSelectService={handleServiceSelect} />
+              </div>
+
+              {/* Popular Services */}
+              <div className="mb-12">
+                <PopularServices onSelectService={handleServiceSelect} />
+              </div>
+            </div>
+
+            {/* Right Side - Chat Panel (1/3) */}
+            <div className="lg:col-span-1 hidden lg:block">
+              <div className="sticky top-20">
+                <div className="bg-white border border-gray-200 rounded-lg overflow-hidden h-[600px] flex flex-col">
+                  <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4">
+                    <h3 className="text-lg font-semibold flex items-center gap-2">
+                      <MessageCircle className="h-5 w-5" />
+                      Home GPT Assistant
+                    </h3>
+                    <p className="text-sm text-gray-100 mt-1">
+                      Ask me anything about your home improvement project
+                    </p>
+                  </div>
+                  <div className="flex-1 overflow-hidden">
+                    <ChatInterface />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </nav>
-      </header>
 
-      {/* Main Content - Split Layout */}
-      <main className="flex-1 flex">
-        {/* Left Side - Service Search & Lead Form (2/3) */}
-        <div className="flex-1 lg:w-2/3 overflow-y-auto">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {/* Hero Section */}
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Find trusted home service
-                <br />
-                <span className="text-primary-500">professionals in UAE</span>
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Get matched with verified professionals. Compare quotes.
-                Complete your project with confidence.
-              </p>
-            </div>
-
-            {/* Search Bar */}
-            <div className="mb-12">
-              <SearchBar onSelectService={handleServiceSelect} />
-            </div>
-
-            {/* Popular Services */}
-            <div className="mb-12">
-              <PopularServices onSelectService={handleServiceSelect} />
-            </div>
-
+          {/* Full Width Content Below Hero */}
+          <div className="pb-16">
             {/* How It Works */}
-            <div className="bg-gray-50 rounded-2xl p-8 mb-12">
+            <div className="bg-gray-50 rounded-2xl p-10 mb-16">
               <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
                 How Homezy Works
               </h3>
@@ -183,8 +141,92 @@ export default function Home() {
               </div>
             </div>
 
-            {/* CTA Banner */}
-            <div className="bg-primary-500 text-black rounded-2xl p-8 text-center">
+            {/* Latest Opportunities - Jobs Board */}
+            {latestLeads.length > 0 && (
+              <div className="mb-16">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                      Latest Opportunities
+                    </h3>
+                    <p className="text-gray-600">
+                      Active projects looking for professionals
+                    </p>
+                  </div>
+                  <Link
+                    href="/lead-marketplace"
+                    className="text-primary-500 hover:text-primary-600 font-medium flex items-center gap-2"
+                  >
+                    View All
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {latestLeads.map((lead) => (
+                    <div
+                      key={lead._id}
+                      className="bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-gray-900 mb-1 line-clamp-1">
+                            {lead.title}
+                          </h4>
+                          <p className="text-sm text-gray-600 line-clamp-2">
+                            {lead.description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded">
+                          {lead.category}
+                        </span>
+                        <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded">
+                          {lead.budgetBracket}
+                        </span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded capitalize">
+                          {lead.urgency}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm text-gray-500">
+                        <span>{lead.location.emirate}</span>
+                        <span>
+                          {lead.claimsCount}/{lead.maxClaimsAllowed || 5}{" "}
+                          claimed
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 bg-gradient-to-r from-blue-50 to-primary-50 rounded-xl p-6 border border-blue-200">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-blue-100 rounded-full p-3">
+                        <Briefcase className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-1">
+                          Are you a home improvement professional?
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          Join Homezy to access exclusive leads and grow your
+                          business
+                        </p>
+                      </div>
+                    </div>
+                    <Link
+                      href="/become-a-pro"
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold whitespace-nowrap transition-colors"
+                    >
+                      Become a Pro
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* CTA Banner for Mobile Chat */}
+            <div className="lg:hidden bg-primary-500 text-black rounded-2xl p-8 text-center mb-16">
               <h3 className="text-2xl font-bold mb-3">
                 Need help planning your project?
               </h3>
@@ -202,48 +244,45 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </main>
 
-        {/* Right Side - Chat Panel (1/3) - Hidden on mobile, shown as overlay when triggered */}
-        <div
-          className={`
-            fixed lg:relative inset-0 lg:inset-auto
-            lg:w-1/3 lg:border-l border-gray-200 bg-white
-            transition-transform duration-300 z-50
-            ${showChat ? "translate-x-0" : "translate-x-full lg:translate-x-0"}
-          `}
-        >
-          {/* Mobile close button */}
-          <button
-            onClick={() => setShowChat(false)}
-            className="lg:hidden absolute top-4 right-4 z-10 bg-white rounded-full p-2 shadow-lg"
-          >
-            <X className="h-6 w-6 text-gray-600" />
-          </button>
-
-          <div className="h-full flex flex-col">
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-black p-4">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <MessageCircle className="h-5 w-5" />
-                Home GPT Assistant
-              </h3>
-              <p className="text-sm text-gray-800 mt-1">
-                Ask me anything about your home improvement project
-              </p>
+      {/* Mobile Chat Overlay */}
+      {showChat && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden">
+          <div className="bg-white h-full flex flex-col">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5" />
+                  Home GPT Assistant
+                </h3>
+                <p className="text-sm text-gray-100 mt-1">
+                  Ask me anything about your home improvement project
+                </p>
+              </div>
+              <button
+                onClick={() => setShowChat(false)}
+                className="bg-white/20 rounded-full p-2 hover:bg-white/30"
+              >
+                <X className="h-6 w-6 text-white" />
+              </button>
             </div>
             <div className="flex-1 overflow-hidden">
               <ChatInterface />
             </div>
           </div>
         </div>
-      </main>
+      )}
 
       {/* Mobile Chat FAB */}
-      <button
-        onClick={() => setShowChat(true)}
-        className="lg:hidden fixed bottom-6 right-6 bg-primary-500 text-black rounded-full p-4 shadow-lg hover:bg-primary-600 transition-colors z-40"
-      >
-        <MessageCircle className="h-6 w-6" />
-      </button>
+      {!showChat && (
+        <button
+          onClick={() => setShowChat(true)}
+          className="lg:hidden fixed bottom-6 right-6 bg-primary-500 text-white rounded-full p-4 shadow-lg hover:bg-primary-600 transition-colors z-40"
+        >
+          <MessageCircle className="h-6 w-6" />
+        </button>
+      )}
 
       {/* Lead Form Modal */}
       {showLeadForm && selectedServiceId && (
@@ -260,42 +299,7 @@ export default function Home() {
         />
       )}
 
-      {/* Footer */}
-      <footer className="bg-gray-50 border-t border-gray-200 py-8 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-1">
-            <Image
-              src="/house-logo.svg"
-              alt="Homezy"
-              width={32}
-              height={32}
-              className="w-7 h-7"
-            />
-            <span
-              className="font-quicksand text-[26px] font-bold text-gray-900 leading-none"
-              style={{ height: "32px", display: "flex", alignItems: "center" }}
-            >
-              homezy
-            </span>
-          </div>
-          <p className="text-sm text-gray-500">
-            Powered by Claude Sonnet 4.5 | Built for UAE homeowners
-          </p>
-          <div className="flex items-center justify-center gap-6 mt-4 text-sm text-gray-600">
-            <Link href="/become-a-pro" className="hover:text-primary-500">
-              Become a Pro
-            </Link>
-            <span>|</span>
-            <Link href="/about" className="hover:text-primary-500">
-              About
-            </Link>
-            <span>|</span>
-            <Link href="/help" className="hover:text-primary-500">
-              Help
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 }
