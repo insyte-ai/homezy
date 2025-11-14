@@ -1,0 +1,88 @@
+{
+  "id": "hvac",
+  "title": "Heating, Ventilation & Air Conditioning",
+  "metaTitle": "HVAC Services in UAE | Homezy",
+  "metaDescription": "Get reliable HVAC services in the UAE. Homezy connects you with professionals for air conditioning installation, maintenance, and ventilation solutions.",
+  "keywords": "HVAC services UAE, AC repair, air conditioning installation, ventilation systems, HVAC maintenance",
+  "headerImage": "https://images.pexels.com/photos/4254167/pexels-photo-4254167.jpeg",
+  "description": "Whether you need a new air conditioning system, better ventilation, or routine HVAC maintenance, Homezy connects you with licensed specialists who keep your home or office comfortable all year round. Professionals listed on the platform follow UAE climate and energy standards for efficient cooling and air quality.",
+  "benefits": [
+    "AC installation, repair, and servicing",
+    "Ductwork inspection and cleaning",
+    "Energy-efficient cooling and heating systems",
+    "Ventilation upgrades and indoor air quality solutions",
+    "Emergency breakdown support"
+  ],
+  "whatToExpect": "Describe your cooling or ventilation needs on Homezy and get matched with certified HVAC experts. Receive service quotes, system recommendations, and maintenance plans suited to your space and budget.",
+  "faqs": [
+    {
+      "question": "Do HVAC professionals handle both installation and maintenance?",
+      "answer": "Yes, most providers offer full-cycle HVAC solutions including system design, installation, regular servicing, and emergency repairs."
+    },
+    {
+      "question": "Can I get help with commercial HVAC systems?",
+      "answer": "Absolutely. Homezy features HVAC specialists for both residential and commercial projects, from split units to central systems."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "electrical",
+      "title": "Electrical"
+    },
+    {
+      "id": "amc",
+      "title": "Annual Maintenance Contracts (AMC)"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4254167/pexels-photo-4254167.jpeg",
+    "https://images.pexels.com/photos/6022611/pexels-photo-6022611.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Heating, Ventilation & Air Conditioning",
+    "description": "Find HVAC professionals through Homezy for AC installation, maintenance, and ventilation upgrades tailored to UAE’s climate and energy standards.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "HVAC Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AC Installation and Replacement"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Duct Cleaning and Ventilation Solutions"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "HVAC Maintenance Plans"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/heating-ventilation-air-Conditioning",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

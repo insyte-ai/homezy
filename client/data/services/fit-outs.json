@@ -1,0 +1,116 @@
+{
+  "id": "fit-outs",
+  "title": "Fit Outs",
+  "metaTitle": "Professional Fit Out Services in UAE | Homezy",
+  "metaDescription": "Transform your space with trusted UAE-based fit out experts. Homezy connects you with licensed contractors for office, home, and retail fit outs across the Emirates.",
+  "keywords": "fit out services UAE, interior fit outs UAE, office fit outs UAE, residential fit outs UAE, commercial fit outs UAE, turnkey fit out UAE",
+  "headerImage": "https://images.pexels.com/photos/7061375/pexels-photo-7061375.jpeg",
+  "headerImageAltText": "Modern commercial office fit out with open-plan layout, stylish interiors, and natural lighting in the UAE",
+  "description": "A successful fit out can completely transform a space—whether it's a vibrant office, a boutique retail store, or your dream home. Through Homezy, you can connect with licensed UAE-based contractors who specialize in turnkey fit outs, delivering full interior solutions from initial build works to final finishes, all across the Emirates.",
+  "benefits": [
+    "Complete interior build and fit out solutions across the UAE",
+    "Customized fit outs designed around your layout, brand, and lifestyle",
+    "Ideal for corporate offices, retail stores, hospitality, and homes",
+    "Seamless coordination with designers, engineers, and project managers",
+    "On-time handovers with compliance to UAE regulations and standards"
+  ],
+  "whatToExpect": "Submit your project details, preferred style, and space requirements through Homezy. Get detailed offers from vetted UAE-based fit out contractors, including material specifications, work schedules, and pricing—so you can choose the right team with confidence.",
+  "cta": {
+    "title": "Exceptional Spaces Begin with the Right Fit Out.",
+    "subtitle": "Find licensed UAE contractors who deliver turnkey interiors with style, precision, and efficiency.",
+    "buttonText": "Get Free Quotes."
+  },
+  "trustBuilder": "Homezy — connecting you with the UAE’s most trusted fit out professionals.",
+  "faqs": [
+    {
+      "question": "What is the difference between a fit out and a renovation?",
+      "answer": "Fit outs involve completing the interior of a bare or shell space—adding flooring, ceilings, partitions, MEP (Mechanical, Electrical, and Plumbing) works, and final finishes. Renovation typically means updating or remodeling an already finished space."
+    },
+    {
+      "question": "Do fit out contractors also offer design and planning services?",
+      "answer": "Yes, many UAE-based fit out contractors offer end-to-end solutions, including interior design, 3D visualizations, space planning, and authority approvals."
+    },
+    {
+      "question": "How long does a typical fit out project take in the UAE?",
+      "answer": "Timelines vary by project, but most office and residential fit outs in the UAE are completed within 4 to 12 weeks, depending on size, approvals, and complexity."
+    },
+    {
+      "question": "Are turnkey fit outs cost-effective?",
+      "answer": "Turnkey fit outs can save both time and costs by streamlining design, build, and project management into a single, integrated service—minimizing delays and miscommunication."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "interior-design",
+      "title": "Interior Design Services"
+    },
+    {
+      "id": "project-management",
+      "title": "Construction Project Management"
+    },
+    {
+      "id": "space-planning",
+      "title": "Space Planning and Layout"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7061375/pexels-photo-7061375.jpeg",
+    "https://images.pexels.com/photos/7061372/pexels-photo-7061372.jpeg",
+    "https://images.pexels.com/photos/7061371/pexels-photo-7061371.jpeg"
+  ],
+  "ogTags": {
+    "ogTitle": "Top Fit Out Services in UAE | Transform Your Space with Homezy",
+    "ogDescription": "Discover trusted UAE-based fit out contractors for offices, homes, and retail spaces. Compare quotes and bring your vision to life with Homezy."
+  },
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Fit Outs",
+    "description": "Homezy connects UAE clients with expert fit out contractors for residential, commercial, and retail interiors—offering complete turnkey solutions from structural works to finishing.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy",
+      "url": "https://www.homezy.co"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Fit Out Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Office and Commercial Fit Outs",
+            "description": "Full-service commercial fit outs in the UAE including partitions, ceilings, flooring, and authority approvals."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Residential Interior Fit Outs",
+            "description": "High-end residential fit out services—from bare shell spaces to move-in ready homes across the Emirates."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Turnkey Interior Completion",
+            "description": "Integrated design-and-build fit out solutions with end-to-end project management tailored for UAE regulations."
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/fit-outs",
+      "servicePhone": "+971800466399",
+      "serviceSmsNumber": "+971800466399"
+    }
+  }
+}

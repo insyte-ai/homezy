@@ -1,0 +1,88 @@
+{
+  "id": "electrical",
+  "title": "Electrical",
+  "metaTitle": "Electrical Services in UAE | Homezy",
+  "metaDescription": "Need electrical work done? Homezy connects you with licensed electricians in the UAE for wiring, lighting, panel upgrades, and emergency repairs.",
+  "keywords": "electrical services, electrician UAE, home wiring, light installation, electrical repair UAE",
+  "headerImage": "https://images.pexels.com/photos/1435183/pexels-photo-1435183.jpeg",
+  "description": "From routine electrical installations to urgent fault repairs, Homezy helps you find certified electricians who deliver safe, compliant, and efficient electrical solutions. Whether it's a residential, commercial, or industrial job, listed professionals are vetted to meet UAE regulations and safety standards.",
+  "benefits": [
+    "Licensed and certified electricians",
+    "New wiring and rewiring services",
+    "Lighting, outlets, and switchboard installations",
+    "Troubleshooting and emergency repairs",
+    "Compliance with DEWA and ADDC standards"
+  ],
+  "whatToExpect": "Once you post your service request on Homezy, you’ll receive quotes from experienced electricians. You can compare credentials, read reviews, and choose the right provider for tasks ranging from light fittings to full rewiring jobs.",
+  "faqs": [
+    {
+      "question": "Are emergency electrical repairs available?",
+      "answer": "Yes, many professionals on Homezy offer 24/7 emergency electrical services across the UAE."
+    },
+    {
+      "question": "Do the listed electricians handle permit approvals?",
+      "answer": "Some providers include permit handling in their services, especially for large installations. This can be confirmed during the quote stage."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "hvac",
+      "title": "Heating, Ventilation & Air Conditioning"
+    },
+    {
+      "id": "smart-home",
+      "title": "Smart Home"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1435183/pexels-photo-1435183.jpeg",
+    "https://images.pexels.com/photos/4254165/pexels-photo-4254165.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Electrical",
+    "description": "Homezy connects homeowners and businesses in the UAE with licensed electricians for installations, repairs, and inspections in compliance with safety standards.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Electrical Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wiring and Rewiring"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Lighting Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Electrical Troubleshooting"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/electrical",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

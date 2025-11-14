@@ -1,0 +1,88 @@
+{
+  "id": "packers-and-movers",
+  "title": "Packers & Movers",
+  "metaTitle": "Packers and Movers Services in UAE | Homezy",
+  "metaDescription": "Make your move stress-free with trusted packers and movers in the UAE. Compare quotes and book relocation experts through Homezy for homes and offices.",
+  "keywords": "packers and movers UAE, house shifting service, office relocation, moving company Dubai, home relocation UAE",
+  "headerImage": "https://images.pexels.com/photos/7464465/pexels-photo-7464465.jpeg",
+  "description": "Moving can be overwhelming—but not with the right help. Homezy connects you with verified packers and movers in the UAE who specialize in safe and efficient relocations. Whether you're shifting across town or to another emirate, providers offer complete services including packing, loading, transportation, and unpacking for residential or commercial spaces.",
+  "benefits": [
+    "Professional packing and labeling",
+    "Safe transport of fragile and heavy items",
+    "Unpacking and placement at the new location",
+    "Local and inter-emirate moves",
+    "Optional storage solutions"
+  ],
+  "whatToExpect": "Post your moving details on Homezy and get matched with relocation service providers. After an assessment or consultation, you’ll receive quotes outlining services, timelines, and optional add-ons like temporary storage or handyman help.",
+  "faqs": [
+    {
+      "question": "Are packing materials provided?",
+      "answer": "Yes, most providers include high-quality packing materials as part of the service, including boxes, bubble wrap, and protective padding."
+    },
+    {
+      "question": "Can I move between emirates?",
+      "answer": "Absolutely. Many movers on Homezy offer inter-emirate relocation services with options for direct or consolidated transport."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "junk-removal",
+      "title": "Junk Removal"
+    },
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7464465/pexels-photo-7464465.jpeg",
+    "https://images.pexels.com/photos/4246117/pexels-photo-4246117.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Packers and Movers",
+    "description": "Homezy helps UAE residents find reliable packers and movers for local and inter-emirate relocation services, including packing, transport, and unpacking.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Packers and Movers Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Residential Moving"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Office and Commercial Relocation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Packing, Unpacking, and Setup"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/packers-movers-930",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "home-tutors",
+  "title": "Home Tutors",
+  "metaTitle": "Private Home Tutors in UAE | Homezy",
+  "metaDescription": "Looking for a home tutor? Homezy connects you with qualified tutors across the UAE for school subjects, exam prep, and academic support—available at home or online.",
+  "keywords": "home tutor UAE, private tutor, online tutoring, school subject help, exam prep tutor",
+  "headerImage": "https://images.pexels.com/photos/5428009/pexels-photo-5428009.jpeg",
+  "description": "Whether your child needs academic support or you're prepping for an exam, Homezy connects you with qualified tutors across the UAE. Tutors are available for in-home sessions or online help, covering school subjects, standardized exams, and university-level topics—tailored to each learner's pace and goals.",
+  "benefits": [
+    "Personalized tutoring for all age groups",
+    "Support in math, science, English, and more",
+    "Online and in-person learning options",
+    "Homework help and test preparation",
+    "Tutors experienced with UAE and international curricula"
+  ],
+  "whatToExpect": "Share your learning needs on Homezy and receive offers from qualified tutors. Compare teaching experience, subject specialization, and hourly rates to find the right tutor for your academic goals.",
+  "faqs": [
+    {
+      "question": "What subjects do home tutors cover?",
+      "answer": "Tutors on Homezy cover core subjects like math, science, English, and languages, as well as specialized topics like business, coding, and exam prep."
+    },
+    {
+      "question": "Are tutors available for younger children?",
+      "answer": "Yes, Homezy features tutors for all age groups, including early learners who need foundational academic support."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "language-lessons",
+      "title": "Language Lessons"
+    },
+    {
+      "id": "music-lessons",
+      "title": "Music Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5428009/pexels-photo-5428009.jpeg",
+    "https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Home Tutors",
+    "description": "Homezy connects you with qualified home and online tutors in the UAE for academic support, subject tutoring, and exam preparation for all levels.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Tutoring Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Primary and Secondary Subject Tutoring"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Online Exam Preparation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Homework Help and Academic Support"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/home-tutors",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

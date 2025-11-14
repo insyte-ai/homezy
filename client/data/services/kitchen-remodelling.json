@@ -1,0 +1,88 @@
+{
+  "id": "kitchen-remodelling",
+  "title": "Kitchen Remodelling",
+  "metaTitle": "Kitchen Remodelling Services in UAE | Homezy",
+  "metaDescription": "Redesign your kitchen with help from top-rated UAE professionals. Homezy lets you compare kitchen remodelling experts for layout upgrades, modern finishes, and custom cabinetry.",
+  "keywords": "kitchen remodelling, kitchen renovation UAE, modern kitchen design, kitchen contractors, UAE kitchen remodel",
+  "headerImage": "https://images.pexels.com/photos/6590994/pexels-photo-6590994.jpeg",
+  "description": "A kitchen remodel can completely transform the heart of your home. Whether you're going for a sleek modern look, classic charm, or improved layout, Homezy connects you with professionals across the UAE who specialize in designing and executing beautiful, functional kitchen renovations.",
+  "benefits": [
+    "Modern and functional kitchen designs",
+    "Custom cabinetry and smart storage solutions",
+    "Selection of countertops, appliances, and finishes",
+    "End-to-end renovation or design-only options",
+    "Compliance with safety and plumbing codes"
+  ],
+  "whatToExpect": "List your kitchen goals and space dimensions on Homezy to receive design concepts and quotes from experienced kitchen remodelling professionals. Review portfolios, timelines, and costs before hiring the provider that fits your vision and budget.",
+  "faqs": [
+    {
+      "question": "How much does a kitchen remodel typically cost in the UAE?",
+      "answer": "It varies based on materials, size, and scope. Basic updates might start from AED 15,000, while high-end remodels can exceed AED 50,000. Providers on Homezy offer transparent quotes after reviewing your project."
+    },
+    {
+      "question": "Can I stay in my home during the kitchen renovation?",
+      "answer": "Yes, but expect some disruption. Many providers on Homezy offer efficient timelines and phased renovations to minimize inconvenience."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "interior-design",
+      "title": "Interior Design"
+    },
+    {
+      "id": "turnkey-remodelling",
+      "title": "Turnkey Remodelling"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6590994/pexels-photo-6590994.jpeg",
+    "https://images.pexels.com/photos/6284232/pexels-photo-6284232.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Kitchen Remodelling",
+    "description": "Homezy connects UAE homeowners with kitchen remodelling experts for layout redesign, cabinetry upgrades, appliance installation, and full renovations.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Kitchen Remodelling Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Kitchen Design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Cabinet and Countertop Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Kitchen Renovation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/kitchen-remodelling-9308",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

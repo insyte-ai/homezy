@@ -1,0 +1,73 @@
+{
+  "metaTitle": "Structural Engineering Services in UAE | Homezy",
+  "metaDescription": "Find trusted structural engineering professionals on Homezy. Compare and hire top-rated service providers across UAE for your project needs.",
+  "keywords": "structural engineering, UAE structural engineering, engineering services UAE",
+  "headerImage": "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg",
+  "description": "Access top-tier structural engineering services for residential, commercial, and industrial projects across the UAE. From load calculations to structural analysis, find qualified professionals for safe and efficient builds.",
+  "benefits": [
+    "Thorough structural assessments",
+    "Compliant with UAE building regulations",
+    "Advanced software modeling",
+    "Support for both new builds and renovations"
+  ],
+  "whatToExpect": "After submitting a service request, you'll receive quotes from multiple vetted professionals listed on Homezy. You can compare profiles, read reviews, and select the expert who best fits your needs and timeline.",
+  "faqs": [
+    {
+      "question": "What kind of projects require structural engineers?",
+      "answer": "Any project involving major structural elements such as beams, foundations, and load-bearing walls should involve a structural engineer."
+    }
+  ],
+  "relatedServices": [],
+  "images": [
+    "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Structural Engineering",
+    "description": "Access top-tier structural engineering services for residential, commercial, and industrial projects across the UAE. From load calculations to structural analysis, find qualified professionals for safe and efficient builds.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Structural Engineering Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Structural Analysis"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Load Calculations"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Site Inspection Reports"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/structural-engineering",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  },
+  "id": "structural-engineering",
+  "title": "Structural Engineering"
+}

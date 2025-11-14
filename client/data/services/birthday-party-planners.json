@@ -1,0 +1,88 @@
+{
+  "id": "birthday-party-planners",
+  "title": "Birthday Party Planners",
+  "metaTitle": "Birthday Party Planners in UAE | Homezy",
+  "metaDescription": "Plan unforgettable birthday parties with ease. Find creative birthday party planners in the UAE through Homezy for kids, adults, and themed celebrations.",
+  "keywords": "birthday party planners UAE, kids party planner, themed birthday party, event planning UAE, birthday decorators",
+  "headerImage": "https://images.pexels.com/photos/5704313/pexels-photo-5704313.jpeg",
+  "description": "Throw a birthday bash to remember—whether it’s a magical kids’ party or a chic adult celebration. Homezy connects you with experienced birthday planners in the UAE who take care of every detail, from decorations and themes to entertainment and catering. Customize your experience based on your budget, venue, and guest list.",
+  "benefits": [
+    "End-to-end birthday planning services",
+    "Custom themes and decoration options",
+    "Entertainment, games, and party activities",
+    "Venue setup and vendor coordination",
+    "Stress-free celebration tailored to your vision"
+  ],
+  "whatToExpect": "Share your vision and preferences on Homezy to browse planning experts who offer curated packages. After an initial consultation, you'll receive proposals for themes, activities, decor, and more. You can then collaborate directly with your chosen planner to finalize all details.",
+  "faqs": [
+    {
+      "question": "Do planners provide birthday cakes and entertainment?",
+      "answer": "Most planners offer all-inclusive packages that cover cakes, entertainment, decorations, and more."
+    },
+    {
+      "question": "Can I choose a custom theme for the party?",
+      "answer": "Yes, planners offer theme-based setups that can be tailored to your child's or guest of honor's preferences."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "cake-decorators",
+      "title": "Cake Decorators"
+    },
+    {
+      "id": "djs",
+      "title": "DJs"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5704313/pexels-photo-5704313.jpeg",
+    "https://images.pexels.com/photos/6143479/pexels-photo-6143479.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Birthday Party Planners",
+    "description": "Homezy helps you find birthday party planners in the UAE who organize customized events with themes, decor, and entertainment.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Birthday Planning Packages",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Kids Birthday Party Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Adult Birthday Celebrations"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Theme Decoration and Entertainment"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/birthday-party-planners",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

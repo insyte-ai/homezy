@@ -1,0 +1,88 @@
+{
+  "id": "mixed-martial-arts-training",
+  "title": "Mixed Martial Arts Training",
+  "metaTitle": "Mixed Martial Arts (MMA) Training in UAE | Homezy",
+  "metaDescription": "Train in MMA with certified coaches in the UAE. Homezy helps you find instructors for boxing, kickboxing, Muay Thai, jiu-jitsu, and more—at home or in gyms.",
+  "keywords": "MMA training UAE, kickboxing coach, boxing lessons, martial arts classes, jiu-jitsu UAE",
+  "headerImage": "https://images.pexels.com/photos/4761794/pexels-photo-4761794.jpeg",
+  "description": "Looking to build strength, confidence, and discipline through martial arts? Homezy connects you with qualified MMA trainers across the UAE who offer structured training in boxing, kickboxing, jiu-jitsu, Muay Thai, and self-defense—available for kids, adults, and competitive fighters.",
+  "benefits": [
+    "Private or group MMA coaching",
+    "Training in various martial arts styles",
+    "Sessions for beginners to advanced levels",
+    "Improve fitness, flexibility, and mental focus",
+    "Available at home, gyms, or outdoor spaces"
+  ],
+  "whatToExpect": "Submit your training goals and availability on Homezy. You’ll receive offers from certified martial arts instructors. Compare backgrounds, styles, and rates to choose a trainer that fits your personal fitness or combat sport ambitions.",
+  "faqs": [
+    {
+      "question": "Do I need prior experience to start MMA?",
+      "answer": "No prior experience is required. Instructors on Homezy work with all levels and will design sessions that suit your pace and abilities."
+    },
+    {
+      "question": "Are kids' classes available?",
+      "answer": "Yes, many instructors offer specialized MMA programs for kids focused on discipline, coordination, and self-defense."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "personal-trainers",
+      "title": "Personal Trainers"
+    },
+    {
+      "id": "yoga",
+      "title": "Yoga"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4761794/pexels-photo-4761794.jpeg",
+    "https://images.pexels.com/photos/4761803/pexels-photo-4761803.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mixed Martial Arts Training",
+    "description": "Homezy connects you with MMA instructors across the UAE for personalized training in boxing, jiu-jitsu, Muay Thai, and other martial arts—suitable for beginners or pros.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "MMA Training Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private MMA Coaching"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Boxing and Kickboxing Training"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Children's Martial Arts Programs"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/mixed-martial-arts-training",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

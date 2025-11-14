@@ -1,0 +1,88 @@
+{
+  "id": "villa-renovation",
+  "title": "Villa Renovation",
+  "metaTitle": "Villa Renovation Services in UAE | Homezy",
+  "metaDescription": "Looking to renovate your villa? Find top-rated villa renovation experts on Homezy. Compare quotes, styles, and timelines for luxury and modern upgrades across UAE.",
+  "keywords": "villa renovation, home renovation UAE, luxury villa upgrade, villa remodeling, UAE renovation services",
+  "headerImage": "https://images.pexels.com/photos/7031404/pexels-photo-7031404.jpeg",
+  "description": "Whether you’re modernizing an older villa or upgrading to better suit your lifestyle, villa renovations demand vision, planning, and skilled execution. Homezy connects homeowners with UAE-based renovation experts who bring design inspiration to life while ensuring the work meets all structural and aesthetic goals.",
+  "benefits": [
+    "Access to experienced renovation specialists",
+    "Customized design plans to suit your villa's layout",
+    "End-to-end project management or individual contractor hiring",
+    "High-quality materials and craftsmanship",
+    "Options for luxury, sustainable, or minimalist design styles"
+  ],
+  "whatToExpect": "Submit a request with your renovation goals, and receive quotes and concepts from verified professionals. Homezy allows you to compare experience, portfolios, and timelines so you can confidently choose the right partner to transform your villa.",
+  "faqs": [
+    {
+      "question": "How long does a typical villa renovation take?",
+      "answer": "The timeline varies based on the scope—simple interior updates may take 1-2 months, while structural and full-scale renovations can take 3-6 months or more."
+    },
+    {
+      "question": "Do the listed professionals provide permits and approvals?",
+      "answer": "Many of the professionals on Homezy offer turnkey solutions including permit handling. You can confirm this service when reviewing their proposal."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "interior-design",
+      "title": "Interior Design"
+    },
+    {
+      "id": "landscaping",
+      "title": "Landscaping"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7031404/pexels-photo-7031404.jpeg",
+    "https://images.pexels.com/photos/5824892/pexels-photo-5824892.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Villa Renovation",
+    "description": "Connect with villa renovation experts on Homezy to upgrade, modernize, or expand your property with confidence across the UAE.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Villa Renovation Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Complete Villa Renovation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Interior Upgrades and Layout Redesign"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Exterior and Landscape Renovation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/villa-renovation-7173",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

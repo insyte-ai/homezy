@@ -1,0 +1,88 @@
+{
+  "id": "flooring",
+  "title": "Flooring",
+  "metaTitle": "Flooring Services in UAE | Homezy",
+  "metaDescription": "Find trusted flooring professionals in the UAE. Homezy connects you with experts for tile, hardwood, laminate, vinyl, and epoxy flooring installations and repairs.",
+  "keywords": "flooring services UAE, tile installation, vinyl flooring, wooden flooring, epoxy flooring UAE",
+  "headerImage": "https://images.pexels.com/photos/3682120/pexels-photo-3682120.jpeg",
+  "description": "Flooring sets the tone for your space—whether you're aiming for luxury, durability, or easy maintenance. On Homezy, you can find and compare flooring professionals who specialize in a wide range of materials and finishes, suited for both residential and commercial environments.",
+  "benefits": [
+    "Expert installation of tile, wood, vinyl, and epoxy floors",
+    "Moisture-resistant and heavy-duty options",
+    "Perfect for kitchens, bathrooms, living spaces, and offices",
+    "Repair and refinishing services available",
+    "Slip-resistant and eco-friendly material choices"
+  ],
+  "whatToExpect": "Share your space details and preferred materials on Homezy to receive quotes and samples from listed flooring experts. Review timelines, product warranties, and past projects to select the best fit for your style and budget.",
+  "faqs": [
+    {
+      "question": "What type of flooring is best for UAE climate?",
+      "answer": "Porcelain tiles, vinyl, and engineered wood are popular choices due to their resistance to heat and humidity."
+    },
+    {
+      "question": "Can I get a quote including materials and installation?",
+      "answer": "Yes, most professionals on Homezy provide full-package quotes that include both material costs and installation services."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "bathroom-remodelling",
+      "title": "Bathroom Remodelling"
+    },
+    {
+      "id": "kitchen-remodelling",
+      "title": "Kitchen Remodelling"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3682120/pexels-photo-3682120.jpeg",
+    "https://images.pexels.com/photos/6934306/pexels-photo-6934306.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Flooring",
+    "description": "Homezy connects you with flooring professionals across the UAE for tile, vinyl, laminate, wood, and epoxy floor installations and upgrades.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Flooring Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tile and Marble Flooring Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Vinyl and Laminate Flooring"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wood and Parquet Flooring"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/flooring",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "dog-walking",
+  "title": "Dog Walking",
+  "metaTitle": "Dog Walking Services in UAE | Homezy",
+  "metaDescription": "Need a dog walker? Homezy connects pet owners in the UAE with trusted dog walkers for daily walks, exercise, and companionship your dog will love.",
+  "keywords": "dog walking UAE, pet walker, dog exercise, daily dog walks, dog walker near me",
+  "headerImage": "https://images.pexels.com/photos/7210649/pexels-photo-7210649.jpeg",
+  "description": "Busy schedule? Let your pup stretch, play, and stay happy with the help of a trusted dog walker. Homezy connects you with experienced dog walkers across the UAE who offer reliable, safe, and friendly walks for all breeds and sizes—whether it’s once a day or a few times a week.",
+  "benefits": [
+    "Daily or scheduled dog walks",
+    "Experienced walkers familiar with all breeds",
+    "Walks tailored to your dog’s pace and energy level",
+    "Pet care updates and route tracking",
+    "Flexible booking for weekdays, weekends, and holidays"
+  ],
+  "whatToExpect": "List your dog’s walking needs on Homezy and get matched with nearby pet lovers. You’ll be able to compare availability, reviews, and service packages before choosing the right walker for your furry friend.",
+  "faqs": [
+    {
+      "question": "Are the dog walkers insured or trained?",
+      "answer": "Many walkers on Homezy have experience with animal care and may be insured or trained in pet first aid. Check profiles or confirm directly when booking."
+    },
+    {
+      "question": "Can I book multiple walks in advance?",
+      "answer": "Yes, most providers offer weekly or monthly packages for recurring walks, with flexible rescheduling options."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "pet-sitting",
+      "title": "Pet Sitting"
+    },
+    {
+      "id": "dog-training",
+      "title": "Dog Training"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7210649/pexels-photo-7210649.jpeg",
+    "https://images.pexels.com/photos/4587995/pexels-photo-4587995.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Dog Walking",
+    "description": "Homezy connects pet owners in the UAE with reliable dog walkers for daily walks, playtime, and companionship tailored to your pet’s needs.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Dog Walking Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Daily Dog Walking"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Weekend or Holiday Walks"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Recurring Weekly Packages"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/dog-walking",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

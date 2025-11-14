@@ -1,0 +1,73 @@
+{
+  "metaTitle": "Construction Engineering Services in UAE | Homezy",
+  "metaDescription": "Find trusted construction engineering professionals on Homezy. Compare and hire top-rated service providers across UAE for your project needs.",
+  "keywords": "construction engineering, UAE construction engineering, engineering services UAE",
+  "headerImage": "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg",
+  "description": "Find experienced construction engineers who can manage technical and structural aspects of building projects. Compare providers offering end-to-end project support and execution expertise.",
+  "benefits": [
+    "Qualified construction professionals",
+    "Streamlined project execution",
+    "Adherence to time and budget constraints",
+    "Integration with architectural and structural teams"
+  ],
+  "whatToExpect": "After submitting a service request, you'll receive quotes from multiple vetted professionals listed on Homezy. You can compare profiles, read reviews, and select the expert who best fits your needs and timeline.",
+  "faqs": [
+    {
+      "question": "Do construction engineers handle permits?",
+      "answer": "Most construction engineers can assist with obtaining necessary permits and ensuring that projects comply with regulations."
+    }
+  ],
+  "relatedServices": [],
+  "images": [
+    "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Construction Engineering",
+    "description": "Find experienced construction engineers who can manage technical and structural aspects of building projects. Compare providers offering end-to-end project support and execution expertise.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Construction Engineering Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Construction Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Project Coordination"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Site Supervision"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/construction-engineering",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  },
+  "id": "construction-engineering",
+  "title": "Construction Engineering"
+}

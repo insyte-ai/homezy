@@ -1,0 +1,88 @@
+{
+  "id": "turnkey-remodelling",
+  "title": "Turnkey Remodelling",
+  "metaTitle": "Turnkey Remodelling Services in UAE | Homezy",
+  "metaDescription": "Looking for a hassle-free renovation? Find turnkey remodelling specialists on Homezy who handle everything from design to delivery—perfect for busy homeowners in the UAE.",
+  "keywords": "turnkey remodelling, full home renovation UAE, turnkey contractors, all-in-one renovation, UAE home upgrade",
+  "headerImage": "https://images.pexels.com/photos/7018161/pexels-photo-7018161.jpeg",
+  "description": "Turnkey remodelling is the stress-free path to transforming your home. Whether upgrading a villa, apartment, or commercial unit, professionals on Homezy manage the entire renovation process—from initial concept and design to construction, finishing, and handover—so you don’t have to coordinate multiple vendors.",
+  "benefits": [
+    "One-stop solution for complete renovations",
+    "Single point of contact throughout the project",
+    "Clear timelines and fixed pricing options",
+    "Coordinated design, engineering, and execution",
+    "Ideal for busy homeowners or investment properties"
+  ],
+  "whatToExpect": "Post your renovation goals on Homezy and receive proposals from turnkey remodelling experts. These professionals present mood boards, budgets, and project timelines upfront. Once you select a provider, they handle everything—design, permits, construction, and handover—under one roof.",
+  "faqs": [
+    {
+      "question": "What is included in a turnkey remodelling service?",
+      "answer": "It typically includes interior design, structural changes, electrical and plumbing works, painting, flooring, and final decor—everything required to complete and deliver a ready-to-use space."
+    },
+    {
+      "question": "Is turnkey remodelling more expensive than traditional renovations?",
+      "answer": "While it may seem higher upfront, it often proves more cost-effective due to bundled pricing, fewer delays, and no need for separate contractor coordination."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "kitchen-remodelling",
+      "title": "Kitchen Remodelling"
+    },
+    {
+      "id": "bathroom-remodelling",
+      "title": "Bathroom Remodelling"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7018161/pexels-photo-7018161.jpeg",
+    "https://images.pexels.com/photos/6958118/pexels-photo-6958118.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Turnkey Remodelling",
+    "description": "Homezy connects UAE residents with turnkey remodelling providers who manage full-scale renovations from start to finish, delivering move-in-ready results.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Turnkey Remodelling Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full-Home Remodelling"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Design-to-Delivery Packages"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Project Planning and Execution"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/turnkey-remodelling-277",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

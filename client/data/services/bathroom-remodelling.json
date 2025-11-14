@@ -1,0 +1,88 @@
+{
+  "id": "bathroom-remodelling",
+  "title": "Bathroom Remodelling",
+  "metaTitle": "Bathroom Remodelling Services in UAE | Homezy",
+  "metaDescription": "Upgrade your bathroom with trusted remodelling experts in the UAE. Homezy helps you compare services for tiling, fixtures, layout changes, and full renovations.",
+  "keywords": "bathroom remodelling, bathroom renovation UAE, modern bathroom design, tile installation, bathroom upgrades UAE",
+  "headerImage": "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+  "description": "A bathroom remodel can elevate the comfort and value of your home. From spa-inspired designs to smart layout updates, Homezy connects UAE homeowners with experienced professionals who bring both aesthetics and functionality into every bathroom upgrade.",
+  "benefits": [
+    "Modern design and space optimization",
+    "Water-efficient fixtures and sustainable solutions",
+    "Professional tile, plumbing, and lighting upgrades",
+    "Accessible designs for all age groups",
+    "End-to-end remodelling or partial renovation options"
+  ],
+  "whatToExpect": "Submit your remodelling request through Homezy and get matched with licensed professionals. They’ll assess your space and provide detailed proposals with design layouts, material choices, and budget options. Choose the one that fits your vision and schedule.",
+  "faqs": [
+    {
+      "question": "How long does a typical bathroom renovation take?",
+      "answer": "Most standard bathroom renovations take 1 to 3 weeks depending on the complexity and material availability."
+    },
+    {
+      "question": "Can I remodel a small bathroom into a walk-in shower?",
+      "answer": "Yes, many listed providers specialize in compact designs and walk-in shower installations tailored for small spaces."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "plumbing",
+      "title": "Plumbing"
+    },
+    {
+      "id": "interior-design",
+      "title": "Interior Design"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+    "https://images.pexels.com/photos/7031408/pexels-photo-7031408.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Bathroom Remodelling",
+    "description": "Homezy connects you with experienced bathroom renovation experts across the UAE for full or partial remodels that combine style and function.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Bathroom Remodelling Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Complete Bathroom Remodel"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tile and Fixture Upgrade"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Walk-in Shower Installation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/bathroom-remodelling",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

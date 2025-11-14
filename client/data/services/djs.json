@@ -1,0 +1,88 @@
+{
+  "id": "djs",
+  "title": "DJs",
+  "metaTitle": "Hire DJs for Events in UAE | Homezy",
+  "metaDescription": "Liven up your event with professional DJ services. Discover top DJs in the UAE for weddings, birthdays, corporate parties, and more on Homezy.",
+  "keywords": "hire DJ UAE, party DJ, wedding DJ, corporate event DJ, birthday DJ UAE",
+  "headerImage": "https://images.pexels.com/photos/1649380/pexels-photo-1649380.jpeg",
+  "description": "Get the crowd moving with expert DJs who know how to read the room and bring the energy. Whether it's a wedding reception, birthday celebration, or corporate gathering, Homezy connects you with experienced DJs in the UAE who offer tailored music experiences to match your event's vibe.",
+  "benefits": [
+    "Wide range of music genres",
+    "High-quality sound systems",
+    "Lighting and visual effects (optional)",
+    "Personalized playlists",
+    "DJ services for all event types"
+  ],
+  "whatToExpect": "List your event on Homezy and get matched with DJs who suit your preferred music style, budget, and guest vibe. You'll be able to preview sample mixes and discuss setup logistics directly with the provider before the big day.",
+  "faqs": [
+    {
+      "question": "Can I request specific songs or playlists?",
+      "answer": "Yes, most DJs allow custom song requests and will work with you to curate the perfect playlist."
+    },
+    {
+      "question": "Do DJs bring their own sound equipment?",
+      "answer": "Yes, DJs typically provide their own setup, but this can be confirmed when booking through Homezy."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "audio-video-specialists",
+      "title": "Audio Video Specialists"
+    },
+    {
+      "id": "birthday-party-planners",
+      "title": "Birthday Party Planners"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1649380/pexels-photo-1649380.jpeg",
+    "https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "DJs",
+    "description": "Homezy connects you with professional DJs in the UAE for events of all types, offering customized music experiences and equipment setup.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "DJ Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wedding and Reception DJ Services"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Birthday and Private Party DJs"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate Event DJ Packages"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/djs",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

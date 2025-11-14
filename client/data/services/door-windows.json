@@ -1,0 +1,88 @@
+{
+  "id": "door-windows",
+  "title": "Door & Windows",
+  "metaTitle": "Door & Window Installation Services in UAE | Homezy",
+  "metaDescription": "Upgrade your home with professional door and window services. Homezy connects you with trusted installers for wooden, aluminum, and uPVC windows and doors in the UAE.",
+  "keywords": "door installation UAE, window replacement, aluminum windows, wooden doors, window repair UAE",
+  "headerImage": "https://images.pexels.com/photos/4496275/pexels-photo-4496275.jpeg",
+  "description": "Doors and windows impact not just how your home looks—but also how it performs in terms of insulation, noise reduction, and security. Homezy makes it easy to find and compare door and window installers across the UAE who offer everything from modern sliding systems to traditional wooden designs.",
+  "benefits": [
+    "Variety of styles: wooden, aluminum, uPVC, and glass",
+    "Thermal and acoustic insulation options",
+    "Secure locking systems for safety",
+    "Custom sizes and finishes",
+    "Repair, replacement, and new installations"
+  ],
+  "whatToExpect": "List your installation or repair needs on Homezy and receive offers from experienced service providers. You'll be able to browse portfolios, compare prices, and book consultations to ensure the perfect fit and finish for your space.",
+  "faqs": [
+    {
+      "question": "Can I replace old windows without damaging the walls?",
+      "answer": "Yes, most modern systems are designed for clean retrofitting with minimal damage. Service providers will assess and suggest the best approach."
+    },
+    {
+      "question": "Do these services include custom design or only standard sizes?",
+      "answer": "Many providers on Homezy offer made-to-measure solutions that match your design preferences and architectural requirements."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "interior-design",
+      "title": "Interior Design"
+    },
+    {
+      "id": "villa-renovation",
+      "title": "Villa Renovation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4496275/pexels-photo-4496275.jpeg",
+    "https://images.pexels.com/photos/6585763/pexels-photo-6585763.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Door & Windows",
+    "description": "Homezy helps homeowners in the UAE find qualified professionals for door and window installation, repairs, and upgrades using quality materials and secure systems.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Door & Window Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "New Door and Window Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Door and Window Replacement"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Lock and Hardware Upgrades"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/door-windows",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

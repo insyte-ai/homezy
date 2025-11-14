@@ -1,0 +1,88 @@
+{
+  "id": "business-setup",
+  "title": "Business Setup",
+  "metaTitle": "Business Setup Services in UAE | Homezy",
+  "metaDescription": "Start your business in the UAE with ease. Homezy connects you with licensed consultants for free zone, mainland, and offshore company formation.",
+  "keywords": "business setup UAE, company formation, free zone business, mainland license UAE, start a business in Dubai",
+  "headerImage": "https://images.pexels.com/photos/3183172/pexels-photo-3183172.jpeg",
+  "description": "Launching a business in the UAE involves key decisions around licensing, location, and regulations. Homezy helps aspiring entrepreneurs and companies connect with experienced business setup consultants who streamline the process—whether you're forming a free zone, mainland, or offshore company.",
+  "benefits": [
+    "Assistance with company formation and licensing",
+    "Mainland, free zone, and offshore setup options",
+    "Guidance on legal, visa, and PRO services",
+    "Tailored advice based on business activity",
+    "End-to-end support from paperwork to launch"
+  ],
+  "whatToExpect": "Submit your business idea and requirements on Homezy. Get matched with licensed consultants who provide detailed proposals outlining costs, timelines, and documentation needed to register your company in the UAE.",
+  "faqs": [
+    {
+      "question": "What's the difference between mainland and free zone setup?",
+      "answer": "Mainland companies can operate across the UAE and internationally, while free zone setups are cost-effective and often cater to niche industries with location-specific benefits."
+    },
+    {
+      "question": "Can consultants help with visa processing and bank accounts?",
+      "answer": "Yes, many listed consultants provide full PRO services, including assistance with visas, bank account opening, and office leasing."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "accountants",
+      "title": "Accountants"
+    },
+    {
+      "id": "digital-marketing",
+      "title": "Digital Marketing"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3183172/pexels-photo-3183172.jpeg",
+    "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Business Setup",
+    "description": "Connect with experienced UAE consultants on Homezy for company formation, licensing, and end-to-end business setup services across free zone, mainland, and offshore options.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Business Setup Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mainland Company Formation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Free Zone and Offshore Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Business License and Visa Assistance"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/business-setup",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

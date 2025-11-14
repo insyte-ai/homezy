@@ -1,0 +1,88 @@
+{
+  "id": "hair-makeup-artists",
+  "title": "Hair and Makeup Artists",
+  "metaTitle": "Hair & Makeup Artists in UAE | Homezy",
+  "metaDescription": "Book professional hair and makeup artists in the UAE for weddings, photoshoots, and special events. Find top-rated beauty experts through Homezy.",
+  "keywords": "makeup artist UAE, bridal makeup UAE, hair stylist UAE, event makeup, professional beauty services",
+  "headerImage": "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg",
+  "description": "Look and feel your best for every occasion. Whether it's your wedding day, a photo shoot, or a glamorous night out, Homezy helps you find skilled hair and makeup artists in the UAE. Discover specialists in bridal beauty, editorial looks, and event styling—available for both in-salon and on-location appointments.",
+  "benefits": [
+    "Bridal, event, and editorial styling",
+    "At-home or salon-based appointments",
+    "High-quality, skin-safe products",
+    "Customized looks based on face shape and skin tone",
+    "Pre-event trials and consultations available"
+  ],
+  "whatToExpect": "Submit your event type, date, and preferred style on Homezy. Get matched with artists offering trial sessions, portfolio previews, and service packages tailored to your occasion. Choose from traditional, glam, or natural makeup finishes with optional hairstyling add-ons.",
+  "faqs": [
+    {
+      "question": "Can I book a trial session before my event?",
+      "answer": "Yes, many artists offer trial makeup and hairstyle sessions to finalize the look before your big day."
+    },
+    {
+      "question": "Are the services available at my location?",
+      "answer": "Most providers offer both in-salon and on-location services. You can specify your preference when making a booking request."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "photo-videographers",
+      "title": "Photo and Videographers"
+    },
+    {
+      "id": "birthday-party-planners",
+      "title": "Birthday Party Planners"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg",
+    "https://images.pexels.com/photos/3993450/pexels-photo-3993450.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Hair and Makeup Artists",
+    "description": "Find professional hair and makeup artists in the UAE for bridal looks, photoshoots, and special occasions with Homezy.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Beauty and Styling Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bridal Hair and Makeup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event and Party Makeup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "On-Location Styling Services"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/hair-makeup-artists",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

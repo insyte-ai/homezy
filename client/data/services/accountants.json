@@ -1,0 +1,88 @@
+{
+  "id": "accountants",
+  "title": "Accountants",
+  "metaTitle": "Accounting Services in UAE | Homezy",
+  "metaDescription": "Find certified accountants in the UAE through Homezy. Get help with bookkeeping, VAT filing, audits, payroll, and financial reporting for your business.",
+  "keywords": "accountants UAE, bookkeeping services, VAT filing UAE, payroll support, small business accounting",
+  "headerImage": "https://images.pexels.com/photos/4386371/pexels-photo-4386371.jpeg",
+  "description": "From startup bookkeeping to complex audits, Homezy connects UAE businesses with experienced accountants and accounting firms. Whether you need VAT compliance, payroll management, or monthly financial reporting, find experts who understand local laws and can keep your finances in order.",
+  "benefits": [
+    "Bookkeeping and account reconciliation",
+    "VAT registration and filing",
+    "Monthly, quarterly, and annual financial reports",
+    "Payroll setup and salary disbursements",
+    "Audit preparation and financial consulting"
+  ],
+  "whatToExpect": "Post your accounting needs on Homezy and get quotes from licensed professionals or firms. Review their specialties, pricing, and client reviews to hire the right fit for your business size and complexity.",
+  "faqs": [
+    {
+      "question": "Can I hire an accountant for just VAT filing?",
+      "answer": "Yes, many accountants on Homezy offer modular services such as VAT-only support, payroll, or annual audit prep without a full retainer."
+    },
+    {
+      "question": "Do they support accounting software integration?",
+      "answer": "Most accountants work with tools like QuickBooks, Zoho Books, and Tally. Be sure to check with the provider during your initial discussion."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "business-setup",
+      "title": "Business Setup"
+    },
+    {
+      "id": "digital-marketing",
+      "title": "Digital Marketing"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4386371/pexels-photo-4386371.jpeg",
+    "https://images.pexels.com/photos/4386464/pexels-photo-4386464.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Accountants",
+    "description": "Homezy connects businesses in the UAE with licensed accountants for bookkeeping, VAT filing, payroll, and audit-ready financial services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Accounting Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bookkeeping and Payroll Services"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "VAT Filing and Compliance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Financial Reporting and Advisory"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/accountants",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

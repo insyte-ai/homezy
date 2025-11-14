@@ -1,0 +1,88 @@
+{
+  "id": "pest-control",
+  "title": "Pest Control",
+  "metaTitle": "Pest Control Services in UAE | Homezy",
+  "metaDescription": "Protect your home or business with professional pest control services in the UAE. Find licensed providers on Homezy for insects, rodents, and more.",
+  "keywords": "pest control UAE, termite treatment, cockroach control, rodent removal, pest inspection Dubai, pest exterminator",
+  "headerImage": "https://images.pexels.com/photos/5386593/pexels-photo-5386593.jpeg",
+  "description": "Get peace of mind with pest control services that eliminate unwanted guests from your home or workplace. On Homezy, you’ll find licensed pest control providers across the UAE who specialize in treating infestations of insects, rodents, and other pests. Whether it’s a one-time job or a recurring maintenance plan, effective and safe solutions are just a few clicks away.",
+  "benefits": [
+    "Treatment for cockroaches, termites, ants, rodents, and more",
+    "Safe and approved chemicals used",
+    "Odorless and child-safe options available",
+    "Residential and commercial coverage",
+    "Prevention strategies to avoid re-infestation"
+  ],
+  "whatToExpect": "List your pest issues on Homezy and receive quotes from certified pest control companies. A typical process includes site inspection, treatment planning, and post-treatment guidance. Options include one-time treatments or ongoing plans.",
+  "faqs": [
+    {
+      "question": "Is pest control safe for pets and children?",
+      "answer": "Yes, many providers offer pet- and child-safe treatment options using approved, low-toxicity chemicals. You can request these specifically when booking."
+    },
+    {
+      "question": "How long does pest control last?",
+      "answer": "It depends on the pest type and treatment method, but most treatments remain effective for 2–6 months. Recurring plans can provide longer protection."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    },
+    {
+      "id": "amc",
+      "title": "AMC (Annual Maintenance Contracts)"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5386593/pexels-photo-5386593.jpeg",
+    "https://images.pexels.com/photos/8843811/pexels-photo-8843811.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Pest Control",
+    "description": "Homezy connects UAE residents with certified pest control services to treat and prevent infestations from insects, rodents, and other pests.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Pest Control Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "General Pest Control (Cockroaches, Ants, etc.)"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Termite Treatment and Prevention"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Rodent Control and Exclusion"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/pest-control-2249",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

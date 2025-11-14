@@ -1,0 +1,88 @@
+{
+  "id": "home-theatre-system",
+  "title": "Home Theatre System",
+  "metaTitle": "Home Theatre Installation Services in UAE | Homezy",
+  "metaDescription": "Enjoy the ultimate cinema experience at home with professional theatre system setups. Compare top UAE service providers on Homezy today.",
+  "keywords": "home theatre UAE, home cinema setup, surround sound installation, smart TV integration, custom media room",
+  "headerImage": "https://images.pexels.com/photos/838707/pexels-photo-838707.jpeg",
+  "description": "Turn your living room into a private cinema with customized home theatre systems. Homezy connects you with trusted providers across the UAE who specialize in designing and installing surround sound, high-definition visuals, and integrated control systems for an immersive entertainment experience.",
+  "benefits": [
+    "Immersive surround sound and HD video setup",
+    "Custom room design and acoustic treatment",
+    "Smart control integration with remotes or apps",
+    "Wall-mounted or ceiling projector installations",
+    "Ideal for movie nights, gaming, and sports events"
+  ],
+  "whatToExpect": "Share your entertainment preferences on Homezy to get matched with expert AV installers. Providers offer design consultations, recommend ideal speaker and screen setups, and handle professional installation tailored to your space and budget.",
+  "faqs": [
+    {
+      "question": "Can I convert any room into a home theatre?",
+      "answer": "Yes, providers can work with various room types and sizes, offering acoustic treatments and layout suggestions to optimize your setup."
+    },
+    {
+      "question": "Do I need a projector or can I use a large TV?",
+      "answer": "Both options are available. Your provider will help you decide based on room size, viewing preferences, and lighting conditions."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-audio",
+      "title": "Home Audio"
+    },
+    {
+      "id": "home-automation",
+      "title": "Home Automation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/838707/pexels-photo-838707.jpeg",
+    "https://images.pexels.com/photos/1457854/pexels-photo-1457854.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Home Theatre System",
+    "description": "Homezy helps you find top-rated UAE providers for custom home theatre installations, including surround sound, projectors, and smart controls.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Home Theatre System Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Home Theatre Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Projector and Screen Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Acoustic and Lighting Optimization"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/home-theatre-system-9394",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

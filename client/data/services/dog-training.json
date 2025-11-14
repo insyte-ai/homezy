@@ -1,0 +1,89 @@
+{
+    "id": "dog-training",
+    "title": "Dog Training",
+    "metaTitle": "Dog Training Services in UAE | Homezy",
+    "metaDescription": "Connect with certified dog trainers across the UAE for personalized obedience, behavior correction, and puppy training programs.",
+    "keywords": "dog training UAE, puppy training, dog obedience, dog behavior correction, dog trainer near me",
+    "headerImage": "https://images.pexels.com/photos/5731864/pexels-photo-5731864.jpeg",
+    "description": "Looking for reliable dog training in the UAE? Homezy connects you with certified dog trainers who specialize in everything from basic obedience to advanced behavioral correction. Whether you’ve just adopted a new puppy or need help with an older dog, our professionals are ready to help your furry friend become their best self.",
+    "benefits": [
+      "Puppy training & socialization",
+      "Leash walking & recall training",
+      "Behavioral issue correction (barking, biting, aggression)",
+      "Potty training support",
+      "One-on-one and group training options"
+    ],
+    "whatToExpect": "Post your training needs on Homezy and connect with nearby professionals. Browse trainer profiles, check availability, and choose the right expert to help guide your dog toward better behavior.",
+    "faqs": [
+      {
+        "question": "What types of training are available?",
+        "answer": "Trainers offer basic obedience, behavioral correction, puppy training, and customized programs based on your dog’s age, breed, and temperament."
+      },
+      {
+        "question": "Can sessions take place at home?",
+        "answer": "Yes, many trainers offer in-home sessions or will meet you at a park or dog-friendly space. Check the trainer’s profile for details."
+      }
+    ],
+    "relatedServices": [
+      {
+        "id": "dog-walking",
+        "title": "Dog Walking"
+      },
+      {
+        "id": "overnight-pet-care",
+        "title": "Overnight Pet Care"
+      }
+    ],
+    "images": [
+      "https://images.pexels.com/photos/5731864/pexels-photo-5731864.jpeg",
+      "https://images.pexels.com/photos/7210287/pexels-photo-7210287.jpeg"
+    ],
+    "schema": {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Dog Training",
+      "description": "Homezy connects pet owners in the UAE with certified dog trainers for obedience training, behavioral issues, and puppy development programs.",
+      "provider": {
+        "@type": "Organization",
+        "name": "Homezy"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United Arab Emirates"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Dog Training Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Basic Obedience Training"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Puppy Training & Socialization"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Behavioral Correction Sessions"
+            }
+          }
+        ]
+      },
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceUrl": "https://www.homezy.co/services/dog-training",
+        "servicePhone": "+971800HOMEZY",
+        "serviceSmsNumber": "+971800HOMEZY"
+      }
+    }
+  }
+  

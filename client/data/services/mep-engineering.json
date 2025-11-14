@@ -1,0 +1,73 @@
+{
+  "metaTitle": "MEP Engineering Services in UAE | Homezy",
+  "metaDescription": "Find trusted mep engineering professionals on Homezy. Compare and hire top-rated service providers across UAE for your project needs.",
+  "keywords": "mep engineering, UAE mep engineering, engineering services UAE",
+  "headerImage": "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg",
+  "description": "Connect with certified MEP engineers specializing in mechanical, electrical, and plumbing systems. Homezy lists professionals who ensure comfort, safety, and efficiency in every building design.",
+  "benefits": [
+    "Integrated mechanical, electrical & plumbing design",
+    "Energy-efficient and sustainable solutions",
+    "Coordination with architects and builders",
+    "System optimization and cost control"
+  ],
+  "whatToExpect": "After submitting a service request, you'll receive quotes from multiple vetted professionals listed on Homezy. You can compare profiles, read reviews, and select the expert who best fits your needs and timeline.",
+  "faqs": [
+    {
+      "question": "What does an MEP engineer do?",
+      "answer": "They design and oversee mechanical, electrical, and plumbing systems in a building to ensure they function efficiently and comply with local codes."
+    }
+  ],
+  "relatedServices": [],
+  "images": [
+    "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "MEP Engineering",
+    "description": "Connect with certified MEP engineers specializing in mechanical, electrical, and plumbing systems. Homezy lists professionals who ensure comfort, safety, and efficiency in every building design.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "MEP Engineering Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "HVAC System Design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Electrical Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Plumbing Layouts"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/mep-engineering",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  },
+  "id": "mep-engineering",
+  "title": "MEP Engineering"
+}

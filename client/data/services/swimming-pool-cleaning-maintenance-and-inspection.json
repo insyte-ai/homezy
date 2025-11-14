@@ -1,0 +1,88 @@
+{
+  "id": "swimming-pool-cleaning",
+  "title": "Swimming Pool Cleaning, Maintenance, and Inspection",
+  "metaTitle": "Swimming Pool Cleaning & Maintenance Services in UAE | Homezy",
+  "metaDescription": "Keep your pool sparkling and safe with expert cleaning, maintenance, and inspection services across the UAE. Book through Homezy today.",
+  "keywords": "swimming pool cleaning UAE, pool maintenance, pool inspection, pool water treatment, pool cleaning service Dubai, pool vacuuming",
+  "headerImage": "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg",
+  "description": "Make sure your swimming pool stays crystal-clear and safe all year round. With Homezy, you can find trusted professionals in the UAE offering pool cleaning, regular maintenance, and safety inspections. Whether it’s a private backyard pool or a commercial one, get expert care for water balance, filter systems, and more.",
+  "benefits": [
+    "Routine cleaning to remove debris and prevent algae",
+    "Water testing and chemical balancing",
+    "Filter and pump inspection and maintenance",
+    "Leak detection and repair recommendations",
+    "Certified inspection reports for safety compliance"
+  ],
+  "whatToExpect": "Post your service request on Homezy and receive quotes from verified pool maintenance providers. Services can include regular cleaning schedules, emergency clean-ups, seasonal opening/closing, or one-time inspections.",
+  "faqs": [
+    {
+      "question": "How often should I clean my pool?",
+      "answer": "Weekly cleaning and chemical balancing is ideal, but this can vary depending on pool size, usage, and environmental exposure."
+    },
+    {
+      "question": "Do I need to empty the pool for maintenance?",
+      "answer": "Not usually. Most maintenance tasks like vacuuming, chemical treatment, and equipment checks can be performed without draining the pool."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "equipment-supply-installation",
+      "title": "Equipment Supply & Installation"
+    },
+    {
+      "id": "landscape-maintenance",
+      "title": "Landscape Maintenance"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg",
+    "https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Swimming Pool Cleaning, Maintenance, and Inspection",
+    "description": "Homezy helps you connect with professional pool care experts across the UAE for regular cleaning, maintenance, and safety inspections.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Swimming Pool Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pool Cleaning and Skimming"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Chemical Balancing and Water Testing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pool Equipment Inspection and Maintenance"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/swimming-pool-cleaning-maintenance-and-inspection-199",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

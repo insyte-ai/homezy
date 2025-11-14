@@ -1,0 +1,88 @@
+{
+  "id": "loan-mortgage-consultants",
+  "title": "Loan and Mortgage Consultants",
+  "metaTitle": "Loan & Mortgage Consultants in UAE | Homezy",
+  "metaDescription": "Find expert mortgage advisors in the UAE through Homezy. Compare offers and get help with home loans, refinancing, and real estate financing.",
+  "keywords": "mortgage consultant UAE, home loan advisor, refinance UAE, property loan UAE, real estate financing",
+  "headerImage": "https://images.pexels.com/photos/4386370/pexels-photo-4386370.jpeg",
+  "description": "Navigating property loans in the UAE can be complex—Homezy makes it easier by connecting you with experienced loan and mortgage consultants. Whether you're a first-time buyer, investor, or looking to refinance, these experts help you understand eligibility, compare bank offers, and secure the best financing options for your property goals.",
+  "benefits": [
+    "Access to multiple lenders and mortgage options",
+    "Support with paperwork and pre-approvals",
+    "Advice on interest rates, terms, and hidden fees",
+    "Tailored recommendations based on your finances",
+    "Guidance through the UAE property finance process"
+  ],
+  "whatToExpect": "Submit your property financing needs on Homezy to get matched with certified mortgage consultants. They’ll assess your profile, recommend suitable banks or lenders, and assist in documentation and negotiation.",
+  "faqs": [
+    {
+      "question": "Can I get pre-approval through a consultant?",
+      "answer": "Yes, many consultants can help you obtain a pre-approval letter from lenders to streamline your property search and transaction."
+    },
+    {
+      "question": "Do consultants charge a fee?",
+      "answer": "Some consultants charge a service fee, while others may be compensated by lenders. It's best to clarify this upfront with the provider."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "property-management",
+      "title": "Property Management"
+    },
+    {
+      "id": "real-estate-agencies",
+      "title": "Real Estate Agencies"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4386370/pexels-photo-4386370.jpeg",
+    "https://images.pexels.com/photos/4386368/pexels-photo-4386368.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Loan and Mortgage Consultants",
+    "description": "Homezy connects UAE property buyers with licensed mortgage consultants for guidance on home loans, refinancing, and property financing.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Mortgage Advisory Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Home Loan Advisory"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mortgage Pre-Approval Assistance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Loan Refinance Consultation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/loan-and-mortgage-consultants-6250",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

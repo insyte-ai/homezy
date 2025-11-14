@@ -1,0 +1,88 @@
+{
+  "id": "real-estate-agencies",
+  "title": "Real Estate Agencies",
+  "metaTitle": "Top Real Estate Agencies in UAE | Homezy",
+  "metaDescription": "Connect with trusted real estate agencies in the UAE via Homezy. Whether buying, selling, or renting, compare top-rated agents to help you find the right property.",
+  "keywords": "real estate agencies UAE, property agents UAE, buy property UAE, rent apartment UAE, sell home UAE",
+  "headerImage": "https://images.pexels.com/photos/8293777/pexels-photo-8293777.jpeg",
+  "description": "Whether you're buying, selling, or renting property in the UAE, the right real estate agency can make all the difference. Homezy helps you find licensed and reviewed real estate agencies that specialize in local markets—from luxury villas in Dubai to family apartments in Abu Dhabi. Get expert advice, property listings, and help through every stage of the transaction.",
+  "benefits": [
+    "Access to verified property listings",
+    "Expert negotiation and transaction support",
+    "Local market insights and pricing advice",
+    "Help with legal paperwork and contracts",
+    "Support for residential, commercial, and rental properties"
+  ],
+  "whatToExpect": "List your property needs or goals on Homezy and browse agencies that match your criteria. You'll receive options for in-person or virtual consultations, and can choose based on area expertise, property type, or client reviews.",
+  "faqs": [
+    {
+      "question": "Can I list my property for sale or rent?",
+      "answer": "Yes, many agencies offer listing services and will help market your property to attract buyers or tenants."
+    },
+    {
+      "question": "Do agents handle the legal work?",
+      "answer": "Most agencies assist with drafting and reviewing legal contracts, and ensure transactions comply with UAE property laws."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "loan-mortgage-consultants",
+      "title": "Loan and Mortgage Consultants"
+    },
+    {
+      "id": "property-management",
+      "title": "Property Management"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/8293777/pexels-photo-8293777.jpeg",
+    "https://images.pexels.com/photos/8293776/pexels-photo-8293776.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Real Estate Agencies",
+    "description": "Homezy connects users with licensed real estate agencies in the UAE offering services for property buying, selling, and rental assistance.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Real Estate Agency Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Property Buying Assistance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Home Selling Support"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Rental Search and Listings"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/real-estate-agencies-311",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "id": "overnight-pet-care",
+  "title": "Overnight Pet Care",
+  "metaTitle": "Overnight Pet Care Services in UAE | Homezy",
+  "metaDescription": "Need overnight care for your pets? Homezy connects you with trusted pet sitters in the UAE who provide safe and loving care while you’re away.",
+  "keywords": "overnight pet care UAE, pet sitting, dog boarding, cat sitter, pet sitter near me",
+  "headerImage": "https://images.pexels.com/photos/6869636/pexels-photo-6869636.jpeg",
+  "description": "Heading out of town? Homezy makes it easy to find reliable overnight pet care in the UAE. We connect you with trusted pet sitters who treat your pets like family—right in the comfort of your own home or at the sitter’s location.",
+  "benefits": [
+    "Overnight stays at your home or sitter's home",
+    "Feeding, walking & playtime",
+    "Administering medication if needed",
+    "Regular updates and photo check-ins",
+    "Peace of mind while you're away"
+  ],
+  "whatToExpect": "Share your pet’s care needs on Homezy and choose from verified sitters nearby. You’ll be able to review profiles, ratings, and services offered before confirming your booking.",
+  "faqs": [
+    {
+      "question": "Can I book overnight stays at the sitter’s home?",
+      "answer": "Yes, many sitters offer both in-home and hosted overnight care options. Check their profile to see what’s available."
+    },
+    {
+      "question": "Will my pet be left alone overnight?",
+      "answer": "No, overnight sitters stay with your pet to ensure continuous care and companionship throughout the night."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "pet-sitting",
+      "title": "Pet Sitting"
+    },
+    {
+      "id": "dog-walking",
+      "title": "Dog Walking"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6869636/pexels-photo-6869636.jpeg",
+    "https://images.pexels.com/photos/7487763/pexels-photo-7487763.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Overnight Pet Care",
+    "description": "Homezy connects pet owners in the UAE with trusted pet sitters for overnight care at home or at the sitter’s residence.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Overnight Pet Care Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "In-Home Overnight Pet Sitting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Hosted Overnight Pet Boarding"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/overnight-pet-care",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

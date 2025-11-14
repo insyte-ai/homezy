@@ -1,0 +1,88 @@
+{
+  "id": "catering",
+  "title": "Catering",
+  "metaTitle": "Catering Services in UAE | Homezy",
+  "metaDescription": "Find top-rated catering services in the UAE for weddings, parties, and corporate events. Explore menu options and book through Homezy with ease.",
+  "keywords": "catering UAE, event catering, wedding catering, party food UAE, buffet catering",
+  "headerImage": "https://images.pexels.com/photos/587741/pexels-photo-587741.jpeg",
+  "description": "Delight your guests with delicious food tailored to your event. Whether it's a lavish wedding, casual birthday, or high-end corporate gathering, Homezy connects you with UAE-based catering providers offering everything from finger foods and buffets to plated fine dining—customized to your cuisine preferences and dietary needs.",
+  "benefits": [
+    "Customizable menus for all event types",
+    "Experienced staff and on-site service",
+    "Buffet, plated, and live station options",
+    "International and regional cuisine choices",
+    "Vegan, vegetarian, and allergen-sensitive menus"
+  ],
+  "whatToExpect": "Post your event details on Homezy and get matched with catering providers offering sample menus, tasting sessions, and full event-day service. Packages can include chefs, servers, equipment rental, and more based on your event scale.",
+  "faqs": [
+    {
+      "question": "Do caterers provide staff for serving?",
+      "answer": "Yes, most catering companies include trained service staff in their packages, especially for larger events."
+    },
+    {
+      "question": "Can I customize the menu based on dietary needs?",
+      "answer": "Absolutely. Most caterers offer menu customization to accommodate dietary restrictions, allergies, and personal preferences."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "cake-decorators",
+      "title": "Cake Decorators"
+    },
+    {
+      "id": "bartenders",
+      "title": "Bartenders"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/587741/pexels-photo-587741.jpeg",
+    "https://images.pexels.com/photos/64208/pexels-photo-64208.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Catering",
+    "description": "Homezy helps you find catering services in the UAE for weddings, private parties, and corporate events, with customizable menus and full-service staff.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Catering Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wedding and Event Catering"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Buffet and Live Station Catering"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate and Private Party Menus"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/catering",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

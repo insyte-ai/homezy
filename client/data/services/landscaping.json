@@ -1,0 +1,88 @@
+{
+  "id": "landscaping",
+  "title": "Landscaping",
+  "metaTitle": "Landscaping Services in UAE | Homezy",
+  "metaDescription": "Design the perfect outdoor space with trusted landscaping experts in the UAE. Homezy connects you with pros for gardens, lawns, irrigation, and outdoor living areas.",
+  "keywords": "landscaping services, garden design UAE, outdoor spaces, lawn care, landscape contractors",
+  "headerImage": "https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg",
+  "description": "From serene backyard gardens to grand villa entrances, professional landscaping transforms any outdoor space into a personalized oasis. Homezy makes it easy to find and compare UAE-based landscaping contractors who specialize in everything from softscape and hardscape to irrigation systems and lighting design.",
+  "benefits": [
+    "Custom garden and outdoor design",
+    "Installation of irrigation and drainage systems",
+    "Expert plant selection for UAE climate",
+    "Paving, decking, and outdoor lighting options",
+    "Year-round maintenance plans available"
+  ],
+  "whatToExpect": "Post your landscaping needs on Homezy and get offers from vetted professionals. You'll receive design ideas, cost breakdowns, and project timelines—making it easy to choose a provider who understands your vision and delivers results.",
+  "faqs": [
+    {
+      "question": "Do landscaping services include maintenance?",
+      "answer": "Yes, many providers offer ongoing maintenance packages alongside initial installation. You can choose a one-time project or a monthly upkeep plan."
+    },
+    {
+      "question": "Can I install a garden with artificial turf?",
+      "answer": "Absolutely. Artificial turf is a popular choice in the UAE for low-maintenance green spaces, and many providers on Homezy specialize in its installation."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "landscape-maintenance",
+      "title": "Landscape Maintenance"
+    },
+    {
+      "id": "pergola-awning-shade",
+      "title": "Pergola, Awnings & Shade Sails"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg",
+    "https://images.pexels.com/photos/450036/pexels-photo-450036.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Landscaping",
+    "description": "Homezy connects UAE homeowners with professional landscapers for garden design, outdoor living spaces, irrigation, and landscape lighting.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Landscaping Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Garden and Softscape Design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Hardscape and Outdoor Structures"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Irrigation and Lighting Systems"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/landscaping-8064",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

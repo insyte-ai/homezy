@@ -1,0 +1,88 @@
+{
+  "id": "digital-marketing",
+  "title": "Digital Marketing",
+  "metaTitle": "Digital Marketing Services in UAE | Homezy",
+  "metaDescription": "Grow your business online with expert digital marketers in the UAE. Homezy connects you with professionals for SEO, social media, PPC, and content marketing.",
+  "keywords": "digital marketing UAE, SEO services, social media marketing, online advertising, content marketing UAE",
+  "headerImage": "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg",
+  "description": "Whether you're launching a new business or looking to boost online visibility, Homezy connects you with experienced digital marketing professionals across the UAE. From SEO and paid ads to content strategy and social media management, listed experts offer tailored campaigns that drive real results.",
+  "benefits": [
+    "SEO and website optimization",
+    "Social media management and growth",
+    "Google Ads and paid campaigns (PPC)",
+    "Email marketing and lead generation",
+    "Performance tracking and monthly reports"
+  ],
+  "whatToExpect": "Post your business goals and budget on Homezy. Get matched with marketing specialists who propose strategy outlines, timelines, and ROI expectations. Compare services and reviews to find the right partner for your digital growth.",
+  "faqs": [
+    {
+      "question": "Can I hire for specific platforms like Instagram or Google Ads only?",
+      "answer": "Yes, you can hire digital marketers who specialize in specific services such as Instagram growth, SEO, or PPC-only campaigns."
+    },
+    {
+      "question": "Will I get reports on campaign performance?",
+      "answer": "Most professionals on Homezy provide regular reports with insights on engagement, conversions, traffic, and ROI to help you track progress."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "website-developers",
+      "title": "Website Developers"
+    },
+    {
+      "id": "business-setup",
+      "title": "Business Setup"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg",
+    "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Digital Marketing",
+    "description": "Hire digital marketing experts in the UAE through Homezy for SEO, social media marketing, PPC advertising, and content-driven campaigns tailored to business goals.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Digital Marketing Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Search Engine Optimization (SEO)"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Social Media Marketing (SMM)"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pay-Per-Click Advertising (PPC)"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/digital-marketing",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

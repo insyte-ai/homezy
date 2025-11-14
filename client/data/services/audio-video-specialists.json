@@ -1,0 +1,88 @@
+{
+  "id": "audio-video-specialists",
+  "title": "Audio Video Specialists",
+  "metaTitle": "Audio Video Specialists in UAE | Homezy",
+  "metaDescription": "Set up the perfect AV environment for your home or event. Homezy helps you find audio-video specialists in the UAE for installations, upgrades, and system integration.",
+  "keywords": "audio video UAE, AV setup, AV integration, sound and video installation, event AV support",
+  "headerImage": "https://images.pexels.com/photos/1661004/pexels-photo-1661004.jpeg",
+  "description": "Whether you're setting up a professional home theater, managing AV for a corporate event, or upgrading your living room sound system, Homezy connects you with skilled audio-video specialists in the UAE. These experts help with planning, equipment installation, calibration, and integration to deliver an immersive audio-visual experience.",
+  "benefits": [
+    "Customized AV system setup",
+    "Home and event installation support",
+    "Seamless device and platform integration",
+    "High-performance sound and display calibration",
+    "Support for both residential and commercial needs"
+  ],
+  "whatToExpect": "Submit your AV requirements through Homezy and receive quotes from vetted specialists. Depending on your project scope, providers may visit your site to evaluate acoustics, wiring needs, and equipment compatibility before presenting a detailed installation plan.",
+  "faqs": [
+    {
+      "question": "Can specialists help integrate my AV system with smart home devices?",
+      "answer": "Yes, many AV specialists offer integration services with platforms like Alexa, Google Home, and Apple HomeKit."
+    },
+    {
+      "question": "Is on-site assessment required for AV installation?",
+      "answer": "For larger or customized projects, an on-site visit is usually needed to ensure optimal setup and equipment placement."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "djs",
+      "title": "DJs"
+    },
+    {
+      "id": "home-theatre-system",
+      "title": "Home Theatre System"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1661004/pexels-photo-1661004.jpeg",
+    "https://images.pexels.com/photos/2111017/pexels-photo-2111017.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Audio Video Specialists",
+    "description": "Find expert audio-video specialists in the UAE through Homezy for installation, upgrades, and integration across residential and commercial spaces.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Audio Video Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Home AV System Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event AV Setup and Support"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Smart Home AV Integration"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/audio-video-specialists",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "pet-sitting",
+  "title": "Pet Sitting",
+  "metaTitle": "Pet Sitting Services in UAE | Homezy",
+  "metaDescription": "Heading out of town? Find trusted pet sitters in the UAE on Homezy. Book in-home or drop-in sitting services for cats, dogs, birds, and more.",
+  "keywords": "pet sitting UAE, in-home pet care, cat sitter, dog sitter, pet boarding alternative",
+  "headerImage": "https://images.pexels.com/photos/977659/pexels-photo-977659.jpeg",
+  "description": "Going on a trip or working late? Ensure your pets are safe, loved, and cared for in your absence with reliable pet sitting services. Homezy connects you with UAE-based pet sitters who offer in-home care, feeding, playtime, and companionship for dogs, cats, birds, and small animals.",
+  "benefits": [
+    "Trusted sitters for all common household pets",
+    "In-home visits or full-day stays",
+    "Feeding, cleaning, and play routines",
+    "Medication administration if needed",
+    "Stress-free alternative to pet boarding"
+  ],
+  "whatToExpect": "Share your pet’s needs and schedule on Homezy. You’ll receive offers from experienced sitters nearby. View their profiles, rates, and reviews to book the best fit for your pet’s personality and routine.",
+  "faqs": [
+    {
+      "question": "Can I meet the sitter before booking?",
+      "answer": "Yes, many pet sitters offer a free meet-and-greet session to ensure a good match between the sitter and your pet."
+    },
+    {
+      "question": "Do pet sitters stay overnight?",
+      "answer": "Some sitters offer overnight stays, while others do multiple daily visits. You can choose the arrangement that works best for your pet."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "dog-walking",
+      "title": "Dog Walking"
+    },
+    {
+      "id": "overnight-pet-care",
+      "title": "Overnight Pet Care"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/977659/pexels-photo-977659.jpeg",
+    "https://images.pexels.com/photos/5731861/pexels-photo-5731861.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Pet Sitting",
+    "description": "Book reliable pet sitters in the UAE through Homezy for in-home pet care, feeding, and companionship while you're away or at work.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Pet Sitting Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Daily Pet Sitting Visits"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Overnight In-Home Sitting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Medication and Special Needs Care"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/pet-sitting",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

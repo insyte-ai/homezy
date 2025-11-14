@@ -1,0 +1,88 @@
+{
+  "id": "above-ground-swimming-pool-installation",
+  "title": "Above Ground Swimming Pool Installation",
+  "metaTitle": "Above Ground Swimming Pool Installation in UAE | Homezy",
+  "metaDescription": "Quick and cost-effective above ground pool installation services across the UAE. Compare providers and get quotes via Homezy.",
+  "keywords": "above ground pool UAE, portable pool setup, backyard pool installation, swimming pool contractors UAE, quick pool installation",
+  "headerImage": "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg",
+  "description": "Get your backyard ready for year-round relaxation with fast and flexible above ground swimming pool installation. Homezy connects you with experienced UAE-based providers who handle everything from site prep and frame assembly to water systems and safety setup.",
+  "benefits": [
+    "Faster installation compared to in-ground pools",
+    "Budget-friendly and space-efficient options",
+    "Minimal excavation or structural changes required",
+    "Easy disassembly and relocation if needed",
+    "Options for decks, safety fencing, and water features"
+  ],
+  "whatToExpect": "Post your pool size and space requirements on Homezy. Providers will assess your site, recommend suitable pool models, and take care of full installation including filters, liners, and optional decking or covers.",
+  "faqs": [
+    {
+      "question": "How long does it take to install an above ground pool?",
+      "answer": "Most above ground pools can be installed in 1 to 3 days, depending on size and additional features."
+    },
+    {
+      "question": "Are above ground pools durable in UAE weather?",
+      "answer": "Yes, modern materials and UV-resistant coatings make above ground pools well-suited for UAE's climate. Maintenance helps extend their lifespan."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "equipment-supply-installation",
+      "title": "Equipment Supply & Installation"
+    },
+    {
+      "id": "swimming-pool-cleaning",
+      "title": "Swimming Pool Cleaning and Maintenance"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg",
+    "https://images.pexels.com/photos/1642125/pexels-photo-1642125.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Above Ground Swimming Pool Installation",
+    "description": "Find UAE professionals on Homezy to install above ground swimming pools with quick setup, optional features, and full filtration systems.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Above Ground Pool Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pool Frame Assembly and Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Filtration and Pump System Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deck and Safety Accessory Installation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/above-ground-swimming-pool-installation",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

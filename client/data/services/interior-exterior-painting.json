@@ -1,0 +1,88 @@
+{
+  "id": "interior-exterior-painting",
+  "title": "Interior & Exterior Painting",
+  "metaTitle": "Interior & Exterior Painting Services in UAE | Homezy",
+  "metaDescription": "Refresh your home or office with top-rated painting services in the UAE. Homezy connects you with reliable painters for both interior and exterior projects.",
+  "keywords": "painting services UAE, interior painting, exterior painting, home painting, wall painters",
+  "headerImage": "https://images.pexels.com/photos/7218521/pexels-photo-7218521.jpeg",
+  "description": "Whether you're changing the color scheme indoors or weather-proofing your exterior walls, professional painting can dramatically upgrade your property’s appeal. Homezy connects UAE homeowners with painters who offer clean finishes, quality materials, and fast turnaround—backed by reviews and transparent pricing.",
+  "benefits": [
+    "Clean, professional wall finishes",
+    "Interior and exterior painting options",
+    "Wide range of paints, colors, and textures",
+    "Wall preparation, patching, and priming included",
+    "Quick turnaround with minimal disruption"
+  ],
+  "whatToExpect": "List your painting needs and preferred colors on Homezy. You'll receive quotes from experienced painters who offer site visits and free consultations. After comparing offers, choose your service provider and schedule the job at your convenience.",
+  "faqs": [
+    {
+      "question": "Do painters listed on Homezy supply materials?",
+      "answer": "Yes, most painters provide all necessary materials including paint, brushes, and drop cloths, unless you specify otherwise."
+    },
+    {
+      "question": "How long does a typical home painting project take?",
+      "answer": "Interior rooms may be completed in 1–2 days each, while full villa or exterior projects may take up to a week depending on size and prep work."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "interior-design",
+      "title": "Interior Design"
+    },
+    {
+      "id": "villa-renovation",
+      "title": "Villa Renovation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7218521/pexels-photo-7218521.jpeg",
+    "https://images.pexels.com/photos/6474454/pexels-photo-6474454.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Interior & Exterior Painting",
+    "description": "Connect with top-rated painters in the UAE through Homezy for professional interior and exterior painting services with clean finishes and lasting results.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Painting Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Interior Wall Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Exterior Building Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Texture and Accent Wall Painting"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/interior-exterior-painting",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

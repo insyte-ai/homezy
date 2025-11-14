@@ -1,0 +1,88 @@
+{
+  "id": "projector-installation",
+  "title": "Projector Installation",
+  "metaTitle": "Projector Installation Services in UAE | Homezy",
+  "metaDescription": "Professional projector setup for homes, offices, and events. Discover UAE-based experts for ceiling mounting, calibration, and AV integration on Homezy.",
+  "keywords": "projector installation UAE, home projector setup, ceiling mounted projector, AV installation, office projector system",
+  "headerImage": "https://images.pexels.com/photos/7991375/pexels-photo-7991375.jpeg",
+  "description": "Enhance your home cinema, meeting room, or event space with professionally installed projector systems. Through Homezy, you can connect with UAE providers who handle everything from ceiling mounts and screen placement to AV calibration for optimal viewing quality.",
+  "benefits": [
+    "Precise projector and screen alignment",
+    "Ceiling mounting with cable concealment",
+    "AV system integration with speakers and controls",
+    "Calibration for lighting and screen size",
+    "Suitable for homes, offices, and event venues"
+  ],
+  "whatToExpect": "List your space details and viewing needs on Homezy to get matched with experienced installers. Providers will visit for assessment, recommend equipment if needed, and handle installation to ensure high-quality visuals and sound.",
+  "faqs": [
+    {
+      "question": "Can a projector be installed in a living room?",
+      "answer": "Yes, installers can design setups that work well in living rooms, with adjustable lighting and space-saving mounts."
+    },
+    {
+      "question": "Is it possible to connect a projector to smart home systems?",
+      "answer": "Absolutely. Projectors can be integrated with smart control systems for seamless operation through apps or voice commands."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-theatre-system",
+      "title": "Home Theatre System"
+    },
+    {
+      "id": "office-automation",
+      "title": "Office Automation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7991375/pexels-photo-7991375.jpeg",
+    "https://images.pexels.com/photos/7991334/pexels-photo-7991334.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Projector Installation",
+    "description": "Homezy connects you with UAE professionals for projector installation in homes, offices, and events, including mounting, AV setup, and screen calibration.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Projector Installation Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Home Projector Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Office Presentation System Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event Space AV Integration"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/projector-installation-5020",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

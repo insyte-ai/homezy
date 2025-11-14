@@ -1,0 +1,88 @@
+{
+  "id": "cake-decorators",
+  "title": "Cake Decorators",
+  "metaTitle": "Cake Decorators in UAE for Custom Cakes | Homezy",
+  "metaDescription": "Find talented cake decorators in the UAE for weddings, birthdays, and special events. Homezy connects you with custom cake artists for all occasions.",
+  "keywords": "cake decorators UAE, custom cakes, wedding cake, birthday cake, themed cakes UAE",
+  "headerImage": "https://images.pexels.com/photos/264892/pexels-photo-264892.jpeg",
+  "description": "Make your celebration unforgettable with beautifully crafted cakes tailored to your theme and taste. Whether it’s a wedding, birthday, baby shower, or corporate event, Homezy helps you find creative cake decorators in the UAE who specialize in designing and baking custom cakes that wow both in looks and flavor.",
+  "benefits": [
+    "Custom designs for any event theme",
+    "Cakes for weddings, birthdays, and corporate events",
+    "Options for dietary preferences (gluten-free, vegan, etc.)",
+    "Delivery and on-site setup available",
+    "Edible printing, sugar art, and fondant work"
+  ],
+  "whatToExpect": "Post your cake ideas or event theme on Homezy and get matched with decorators who provide consultations, sketches, and tastings before crafting your custom creation. Most providers offer delivery and event-day setup to ensure a flawless presentation.",
+  "faqs": [
+    {
+      "question": "Can I request a specific design or character for the cake?",
+      "answer": "Yes, decorators specialize in custom themes and can bring your vision to life, including characters, logos, or intricate fondant work."
+    },
+    {
+      "question": "Do decorators accommodate special dietary needs?",
+      "answer": "Many do! Options such as eggless, vegan, and gluten-free are available—just mention your requirements during your request."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "birthday-party-planners",
+      "title": "Birthday Party Planners"
+    },
+    {
+      "id": "florists",
+      "title": "Florists"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/264892/pexels-photo-264892.jpeg",
+    "https://images.pexels.com/photos/3776940/pexels-photo-3776940.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Cake Decorators",
+    "description": "Discover custom cake decorators in the UAE for all occasions. From weddings to themed birthdays, find expert bakers through Homezy.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Cake Decorating Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Wedding Cakes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Birthday and Themed Cakes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate Event Cakes"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/cake-decorators",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

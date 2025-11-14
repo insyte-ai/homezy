@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Architecture Engineering Services in UAE | Homezy",
+  "metaDescription": "Expert architecture engineering services for residential and commercial projects in UAE. Design, planning, and implementation by licensed professionals.",
+  "keywords": "architecture engineering, building design, architectural planning, UAE engineering services",
+  "headerImage": "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg",
+  "description": "Our Architecture Engineering services provide innovative and efficient design solutions tailored to your needs. From initial concept to final construction, we deliver functionality, sustainability, and aesthetics in every project.",
+  "benefits": [
+    "Innovative and sustainable design solutions",
+    "Experienced and licensed architectural engineers",
+    "Comprehensive planning and project supervision",
+    "Regulatory compliance and permit handling",
+    "3D visualizations and advanced design tools"
+  ],
+  "whatToExpect": "Upon booking, our team will conduct a consultation to understand your project goals. We provide concept sketches, 3D models, and technical documentation. You\u2019ll be involved throughout the design and implementation phases for smooth execution.",
+  "faqs": [
+    {
+      "question": "What does your architecture engineering service include?",
+      "answer": "It includes site analysis, concept design, 3D modeling, detailed drawings, regulatory approvals, and construction supervision."
+    },
+    {
+      "question": "Do you work on both residential and commercial projects?",
+      "answer": "Yes, we handle a wide range of projects including villas, apartments, offices, and retail spaces."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "structural-engineering",
+      "title": "Structural Engineering"
+    },
+    {
+      "id": "interior-design",
+      "title": "Interior Design"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Architecture Engineering",
+    "description": "Our Architecture Engineering services provide innovative and efficient design solutions tailored to your needs. From initial concept to final construction, we deliver functionality, sustainability, and aesthetics in every project.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Architecture Engineering Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Concept Design and Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Construction Documentation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/architecture-engineering",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  },
+  "id": "architecture-engineering",
+  "title": "Architecture Engineering"
+}

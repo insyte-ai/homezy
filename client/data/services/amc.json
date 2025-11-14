@@ -1,0 +1,88 @@
+{
+  "id": "amc",
+  "title": "Annual Maintenance Contracts (AMC)",
+  "metaTitle": "Annual Maintenance Contracts in UAE | Homezy",
+  "metaDescription": "Keep your property in top shape year-round with trusted AMC providers in the UAE. Compare quotes on Homezy for AC, electrical, plumbing, and more.",
+  "keywords": "AMC UAE, annual maintenance UAE, AC maintenance contract, plumbing maintenance, home maintenance UAE",
+  "headerImage": "https://images.pexels.com/photos/8091233/pexels-photo-8091233.jpeg",
+  "description": "Ensure peace of mind and hassle-free property upkeep with Annual Maintenance Contracts (AMCs). On Homezy, you can find verified UAE service providers offering routine inspections, repairs, and emergency support across key systems like air conditioning, plumbing, electrical, and general maintenance—all under one plan.",
+  "benefits": [
+    "Scheduled preventive maintenance",
+    "Emergency support for breakdowns",
+    "Coverage for AC, plumbing, and electrical systems",
+    "Cost-effective long-term solutions",
+    "Priority service from registered technicians"
+  ],
+  "whatToExpect": "Post your maintenance needs on Homezy and get tailored AMC proposals from trusted providers. Contracts typically include quarterly or bi-annual checkups, 24/7 support, and discounted repair services.",
+  "faqs": [
+    {
+      "question": "What does an AMC typically include?",
+      "answer": "Most AMCs cover preventive maintenance and minor repairs for ACs, plumbing, and electrical systems. Some providers offer customized plans based on property type and size."
+    },
+    {
+      "question": "Can I get emergency service with an AMC?",
+      "answer": "Yes, many contracts include emergency call-outs and prioritized service for urgent issues like AC failures or plumbing leaks."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "pest-control",
+      "title": "Pest Control"
+    },
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/8091233/pexels-photo-8091233.jpeg",
+    "https://images.pexels.com/photos/5598294/pexels-photo-5598294.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Annual Maintenance Contracts (AMC)",
+    "description": "Homezy connects property owners in the UAE with AMC providers for year-round maintenance of HVAC, electrical, and plumbing systems.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Annual Maintenance Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "HVAC Maintenance Contracts"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Electrical and Lighting Maintenance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Plumbing and Fixture Maintenance"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/amc",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

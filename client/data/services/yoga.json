@@ -1,0 +1,88 @@
+{
+  "id": "yoga",
+  "title": "Yoga",
+  "metaTitle": "Yoga Instructors in UAE | Homezy",
+  "metaDescription": "Book private or group yoga classes in the UAE through Homezy. Connect with certified instructors for Hatha, Vinyasa, prenatal, or meditation-based yoga.",
+  "keywords": "yoga classes UAE, private yoga instructor, online yoga session, hatha yoga, prenatal yoga UAE",
+  "headerImage": "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg",
+  "description": "Whether you're new to yoga or deepening your practice, Homezy connects you with certified yoga instructors across the UAE. Choose from private home sessions, online classes, or group outdoor flows in styles like Hatha, Vinyasa, Yin, and prenatal yoga. Get the flexibility and calm your mind and body deserve.",
+  "benefits": [
+    "In-home or virtual yoga sessions",
+    "Certified instructors for all levels and ages",
+    "Styles include Hatha, Vinyasa, Yin, and prenatal yoga",
+    "Focus on flexibility, balance, strength, or mindfulness",
+    "Great for stress relief, injury recovery, and general wellness"
+  ],
+  "whatToExpect": "Post your preferences and schedule on Homezy to receive quotes from yoga instructors. Compare teaching styles, class types, and session lengths before choosing your instructor.",
+  "faqs": [
+    {
+      "question": "Can I take yoga classes at home?",
+      "answer": "Yes, many instructors offer private home sessions or virtual classes via video calls—ideal for personalized attention and flexibility."
+    },
+    {
+      "question": "Is yoga suitable for beginners?",
+      "answer": "Absolutely. Instructors adapt each session based on your experience, mobility, and goals, whether you're a beginner or advanced practitioner."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "personal-trainers",
+      "title": "Personal Trainers"
+    },
+    {
+      "id": "personal-dietitian",
+      "title": "Personal Dietitian"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg",
+    "https://images.pexels.com/photos/317157/pexels-photo-317157.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Yoga",
+    "description": "Find certified yoga instructors across the UAE on Homezy for private, online, or group classes in various yoga styles tailored to your goals.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Yoga Instruction Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Yoga Sessions at Home"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Online Yoga and Meditation Classes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Group Yoga Events and Workshops"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/yoga",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

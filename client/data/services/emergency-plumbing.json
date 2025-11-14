@@ -1,0 +1,88 @@
+{
+  "id": "emergency-plumbing",
+  "title": "Emergency Plumbing",
+  "metaTitle": "24/7 Emergency Plumbing Services in UAE | Homezy",
+  "metaDescription": "Burst pipes? Overflowing drains? Homezy helps you find 24/7 emergency plumbers across the UAE for fast and reliable plumbing repairs—day or night.",
+  "keywords": "emergency plumber UAE, 24/7 plumbing repair, urgent leak fix, burst pipe service, after-hours plumber",
+  "headerImage": "https://images.pexels.com/photos/6238615/pexels-photo-6238615.jpeg",
+  "description": "Plumbing emergencies can strike anytime—burst pipes, flooding drains, or sudden leaks. Homezy connects you with UAE-based emergency plumbers available 24/7 to respond fast and prevent further damage. Compare response times, availability, and service ratings before booking urgent help.",
+  "benefits": [
+    "24/7 availability, including holidays",
+    "Fast response for leaks, clogs, and water heater issues",
+    "Certified professionals equipped for urgent repairs",
+    "Damage control to protect your property",
+    "Transparent pricing with no surprise fees"
+  ],
+  "whatToExpect": "Post your emergency on Homezy and instantly receive offers from nearby emergency plumbers. Professionals typically respond within 60 minutes and come equipped to fix most issues on the spot.",
+  "faqs": [
+    {
+      "question": "What qualifies as a plumbing emergency?",
+      "answer": "Any situation causing water damage, health risks, or service disruption—like burst pipes, overflowing toilets, or major leaks—should be treated as an emergency."
+    },
+    {
+      "question": "How quickly can someone arrive?",
+      "answer": "Response times vary by location and availability, but many emergency plumbers on Homezy aim to arrive within an hour of your call."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "plumbing-pipe-repair",
+      "title": "Plumbing Pipe Repair"
+    },
+    {
+      "id": "plumbing-drain-repair",
+      "title": "Plumbing Drain Repair"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6238615/pexels-photo-6238615.jpeg",
+    "https://images.pexels.com/photos/5691604/pexels-photo-5691604.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Emergency Plumbing",
+    "description": "Get urgent plumbing help with Homezy. Connect with 24/7 emergency plumbers in the UAE for fast, reliable repairs of leaks, clogs, and burst pipes.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Emergency Plumbing Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Leak and Burst Pipe Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Clogged Drain Response"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "After-Hours Plumbing Inspection"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/emergency-plumbing",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

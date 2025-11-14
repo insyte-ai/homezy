@@ -1,0 +1,114 @@
+{
+  "id": "home-cleaning",
+  "title": "Home Cleaning Services",
+  "metaTitle": "Professional Home Cleaning Services in UAE | Homezy",
+  "metaDescription": "Reliable home cleaning services in Dubai, Abu Dhabi and across UAE. Regular, deep cleaning, and specialized cleaning services by trained professionals. Book online today!",
+  "keywords": "home cleaning, house cleaning, maid service, deep cleaning, move-in cleaning, move-out cleaning, regular cleaning, UAE cleaning services",
+  "headerImage": "https://images.pexels.com/photos/4107108/pexels-photo-4107108.jpeg",
+  "description": "Our professional home cleaning services provide thorough, reliable cleaning solutions for homes of all sizes. From regular maintenance cleaning to deep cleaning and specialized services, our trained cleaning professionals deliver exceptional results using eco-friendly products and advanced techniques. We customize our services to meet your specific needs and schedule.",
+  "benefits": [
+    "Trained and background-checked cleaning professionals",
+    "Eco-friendly cleaning products and methods",
+    "Customizable cleaning plans to fit your needs",
+    "Flexible scheduling including weekends",
+    "Satisfaction guarantee on all services",
+    "Insured and bonded cleaning teams"
+  ],
+  "whatToExpect": "When you book our home cleaning service, our professional team will arrive at your scheduled time with all necessary cleaning supplies and equipment. Before starting, they'll discuss your specific requirements and areas of focus. Our standard cleaning includes dusting, vacuuming, mopping, bathroom sanitizing, kitchen cleaning, and general tidying. Deep cleaning services include additional tasks like interior cabinet cleaning, baseboards, ceiling fans, and more. After completion, you'll have the opportunity to inspect the work and provide feedback.",
+  "faqs": [
+    {
+      "question": "How often should I schedule home cleaning services?",
+      "answer": "The frequency depends on your household's needs. For homes with children, pets, or high traffic, weekly cleaning is recommended. For smaller households or less frequent use, bi-weekly or monthly services may be sufficient. We offer flexible scheduling to accommodate your specific needs."
+    },
+    {
+      "question": "What's the difference between regular cleaning and deep cleaning?",
+      "answer": "Regular cleaning focuses on maintaining cleanliness through routine tasks like dusting, vacuuming, mopping, and surface cleaning in kitchens and bathrooms. Deep cleaning is more thorough and includes all regular cleaning tasks plus detailed attention to areas that aren't cleaned regularly, such as behind appliances, inside cabinets, baseboards, ceiling fans, window tracks, scale removal, and more."
+    },
+    {
+      "question": "Do I need to provide cleaning supplies?",
+      "answer": "No, our cleaning teams bring all necessary professional-grade cleaning supplies and equipment. We use eco-friendly products that are effective yet safe for your family and pets. If you prefer specific products or have special requirements due to allergies or preferences, please let us know in advance."
+    },
+    {
+      "question": "How long does a typical cleaning service take?",
+      "answer": "The duration depends on the size of your home and the type of service. For a standard 2-bedroom apartment, regular cleaning typically takes 2-3 hours with a team of two cleaners. Deep cleaning the same space might take 4-5 hours. Larger homes or those requiring specialized services will take longer."
+    },
+    {
+      "question": "Do I need to be home during the cleaning service?",
+      "answer": "It's not necessary to be present during the cleaning service. Many clients provide a key or arrange for building access. However, for first-time services, we recommend being present at the beginning to discuss specific requirements and at the end to inspect the results. All our cleaning professionals are thoroughly vetted, background-checked, and insured for your peace of mind."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "deep-cleaning",
+      "title": "Deep Cleaning"
+    },
+    {
+      "id": "move-in-cleaning",
+      "title": "Move-in/Move-out Cleaning"
+    },
+    {
+      "id": "carpet-cleaning",
+      "title": "Carpet Cleaning"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4107108/pexels-photo-4107108.jpeg",
+    "https://images.pexels.com/photos/4107097/pexels-photo-4107097.jpeg",
+    "https://images.pexels.com/photos/4107099/pexels-photo-4107099.jpeg",
+    "https://images.pexels.com/photos/4107112/pexels-photo-4107112.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Home Cleaning Services",
+    "description": "Professional home cleaning services including regular maintenance, deep cleaning, and specialized cleaning by trained professionals.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Home Cleaning Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Regular Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deep Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Move-in/Move-out Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Specialized Cleaning"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/home-cleaning-9669",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

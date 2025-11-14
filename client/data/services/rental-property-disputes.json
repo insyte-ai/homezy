@@ -1,0 +1,88 @@
+{
+  "id": "rental-property-disputes",
+  "title": "Rental and Property Disputes",
+  "metaTitle": "Rental and Property Legal Services in UAE | Homezy",
+  "metaDescription": "Facing a rental or property dispute? Homezy connects you with experienced legal professionals in the UAE for fast and effective solutions.",
+  "keywords": "rental disputes UAE, property disputes, tenancy issues, eviction legal help, landlord tenant law",
+  "headerImage": "https://images.pexels.com/photos/5668483/pexels-photo-5668483.jpeg",
+  "description": "Facing a rental dispute or property-related legal issue in the UAE? Homezy connects you with experienced legal professionals who specialize in real estate law. Whether you’re a landlord or a tenant, get the legal support you need—fast, reliable, and hassle-free.",
+  "benefits": [
+    "Expert advice on rental disputes and tenancy law",
+    "Eviction cases and contract violations",
+    "Help with security deposit disagreements",
+    "Legal representation and documentation support",
+    "Available across Dubai, Abu Dhabi, and Sharjah"
+  ],
+  "whatToExpect": "Submit your legal concern through Homezy and get matched with qualified legal advisors in your area. Review their credentials, fees, and experience before booking your consultation.",
+  "faqs": [
+    {
+      "question": "Do you offer landlord and tenant legal support?",
+      "answer": "Yes, our legal partners assist both landlords and tenants with contract disputes, eviction notices, and other real estate matters."
+    },
+    {
+      "question": "How much does legal consultation cost?",
+      "answer": "Rates vary depending on the case complexity. You'll see the consultation fee and service scope clearly before confirming."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "legal-consultation",
+      "title": "Legal Consultation"
+    },
+    {
+      "id": "document-attestation",
+      "title": "Document Attestation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5668483/pexels-photo-5668483.jpeg",
+    "https://images.pexels.com/photos/7876323/pexels-photo-7876323.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Rental and Property Disputes",
+    "description": "Homezy connects UAE residents with legal experts for rental disputes, eviction cases, and property-related legal matters.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Rental & Property Legal Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Rental Dispute Consultation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Eviction and Contract Legal Help"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Security Deposit Dispute Support"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/rental-property-disputes",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

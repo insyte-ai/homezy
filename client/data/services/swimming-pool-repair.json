@@ -1,0 +1,88 @@
+{
+  "id": "swimming-pool-repair",
+  "title": "Swimming Pool Repair",
+  "metaTitle": "Swimming Pool Repair Services in UAE | Homezy",
+  "metaDescription": "Fix pool leaks, cracks, pump issues, and damaged tiles with help from expert repair services in the UAE. Find and compare providers on Homezy.",
+  "keywords": "swimming pool repair UAE, pool leak fixing, tile repair, pump malfunction, pool surface crack, pool repair services",
+  "headerImage": "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg",
+  "description": "Restore your swimming pool to perfect working condition with professional repair services. Homezy connects you with trusted pool technicians across the UAE who specialize in leak detection, structural fixes, equipment troubleshooting, and aesthetic repairs for both in-ground and above ground pools.",
+  "benefits": [
+    "Prompt leak detection and sealing",
+    "Pump and filtration system repairs",
+    "Crack sealing and surface refinishing",
+    "Tile, liner, and coping stone replacements",
+    "Safety compliance and system checks"
+  ],
+  "whatToExpect": "Describe the issues you're facing on Homezy to receive quotes from verified pool repair specialists. Providers will perform an inspection, recommend fixes, and carry out repairs with quality materials and workmanship.",
+  "faqs": [
+    {
+      "question": "What are common signs my pool needs repair?",
+      "answer": "Common signs include visible cracks, water level drops, cloudy or unclean water, and unusual noises from pumps or filters."
+    },
+    {
+      "question": "Can pool repairs be done without draining the water?",
+      "answer": "Some minor repairs, like certain leak fixes or equipment replacements, can be done without full drainage. Your provider will assess the best approach."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "swimming-pool-cleaning",
+      "title": "Swimming Pool Cleaning and Maintenance"
+    },
+    {
+      "id": "equipment-supply-installation",
+      "title": "Equipment Supply & Installation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg",
+    "https://images.pexels.com/photos/261326/pexels-photo-261326.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Swimming Pool Repair",
+    "description": "Find professional swimming pool repair services across the UAE with Homezy. Get help fixing leaks, pumps, tiles, and surface damage.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Swimming Pool Repair Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Leak Detection and Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pump and Filter Fixes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tile and Surface Restoration"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/swimming-pool-repair-5544",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "wifi-networking",
+  "title": "Wi-Fi and Networking",
+  "metaTitle": "Wi-Fi and Home Networking Services in UAE | Homezy",
+  "metaDescription": "Upgrade your internet setup with reliable Wi-Fi and networking solutions. Homezy connects you with top-rated UAE providers for home and office network installation.",
+  "keywords": "Wi-Fi installation UAE, home networking setup, mesh network UAE, router setup, internet connection services",
+  "headerImage": "https://images.pexels.com/photos/5082565/pexels-photo-5082565.jpeg",
+  "description": "Keep your home or office connected with strong, stable, and secure internet coverage. Homezy helps you find professional network technicians in the UAE who specialize in Wi-Fi setup, mesh networks, and Ethernet cabling—ideal for streaming, gaming, and smart home devices.",
+  "benefits": [
+    "Fast and stable internet coverage in all rooms",
+    "Mesh Wi-Fi for large homes or villas",
+    "Expert router placement and configuration",
+    "Secure network setup with parental controls",
+    "Support for smart home and office devices"
+  ],
+  "whatToExpect": "Submit your connectivity needs on Homezy and get matched with networking specialists. After a consultation, providers will recommend a custom setup, install your equipment, and ensure optimal performance across all areas.",
+  "faqs": [
+    {
+      "question": "Can you help fix weak Wi-Fi signals in some rooms?",
+      "answer": "Yes, providers can analyze signal strength and install boosters or mesh systems to eliminate dead zones."
+    },
+    {
+      "question": "Do I need new equipment for better internet?",
+      "answer": "Not always. Technicians will assess your current setup and advise if upgrades are needed to meet your speed and coverage goals."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-automation",
+      "title": "Home Automation"
+    },
+    {
+      "id": "security-cameras-alarms",
+      "title": "Security Cameras and Alarms Install"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5082565/pexels-photo-5082565.jpeg",
+    "https://images.pexels.com/photos/4421520/pexels-photo-4421520.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Wi-Fi and Networking",
+    "description": "Connect with UAE network specialists on Homezy for Wi-Fi installation, mesh systems, and home or office network setup and troubleshooting.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Networking and Wi-Fi Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wi-Fi Setup and Configuration"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mesh Network Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wired Network and Router Solutions"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/wi-fi-and-networking",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

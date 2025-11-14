@@ -1,0 +1,88 @@
+{
+  "id": "personal-trainers",
+  "title": "Personal Trainers",
+  "metaTitle": "Personal Trainers in UAE | Homezy",
+  "metaDescription": "Looking to get fit? Homezy connects you with certified personal trainers across the UAE for strength, weight loss, and home workouts tailored to your goals.",
+  "keywords": "personal trainer UAE, fitness coach, at-home workout, weight loss trainer, strength training coach",
+  "headerImage": "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg",
+  "description": "Whether you’re aiming to lose weight, build strength, or improve overall wellness, finding the right personal trainer can make all the difference. Homezy helps you connect with certified fitness professionals across the UAE who offer in-home, outdoor, and online training tailored to your fitness level and schedule.",
+  "benefits": [
+    "Personalized workout plans based on your goals",
+    "One-on-one, couples, or small group sessions",
+    "In-home, gym, or virtual training options",
+    "Trainers specializing in strength, weight loss, rehab, or endurance",
+    "Progress tracking and ongoing motivation"
+  ],
+  "whatToExpect": "Tell us your fitness goals on Homezy and receive offers from certified personal trainers. Compare experience, training methods, and session availability before choosing the trainer who fits your lifestyle and pace.",
+  "faqs": [
+    {
+      "question": "Do personal trainers bring their own equipment?",
+      "answer": "Many personal trainers provide essential workout equipment for home sessions, depending on the program. This can be discussed during your consultation."
+    },
+    {
+      "question": "How often should I train with a personal trainer?",
+      "answer": "Most people start with 2–4 sessions per week, but it can be customized based on your goals, fitness level, and availability."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "yoga",
+      "title": "Yoga"
+    },
+    {
+      "id": "personal-dietitian",
+      "title": "Personal Dietitian"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg",
+    "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Personal Trainers",
+    "description": "Find certified personal trainers in the UAE through Homezy for strength training, weight loss, flexibility, and personalized home workouts.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Personal Training Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "One-on-One Fitness Coaching"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Weight Loss and Toning Programs"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Online Personal Training"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/personal-trainers",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

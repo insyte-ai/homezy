@@ -1,0 +1,88 @@
+{
+  "id": "bartenders",
+  "title": "Bartenders",
+  "metaTitle": "Hire Bartenders for Events in UAE | Homezy",
+  "metaDescription": "Add a touch of class to your event with professional bartenders. Discover top-rated UAE bartenders for weddings, parties, and corporate functions on Homezy.",
+  "keywords": "hire bartender UAE, event bartender, cocktail bartender, party bartender, mobile bar UAE",
+  "headerImage": "https://images.pexels.com/photos/1267696/pexels-photo-1267696.jpeg",
+  "description": "Impress your guests with expertly crafted cocktails and smooth service. Homezy connects you with skilled bartenders in the UAE who specialize in mixing, flair bartending, and full-service mobile bar setups for events of any size—whether it’s a wedding, private party, or corporate gathering.",
+  "benefits": [
+    "Skilled mixologists and flair bartenders",
+    "Custom cocktail menus",
+    "Professional and mobile bar setups",
+    "Service for weddings, parties, and corporate events",
+    "Options for non-alcoholic and themed beverages"
+  ],
+  "whatToExpect": "Share your event details on Homezy and get matched with bartenders who align with your style, theme, and beverage preferences. Providers can supply everything from bar tools and ingredients to full bar counters and glassware.",
+  "faqs": [
+    {
+      "question": "Do bartenders bring their own bar setup and supplies?",
+      "answer": "Yes, many bartenders offer full-service packages that include mobile bars, tools, glassware, and mixers. This can be clarified during the booking process."
+    },
+    {
+      "question": "Can I customize the drink menu?",
+      "answer": "Absolutely. Bartenders often work with you to create a custom menu featuring your preferred cocktails and mocktails."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "cake-decorators",
+      "title": "Cake Decorators"
+    },
+    {
+      "id": "catering",
+      "title": "Catering"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1267696/pexels-photo-1267696.jpeg",
+    "https://images.pexels.com/photos/3326717/pexels-photo-3326717.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Bartenders",
+    "description": "Find professional bartenders in the UAE for weddings, parties, and corporate events. Book through Homezy for custom cocktails, flair service, and mobile bar setups.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Bartender Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Event Bartending"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Flair and Cocktail Show Bartenders"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mobile Bar Rental and Setup"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/bartenders",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

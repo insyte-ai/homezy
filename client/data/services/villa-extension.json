@@ -1,0 +1,88 @@
+{
+  "id": "villa-extension",
+  "title": "Villa Extension",
+  "metaTitle": "Villa Extension Services in UAE | Homezy",
+  "metaDescription": "Need more space in your villa? Find trusted professionals for villa extension projects on Homezy. Compare quotes and get your expansion done right.",
+  "keywords": "villa extension, villa expansion UAE, home extension, villa construction services, property expansion",
+  "headerImage": "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
+  "description": "Extending your villa offers a practical solution to growing space needs—whether it's an additional bedroom, a sunroom, or a larger kitchen. Through Homezy, homeowners can find and compare vetted professionals with experience in planning and executing villa extension projects in the UAE.",
+  "benefits": [
+    "Custom extension plans to match your lifestyle",
+    "End-to-end execution from structural planning to finish",
+    "Coordination with municipal permit requirements",
+    "Options for seamless indoor-outdoor flow",
+    "Increased property value and usability"
+  ],
+  "whatToExpect": "Start by sharing your ideas and space needs on Homezy. You’ll receive proposals from listed experts including site assessments, cost breakdowns, and timelines. Choose the professional that fits your vision and get your extension project underway with confidence.",
+  "faqs": [
+    {
+      "question": "Do I need special permits for a villa extension?",
+      "answer": "Yes, most extensions require permits. Many service providers on Homezy assist with all regulatory approvals as part of their offering."
+    },
+    {
+      "question": "Can I extend upwards (add a floor) to my villa?",
+      "answer": "That depends on zoning and structural limitations. Listed professionals will assess your property and advise on feasible extension options."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "structural-engineering",
+      "title": "Structural Engineering"
+    },
+    {
+      "id": "villa-renovation",
+      "title": "Villa Renovation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
+    "https://images.pexels.com/photos/7031412/pexels-photo-7031412.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Villa Extension",
+    "description": "Homezy connects UAE homeowners with specialists in villa extensions—whether expanding outwards, upwards, or adding functional spaces.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Villa Extension Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Single-Room Villa Extension"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Floor Addition"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Outdoor Room or Terrace Expansion"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/villa-extension-9448",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

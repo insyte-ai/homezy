@@ -1,0 +1,88 @@
+{
+  "id": "masonry",
+  "title": "Masonry",
+  "metaTitle": "Masonry Services in UAE | Homezy",
+  "metaDescription": "Find expert masons in the UAE for brickwork, stone walls, tile laying, and concrete repairs. Compare providers on Homezy for residential and commercial masonry work.",
+  "keywords": "masonry services UAE, brick wall repair, tile laying, stone masonry, concrete work UAE",
+  "headerImage": "https://images.pexels.com/photos/5691501/pexels-photo-5691501.jpeg",
+  "description": "Masonry work is essential for durable construction and aesthetic upgrades. Whether you're building a new wall, repairing existing concrete, or laying custom tiles, Homezy helps you find skilled masons across the UAE who specialize in both structural and decorative work.",
+  "benefits": [
+    "Brick, block, and stonework services",
+    "Tile installation and grouting",
+    "Concrete repair and patching",
+    "Decorative stone and outdoor paving",
+    "Reliable structural support solutions"
+  ],
+  "whatToExpect": "Post your masonry job on Homezy and receive quotes from trusted service providers. Review each professional’s portfolio and pricing before selecting the right match for your project.",
+  "faqs": [
+    {
+      "question": "Do masonry services include material supply?",
+      "answer": "Some providers offer all-inclusive packages that include materials, while others work with client-supplied resources. This will be clarified in the quote."
+    },
+    {
+      "question": "Can I hire for small jobs like tile replacement or wall patching?",
+      "answer": "Absolutely. Many listed masons accept jobs of all sizes, including small residential repairs and touch-ups."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "plumbing",
+      "title": "Plumbing"
+    },
+    {
+      "id": "flooring",
+      "title": "Flooring"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5691501/pexels-photo-5691501.jpeg",
+    "https://images.pexels.com/photos/5691502/pexels-photo-5691502.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Masonry",
+    "description": "Homezy helps you find UAE-based masonry experts for construction, tile laying, concrete repair, and stonework for homes and businesses.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Masonry Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Brickwork and Blockwork"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tile Installation and Stone Laying"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Concrete Repair and Surface Patching"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/masonry",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

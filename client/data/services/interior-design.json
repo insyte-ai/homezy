@@ -1,0 +1,88 @@
+{
+  "id": "interior-design",
+  "title": "Interior Design",
+  "metaTitle": "Interior Design Services in UAE | Homezy",
+  "metaDescription": "Transform your space with top-rated interior designers in the UAE. Homezy connects you with experts for residential, commercial, or villa interior design projects.",
+  "keywords": "interior design, UAE interior designers, home decor, commercial interior design, villa interiors",
+  "headerImage": "https://images.pexels.com/photos/271800/pexels-photo-271800.jpeg",
+  "description": "Whether you're designing a new home, revamping a single room, or creating a functional office space, Homezy helps you connect with interior designers who bring creativity, practicality, and personality to every project. Explore portfolios, get inspired, and choose the perfect designer for your style and needs.",
+  "benefits": [
+    "Access to a diverse pool of interior designers",
+    "Customized solutions for homes, offices, and villas",
+    "3D visualizations and mood boards before execution",
+    "Support for sourcing materials and furnishings",
+    "Budget-conscious design plans available"
+  ],
+  "whatToExpect": "Submit your design goals and preferences on Homezy to receive proposals from experienced designers. You’ll be able to view mood boards, cost estimates, and timelines before selecting a provider who matches your aesthetic and budget.",
+  "faqs": [
+    {
+      "question": "Do interior designers listed on Homezy handle both design and execution?",
+      "answer": "Some offer design-only services, while others manage the full process from concept to execution. Check provider profiles for details."
+    },
+    {
+      "question": "Can I get help with just furniture layout or color schemes?",
+      "answer": "Yes, many interior designers offer modular services including furniture planning, paint consultation, and decor sourcing."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "fit-outs",
+      "title": "Fit Outs"
+    },
+    {
+      "id": "villa-renovation",
+      "title": "Villa Renovation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/271800/pexels-photo-271800.jpeg",
+    "https://images.pexels.com/photos/695707/pexels-photo-695707.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Interior Design",
+    "description": "Homezy connects UAE clients with experienced interior designers for residential, commercial, and custom interior design services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Interior Design Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Interior Design Packages"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "3D Visualization and Mood Board Creation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Furniture and Decor Sourcing"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/interior-design",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

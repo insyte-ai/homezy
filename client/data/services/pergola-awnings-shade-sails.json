@@ -1,0 +1,88 @@
+{
+  "id": "pergola-awning-shade",
+  "title": "Pergola, Awnings & Shade Sails",
+  "metaTitle": "Pergola, Awning & Shade Sail Installation in UAE | Homezy",
+  "metaDescription": "Enhance your outdoor space with custom pergolas, awnings, and shade sails. Homezy connects you with UAE specialists for design and installation.",
+  "keywords": "pergola installation UAE, outdoor shade solutions, awning contractor, shade sail UAE, garden canopy install",
+  "headerImage": "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg",
+  "description": "From relaxing patios to stylish poolside areas, adding pergolas, awnings, or shade sails can completely transform outdoor spaces. Homezy connects homeowners across the UAE with professionals who design and install durable and elegant shade structures for homes, gardens, and commercial properties.",
+  "benefits": [
+    "Custom-built pergolas and retractable awnings",
+    "UV-resistant and waterproof materials",
+    "Ideal for patios, gardens, driveways, and balconies",
+    "Improved outdoor usability and cooling",
+    "Choice of fabric, aluminum, or wooden designs"
+  ],
+  "whatToExpect": "Submit your shading needs on Homezy and receive quotes from experienced providers. After a site visit, you’ll get design suggestions and material options tailored to your outdoor space and climate conditions.",
+  "faqs": [
+    {
+      "question": "Can I install a pergola without altering my existing structure?",
+      "answer": "Yes, many pergolas and shade sails are designed to be freestanding or minimally invasive, making them ideal for rental properties or temporary use."
+    },
+    {
+      "question": "Are the materials weather-resistant?",
+      "answer": "Yes, providers use high-quality, UV- and moisture-resistant materials suitable for UAE’s climate conditions."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "landscaping",
+      "title": "Landscaping"
+    },
+    {
+      "id": "villa-renovation",
+      "title": "Villa Renovation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg",
+    "https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Pergola, Awnings & Shade Sails",
+    "description": "Homezy connects you with UAE-based experts for installing pergolas, awnings, and shade sails—perfect for outdoor comfort and aesthetic appeal.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Outdoor Shading Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Pergola Design and Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Retractable and Fixed Awnings"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Shade Sail Installation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/pergola-awnings-shade-sails-2707",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

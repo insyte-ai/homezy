@@ -1,0 +1,88 @@
+{
+  "id": "home-automation",
+  "title": "Home Automation",
+  "metaTitle": "Home Automation Services in UAE | Homezy",
+  "metaDescription": "Make your home smarter with automation systems for lighting, climate, security, and entertainment. Compare top UAE providers on Homezy.",
+  "keywords": "home automation UAE, smart home system, smart lighting, smart thermostat, home control app",
+  "headerImage": "https://images.pexels.com/photos/3183186/pexels-photo-3183186.jpeg",
+  "description": "Transform your living space with home automation systems that bring convenience, efficiency, and modern control to your fingertips. Homezy connects you with certified smart home professionals in the UAE who design and install everything from lighting and climate automation to security and multimedia integration.",
+  "benefits": [
+    "Centralized control of lighting, temperature, and devices",
+    "Voice assistant and smartphone integrations",
+    "Enhanced home security with automated alerts",
+    "Energy savings through smart scheduling",
+    "Custom setups tailored to your lifestyle"
+  ],
+  "whatToExpect": "List your automation goals on Homezy and get matched with experienced providers. After a site assessment, you’ll receive a customized proposal with options for system components, brands, and user interface preferences.",
+  "faqs": [
+    {
+      "question": "Can I automate just one part of my home (e.g., lighting)?",
+      "answer": "Yes, home automation can be scaled to your needs—starting with one room or system and expanding over time."
+    },
+    {
+      "question": "Is home automation secure?",
+      "answer": "Providers on Homezy use encrypted systems and follow security best practices to ensure your smart home network is protected."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "security-cameras-alarms",
+      "title": "Security Cameras and Alarms Install"
+    },
+    {
+      "id": "wifi-networking",
+      "title": "Wi-Fi and Networking"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3183186/pexels-photo-3183186.jpeg",
+    "https://images.pexels.com/photos/4254166/pexels-photo-4254166.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Home Automation",
+    "description": "Find certified smart home experts on Homezy for installing home automation systems including smart lighting, climate control, security, and entertainment integration.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Home Automation Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Smart Lighting and Climate Control"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Integrated Home Control Systems"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Home Security and Monitoring Integration"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/home-automation-8418",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

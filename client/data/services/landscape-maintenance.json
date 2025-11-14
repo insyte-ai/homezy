@@ -1,0 +1,88 @@
+{
+  "id": "landscape-maintenance",
+  "title": "Landscape Maintenance",
+  "metaTitle": "Landscape Maintenance Services in UAE | Homezy",
+  "metaDescription": "Keep your garden, lawn, and outdoor areas healthy and beautiful with professional landscaping maintenance. Find top-rated UAE providers on Homezy.",
+  "keywords": "landscape maintenance UAE, garden care, lawn mowing, hedge trimming, irrigation maintenance, outdoor cleaning",
+  "headerImage": "https://images.pexels.com/photos/450326/pexels-photo-450326.jpeg",
+  "description": "Ensure your outdoor spaces stay green, clean, and inviting year-round. Homezy connects you with reliable landscaping maintenance services in the UAE for residential and commercial properties. From lawn mowing and hedge trimming to seasonal planting and irrigation upkeep, your landscape will always look its best.",
+  "benefits": [
+    "Regular lawn care and trimming",
+    "Weed control and pest management",
+    "Seasonal planting and soil care",
+    "Irrigation system inspection and repair",
+    "Improved curb appeal and property value"
+  ],
+  "whatToExpect": "Submit your landscaping needs on Homezy and receive offers from experienced gardeners and landscape contractors. Choose one-time visits or ongoing maintenance plans that suit your space and schedule.",
+  "faqs": [
+    {
+      "question": "How often should landscape maintenance be done?",
+      "answer": "Most properties benefit from weekly or bi-weekly maintenance, though seasonal factors and plant types may affect the ideal schedule."
+    },
+    {
+      "question": "Can I request eco-friendly or water-efficient solutions?",
+      "answer": "Yes, many providers offer sustainable landscaping practices, including native planting and smart irrigation systems."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    },
+    {
+      "id": "swimming-pool-cleaning",
+      "title": "Swimming Pool Cleaning, Maintenance, and Inspection"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/450326/pexels-photo-450326.jpeg",
+    "https://images.pexels.com/photos/580894/pexels-photo-580894.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Landscape Maintenance",
+    "description": "Homezy helps you find trusted landscaping professionals in the UAE for garden care, lawn maintenance, irrigation repair, and more.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Landscape Maintenance Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Lawn Care and Trimming"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Irrigation System Maintenance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Seasonal Planting and Garden Cleanup"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/landscape-maintenance-537",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

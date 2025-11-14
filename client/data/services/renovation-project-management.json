@@ -1,0 +1,88 @@
+{
+  "id": "renovation-project-management",
+  "title": "Renovation Project Management",
+  "metaTitle": "Renovation Project Management Services in UAE | Homezy",
+  "metaDescription": "Find renovation project managers on Homezy to oversee your home updates. Compare experienced professionals for timelines, quality control, and budgeting across UAE.",
+  "keywords": "renovation project management, home renovation UAE, project managers for renovation, UAE renovation experts",
+  "headerImage": "https://images.pexels.com/photos/4259140/pexels-photo-4259140.jpeg",
+  "description": "Successfully managing a home renovation requires more than vision—it demands coordination, timelines, and expert decision-making. Homezy helps homeowners connect with renovation project managers who bring structure and clarity to every step, from design collaboration to final delivery.",
+  "benefits": [
+    "Timely delivery of renovation projects",
+    "Transparent budget planning and control",
+    "Coordinated communication between contractors and designers",
+    "On-site supervision and quality control",
+    "Minimized delays and miscommunication"
+  ],
+  "whatToExpect": "After submitting your project details, you’ll be able to review profiles of vetted renovation project managers. Selected professionals will provide proposals based on your goals. You can then choose who to work with, track milestones, and stay informed throughout the renovation process.",
+  "faqs": [
+    {
+      "question": "What does a renovation project manager do?",
+      "answer": "They oversee all aspects of a renovation—from planning and budgeting to coordinating contractors and ensuring the work aligns with your goals and schedule."
+    },
+    {
+      "question": "Do I need a project manager for a small renovation?",
+      "answer": "Even small renovations can benefit from professional oversight to avoid unexpected costs, delays, or quality issues."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "kitchen-remodelling",
+      "title": "Kitchen Remodelling"
+    },
+    {
+      "id": "bathroom-remodelling",
+      "title": "Bathroom Remodelling"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4259140/pexels-photo-4259140.jpeg",
+    "https://images.pexels.com/photos/4246276/pexels-photo-4246276.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Renovation Project Management",
+    "description": "Renovation project management services for UAE homeowners. Compare and hire experienced professionals to oversee timelines, budgets, and quality.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Renovation Project Management Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Renovation Oversight"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Timeline and Budget Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Contractor Coordination"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/renovation-project-management",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "security-cameras-alarms",
+  "title": "Security Cameras and Alarms Install",
+  "metaTitle": "Security Cameras and Alarm Installation in UAE | Homezy",
+  "metaDescription": "Protect your home with smart security cameras and alarm systems. Compare installation providers across the UAE on Homezy.",
+  "keywords": "security cameras UAE, home alarm installation, CCTV systems, smart home security, motion sensor alarms",
+  "headerImage": "https://images.pexels.com/photos/4792482/pexels-photo-4792482.jpeg",
+  "description": "Enhance your home’s safety with professionally installed security systems. Homezy helps you connect with UAE-based providers offering surveillance camera setups, smart alarms, motion detection, and remote monitoring—all tailored to fit your property’s layout and your peace of mind.",
+  "benefits": [
+    "24/7 video surveillance and recording",
+    "Motion-activated cameras and alerts",
+    "Mobile access and remote monitoring",
+    "Deterrence of intruders and theft",
+    "Custom setups for villas, apartments, or offices"
+  ],
+  "whatToExpect": "List your security needs on Homezy and get matched with experienced professionals who offer on-site assessments, system recommendations, and seamless installations. Choose from wired or wireless options with cloud or local storage.",
+  "faqs": [
+    {
+      "question": "Are these systems suitable for apartments as well as villas?",
+      "answer": "Yes, providers offer solutions for all property types, with flexible camera and alarm configurations based on space and budget."
+    },
+    {
+      "question": "Can I view the cameras remotely?",
+      "answer": "Most systems include app-based or web access, allowing you to monitor your property in real-time from anywhere."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-automation",
+      "title": "Home Automation"
+    },
+    {
+      "id": "wifi-networking",
+      "title": "Wi-Fi and Networking"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4792482/pexels-photo-4792482.jpeg",
+    "https://images.pexels.com/photos/5077831/pexels-photo-5077831.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Security Cameras and Alarms Installation",
+    "description": "Find trusted professionals in the UAE through Homezy for installing home security systems including CCTV cameras, motion sensors, and smart alarms.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Security System Installation",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "CCTV Camera Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Smart Alarm System Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Motion Detection and Remote Monitoring"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/security-cameras-and-alarms-install-9716",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

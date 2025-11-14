@@ -1,0 +1,88 @@
+{
+  "id": "in-ground-swimming-pool-construction",
+  "title": "In-Ground Swimming Pool Construction",
+  "metaTitle": "In-Ground Swimming Pool Construction in UAE | Homezy",
+  "metaDescription": "Design and build custom in-ground swimming pools with top-rated contractors in the UAE. Compare services and request quotes easily on Homezy.",
+  "keywords": "in-ground swimming pool UAE, pool construction, custom pool builders, concrete pool installation, swimming pool contractors UAE",
+  "headerImage": "https://images.pexels.com/photos/2104649/pexels-photo-2104649.jpeg",
+  "description": "Build the pool of your dreams with in-ground swimming pool construction services available through Homezy. Whether you envision a luxurious backyard retreat or a sleek lap pool, find trusted UAE contractors who specialize in custom pool design, excavation, tiling, and system installation.",
+  "benefits": [
+    "Fully customized pool design and layout",
+    "High-quality materials and waterproofing solutions",
+    "Complete project management from excavation to finishing",
+    "Filtration, heating, and lighting systems included",
+    "Options for infinity edges, spas, and water features"
+  ],
+  "whatToExpect": "Share your vision and property layout on Homezy. You'll be connected with experienced pool construction companies who will conduct a site inspection, offer design concepts, and provide a transparent quote including timelines and material options.",
+  "faqs": [
+    {
+      "question": "How long does in-ground pool construction take?",
+      "answer": "Depending on the complexity and size, it typically takes 6 to 12 weeks from planning to final touches."
+    },
+    {
+      "question": "Do I need special permits for a pool?",
+      "answer": "Most municipalities require permits. Contractors on Homezy are familiar with local regulations and can assist with the approval process."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "equipment-supply-installation",
+      "title": "Equipment Supply & Installation"
+    },
+    {
+      "id": "swimming-pool-repair",
+      "title": "Swimming Pool Repair"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/2104649/pexels-photo-2104649.jpeg",
+    "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "In-Ground Swimming Pool Construction",
+    "description": "Find top-rated contractors on Homezy for custom in-ground pool construction in the UAE. Services include design, excavation, installation, and finishing.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Swimming Pool Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Pool Design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Excavation and Structural Work"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Waterproofing, Tiling, and Finishing"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/in-ground-swimming-pool-construction-3216",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

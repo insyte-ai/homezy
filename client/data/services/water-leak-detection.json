@@ -1,0 +1,88 @@
+{
+  "id": "water-leak-detection",
+  "title": "Water Leak Detection",
+  "metaTitle": "Water Leak Detection Services in UAE | Homezy",
+  "metaDescription": "Suspect a hidden leak? Homezy connects you with experts in water leak detection across the UAE using thermal imaging and non-invasive inspection tools.",
+  "keywords": "leak detection UAE, hidden water leak, pipe leak detection, thermal leak scanner, moisture inspection UAE",
+  "headerImage": "https://images.pexels.com/photos/5691606/pexels-photo-5691606.jpeg",
+  "description": "Unexplained moisture, rising water bills, or damp spots can all be signs of hidden leaks. Homezy connects you with certified UAE professionals who use advanced tools—like thermal imaging, acoustic sensors, and moisture meters—to detect water leaks without tearing down walls or floors.",
+  "benefits": [
+    "Accurate detection using advanced technology",
+    "Non-invasive inspection methods",
+    "Detection of leaks in walls, floors, and underground",
+    "Early identification to prevent damage",
+    "Comprehensive leak reports and repair options"
+  ],
+  "whatToExpect": "Post your leak concerns on Homezy and receive offers from licensed leak detection specialists. You’ll get a professional on-site assessment with detailed reporting and repair suggestions if needed.",
+  "faqs": [
+    {
+      "question": "What tools are used to detect water leaks?",
+      "answer": "Professionals use infrared cameras, acoustic leak detectors, and moisture meters to locate leaks behind surfaces without causing damage."
+    },
+    {
+      "question": "Can I detect a leak under tiles or concrete?",
+      "answer": "Yes, with thermal and sound-based technologies, many leaks under tiled floors or slabs can be detected without excavation."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "emergency-plumbing",
+      "title": "Emergency Plumbing"
+    },
+    {
+      "id": "plumbing-pipe-repair",
+      "title": "Plumbing Pipe Repair"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5691606/pexels-photo-5691606.jpeg",
+    "https://images.pexels.com/photos/5691608/pexels-photo-5691608.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Water Leak Detection",
+    "description": "Find experts on Homezy who specialize in non-invasive water leak detection in the UAE using infrared, sound, and moisture technology.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Water Leak Detection Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Thermal Leak Detection"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Underground Leak Scanning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Moisture Mapping and Reporting"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/water-leak-detection-8996",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

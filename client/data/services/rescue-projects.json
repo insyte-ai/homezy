@@ -1,0 +1,88 @@
+{
+  "id": "rescue-projects",
+  "title": "Rescue Projects",
+  "metaTitle": "Rescue Project Services in UAE | Homezy",
+  "metaDescription": "Stuck in a stalled renovation or build? Homezy connects you with experts who specialize in turning around delayed, abandoned, or mismanaged construction projects.",
+  "keywords": "rescue project services, construction rescue, project turnaround UAE, incomplete renovation help, UAE construction issues",
+  "headerImage": "https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg",
+  "description": "When construction or renovation projects go off track, finding the right expertise is critical. Homezy helps homeowners and property developers connect with professionals who specialize in rescuing stalled, mismanaged, or poorly executed projects—bringing clarity, structure, and reliable solutions.",
+  "benefits": [
+    "Assessment of existing issues and risks",
+    "Detailed recovery planning and execution",
+    "Compliance with building codes and permits",
+    "Coordination with legal, technical, and contractor teams",
+    "Transparent project cost and timeline control"
+  ],
+  "whatToExpect": "Once your request is submitted, Homezy allows you to compare professionals experienced in project rescue. They will evaluate the current condition of your site, offer a recovery roadmap, and manage the necessary resources to bring your project back on track.",
+  "faqs": [
+    {
+      "question": "What types of projects qualify as 'rescue' projects?",
+      "answer": "Rescue projects typically include incomplete renovations, halted constructions, or any site where work was paused due to legal, financial, or execution issues."
+    },
+    {
+      "question": "Can I recover costs from a failed contractor through your service?",
+      "answer": "While Homezy connects you with recovery professionals, legal recovery of funds should be handled separately with legal advisors. However, listed providers can assist in documenting issues and preparing case files."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "build-project-management",
+      "title": "Build Project Management"
+    },
+    {
+      "id": "property-management",
+      "title": "Property Management"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg",
+    "https://images.pexels.com/photos/585419/pexels-photo-585419.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Rescue Projects",
+    "description": "Homezy connects UAE homeowners with professionals who can rescue mismanaged, delayed, or abandoned renovation and construction projects.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Rescue Project Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Stalled Project Assessment"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Project Recovery Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Execution and Completion Management"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/rescue-projects",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

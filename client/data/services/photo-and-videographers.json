@@ -1,0 +1,88 @@
+{
+  "id": "photo-videographers",
+  "title": "Photo and Videographers",
+  "metaTitle": "Photo & Videography Services in UAE | Homezy",
+  "metaDescription": "Capture your special moments with top photographers and videographers in the UAE. Find event professionals on Homezy for weddings, parties, and corporate shoots.",
+  "keywords": "photographers UAE, videographers UAE, event photography, wedding videography, birthday photographer",
+  "headerImage": "https://images.pexels.com/photos/212372/pexels-photo-212372.jpeg",
+  "description": "From weddings and birthdays to corporate events and private functions, great visuals help you relive the magic. Homezy connects you with experienced photographers and videographers across the UAE who specialize in everything from candid event coverage to cinematic edits and drone shots.",
+  "benefits": [
+    "Professional-grade photography and video gear",
+    "Coverage for weddings, birthdays, and corporate events",
+    "Options for drone footage and 4K video",
+    "Edited albums and highlight reels",
+    "Flexible packages for different budgets"
+  ],
+  "whatToExpect": "Post your event details on Homezy to get matched with visual creatives who offer personalized packages. Choose based on style, availability, and past work. You’ll coordinate directly with the provider for shoot planning and delivery timelines.",
+  "faqs": [
+    {
+      "question": "Can I request both photography and videography together?",
+      "answer": "Yes, many professionals offer bundled packages that include both photo and video services."
+    },
+    {
+      "question": "How long does it take to receive the final photos or videos?",
+      "answer": "Delivery times vary, but most professionals provide edited content within 1–3 weeks after the event."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "birthday-party-planners",
+      "title": "Birthday Party Planners"
+    },
+    {
+      "id": "hair-makeup-artists",
+      "title": "Hair and Makeup Artists"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/212372/pexels-photo-212372.jpeg",
+    "https://images.pexels.com/photos/169211/pexels-photo-169211.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Photo and Videographers",
+    "description": "Homezy helps you find skilled photo and video professionals in the UAE for weddings, events, and corporate shoots.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Photo and Videography Packages",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event Photography"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event Videography"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Drone and Aerial Footage"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/photo-and-videographers-6500",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

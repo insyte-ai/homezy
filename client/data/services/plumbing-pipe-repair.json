@@ -1,0 +1,88 @@
+{
+  "id": "plumbing-pipe-repair",
+  "title": "Plumbing Pipe Repair",
+  "metaTitle": "Plumbing Pipe Repair Services in UAE | Homezy",
+  "metaDescription": "Leaking or damaged pipes? Homezy helps you find trusted plumbers for pipe repair and replacement across the UAE. Get fast, reliable plumbing solutions.",
+  "keywords": "pipe repair UAE, plumbing leak fix, burst pipe service, pipe replacement, emergency pipe repair",
+  "headerImage": "https://images.pexels.com/photos/5691600/pexels-photo-5691600.jpeg",
+  "description": "Whether it's a minor drip or a major burst, pipe issues need quick and skilled attention to avoid water damage and costly repairs. Homezy connects homeowners and businesses in the UAE with licensed plumbers who specialize in pipe diagnostics, leak detection, and long-lasting repairs.",
+  "benefits": [
+    "Rapid response to pipe leaks and bursts",
+    "Repairs for water supply, drain, and sewage pipes",
+    "Pipe relining and replacement options",
+    "Prevention of mold, water damage, and flooding",
+    "Certified professionals using advanced tools"
+  ],
+  "whatToExpect": "Post your issue on Homezy and receive quotes from nearby plumbing professionals. Providers will assess the problem and suggest the best repair method, whether it’s a quick fix or a full pipe replacement.",
+  "faqs": [
+    {
+      "question": "Can you detect hidden leaks behind walls or floors?",
+      "answer": "Yes, many plumbers listed on Homezy use thermal imaging and acoustic sensors to locate hidden leaks without unnecessary wall damage."
+    },
+    {
+      "question": "Do pipe repair services come with a warranty?",
+      "answer": "Most pipe repairs include a workmanship warranty and may also cover materials, depending on the provider. Details are provided with your quote."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "emergency-plumbing",
+      "title": "Emergency Plumbing"
+    },
+    {
+      "id": "water-leak-detection",
+      "title": "Water Leak Detection"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5691600/pexels-photo-5691600.jpeg",
+    "https://images.pexels.com/photos/5691601/pexels-photo-5691601.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Plumbing Pipe Repair",
+    "description": "Homezy helps you find certified plumbers in the UAE for pipe repair and replacement—ideal for leaks, bursts, and drainage issues.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Plumbing Pipe Repair Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Leaking Pipe Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Burst Pipe Emergency Response"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pipe Replacement and Rerouting"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/plumbing-pipe-repair-9560",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

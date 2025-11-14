@@ -1,0 +1,88 @@
+{
+  "id": "office-automation",
+  "title": "Office Automation",
+  "metaTitle": "Office Automation Services in UAE | Homezy",
+  "metaDescription": "Streamline your workplace with office automation solutions. Discover UAE providers for smart lighting, climate control, AV systems, and more on Homezy.",
+  "keywords": "office automation UAE, smart office systems, workplace automation, automated lighting, office climate control",
+  "headerImage": "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg",
+  "description": "Upgrade your workspace with office automation systems that boost efficiency and comfort. Through Homezy, you can connect with UAE professionals who install and configure smart lighting, automated climate control, AV conferencing setups, and access systems—all tailored to business needs.",
+  "benefits": [
+    "Smart lighting and blinds for energy savings",
+    "Automated HVAC systems for optimal comfort",
+    "Integrated video conferencing and AV control",
+    "Remote access and centralized control systems",
+    "Enhanced workplace productivity and aesthetics"
+  ],
+  "whatToExpect": "Post your office automation goals on Homezy and get matched with providers who specialize in commercial automation. Services include site evaluation, system design, installation, and user training to ensure smooth adoption across your team.",
+  "faqs": [
+    {
+      "question": "Can automation be added to an existing office setup?",
+      "answer": "Yes, providers can retrofit automation systems into existing infrastructure with minimal disruption to operations."
+    },
+    {
+      "question": "Is it possible to control everything from one interface?",
+      "answer": "Yes, most systems are designed for centralized control via apps, remotes, or dedicated panels for convenience and efficiency."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "wifi-networking",
+      "title": "Wi-Fi and Networking"
+    },
+    {
+      "id": "projector-installation",
+      "title": "Projector Installation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg",
+    "https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Office Automation",
+    "description": "Homezy connects you with specialists in the UAE for implementing office automation solutions, including lighting, climate control, and smart AV systems.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Office Automation Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Smart Lighting and Blinds"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Automated Climate and HVAC Control"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AV Integration and Control Systems"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/office-automation-3537",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

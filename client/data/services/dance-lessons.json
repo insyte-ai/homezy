@@ -1,0 +1,88 @@
+{
+  "id": "dance-lessons",
+  "title": "Dance Lessons",
+  "metaTitle": "Dance Lessons in UAE | Homezy",
+  "metaDescription": "Book dance classes across the UAE through Homezy. Connect with experienced instructors for hip hop, ballet, salsa, or kids' dance lessons at home or studio.",
+  "keywords": "dance lessons UAE, ballet classes, hip hop dance, kids dance instructors, salsa teacher",
+  "headerImage": "https://images.pexels.com/photos/861292/pexels-photo-861292.jpeg",
+  "description": "Whether you want to master ballroom basics, explore modern styles, or enroll your child in their first class, Homezy helps you connect with qualified dance instructors across the UAE. Choose in-home private lessons or join local group classes in your preferred dance style.",
+  "benefits": [
+    "In-home or studio-based dance instruction",
+    "Styles including ballet, hip hop, salsa, and contemporary",
+    "Professional instructors for all age groups",
+    "Options for solo learners, couples, or groups",
+    "Flexible scheduling for weekend or evening sessions"
+  ],
+  "whatToExpect": "Submit your dance preferences and availability on Homezy. You’ll receive offers from verified dance teachers and schools. Review styles, rates, and experience before booking your ideal instructor.",
+  "faqs": [
+    {
+      "question": "Do I need any prior experience to start?",
+      "answer": "Not at all. Many instructors cater to complete beginners and tailor each session to your level and goals."
+    },
+    {
+      "question": "Are group lessons available?",
+      "answer": "Yes, some instructors offer private and group options depending on your needs and space."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "music-lessons",
+      "title": "Music Lessons"
+    },
+    {
+      "id": "personal-trainers",
+      "title": "Personal Trainers"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/861292/pexels-photo-861292.jpeg",
+    "https://images.pexels.com/photos/1552646/pexels-photo-1552646.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Dance Lessons",
+    "description": "Find dance instructors across the UAE through Homezy for ballet, hip hop, salsa, contemporary, and children's classes.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Dance Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Dance Classes at Home"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Group Dance Lessons in Studio"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Kids and Teen Dance Programs"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/dance-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "plumbing-drain-repair",
+  "title": "Plumbing Drain Repair",
+  "metaTitle": "Plumbing Drain Repair Services in UAE | Homezy",
+  "metaDescription": "Clogged or slow drains? Homezy connects you with UAE plumbers for expert drain cleaning, unblocking, and repair services—fast and reliable.",
+  "keywords": "drain repair UAE, clogged drain fix, drain cleaning service, blocked sink repair, emergency drain plumber",
+  "headerImage": "https://images.pexels.com/photos/4614196/pexels-photo-4614196.jpeg",
+  "description": "Backed-up or slow drains are more than just annoying—they can lead to water damage and hygiene issues. Homezy helps you find professional plumbers across the UAE who are equipped to handle all types of drain issues, from routine blockages to complex underground pipe problems.",
+  "benefits": [
+    "Fast resolution of clogs and backups",
+    "Sink, shower, toilet, and main line repairs",
+    "Video inspection for underground diagnostics",
+    "Odor removal and pipe cleaning services",
+    "Preventative maintenance and drain flushing"
+  ],
+  "whatToExpect": "Describe your drain problem on Homezy and receive quotes from certified plumbing experts. Professionals will assess your system and provide effective, lasting repair solutions with minimal disruption.",
+  "faqs": [
+    {
+      "question": "What causes frequent drain blockages?",
+      "answer": "Common causes include grease buildup, hair, food waste, and improperly flushed items. Regular cleaning helps prevent repeat issues."
+    },
+    {
+      "question": "Can a plumber detect a broken underground drain pipe?",
+      "answer": "Yes, many plumbers listed on Homezy use video inspection tools to locate and diagnose problems within underground or hard-to-reach pipes."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "emergency-plumbing",
+      "title": "Emergency Plumbing"
+    },
+    {
+      "id": "water-leak-detection",
+      "title": "Water Leak Detection"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4614196/pexels-photo-4614196.jpeg",
+    "https://images.pexels.com/photos/5691602/pexels-photo-5691602.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Plumbing Drain Repair",
+    "description": "Connect with UAE-based plumbers on Homezy for fast, effective drain repair—ideal for clogs, backups, and full drainage system issues.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Plumbing Drain Repair Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Clogged Drain Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Drain Pipe Repair and Replacement"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Drain Maintenance and Flushing"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/plumbing-drain-repair-5350",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

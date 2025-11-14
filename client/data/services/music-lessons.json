@@ -1,0 +1,88 @@
+{
+  "id": "music-lessons",
+  "title": "Music Lessons",
+  "metaTitle": "Music Lessons in UAE | Homezy",
+  "metaDescription": "Find experienced music teachers across the UAE through Homezy. Book lessons in guitar, piano, voice, drums, violin, and more—for kids and adults.",
+  "keywords": "music lessons UAE, guitar teacher, piano lessons, vocal coach UAE, learn music at home",
+  "headerImage": "https://images.pexels.com/photos/3756774/pexels-photo-3756774.jpeg",
+  "description": "Whether you’re learning your first instrument or fine-tuning your performance skills, Homezy connects you with experienced music teachers across the UAE. Choose private or group lessons in instruments like guitar, piano, violin, drums, or vocals—available at home, in studio, or online.",
+  "benefits": [
+    "Lessons available for all ages and skill levels",
+    "Private, group, or online formats",
+    "Instrument and vocal training options",
+    "Structured programs or casual creative learning",
+    "Support for music theory, exams, or performances"
+  ],
+  "whatToExpect": "List your instrument or vocal interests on Homezy and get matched with music instructors offering personalized lesson plans. Compare experience, teaching style, and rates to find the right fit.",
+  "faqs": [
+    {
+      "question": "Can I take lessons even if I don’t own an instrument?",
+      "answer": "Yes, some instructors offer instruments for trial use or can help you choose one to rent or buy. This can be discussed before your first session."
+    },
+    {
+      "question": "Are music exams or certifications supported?",
+      "answer": "Many teachers on Homezy prepare students for Trinity, ABRSM, and other music certification exams if desired."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "dance-lessons",
+      "title": "Dance Lessons"
+    },
+    {
+      "id": "home-tutors",
+      "title": "Home Tutors"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3756774/pexels-photo-3756774.jpeg",
+    "https://images.pexels.com/photos/164743/pexels-photo-164743.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Music Lessons",
+    "description": "Book music lessons in the UAE with expert instructors for piano, guitar, drums, vocals, and more. Available online, at home, or in studios via Homezy.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Music Lesson Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Piano, Guitar, and Violin Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Vocal Coaching and Singing Classes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Music Theory and Exam Prep"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/music-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

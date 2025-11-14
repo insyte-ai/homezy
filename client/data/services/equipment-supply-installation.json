@@ -1,0 +1,88 @@
+{
+  "id": "equipment-supply-installation",
+  "title": "Swimming Pool Equipment Supply & Installation",
+  "metaTitle": "Swimming Pool Equipment Supply & Installation in UAE | Homezy",
+  "metaDescription": "Find UAE suppliers for pool pumps, filters, heaters, and lighting. Get professional installation services for optimal performance. Compare quotes on Homezy.",
+  "keywords": "pool equipment UAE, pool pump installation, swimming pool filters, pool heater supply, LED pool lighting, pool automation",
+  "headerImage": "https://images.pexels.com/photos/1882024/pexels-photo-1882024.jpeg",
+  "description": "Keep your swimming pool running smoothly with reliable equipment supply and expert installation. On Homezy, you'll find trusted UAE providers offering high-quality pumps, filters, heating systems, and lighting for residential and commercial pools—installed by certified technicians.",
+  "benefits": [
+    "Access to premium equipment brands",
+    "Installation by experienced pool technicians",
+    "Energy-efficient pumps and automated systems",
+    "Custom lighting and water heating solutions",
+    "Ongoing support and performance tuning"
+  ],
+  "whatToExpect": "Submit your pool equipment needs on Homezy, whether you're upgrading or starting from scratch. Providers will evaluate your setup, recommend suitable components, and perform a seamless installation with post-installation checks.",
+  "faqs": [
+    {
+      "question": "What equipment is essential for a pool setup?",
+      "answer": "At minimum, you'll need a filtration system, circulation pump, and cleaning tools. Heating and lighting systems are optional based on your usage."
+    },
+    {
+      "question": "Can I upgrade my existing pool equipment?",
+      "answer": "Absolutely. Providers on Homezy offer retrofitting and upgrades for older systems to improve efficiency and performance."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "swimming-pool-repair",
+      "title": "Swimming Pool Repair"
+    },
+    {
+      "id": "swimming-pool-cleaning",
+      "title": "Swimming Pool Cleaning and Maintenance"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1882024/pexels-photo-1882024.jpeg",
+    "https://images.pexels.com/photos/261326/pexels-photo-261326.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Swimming Pool Equipment Supply & Installation",
+    "description": "Homezy connects homeowners with suppliers and installers of swimming pool equipment in the UAE, including pumps, filters, heaters, and lighting.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Pool Equipment Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pool Pump and Filter Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Heater and Lighting System Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Automation and Control Integration"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/equipment-supply-installation",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

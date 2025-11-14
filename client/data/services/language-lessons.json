@@ -1,0 +1,88 @@
+{
+  "id": "language-lessons",
+  "title": "Language Lessons",
+  "metaTitle": "Language Lessons in UAE | Homezy",
+  "metaDescription": "Learn a new language or improve your fluency with experienced tutors. Homezy connects you with UAE-based language instructors for English, Arabic, French, Spanish, and more.",
+  "keywords": "language lessons UAE, learn Arabic, English tutor UAE, French classes, online language tutor",
+  "headerImage": "https://images.pexels.com/photos/5428005/pexels-photo-5428005.jpeg",
+  "description": "Master a new language or sharpen your skills with help from experienced language instructors. Homezy connects learners across the UAE with private tutors and language coaches offering in-person or online lessons for English, Arabic, French, Spanish, Mandarin, and more.",
+  "benefits": [
+    "Private or group lessons available",
+    "Support for speaking, reading, writing, and listening",
+    "Instructors for all ages and levels",
+    "Preparation for exams, interviews, and relocations",
+    "Flexible scheduling for home or online sessions"
+  ],
+  "whatToExpect": "Submit your language learning goals on Homezy and receive lesson offers from vetted tutors. Review their qualifications, teaching styles, and availability to choose the right partner for your learning journey.",
+  "faqs": [
+    {
+      "question": "Can I learn multiple languages at once?",
+      "answer": "Yes, Homezy lets you connect with tutors in different languages. Many learners schedule separate sessions for each language they wish to study."
+    },
+    {
+      "question": "Do the tutors prepare students for language proficiency exams?",
+      "answer": "Yes, many instructors specialize in IELTS, TOEFL, DELF, DELE, and other language certification preparation."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-tutors",
+      "title": "Home Tutors"
+    },
+    {
+      "id": "music-lessons",
+      "title": "Music Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5428005/pexels-photo-5428005.jpeg",
+    "https://images.pexels.com/photos/5428006/pexels-photo-5428006.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Language Lessons",
+    "description": "Homezy connects learners in the UAE with expert tutors for Arabic, English, French, Spanish, and other language lessons—online or in-person.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Language Lesson Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Language Tutoring"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Exam Preparation (IELTS, TOEFL, DELF)"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Conversational Language Coaching"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/language-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

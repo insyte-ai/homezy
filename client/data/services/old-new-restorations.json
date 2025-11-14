@@ -1,0 +1,88 @@
+{
+  "id": "old-new-restorations",
+  "title": "Old & New Swimming Pool Restorations",
+  "metaTitle": "Swimming Pool Restoration Services in UAE | Homezy",
+  "metaDescription": "Revive old pools or upgrade new ones with expert restoration services. From resurfacing to modern upgrades, compare UAE providers on Homezy.",
+  "keywords": "pool restoration UAE, old pool upgrade, swimming pool resurfacing, tile replacement, modern pool renovation, pool remodeling",
+  "headerImage": "https://images.pexels.com/photos/261431/pexels-photo-261431.jpeg",
+  "description": "Whether you're bringing an aging pool back to life or updating a recently built one with modern features, Homezy helps you find pool restoration experts in the UAE. Services include resurfacing, tile replacement, lighting upgrades, and full structural overhauls tailored to your space and style.",
+  "benefits": [
+    "Extend the lifespan of your pool",
+    "Improve visual appeal with modern materials",
+    "Upgrade lighting, decking, and coping",
+    "Improve energy efficiency with new systems",
+    "Custom redesigns for outdated or damaged pools"
+  ],
+  "whatToExpect": "Post your pool restoration project on Homezy and get connected with UAE-based specialists. After evaluating your current pool, they'll suggest suitable restoration plans—from cosmetic refreshes to complete rebuilds.",
+  "faqs": [
+    {
+      "question": "How do I know if my pool needs restoration?",
+      "answer": "Signs include worn-out surfaces, outdated features, consistent leaks, or lack of energy efficiency. Experts can assess and recommend the right upgrades."
+    },
+    {
+      "question": "Can I restore and upgrade my pool at the same time?",
+      "answer": "Yes, many restoration services also offer modern enhancements like LED lighting, water features, and automated controls as part of the renovation."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "swimming-pool-repair",
+      "title": "Swimming Pool Repair"
+    },
+    {
+      "id": "equipment-supply-installation",
+      "title": "Equipment Supply & Installation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/261431/pexels-photo-261431.jpeg",
+    "https://images.pexels.com/photos/1147124/pexels-photo-1147124.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Old & New Swimming Pool Restorations",
+    "description": "Find swimming pool restoration services in the UAE with Homezy. Restore old pools or modernize new ones with resurfacing, redesigns, and upgrades.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Pool Restoration Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Swimming Pool Resurfacing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tile and Coping Replacement"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Modern Pool Upgrades and Remodeling"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/old-new-restorations-6117",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

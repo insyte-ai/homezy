@@ -1,0 +1,88 @@
+{
+  "id": "property-management",
+  "title": "Property Management",
+  "metaTitle": "Property Management Services in UAE | Homezy",
+  "metaDescription": "Simplify property ownership with trusted UAE-based property management experts. Compare services on Homezy for tenant handling, maintenance, rent collection, and more.",
+  "keywords": "property management UAE, real estate management, tenant management, rental property services, building maintenance UAE",
+  "headerImage": "https://images.pexels.com/photos/8293778/pexels-photo-8293778.jpeg",
+  "description": "Managing real estate in the UAE can be time-consuming—but the right property management service can make it seamless. Homezy connects you with licensed companies that handle everything from tenant screening and rent collection to maintenance coordination and legal compliance. Ideal for landlords, investors, and homeowners looking for hands-free management.",
+  "benefits": [
+    "End-to-end tenant management",
+    "Rent collection and financial reporting",
+    "24/7 maintenance coordination",
+    "Legal compliance and lease documentation",
+    "Improved occupancy and ROI"
+  ],
+  "whatToExpect": "Post your property details and management needs on Homezy to receive offers from experienced agencies. Services are tailored based on property type—residential, commercial, or vacation rentals—and may include regular inspections, emergency handling, and transparent communication with landlords.",
+  "faqs": [
+    {
+      "question": "Do property managers handle maintenance?",
+      "answer": "Yes, most providers coordinate regular maintenance, repairs, and emergency services through a network of trusted contractors."
+    },
+    {
+      "question": "Can I get reports and updates on my property?",
+      "answer": "Absolutely. Property management services typically include periodic financial and operational reporting so you're always informed."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "amc",
+      "title": "Annual Maintenance Contracts (AMC)"
+    },
+    {
+      "id": "pest-control",
+      "title": "Pest Control"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/8293778/pexels-photo-8293778.jpeg",
+    "https://images.pexels.com/photos/8293774/pexels-photo-8293774.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Property Management",
+    "description": "Homezy helps property owners in the UAE connect with trusted property management companies for end-to-end rental, maintenance, and tenant services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Property Management Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tenant and Lease Management"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Maintenance and Repairs Coordination"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Financial and Legal Oversight"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/property-management-2914",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "id": "ac-maintenance",
+  "title": "AC Maintenance Services",
+  "metaTitle": "Professional AC Maintenance Services in UAE | Homezy",
+  "metaDescription": "Get expert AC maintenance services in Dubai, Abu Dhabi and across UAE. Regular servicing, repairs, and cleaning by certified technicians. Book now!",
+  "keywords": "AC maintenance, air conditioning service, AC repair, AC cleaning, HVAC maintenance, Dubai AC service, Abu Dhabi AC maintenance, UAE air conditioning",
+  "headerImage": "https://images.pexels.com/photos/4792733/pexels-photo-4792733.jpeg",
+  "description": "Our professional AC maintenance services ensure your air conditioning system runs efficiently year-round. Regular maintenance extends the life of your AC unit, improves air quality, and reduces energy costs. Our certified technicians provide comprehensive servicing including cleaning, inspection, and repairs.",
+  "benefits": [
+    "Extends the lifespan of your AC unit",
+    "Improves energy efficiency and reduces electricity bills",
+    "Ensures better air quality and healthier environment",
+    "Prevents costly breakdowns and emergency repairs",
+    "Maintains manufacturer warranty requirements"
+  ],
+  "whatToExpect": "When you book our AC maintenance service, our certified technician will arrive at your scheduled time with all necessary equipment. The service includes cleaning or replacing filters, checking refrigerant levels, inspecting electrical components, cleaning coils, and testing overall system performance. Our technicians will provide a detailed report of your AC's condition and recommend any necessary repairs or improvements.",
+  "faqs": [
+    {
+      "question": "How often should I service my AC unit?",
+      "answer": "For optimal performance, we recommend servicing your AC unit at least twice a year - before summer and winter. However, if you use your AC extensively or have an older unit, more frequent maintenance may be beneficial."
+    },
+    {
+      "question": "What's included in a standard AC maintenance service?",
+      "answer": "Our standard AC maintenance includes cleaning or replacing filters, checking refrigerant levels, inspecting electrical components and connections, cleaning evaporator and condenser coils, checking thermostat operation, and testing overall system performance."
+    },
+    {
+      "question": "How long does an AC maintenance service take?",
+      "answer": "A standard AC maintenance service typically takes 1-2 hours per unit, depending on the type, size, and condition of your AC system."
+    },
+    {
+      "question": "Can AC maintenance help reduce my electricity bill?",
+      "answer": "Yes, regular AC maintenance can significantly reduce your electricity bills. A well-maintained AC unit operates more efficiently, consuming less power while providing optimal cooling."
+    },
+    {
+      "question": "Do you provide maintenance for all types of AC units?",
+      "answer": "Yes, our technicians are trained to service all types of AC units including split systems, window units, central air conditioning, and ducted systems from all major brands."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "ac-installation",
+      "title": "AC Installation"
+    },
+    {
+      "id": "ac-repair",
+      "title": "AC Repair"
+    },
+    {
+      "id": "hvac-services",
+      "title": "HVAC Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4792733/pexels-photo-4792733.jpeg",
+    "https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg",
+    "https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "AC Maintenance Services",
+    "description": "Professional AC maintenance services including cleaning, inspection, and repairs by certified technicians.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "AC Maintenance Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Standard AC Maintenance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deep AC Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AC Repair"
+          }
+        }
+      ]
+    }
+  }
+}

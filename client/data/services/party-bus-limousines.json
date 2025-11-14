@@ -1,0 +1,88 @@
+{
+  "id": "party-bus-limousines",
+  "title": "Party Bus and Limousines",
+  "metaTitle": "Party Bus & Limousine Rentals in UAE | Homezy",
+  "metaDescription": "Make an entrance with party bus or limo rentals for weddings, birthdays, and nights out. Book luxury transport services in the UAE through Homezy.",
+  "keywords": "party bus UAE, limousine rental UAE, wedding limo, birthday limo ride, luxury transport UAE",
+  "headerImage": "https://images.pexels.com/photos/1201460/pexels-photo-1201460.jpeg",
+  "description": "Arrive in style and comfort for your next big event. Whether it’s a wedding, prom, birthday, or corporate gathering, Homezy connects you with top-rated luxury transport providers in the UAE offering party buses and limousines with premium interiors, music systems, lighting, and more.",
+  "benefits": [
+    "Spacious party buses with sound and lighting systems",
+    "Chauffeured limousines for weddings and formal events",
+    "Packages for birthdays, proms, and nights out",
+    "Hourly and full-day booking options",
+    "Licensed and insured transport providers"
+  ],
+  "whatToExpect": "Submit your event date, location, and transport needs on Homezy to get matched with vehicle providers offering various options—from stretch limos to luxury coaches. Compare features, pricing, and availability before booking directly with the provider.",
+  "faqs": [
+    {
+      "question": "Can I book a party bus for a few hours only?",
+      "answer": "Yes, most providers offer flexible packages including hourly, half-day, or full-day rentals depending on your event schedule."
+    },
+    {
+      "question": "Are alcohol and music allowed on the party bus?",
+      "answer": "In most cases, yes—music systems and party lighting are standard. Alcohol policies vary by provider and must follow local regulations."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "birthday-party-planners",
+      "title": "Birthday Party Planners"
+    },
+    {
+      "id": "djs",
+      "title": "DJs"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1201460/pexels-photo-1201460.jpeg",
+    "https://images.pexels.com/photos/2874060/pexels-photo-2874060.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Party Bus and Limousines",
+    "description": "Homezy connects you with UAE-based providers offering luxury party buses and limousines for weddings, birthdays, and corporate events.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Luxury Transport Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Stretch Limousine Rental"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Party Bus Rental"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event Transportation Packages"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/party-bus-limousines",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "id": "plumbing",
+  "title": "Plumbing Services",
+  "metaTitle": "Professional Plumbing Services in UAE | Homezy",
+  "metaDescription": "Get reliable plumbing services in Dubai, Abu Dhabi and across UAE. Emergency repairs, installations, and maintenance by licensed plumbers. Available 24/7.",
+  "keywords": "plumbing services, plumber, pipe repair, leak detection, drain cleaning, bathroom plumbing, kitchen plumbing, emergency plumber, UAE plumbing",
+  "headerImage": "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg",
+  "description": "Our professional plumbing services cover all your residential and commercial plumbing needs. From emergency repairs to new installations and routine maintenance, our licensed plumbers deliver reliable solutions with quality workmanship. We use the latest tools and techniques to diagnose and fix plumbing issues quickly and efficiently.",
+  "benefits": [
+    "24/7 emergency plumbing services",
+    "Licensed and insured professional plumbers",
+    "Transparent pricing with no hidden fees",
+    "Guaranteed workmanship and parts",
+    "Clean and tidy work area after completion",
+    "Modern equipment and latest techniques"
+  ],
+  "whatToExpect": "When you book our plumbing service, a licensed plumber will arrive at your scheduled time with all necessary tools and equipment. They'll assess the issue, provide a detailed quote, and upon approval, complete the work efficiently. All work areas will be cleaned after the job is done, and you'll receive a warranty on both parts and labor. For emergency services, we aim to arrive within 60 minutes of your call.",
+  "faqs": [
+    {
+      "question": "Do you offer emergency plumbing services?",
+      "answer": "Yes, we offer 24/7 emergency plumbing services throughout the UAE. Our emergency team aims to arrive within 60 minutes of your call to address urgent issues like burst pipes, severe leaks, or blocked drains."
+    },
+    {
+      "question": "How much do your plumbing services cost?",
+      "answer": "Our plumbing service costs vary depending on the type of service, complexity, parts required, and time needed. We provide a detailed quote before starting any work, and there are no hidden fees. Basic service calls start from AED 150, with additional costs for parts and extended labor."
+    },
+    {
+      "question": "Are your plumbers licensed and insured?",
+      "answer": "Yes, all our plumbers are fully licensed, certified, and insured. They undergo regular training to stay updated with the latest plumbing techniques and safety standards. We're fully compliant with all UAE regulations for plumbing services."
+    },
+    {
+      "question": "What plumbing services do you offer?",
+      "answer": "We offer a comprehensive range of plumbing services including leak detection and repair, drain cleaning, pipe installation and replacement, fixture installation, water heater services, bathroom and kitchen plumbing, sewer line services, water pressure issues, and commercial plumbing solutions."
+    },
+    {
+      "question": "Do you provide warranties for your plumbing work?",
+      "answer": "Yes, we stand behind our work with solid warranties. We offer a 30-day warranty on labor and up to 1 year on parts (depending on manufacturer specifications). If any issues arise with our work, we'll return to fix it at no additional cost within the warranty period."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "bathroom-renovation",
+      "title": "Bathroom Renovation"
+    },
+    {
+      "id": "water-heater-installation",
+      "title": "Water Heater Installation"
+    },
+    {
+      "id": "kitchen-renovation",
+      "title": "Kitchen Renovation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1824392/pexels-photo-1824392.jpeg",
+    "https://images.pexels.com/photos/5691622/pexels-photo-5691622.jpeg",
+    "https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg",
+    "https://images.pexels.com/photos/5691623/pexels-photo-5691623.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Plumbing Services",
+    "description": "Comprehensive plumbing services including repairs, installations, and maintenance by licensed professionals.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Plumbing Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Plumbing Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Leak Detection and Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Fixture Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Drain Cleaning"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/plumbing-3147",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

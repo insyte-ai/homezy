@@ -1,0 +1,88 @@
+{
+  "id": "home-audio",
+  "title": "Home Audio",
+  "metaTitle": "Home Audio Installation Services in UAE | Homezy",
+  "metaDescription": "Upgrade your sound system with expert home audio installation. Homezy connects you with UAE professionals for surround sound, multi-room audio, and acoustic setup.",
+  "keywords": "home audio UAE, surround sound installation, multi-room speakers, wireless audio system, smart home audio",
+  "headerImage": "https://images.pexels.com/photos/3394658/pexels-photo-3394658.jpeg",
+  "description": "Bring cinematic sound and seamless music control to your home. Homezy helps you connect with UAE-based audio specialists who install high-performance speaker systems—whether it’s a single-room surround setup or an integrated multi-room solution. Explore top brands and acoustic designs tailored to your home layout.",
+  "benefits": [
+    "Surround sound and stereo setup",
+    "Multi-room audio systems",
+    "Wireless and app-controlled sound solutions",
+    "Acoustic optimization for any room size",
+    "Integration with smart home controls"
+  ],
+  "whatToExpect": "Share your audio needs on Homezy to get matched with AV experts who provide consultation, system design, and professional installation. Choose from in-wall speakers, ceiling setups, or wireless sound bars—perfect for music, movies, or gaming.",
+  "faqs": [
+    {
+      "question": "Can I install a sound system in more than one room?",
+      "answer": "Yes, most providers offer multi-room systems that allow you to control sound independently in different areas of your home."
+    },
+    {
+      "question": "Do I need a smart home system to install home audio?",
+      "answer": "Not necessarily. Audio systems can work independently, but they can also be integrated into smart home platforms if preferred."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-theatre-system",
+      "title": "Home Theatre System"
+    },
+    {
+      "id": "home-automation",
+      "title": "Home Automation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3394658/pexels-photo-3394658.jpeg",
+    "https://images.pexels.com/photos/3394660/pexels-photo-3394660.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Home Audio",
+    "description": "Homezy connects you with audio specialists in the UAE for custom home audio installations including surround sound, wireless speakers, and acoustic design.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Home Audio Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Surround Sound System Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Multi-Room Audio Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wireless Speaker and Sound Bar Integration"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/home-audio-7197",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

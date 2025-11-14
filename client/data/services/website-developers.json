@@ -1,0 +1,88 @@
+{
+  "id": "website-developers",
+  "title": "Website Developers",
+  "metaTitle": "Website Developers in UAE | Homezy",
+  "metaDescription": "Hire expert website developers in the UAE through Homezy. Get custom websites, e-commerce platforms, and web app solutions from verified professionals.",
+  "keywords": "website developers UAE, web design, e-commerce development, business website UAE, front-end back-end developer",
+  "headerImage": "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
+  "description": "Whether you need a sleek business website, a powerful e-commerce store, or a full-stack web application, Homezy connects you with experienced developers across the UAE. From UI/UX design to backend coding, listed professionals deliver high-performing, secure, and responsive websites for every industry.",
+  "benefits": [
+    "Custom websites for businesses and startups",
+    "E-commerce and booking platform development",
+    "Responsive design and mobile compatibility",
+    "SEO-friendly and performance-optimized code",
+    "Maintenance and technical support options"
+  ],
+  "whatToExpect": "Share your project scope and objectives on Homezy. You'll receive quotes from developers or agencies who outline timelines, technologies used, and pricing models. Compare portfolios and features to choose the right partner for your digital presence.",
+  "faqs": [
+    {
+      "question": "Do developers provide both design and development?",
+      "answer": "Yes, many offer end-to-end services including UI/UX design, development, and hosting. Some may also partner with designers if needed."
+    },
+    {
+      "question": "Can I request a website with a CMS like WordPress?",
+      "answer": "Absolutely. Developers on Homezy work with popular CMS platforms such as WordPress, Shopify, Wix, or can build custom CMS solutions if required."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "digital-marketing",
+      "title": "Digital Marketing"
+    },
+    {
+      "id": "business-setup",
+      "title": "Business Setup"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
+    "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Website Developers",
+    "description": "Find expert website developers in the UAE via Homezy for custom websites, e-commerce platforms, and web applications with full design and coding services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Website Development Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Website Design & Development"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "E-Commerce Platform Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Web App Development and Maintenance"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/website-developers",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "personal-dietitian",
+  "title": "Personal Dietitian",
+  "metaTitle": "Personal Dietitian Services in UAE | Homezy",
+  "metaDescription": "Connect with licensed dietitians across the UAE via Homezy. Get personalized meal plans, health consultations, and nutrition coaching at home or online.",
+  "keywords": "personal dietitian UAE, nutritionist consultation, meal planning, weight loss coach, healthy eating plans",
+  "headerImage": "https://images.pexels.com/photos/3761666/pexels-photo-3761666.jpeg",
+  "description": "Looking to improve your health, manage weight, or address dietary concerns? Homezy connects you with qualified dietitians in the UAE who offer personalized nutritional guidance—at home, in clinics, or virtually. Whether it's lifestyle changes or condition-specific plans, you’ll find a match who supports your goals.",
+  "benefits": [
+    "Custom meal planning and nutritional advice",
+    "In-person or virtual consultations",
+    "Support for weight loss, diabetes, allergies, and more",
+    "Follow-up sessions to track progress",
+    "Licensed experts with clinical or wellness experience"
+  ],
+  "whatToExpect": "Submit your dietary goals and preferences through Homezy. You’ll receive consultation offers from certified dietitians. Compare their specialties, session styles, and pricing to select the best fit for your health journey.",
+  "faqs": [
+    {
+      "question": "Can I get a meal plan tailored to medical conditions?",
+      "answer": "Yes, many dietitians on Homezy specialize in condition-based nutrition, including diabetes, PCOS, hypertension, and food allergies."
+    },
+    {
+      "question": "Are virtual consultations available?",
+      "answer": "Absolutely. Several providers offer video sessions with full dietary support and follow-ups."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "personal-trainers",
+      "title": "Personal Trainers"
+    },
+    {
+      "id": "yoga",
+      "title": "Yoga"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3761666/pexels-photo-3761666.jpeg",
+    "https://images.pexels.com/photos/6695774/pexels-photo-6695774.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Personal Dietitian",
+    "description": "Find licensed dietitians on Homezy for personalized meal plans, health consultations, and dietary support tailored to your goals and lifestyle.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Personal Dietitian Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Meal Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Virtual Nutrition Consultation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Ongoing Health Coaching"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/personal-dietitian",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "junk-removal",
+  "title": "Junk Removal",
+  "metaTitle": "Junk Removal Services in UAE | Homezy",
+  "metaDescription": "Clear out unwanted items quickly and responsibly with junk removal services across the UAE. Compare providers and book through Homezy.",
+  "keywords": "junk removal UAE, waste disposal service, furniture removal, debris removal, appliance disposal, home decluttering",
+  "headerImage": "https://images.pexels.com/photos/3735023/pexels-photo-3735023.jpeg",
+  "description": "Whether you're moving, renovating, or just decluttering, Homezy connects you with UAE-based junk removal services that handle the heavy lifting. From old furniture and broken appliances to renovation debris and general waste, get hassle-free pickup and responsible disposal with trusted providers.",
+  "benefits": [
+    "Quick removal of bulky or unwanted items",
+    "Eco-friendly disposal and recycling options",
+    "Same-day or scheduled pickup available",
+    "Removal of furniture, appliances, and renovation debris",
+    "Ideal for homes, offices, and construction sites"
+  ],
+  "whatToExpect": "Submit your request on Homezy and get matched with junk removal providers. Services may include labor, loading, sorting for recycling, and cleaning the cleared area. Transparent pricing is based on volume and item type.",
+  "faqs": [
+    {
+      "question": "What types of junk can be removed?",
+      "answer": "Most services can handle furniture, appliances, electronics, garden waste, renovation debris, and general household clutter. Hazardous waste may not be accepted."
+    },
+    {
+      "question": "How is pricing determined?",
+      "answer": "Pricing typically depends on the volume of junk, type of items, and any special handling required. You'll receive quotes before confirming service."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    },
+    {
+      "id": "packers-and-movers",
+      "title": "Packers & Movers"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3735023/pexels-photo-3735023.jpeg",
+    "https://images.pexels.com/photos/7464465/pexels-photo-7464465.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Junk Removal",
+    "description": "Homezy helps you find reliable junk removal providers in the UAE for efficient and eco-friendly waste clearance from homes and offices.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Junk Removal Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Furniture and Appliance Removal"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Construction and Renovation Debris Cleanup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "General Household Decluttering"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/junk-removal-796",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "florists",
+  "title": "Florists",
+  "metaTitle": "Florists & Flower Arrangement Services in UAE | Homezy",
+  "metaDescription": "Book professional florists for weddings, events, or everyday bouquets. Explore top UAE-based floral designers on Homezy for custom arrangements and delivery.",
+  "keywords": "florists UAE, flower arrangement, wedding flowers, bouquet delivery, floral decoration UAE",
+  "headerImage": "https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg",
+  "description": "Fresh flowers make any space feel special. Whether you need elegant floral arrangements for a wedding, creative centerpieces for a party, or a surprise bouquet delivery, Homezy helps you find talented florists in the UAE who specialize in design, delivery, and event decoration tailored to your needs.",
+  "benefits": [
+    "Custom flower arrangements for events and gifting",
+    "Fresh flowers sourced locally and internationally",
+    "Same-day bouquet delivery options",
+    "Floral décor for weddings and parties",
+    "Seasonal and theme-based designs"
+  ],
+  "whatToExpect": "Describe your event or flower needs on Homezy, and connect with florists who offer consultations, mock-ups, and full-service floral design. Whether it’s one bouquet or a large-scale installation, you’ll get personalized options to match your style and budget.",
+  "faqs": [
+    {
+      "question": "Do florists handle setup at the venue?",
+      "answer": "Yes, most florists offer full setup and breakdown for events. This ensures your floral arrangements are perfectly placed and fresh throughout the event."
+    },
+    {
+      "question": "Can I request flowers that are not in season?",
+      "answer": "Some florists can source specific flowers from international suppliers. Availability may depend on lead time and cost."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "cake-decorators",
+      "title": "Cake Decorators"
+    },
+    {
+      "id": "birthday-party-planners",
+      "title": "Birthday Party Planners"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg",
+    "https://images.pexels.com/photos/931167/pexels-photo-931167.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Florists",
+    "description": "Connect with florists across the UAE for weddings, events, and floral gifting. Homezy helps you book custom arrangements and delivery with ease.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Floral Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wedding Floral Arrangements"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event and Party Flower Decoration"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bouquet and Gifting Flowers"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/florists",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}
