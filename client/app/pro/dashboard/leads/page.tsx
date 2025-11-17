@@ -34,7 +34,7 @@ export default function MyClaimedLeads() {
         page,
         limit: 10,
       });
-      setLeads(data.leads);
+      setLeads(data.leads || []);
       setTotalPages(data.pagination?.pages || 1);
     } catch (error: any) {
       console.error('Failed to load claimed leads:', error);
@@ -46,7 +46,7 @@ export default function MyClaimedLeads() {
   };
 
   // Filter leads based on search and status
-  const filteredLeads = leads.filter((lead) => {
+  const filteredLeads = (leads || []).filter((lead) => {
     const matchesSearch =
       !searchQuery ||
       lead.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -59,10 +59,10 @@ export default function MyClaimedLeads() {
 
   // Calculate statistics
   const stats = {
-    active: leads.filter((l) => l.status === 'open' || l.status === 'quoted').length,
-    accepted: leads.filter((l) => l.status === 'accepted').length,
-    totalClaimed: leads.length,
-    totalValue: leads
+    active: (leads || []).filter((l) => l.status === 'open' || l.status === 'quoted').length,
+    accepted: (leads || []).filter((l) => l.status === 'accepted').length,
+    totalClaimed: (leads || []).length,
+    totalValue: (leads || [])
       .filter((l) => l.status === 'open' || l.status === 'quoted')
       .reduce((sum, lead) => {
         // Estimate value from budget bracket
@@ -84,7 +84,7 @@ export default function MyClaimedLeads() {
       case 'open':
         return 'bg-green-100 text-green-800';
       case 'quoted':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-primary-100 text-neutral-900';
       case 'accepted':
         return 'bg-purple-100 text-purple-800';
       case 'expired':
@@ -160,11 +160,11 @@ export default function MyClaimedLeads() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600 dark:text-gray-400">Total Claimed</p>
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                <p className="text-2xl font-bold text-primary-600 dark:text-primary-400">
                   {stats.totalClaimed}
                 </p>
               </div>
-              <FileText className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              <FileText className="h-8 w-8 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
 
@@ -194,7 +194,7 @@ export default function MyClaimedLeads() {
                   placeholder="Search leads by title or description..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
                 />
                 <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
               </div>
@@ -204,7 +204,7 @@ export default function MyClaimedLeads() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
             >
               <option value="all">All Status</option>
               <option value="open">Open</option>
@@ -240,7 +240,7 @@ export default function MyClaimedLeads() {
             </p>
             <button
               onClick={() => router.push('/pro/dashboard/leads/marketplace')}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition"
             >
               Browse Marketplace
             </button>
@@ -334,22 +334,22 @@ export default function MyClaimedLeads() {
 
                       {/* Homeowner Contact (if available) */}
                       {homeownerInfo && (
-                        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
-                          <h5 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                        <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4 mb-4">
+                          <h5 className="font-semibold text-primary-900 dark:text-primary-200 mb-2">
                             Homeowner Contact
                           </h5>
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
                             <div>
-                              <span className="text-blue-700 dark:text-blue-300">Name:</span>{' '}
+                              <span className="text-primary-700 dark:text-primary-300">Name:</span>{' '}
                               {homeownerInfo.name}
                             </div>
                             <div>
-                              <span className="text-blue-700 dark:text-blue-300">Email:</span>{' '}
+                              <span className="text-primary-700 dark:text-primary-300">Email:</span>{' '}
                               {homeownerInfo.email}
                             </div>
                             {homeownerInfo.phone && (
                               <div>
-                                <span className="text-blue-700 dark:text-blue-300">Phone:</span>{' '}
+                                <span className="text-primary-700 dark:text-primary-300">Phone:</span>{' '}
                                 {homeownerInfo.phone}
                               </div>
                             )}
@@ -361,7 +361,7 @@ export default function MyClaimedLeads() {
                       <div className="flex gap-3">
                         <button
                           onClick={() => router.push(`/pro/dashboard/leads/${lead._id}`)}
-                          className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+                          className="flex-1 py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition"
                         >
                           {lead.status === 'accepted' ? 'View Award Details' : 'View Details'}
                         </button>

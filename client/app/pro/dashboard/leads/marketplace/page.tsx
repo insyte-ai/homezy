@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { getMarketplace, claimLead, Lead } from '@/lib/services/leads';
+import { getMarketplace, claimLead, Lead, LeadFilters } from '@/lib/services/leads';
 import { getBalance, CreditBalance as CreditBalanceType } from '@/lib/services/credits';
 import LeadCard from '@/components/leads/LeadCard';
 import CreditBalance from '@/components/credits/CreditBalance';
@@ -62,8 +62,17 @@ const ProLeadMarketplaceContent = () => {
   const loadMarketplace = async () => {
     try {
       setLoading(true);
+
+      // Clean filters - remove empty strings and undefined values
+      const cleanFilters = Object.entries(filters).reduce((acc, [key, value]) => {
+        if (value !== '' && value !== undefined) {
+          (acc as Record<string, unknown>)[key] = value;
+        }
+        return acc;
+      }, {} as Partial<LeadFilters>);
+
       const data = await getMarketplace({
-        ...filters,
+        ...cleanFilters,
         page,
         limit: 12,
       });
@@ -173,7 +182,7 @@ const ProLeadMarketplaceContent = () => {
               <div className="space-y-2">
                 <button
                   onClick={() => router.push('/pro/dashboard/leads')}
-                  className="w-full py-2 px-4 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition text-sm font-medium"
+                  className="w-full py-2 px-4 bg-primary-50 dark:bg-primary-900/20 text-neutral-900 dark:text-primary-400 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/30 transition text-sm font-medium"
                 >
                   View Claimed Leads
                 </button>
@@ -196,7 +205,7 @@ const ProLeadMarketplaceContent = () => {
                 {hasActiveFilters && (
                   <button
                     onClick={resetFilters}
-                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                    className="text-sm text-neutral-900 dark:text-primary-400 hover:underline"
                   >
                     Reset
                   </button>
@@ -310,7 +319,7 @@ const ProLeadMarketplaceContent = () => {
                 <button
                   onClick={loadMarketplace}
                   disabled={loading}
-                  className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition disabled:opacity-50"
+                  className="p-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition disabled:opacity-50"
                 >
                   <RefreshCw className={`h-5 w-5 ${loading ? 'animate-spin' : ''}`} />
                 </button>
@@ -318,12 +327,12 @@ const ProLeadMarketplaceContent = () => {
             </div>
 
             {/* Info Banner */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+            <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4 mb-6">
               <div className="flex items-start gap-3">
-                <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-blue-900 dark:text-blue-200">
+                <AlertCircle className="h-5 w-5 text-neutral-900 dark:text-primary-400 flex-shrink-0 mt-0.5" />
+                <div className="text-sm text-primary-900 dark:text-primary-200">
                   <p className="font-medium mb-1">How Lead Matching Works</p>
-                  <p className="text-blue-700 dark:text-blue-300">
+                  <p className="text-primary-700 dark:text-primary-300">
                     Leads are ranked based on your service categories, location proximity,
                     and verification status. Claim leads that match your expertise!
                   </p>
@@ -349,7 +358,7 @@ const ProLeadMarketplaceContent = () => {
                 {hasActiveFilters && (
                   <button
                     onClick={resetFilters}
-                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                    className="text-neutral-900 dark:text-primary-400 hover:underline"
                   >
                     Clear filters and try again
                   </button>
@@ -389,7 +398,7 @@ const ProLeadMarketplaceContent = () => {
                       }}
                       className={`transition-all ${
                         highlightedLeadId === lead._id
-                          ? 'ring-4 ring-blue-500 ring-opacity-50 rounded-lg'
+                          ? 'ring-4 ring-primary-500 ring-opacity-50 rounded-lg'
                           : ''
                       }`}
                     >
@@ -442,10 +451,10 @@ const ProLeadMarketplaceContent = () => {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               You are about to claim: <span className="font-semibold text-gray-900 dark:text-white">{selectedLead.title}</span>
             </p>
-            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-6">
+            <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4 mb-6">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-gray-700 dark:text-gray-300">Credits Required:</span>
-                <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                <span className="text-2xl font-bold text-neutral-900 dark:text-primary-400">
                   {selectedLead.creditsRequired || 0}
                 </span>
               </div>
@@ -468,7 +477,7 @@ const ProLeadMarketplaceContent = () => {
               </button>
               <button
                 onClick={handleConfirmClaim}
-                className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+                className="flex-1 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition"
               >
                 Confirm Claim
               </button>
@@ -485,7 +494,7 @@ const ProLeadMarketplace = () => {
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-400">Loading marketplace...</p>
         </div>
       </div>

@@ -56,7 +56,7 @@ export const CreditBalance = () => {
           </p>
           <button
             onClick={() => loadBalance()}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+            className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition"
           >
             Retry
           </button>
@@ -71,13 +71,13 @@ export const CreditBalance = () => {
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Coins className="h-6 w-6 text-blue-600" />
+            <Coins className="h-6 w-6 text-primary-600" />
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Credit Balance</h3>
           </div>
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-3 py-1 rounded transition disabled:opacity-50"
+            className="text-sm text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 px-3 py-1 rounded transition disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 inline mr-1 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh

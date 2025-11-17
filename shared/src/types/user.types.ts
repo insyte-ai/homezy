@@ -24,28 +24,30 @@ export interface HomeownerProfile {
 
 export interface ProProfile {
   businessName: string;
+  slug?: string; // URL-friendly slug for public profile
   tagline?: string;
   bio?: string;
+  // Arrays default to empty, not required to have items
   categories: ServiceCategoryId[];
   serviceAreas: ServiceArea[];
   yearsInBusiness?: number;
   teamSize?: number;
-  languages: string[];
+  languages?: string[];
 
   // Verification
   verificationStatus: 'unverified' | 'pending' | 'basic' | 'comprehensive' | 'rejected';
-  verificationDocuments: VerificationDocument[];
+  verificationDocuments?: VerificationDocument[];
 
   // Portfolio
-  portfolio: PortfolioItem[];
-  featuredProjects: string[]; // IDs of featured portfolio items
+  portfolio?: PortfolioItem[];
+  featuredProjects?: string[]; // IDs of featured portfolio items
 
   // Pricing
   hourlyRateMin?: number;
   hourlyRateMax?: number;
   minimumProjectSize?: number;
 
-  // Stats
+  // Stats (calculated fields with defaults)
   rating: number;
   reviewCount: number;
   projectsCompleted: number;
@@ -53,8 +55,8 @@ export interface ProProfile {
   quoteAcceptanceRate: number;
 
   // Settings
-  availability: Availability;
-  businessType: 'sole-proprietor' | 'llc' | 'corporation';
+  availability?: Availability;
+  businessType?: 'sole-proprietor' | 'llc' | 'corporation';
 }
 
 export interface ServiceArea {

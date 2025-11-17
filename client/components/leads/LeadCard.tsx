@@ -39,7 +39,7 @@ export const LeadCard = ({
       case 'flexible':
         return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
       case 'planning':
-        return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400';
+        return 'bg-primary-100 text-neutral-900 dark:bg-primary-900/30 dark:text-primary-400';
       default:
         return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
     }
@@ -53,7 +53,7 @@ export const LeadCard = ({
       case 'full':
         return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400';
       case 'quoted':
-        return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400';
+        return 'bg-primary-100 text-neutral-900 dark:bg-primary-900/30 dark:text-primary-400';
       case 'accepted':
         return 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400';
       case 'expired':
@@ -115,7 +115,7 @@ export const LeadCard = ({
 
           {variant === 'marketplace' && lead.matchScore !== undefined && (
             <div className="text-right">
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+              <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
                 {lead.matchScore}%
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">Match</div>
@@ -203,7 +203,7 @@ export const LeadCard = ({
         {variant === 'marketplace' && !isClaimed && lead.creditsRequired && (
           <div className="flex items-center gap-2 pt-2 border-t border-gray-200 dark:border-gray-700">
             <Lock className="h-4 w-4 text-gray-400" />
-            <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">
+            <span className="text-sm font-semibold text-primary-600 dark:text-primary-400">
               {lead.creditsRequired} credits to claim
             </span>
           </div>
@@ -226,7 +226,7 @@ export const LeadCard = ({
           <button
             onClick={() => onClaim(lead._id)}
             disabled={claiming || lead.claimsCount >= (lead.maxClaimsAllowed || 5)}
-            className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {claiming ? (
               <>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
 import { AdminDashboardSidebar } from '@/components/dashboard/AdminDashboardSidebar';
+import UserProfileDropdown from '@/components/common/UserProfileDropdown';
 
 export default function AdminLayout({
   children,
@@ -48,9 +49,18 @@ export default function AdminLayout({
   return (
     <div className="h-screen flex bg-gray-50 overflow-hidden">
       <AdminDashboardSidebar />
-      <main className="flex-1 overflow-y-auto">
-        {children}
-      </main>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Top Header */}
+        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0">
+          <h2 className="text-lg font-semibold text-gray-900">Admin Portal</h2>
+          <UserProfileDropdown />
+        </header>
+
+        {/* Main Content */}
+        <main className="flex-1 overflow-y-auto">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

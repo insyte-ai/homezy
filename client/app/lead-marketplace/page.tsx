@@ -34,8 +34,17 @@ const PublicLeadMarketplaceContent = () => {
   const loadMarketplace = async () => {
     try {
       setLoading(true);
+
+      // Clean filters - remove empty strings and undefined values
+      const cleanFilters = Object.entries(filters).reduce((acc, [key, value]) => {
+        if (value !== '' && value !== undefined) {
+          (acc as Record<string, unknown>)[key] = value;
+        }
+        return acc;
+      }, {} as Partial<LeadFilters>);
+
       const data = await getMarketplace({
-        ...filters,
+        ...cleanFilters,
         page,
         limit: 12,
       });

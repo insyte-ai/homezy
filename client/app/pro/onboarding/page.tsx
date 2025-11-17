@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
+import { completeOnboarding } from '@/lib/services/professional';
+import toast from 'react-hot-toast';
 
 // Service categories from PRD
 const SERVICE_CATEGORIES = [
@@ -133,14 +135,23 @@ export default function ProOnboardingPage() {
   };
 
   const handleSkipToDashboard = async () => {
-    // Save progress and go to dashboard
+    // Save progress if required fields are filled
     setIsSubmitting(true);
     try {
-      // TODO: Save onboarding progress to API
-      console.log('Saving partial onboarding:', formData);
+      // Only save if we have minimum required data
+      if (formData.businessName && formData.primaryCategory && formData.primaryEmirate) {
+        await completeOnboarding({
+          businessName: formData.businessName,
+          businessType: formData.businessType as 'sole-proprietor' | 'llc' | 'corporation',
+          categories: [formData.primaryCategory, ...formData.additionalCategories],
+          primaryEmirate: formData.primaryEmirate,
+          serviceRadius: formData.serviceRadius,
+        });
+      }
       router.push('/pro/dashboard');
     } catch (err: any) {
-      setError(err.message || 'Failed to save progress');
+      setError(err.response?.data?.message || err.message || 'Unable to save your progress');
+      toast.error('Unable to save progress. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -149,11 +160,24 @@ export default function ProOnboardingPage() {
   const handleComplete = async () => {
     setIsSubmitting(true);
     try {
-      // TODO: Save complete onboarding data to API
-      console.log('Completing onboarding:', formData);
+      // Validate required fields
+      if (!formData.businessName || !formData.primaryCategory || !formData.primaryEmirate) {
+        setError('Please complete all required fields');
+        return;
+      }
+
+      await completeOnboarding({
+        businessName: formData.businessName,
+        businessType: formData.businessType as 'sole-proprietor' | 'llc' | 'corporation',
+        categories: [formData.primaryCategory, ...formData.additionalCategories],
+        primaryEmirate: formData.primaryEmirate,
+        serviceRadius: formData.serviceRadius,
+      });
+
       router.push('/pro/dashboard');
     } catch (err: any) {
-      setError(err.message || 'Failed to complete onboarding');
+      setError(err.response?.data?.message || err.message || 'Unable to complete onboarding');
+      toast.error('Unable to complete onboarding. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -343,8 +367,8 @@ export default function ProOnboardingPage() {
                 </select>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-blue-900">
+              <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                <p className="text-sm text-primary-900">
                   <strong>Your contact info:</strong> We'll use the email and phone number you registered with ({user?.email}, {user?.phone || 'Not provided'}) to send you lead notifications.
                 </p>
               </div>
@@ -397,8 +421,8 @@ export default function ProOnboardingPage() {
                 </p>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-blue-900">
+              <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                <p className="text-sm text-primary-900">
                   <strong>Note:</strong> You can add more emirates and specify exact neighborhoods later from your dashboard.
                 </p>
               </div>

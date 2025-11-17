@@ -12,9 +12,9 @@ export const WelcomeSection = () => {
     <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
       <div className="max-w-2xl text-center space-y-6">
         {/* Logo/Icon */}
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full">
           <svg
-            className="w-8 h-8 text-blue-600"
+            className="w-8 h-8 text-neutral-900"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

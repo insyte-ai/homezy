@@ -1,6 +1,8 @@
 import express from 'express';
 import {
+  completeOnboarding,
   getMyProfile,
+  previewMyProfile,
   getProProfile,
   updateProfile,
   addPortfolioItem,
@@ -9,10 +11,12 @@ import {
   updateFeaturedProjects,
   uploadVerificationDocument,
   searchPros,
+  getProAnalytics,
 } from '../controllers/pro.controller';
 import { authenticate, authorize } from '../middleware/auth.middleware';
 import { validate } from '../middleware/validation.middleware';
 import {
+  onboardingSchema,
   updateProProfileSchema,
   addPortfolioItemSchema,
   updatePortfolioItemSchema,
@@ -29,12 +33,19 @@ const router = express.Router();
 // Search pros
 router.get('/search', searchPros);
 
-// Get public pro profile
-router.get('/:id', getProProfile);
-
 /**
  * Private Routes (Pro only)
+ * NOTE: These must come BEFORE /:id route to avoid matching 'me' as an ID
  */
+
+// Complete onboarding
+router.post(
+  '/onboarding',
+  authenticate,
+  authorize('pro'),
+  validate(onboardingSchema),
+  completeOnboarding
+);
 
 // Get current pro's profile
 router.get(
@@ -43,6 +54,25 @@ router.get(
   authorize('pro'),
   getMyProfile
 );
+
+// Get analytics
+router.get(
+  '/me/analytics',
+  authenticate,
+  authorize('pro'),
+  getProAnalytics
+);
+
+// Preview own profile (what public will see)
+router.get(
+  '/me/preview',
+  authenticate,
+  authorize('pro'),
+  previewMyProfile
+);
+
+// Get public pro profile (must come after /me to avoid conflicts)
+router.get('/:id', getProProfile);
 
 // Update pro profile
 router.put(

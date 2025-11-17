@@ -7,8 +7,8 @@ export * from './types';
 // API Client
 export * from './api';
 
-// Utils (will be added later)
-// export * from './utils';
+// Utils
+export * from './utils';
 
 // Hooks (will be added later)
 // export * from './hooks';

@@ -12,17 +12,18 @@
   --font-mono: var(--font-geist-mono);
   --font-quicksand: var(--font-quicksand);
 
-  /* Homezy Brand Colors - Teal/Turquoise Accent */
-  --color-primary-50: #e6f9f7;
-  --color-primary-100: #ccf3ef;
-  --color-primary-200: #a1e4de;  /* Light shade */
-  --color-primary-300: #91dfd8;
-  --color-primary-400: #81d8d0;  /* Main accent color */
-  --color-primary-500: #81d8d0;  /* Main brand color */
-  --color-primary-600: #6cccc3;
-  --color-primary-700: #5ebeb5;  /* Dark shade */
-  --color-primary-800: #4a9c95;
-  --color-primary-900: #3a7d78;
+  /* Homezy Brand Colors - Professional Blue (Coolers.co palette) */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;  /* Main brand color */
+  --color-primary-600: #2563eb;  /* Hover states */
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,7 +36,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
 /* Custom component styles */
@@ -51,7 +52,7 @@ body {
   }
 
   .btn-primary {
-    @apply bg-primary-500 text-black hover:bg-primary-600 focus:ring-primary-500 font-semibold;
+    @apply bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500 font-semibold;
   }
 
   .btn-outline {

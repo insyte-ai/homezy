@@ -34,6 +34,24 @@ export const register = async (req: Request<{}, {}, RegisterInput>, res: Respons
     role: role || 'homeowner',
     isEmailVerified: false,
     isPhoneVerified: false,
+    // Create minimal proProfile for pro users
+    ...(role === 'pro' && {
+      proProfile: {
+        businessName: `${firstName} ${lastName}`, // Temporary - will be updated in onboarding
+        categories: [],
+        serviceAreas: [],
+        languages: [],
+        verificationStatus: 'unverified',
+        verificationDocuments: [],
+        portfolio: [],
+        featuredProjects: [],
+        rating: 0,
+        reviewCount: 0,
+        projectsCompleted: 0,
+        responseTimeHours: 24,
+        quoteAcceptanceRate: 0,
+      }
+    }),
   });
 
   await user.save();

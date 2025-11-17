@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function AuthLayout({
   children,
@@ -8,7 +8,7 @@ export default function AuthLayout({
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex items-center justify-center gap-3 mb-2">
+        <div className="flex items-center justify-center gap-0.5 mb-2">
           <Image
             src="/house-logo.svg"
             alt="Homezy Logo"

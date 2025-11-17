@@ -1,14 +1,30 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { getProAnalytics, ProAnalytics } from '@/lib/services/analytics';
+import { TrendingUp, TrendingDown, DollarSign, FileText, Star, Clock } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function ProDashboardPage() {
-  // Mock data - TODO: Fetch from API
-  const stats = {
-    profileViews: 0,
-    leadsAvailable: 12,
-    creditBalance: 0,
-    activeQuotes: 0,
+  const [analytics, setAnalytics] = useState<ProAnalytics | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadAnalytics();
+  }, []);
+
+  const loadAnalytics = async () => {
+    try {
+      setLoading(true);
+      const data = await getProAnalytics();
+      setAnalytics(data);
+    } catch (error: any) {
+      console.error('Failed to load analytics:', error);
+      toast.error('Failed to load dashboard data');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const nextSteps = [
@@ -93,72 +109,178 @@ export default function ProDashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 mb-1">Profile Views</p>
-              <p className="text-3xl font-bold text-neutral-900">{stats.profileViews}</p>
-              <p className="text-xs text-neutral-500 mt-1">Last 7 days</p>
-            </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-            </div>
-          </div>
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="animate-pulse bg-white rounded-lg shadow-sm border border-neutral-200 p-6 h-32"></div>
+          ))}
         </div>
+      ) : analytics ? (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            {/* Claimed Leads */}
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-neutral-600 mb-1">Claimed Leads</p>
+                  <p className="text-3xl font-bold text-neutral-900">{analytics.overview.claimedLeads.total}</p>
+                  <div className="flex items-center gap-1 mt-1">
+                    {analytics.overview.claimedLeads.last7Days > 0 ? (
+                      <>
+                        <TrendingUp className="h-3 w-3 text-green-600" />
+                        <span className="text-xs text-green-600">{analytics.overview.claimedLeads.last7Days} last 7 days</span>
+                      </>
+                    ) : (
+                      <span className="text-xs text-neutral-500">No recent claims</span>
+                    )}
+                  </div>
+                </div>
+                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-primary-600" />
+                </div>
+              </div>
+            </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 mb-1">Available Leads</p>
-              <p className="text-3xl font-bold text-neutral-900">{stats.leadsAvailable}</p>
-              <Link href="/pro/dashboard/leads" className="text-xs text-primary-600 hover:text-primary-700 mt-1 inline-block">
-                Browse leads →
-              </Link>
+            {/* Credit Balance */}
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-neutral-600 mb-1">Credit Balance</p>
+                  <p className="text-3xl font-bold text-neutral-900">{analytics.overview.creditBalance.total}</p>
+                  <Link href="/pro/dashboard/credits" className="text-xs text-primary-600 hover:text-primary-700 mt-1 inline-block">
+                    Buy credits →
+                  </Link>
+                </div>
+                <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                  <DollarSign className="w-6 h-6 text-amber-600" />
+                </div>
+              </div>
             </div>
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-          </div>
-        </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 mb-1">Credit Balance</p>
-              <p className="text-3xl font-bold text-neutral-900">{stats.creditBalance}</p>
-              <Link href="/pro/dashboard/credits" className="text-xs text-primary-600 hover:text-primary-700 mt-1 inline-block">
-                Buy credits →
-              </Link>
+            {/* Active Quotes */}
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-neutral-600 mb-1">Active Quotes</p>
+                  <p className="text-3xl font-bold text-neutral-900">{analytics.overview.activeQuotes}</p>
+                  <Link href="/pro/dashboard/quotes" className="text-xs text-primary-600 hover:text-primary-700 mt-1 inline-block">
+                    View quotes →
+                  </Link>
+                </div>
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-purple-600" />
+                </div>
+              </div>
             </div>
-            <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-          </div>
-        </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 mb-1">Active Quotes</p>
-              <p className="text-3xl font-bold text-neutral-900">{stats.activeQuotes}</p>
-              <p className="text-xs text-neutral-500 mt-1">Pending response</p>
-            </div>
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
+            {/* Projects Completed */}
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-neutral-600 mb-1">Projects Completed</p>
+                  <p className="text-3xl font-bold text-neutral-900">{analytics.overview.projectsCompleted}</p>
+                  <p className="text-xs text-neutral-500 mt-1">Total completed</p>
+                </div>
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+
+          {/* Analytics Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            {/* Quote Stats */}
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+              <h3 className="font-semibold text-neutral-900 mb-4">Quote Performance</h3>
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-sm text-neutral-600">Acceptance Rate</span>
+                    <span className="text-sm font-semibold text-neutral-900">{analytics.quotes.acceptanceRate}%</span>
+                  </div>
+                  <div className="w-full bg-neutral-200 rounded-full h-2">
+                    <div
+                      className="bg-green-600 h-2 rounded-full"
+                      style={{ width: `${analytics.quotes.acceptanceRate}%` }}
+                    ></div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <p className="text-2xl font-bold text-neutral-900">{analytics.quotes.pending}</p>
+                    <p className="text-xs text-neutral-600">Pending</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-green-600">{analytics.quotes.accepted}</p>
+                    <p className="text-xs text-neutral-600">Accepted</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-red-600">{analytics.quotes.rejected}</p>
+                    <p className="text-xs text-neutral-600">Rejected</p>
+                  </div>
+                </div>
+                <div className="pt-2 border-t">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-neutral-600">Avg. Quote Value</span>
+                    <span className="text-sm font-semibold">AED {analytics.quotes.avgValue.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Revenue Stats */}
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+              <h3 className="font-semibold text-neutral-900 mb-4">Revenue</h3>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-neutral-600 mb-1">Total Revenue</p>
+                  <p className="text-3xl font-bold text-neutral-900">AED {analytics.revenue.total.toLocaleString()}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-neutral-600 mb-1">Last Month</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-2xl font-semibold text-neutral-900">AED {analytics.revenue.lastMonth.toLocaleString()}</p>
+                    {analytics.revenue.change > 0 && (
+                      <span className="text-xs text-green-600 flex items-center">
+                        <TrendingUp className="h-3 w-3 mr-1" />
+                        {analytics.revenue.change}%
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Performance Stats */}
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+              <h3 className="font-semibold text-neutral-900 mb-4">Performance</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Star className="h-4 w-4 text-amber-500" />
+                    <span className="text-sm text-neutral-600">Rating</span>
+                  </div>
+                  <span className="font-semibold">{analytics.performance.rating.toFixed(1)} ({analytics.performance.reviewCount} reviews)</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-primary-500" />
+                    <span className="text-sm text-neutral-600">Response Time</span>
+                  </div>
+                  <span className="font-semibold">{analytics.performance.responseTimeHours}h</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-neutral-600">Projects Completed</span>
+                  <span className="font-semibold">{analytics.performance.projectsCompleted}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : null}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column - Next Steps */}
@@ -276,20 +398,20 @@ export default function ProDashboardPage() {
           </div>
 
           {/* Quick Stats */}
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-sm p-6 text-white">
-            <h3 className="font-semibold mb-3">Market Insights</h3>
+          <div className="bg-primary-50 border border-primary-200 rounded-lg shadow-sm p-6">
+            <h3 className="font-semibold text-neutral-900 mb-3">Market Insights</h3>
             <div className="space-y-3">
               <div>
-                <p className="text-blue-100 text-sm">Leads this week</p>
-                <p className="text-2xl font-bold">142</p>
+                <p className="text-neutral-600 text-sm">Leads this week</p>
+                <p className="text-2xl font-bold text-neutral-900">142</p>
               </div>
               <div>
-                <p className="text-blue-100 text-sm">Avg. response time</p>
-                <p className="text-2xl font-bold">3.2 hrs</p>
+                <p className="text-neutral-600 text-sm">Avg. response time</p>
+                <p className="text-2xl font-bold text-neutral-900">3.2 hrs</p>
               </div>
               <div>
-                <p className="text-blue-100 text-sm">Top category</p>
-                <p className="text-lg font-medium">Plumbing</p>
+                <p className="text-neutral-600 text-sm">Top category</p>
+                <p className="text-lg font-medium text-neutral-900">Plumbing</p>
               </div>
             </div>
           </div>

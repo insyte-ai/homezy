@@ -144,9 +144,9 @@ export function PhotoUploadStep() {
       )}
 
       {/* Info box */}
-      <div className="bg-blue-50 border border-blue-300 rounded-xl p-4">
+      <div className="bg-primary-50 border border-primary-300 rounded-xl p-4">
         <div className="flex gap-3">
-          <ImageIcon className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <ImageIcon className="h-5 w-5 text-neutral-900 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-gray-800">
             <strong className="text-gray-900">Tip:</strong> Include photos of the
             current condition, measurements, or any specific details that would help

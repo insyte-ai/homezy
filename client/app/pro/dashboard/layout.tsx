@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useAuthStore } from '@/store/authStore';
-import { Search, Settings, Menu, X } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { useAuthStore } from "@/store/authStore";
+import { Search, Menu, X } from "lucide-react";
+import UserProfileDropdown from "@/components/common/UserProfileDropdown";
 
 export default function ProDashboardLayout({
   children,
@@ -19,15 +20,24 @@ export default function ProDashboardLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Dashboard', href: '/pro/dashboard' },
-    { name: 'Leads', href: '/pro/dashboard/leads' },
-    { name: 'Messages', href: '/pro/dashboard/messages' },
-    { name: 'Profile', href: '/pro/dashboard/profile' },
+    { name: "Dashboard", href: "/pro/dashboard" },
+    { name: "Marketplace", href: "/pro/dashboard/leads/marketplace" },
+    { name: "My Leads", href: "/pro/dashboard/leads" },
+    { name: "Quotes", href: "/pro/dashboard/quotes" },
+    { name: "Messages", href: "/pro/dashboard/messages" },
+    { name: "Profile", href: "/pro/dashboard/profile" },
   ];
 
   const isActivePath = (href: string) => {
-    if (href === '/pro/dashboard') {
+    if (href === "/pro/dashboard") {
       return pathname === href;
+    }
+    // For /pro/dashboard/leads, only match if NOT on marketplace
+    if (href === "/pro/dashboard/leads") {
+      return (
+        pathname === href ||
+        (pathname?.startsWith(href) && !pathname?.includes("/marketplace"))
+      );
     }
     return pathname?.startsWith(href);
   };
@@ -35,7 +45,7 @@ export default function ProDashboardLayout({
   // Check if user is pro
   useEffect(() => {
     if (!isAuthenticated) {
-      router.push('/auth/login');
+      router.push("/auth/login");
       return;
     }
 
@@ -45,9 +55,9 @@ export default function ProDashboardLayout({
     }
 
     // Check if user is a pro
-    if (user.role !== 'pro') {
-      console.log('Redirecting non-pro user to homepage', { role: user.role });
-      router.push('/');
+    if (user.role !== "pro") {
+      console.log("Redirecting non-pro user to homepage", { role: user.role });
+      router.push("/");
     }
   }, [user, isAuthenticated, router]);
 
@@ -56,17 +66,50 @@ export default function ProDashboardLayout({
     completed: 2,
     total: 6,
     tasks: [
-      { id: 1, name: 'Basic profile setup', completed: true, link: '/pro/onboarding' },
-      { id: 2, name: 'Service categories selected', completed: true, link: '/pro/dashboard/profile' },
-      { id: 3, name: 'Upload verification documents', completed: false, link: '/pro/dashboard/verification', highlight: true },
-      { id: 4, name: 'Add bio and tagline', completed: false, link: '/pro/dashboard/profile' },
-      { id: 5, name: 'Upload portfolio photos', completed: false, link: '/pro/dashboard/portfolio' },
-      { id: 6, name: 'Set pricing and availability', completed: false, link: '/pro/dashboard/settings' },
+      {
+        id: 1,
+        name: "Basic profile setup",
+        completed: true,
+        link: "/pro/onboarding",
+      },
+      {
+        id: 2,
+        name: "Service categories selected",
+        completed: true,
+        link: "/pro/dashboard/profile",
+      },
+      {
+        id: 3,
+        name: "Upload verification documents",
+        completed: false,
+        link: "/pro/dashboard/verification",
+        highlight: true,
+      },
+      {
+        id: 4,
+        name: "Add bio and tagline",
+        completed: false,
+        link: "/pro/dashboard/profile",
+      },
+      {
+        id: 5,
+        name: "Upload portfolio photos",
+        completed: false,
+        link: "/pro/dashboard/portfolio",
+      },
+      {
+        id: 6,
+        name: "Set pricing and availability",
+        completed: false,
+        link: "/pro/dashboard/settings",
+      },
     ],
   };
 
-  const completionPercentage = Math.round((profileCompletion.completed / profileCompletion.total) * 100);
-  const incompleteTasks = profileCompletion.tasks.filter(t => !t.completed);
+  const completionPercentage = Math.round(
+    (profileCompletion.completed / profileCompletion.total) * 100
+  );
+  const incompleteTasks = profileCompletion.tasks.filter((t) => !t.completed);
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -77,7 +120,7 @@ export default function ProDashboardLayout({
           <div className="container-custom">
             <div className="flex justify-between items-center h-16">
               {/* Logo */}
-              <Link href="/pro/dashboard" className="flex items-center gap-2">
+              <Link href="/pro/dashboard" className="flex items-center gap-0.5">
                 <Image
                   src="/house-logo.svg"
                   alt="Homezy Logo"
@@ -88,7 +131,9 @@ export default function ProDashboardLayout({
                 <h1 className="font-quicksand text-[28px] font-bold text-gray-900 leading-none">
                   homezy
                 </h1>
-                <span className="text-sm font-normal text-neutral-500">Pro</span>
+                <span className="text-sm font-normal text-neutral-500">
+                  Pro
+                </span>
               </Link>
 
               {/* Search Bar */}
@@ -105,25 +150,15 @@ export default function ProDashboardLayout({
 
               {/* Right Side - Credits, Settings, User */}
               <div className="flex items-center space-x-4">
-                <Link href="/pro/dashboard/credits" className="btn btn-outline text-sm">
+                <Link
+                  href="/pro/dashboard/credits"
+                  className="btn btn-outline text-sm"
+                >
                   💰 Buy Credits
                 </Link>
 
-                <div className="hidden md:flex items-center space-x-3">
-                  <Link
-                    href="/pro/dashboard/settings"
-                    className="text-neutral-600 hover:text-neutral-900 p-2"
-                    title="Settings"
-                  >
-                    <Settings className="h-5 w-5" />
-                  </Link>
-
-                  <div className="flex items-center space-x-2 text-neutral-700">
-                    <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                      {user?.firstName?.[0]?.toUpperCase() || 'P'}
-                    </div>
-                    <span className="hidden lg:block font-medium text-sm">{user?.firstName}</span>
-                  </div>
+                <div className="hidden md:block">
+                  <UserProfileDropdown />
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -131,7 +166,11 @@ export default function ProDashboardLayout({
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="md:hidden text-neutral-700 hover:text-neutral-900 p-2"
                 >
-                  {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                  {mobileMenuOpen ? (
+                    <X className="h-6 w-6" />
+                  ) : (
+                    <Menu className="h-6 w-6" />
+                  )}
                 </button>
               </div>
             </div>
@@ -150,8 +189,8 @@ export default function ProDashboardLayout({
                     href={item.href}
                     className={`px-4 py-2 font-medium text-sm transition-colors rounded-md ${
                       active
-                        ? 'text-primary-600 bg-primary-50'
-                        : 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50'
+                        ? "text-neutral-900 bg-primary-50 border-b-2 border-primary-600"
+                        : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50"
                     }`}
                   >
                     {item.name}
@@ -175,8 +214,8 @@ export default function ProDashboardLayout({
                     onClick={() => setMobileMenuOpen(false)}
                     className={`block px-3 py-2 rounded-lg font-medium transition-colors ${
                       active
-                        ? 'bg-primary-50 text-primary-600'
-                        : 'text-neutral-700 hover:bg-neutral-100'
+                        ? "bg-primary-50 text-neutral-900 border-l-4 border-primary-600"
+                        : "text-neutral-700 hover:bg-neutral-100"
                     }`}
                   >
                     {item.name}
@@ -199,31 +238,43 @@ export default function ProDashboardLayout({
 
       {/* Profile Completion Banner */}
       {showProgressBanner && completionPercentage < 100 && (
-        <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+        <div className="bg-primary-50 border-b border-primary-200">
           <div className="container-custom py-4">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold">Complete your profile to start claiming leads</h3>
+                  <h3 className="font-semibold text-neutral-900">
+                    Complete your profile to start claiming leads
+                  </h3>
                   <button
                     onClick={() => setShowProgressBanner(false)}
-                    className="text-white hover:text-neutral-200"
+                    className="text-neutral-600 hover:text-neutral-900 transition-colors"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                   </button>
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="flex-1 max-w-md">
-                    <div className="w-full bg-white/30 rounded-full h-2">
+                    <div className="w-full bg-primary-200 rounded-full h-2">
                       <div
-                        className="bg-white h-2 rounded-full transition-all duration-300"
+                        className="bg-primary-600 h-2 rounded-full transition-all duration-300"
                         style={{ width: `${completionPercentage}%` }}
                       />
                     </div>
                   </div>
-                  <span className="text-sm font-medium whitespace-nowrap">
+                  <span className="text-sm font-medium text-neutral-900 whitespace-nowrap">
                     {completionPercentage}% Complete
                   </span>
                 </div>
@@ -234,15 +285,15 @@ export default function ProDashboardLayout({
                       href={task.link}
                       className={`text-sm px-3 py-1 rounded-full transition-colors ${
                         task.highlight
-                          ? 'bg-white text-orange-600 font-medium hover:bg-neutral-100'
-                          : 'bg-white/20 hover:bg-white/30'
+                          ? "bg-primary-600 text-white font-medium hover:bg-primary-700"
+                          : "bg-primary-100 text-neutral-900 hover:bg-primary-200"
                       }`}
                     >
                       {task.name}
                     </Link>
                   ))}
                   {incompleteTasks.length > 3 && (
-                    <span className="text-sm px-3 py-1 rounded-full bg-white/20">
+                    <span className="text-sm px-3 py-1 rounded-full bg-primary-100 text-neutral-900">
                       +{incompleteTasks.length - 3} more
                     </span>
                   )}
@@ -254,9 +305,7 @@ export default function ProDashboardLayout({
       )}
 
       {/* Main Content */}
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
     </div>
   );
 }

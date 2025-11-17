@@ -71,7 +71,7 @@ export default function Home() {
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                   Find trusted home service
                   <br />
-                  <span className="text-primary-500">professionals in UAE</span>
+                  <span className="text-primary-600">professionals in UAE</span>
                 </h2>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Get matched with verified professionals. Compare quotes.
@@ -94,12 +94,12 @@ export default function Home() {
             <div className="lg:col-span-1 hidden lg:block">
               <div className="sticky top-20">
                 <div className="bg-white border border-gray-200 rounded-lg overflow-hidden h-[600px] flex flex-col">
-                  <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-black p-4">
+                  <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4">
                     <h3 className="text-lg font-semibold flex items-center gap-2">
                       <MessageCircle className="h-5 w-5" />
                       Home GPT Assistant
                     </h3>
-                    <p className="text-sm text-gray-800 mt-1">
+                    <p className="text-sm text-white/90 mt-1">
                       Ask me anything about your home improvement project
                     </p>
                   </div>
@@ -120,7 +120,7 @@ export default function Home() {
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-primary-500 text-black rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                  <div className="w-12 h-12 bg-primary-500 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                     1
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">
@@ -132,7 +132,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-primary-500 text-black rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                  <div className="w-12 h-12 bg-primary-500 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                     2
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">
@@ -144,7 +144,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-primary-500 text-black rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                  <div className="w-12 h-12 bg-primary-500 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                     3
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">
@@ -172,7 +172,7 @@ export default function Home() {
                   </div>
                   <Link
                     href="/lead-marketplace"
-                    className="text-primary-500 hover:text-primary-600 font-medium flex items-center gap-2"
+                    className="text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2"
                   >
                     View All
                     <ArrowRight className="h-4 w-4" />
@@ -195,13 +195,13 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-2 mb-3">
-                        <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded">
+                        <span className="px-2 py-1 bg-primary-100 text-primary-800 text-xs font-medium rounded">
                           {lead.category}
                         </span>
                         <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded">
                           {lead.budgetBracket}
                         </span>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded capitalize">
+                        <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded capitalize">
                           {lead.urgency}
                         </span>
                       </div>
@@ -215,11 +215,11 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-6 bg-gradient-to-r from-blue-50 to-primary-50 rounded-xl p-6 border border-blue-200">
+                <div className="mt-6 bg-gradient-to-r from-primary-50 to-primary-100 rounded-xl p-6 border border-primary-200">
                   <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="bg-blue-100 rounded-full p-3">
-                        <Briefcase className="h-6 w-6 text-blue-600" />
+                      <div className="bg-primary-100 rounded-full p-3">
+                        <Briefcase className="h-6 w-6 text-primary-600" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-1">
@@ -233,7 +233,7 @@ export default function Home() {
                     </div>
                     <Link
                       href="/become-a-pro"
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold whitespace-nowrap transition-colors"
+                      className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold whitespace-nowrap transition-colors"
                     >
                       Become a Pro
                     </Link>
@@ -243,11 +243,11 @@ export default function Home() {
             )}
 
             {/* CTA Banner for Mobile Chat */}
-            <div className="lg:hidden bg-primary-500 text-black rounded-2xl p-8 text-center mb-16">
+            <div className="lg:hidden bg-primary-500 text-white rounded-2xl p-8 text-center mb-16">
               <h3 className="text-2xl font-bold mb-3">
                 Need help planning your project?
               </h3>
-              <p className="text-gray-800 mb-6">
+              <p className="text-white/90 mb-6">
                 Chat with our AI assistant to get cost estimates, timelines, and
                 expert advice.
               </p>
@@ -267,21 +267,21 @@ export default function Home() {
       {showChat && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden">
           <div className="bg-white h-full flex flex-col">
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-black p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold flex items-center gap-2">
                   <MessageCircle className="h-5 w-5" />
                   Home GPT Assistant
                 </h3>
-                <p className="text-sm text-gray-800 mt-1">
+                <p className="text-sm text-white/90 mt-1">
                   Ask me anything about your home improvement project
                 </p>
               </div>
               <button
                 onClick={() => setShowChat(false)}
-                className="bg-black/20 rounded-full p-2 hover:bg-black/30"
+                className="bg-white/20 rounded-full p-2 hover:bg-white/30"
               >
-                <X className="h-6 w-6 text-black" />
+                <X className="h-6 w-6 text-white" />
               </button>
             </div>
             <div className="flex-1 overflow-hidden">
@@ -295,7 +295,7 @@ export default function Home() {
       {!showChat && (
         <button
           onClick={() => setShowChat(true)}
-          className="lg:hidden fixed bottom-6 right-6 bg-primary-500 text-white rounded-full p-4 shadow-lg hover:bg-primary-600 transition-colors z-40"
+          className="lg:hidden fixed bottom-6 right-6 bg-primary-600 text-white rounded-full p-4 shadow-lg hover:bg-primary-700 transition-colors z-40"
         >
           <MessageCircle className="h-6 w-6" />
         </button>

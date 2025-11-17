@@ -53,13 +53,13 @@ export const MessageInput = ({ onSend, disabled, placeholder }: MessageInputProp
           placeholder={placeholder || 'Ask about your home improvement project...'}
           disabled={disabled}
           rows={1}
-          className="flex-1 resize-none rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 disabled:bg-gray-100 disabled:cursor-not-allowed max-h-32"
+          className="flex-1 resize-none rounded-lg border border-gray-300 px-4 py-3 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:bg-gray-100 disabled:cursor-not-allowed max-h-32"
         />
 
         <button
           onClick={handleSend}
           disabled={!content.trim() || disabled}
-          className="bg-blue-600 text-white rounded-lg px-4 py-3 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+          className="bg-primary-600 text-white rounded-lg px-4 py-3 hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
           aria-label="Send message"
         >
           <svg

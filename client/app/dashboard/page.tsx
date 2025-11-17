@@ -153,50 +153,50 @@ export default function DashboardPage() {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl p-6 mb-8 text-black">
+      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl p-6 mb-8 text-white">
         <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
         <div className="grid sm:grid-cols-3 gap-4">
           <Link
             href="/dashboard/leads"
-            className="bg-black/10 hover:bg-black/20 backdrop-blur rounded-lg p-4 transition-colors group"
+            className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg p-4 transition-colors group"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-black/20 rounded-lg">
+              <div className="p-2 bg-white/20 rounded-lg">
                 <Plus className="h-5 w-5" />
               </div>
               <span className="font-semibold">Create Lead</span>
             </div>
-            <p className="text-sm text-gray-800">
+            <p className="text-sm text-white/90">
               Post a new project request
             </p>
           </Link>
 
           <Link
             href="/dashboard/professionals"
-            className="bg-black/10 hover:bg-black/20 backdrop-blur rounded-lg p-4 transition-colors group"
+            className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg p-4 transition-colors group"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-black/20 rounded-lg">
+              <div className="p-2 bg-white/20 rounded-lg">
                 <Users className="h-5 w-5" />
               </div>
               <span className="font-semibold">Find Professionals</span>
             </div>
-            <p className="text-sm text-gray-800">
+            <p className="text-sm text-white/90">
               Browse verified pros
             </p>
           </Link>
 
           <Link
             href="/#chat"
-            className="bg-black/10 hover:bg-black/20 backdrop-blur rounded-lg p-4 transition-colors group"
+            className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg p-4 transition-colors group"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-black/20 rounded-lg">
+              <div className="p-2 bg-white/20 rounded-lg">
                 <MessageCircle className="h-5 w-5" />
               </div>
               <span className="font-semibold">AI Assistant</span>
             </div>
-            <p className="text-sm text-gray-800">
+            <p className="text-sm text-white/90">
               Get instant advice
             </p>
           </Link>

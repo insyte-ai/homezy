@@ -1,13 +1,104 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../models/User.model';
+import { Lead } from '../models/Lead.model';
+import { Quote } from '../models/Quote.model';
+import { CreditBalance, CreditTransaction } from '../models/Credit.model';
 import { AppError } from '../middleware/errorHandler.middleware';
 import logger from '../utils/logger';
 import { v4 as uuidv4 } from 'uuid';
+import { calculateProfileCompleteness } from '../utils/profileCompleteness';
 
 /**
  * Pro Profile Controller
  * Handles all pro profile management operations
  */
+
+/**
+ * @route   POST /api/v1/pros/onboarding
+ * @desc    Complete pro onboarding and save initial profile data
+ * @access  Private (Pro only)
+ */
+export const completeOnboarding = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new AppError('Unauthorized', 401);
+    }
+
+    const {
+      businessName,
+      businessType,
+      categories,
+      primaryEmirate,
+      serviceRadius,
+    } = req.body;
+
+    // Build service area from onboarding data
+    const serviceArea = {
+      emirate: primaryEmirate,
+      neighborhoods: [],
+      serviceRadius: serviceRadius || 50,
+      willingToTravelOutside: false,
+    };
+
+    // Update profile with onboarding data
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          'proProfile.businessName': businessName,
+          'proProfile.businessType': businessType,
+          'proProfile.categories': categories,
+          'proProfile.serviceAreas': [serviceArea],
+        },
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!user) {
+      throw new AppError('User not found', 404);
+    }
+
+    if (user.role !== 'pro') {
+      throw new AppError('Only pros can access this endpoint', 403);
+    }
+
+    // Generate and save slug
+    const { generateProSlug } = await import('../utils/slugify.js');
+    const slug = generateProSlug(businessName, primaryEmirate);
+
+    await User.findByIdAndUpdate(userId, {
+      $set: { 'proProfile.slug': slug },
+    });
+
+    if (user.proProfile) {
+      user.proProfile.slug = slug;
+    }
+
+    logger.info('Pro onboarding completed', {
+      userId,
+      businessName,
+      businessType,
+      categoriesCount: categories.length,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Onboarding completed successfully',
+      data: {
+        proProfile: user.proProfile,
+        slug,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 /**
  * @route   GET /api/v1/pros/me
@@ -26,7 +117,7 @@ export const getMyProfile = async (
       throw new AppError('Unauthorized', 401);
     }
 
-    const user = await User.findById(userId).select('+proProfile');
+    const user = await User.findById(userId);
 
     if (!user) {
       throw new AppError('User not found', 404);
@@ -36,10 +127,14 @@ export const getMyProfile = async (
       throw new AppError('Only pros can access this endpoint', 403);
     }
 
+    // Calculate profile completeness
+    const completeness = user.proProfile
+      ? calculateProfileCompleteness(user.proProfile)
+      : { percentage: 0, completedSections: [], missingSections: [] };
+
     res.status(200).json({
       success: true,
       data: {
-        profile: user.proProfile,
         user: {
           id: user.id,
           email: user.email,
@@ -48,6 +143,12 @@ export const getMyProfile = async (
           phone: user.phone,
           profilePhoto: user.profilePhoto,
           role: user.role,
+          proProfile: user.proProfile,
+        },
+        completeness: {
+          percentage: completeness.percentage,
+          completedSections: completeness.completedSections,
+          missingSections: completeness.missingSections,
         },
       },
     });
@@ -61,6 +162,51 @@ export const getMyProfile = async (
  * @desc    Get public pro profile
  * @access  Public
  */
+/**
+ * @route   GET /api/v1/pros/me/preview
+ * @desc    Preview own profile (shows what public will see, regardless of verification)
+ * @access  Private (Pro only)
+ */
+export const previewMyProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new AppError('Unauthorized', 401);
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new AppError('User not found', 404);
+    }
+
+    if (user.role !== 'pro') {
+      throw new AppError('Only pros can access this endpoint', 403);
+    }
+
+    // Return profile in same format as public profile
+    res.status(200).json({
+      success: true,
+      data: {
+        professional: {
+          id: user.id,
+          businessName: user.proProfile?.businessName || '',
+          slug: user.proProfile?.slug,
+          profilePhoto: user.profilePhoto,
+          proProfile: user.proProfile,
+        },
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getProProfile = async (
   req: Request,
   res: Response,
@@ -69,7 +215,7 @@ export const getProProfile = async (
   try {
     const { id } = req.params;
 
-    const user = await User.findById(id).select('+proProfile');
+    const user = await User.findById(id);
 
     if (!user) {
       throw new AppError('Pro not found', 404);
@@ -90,35 +236,13 @@ export const getProProfile = async (
     res.status(200).json({
       success: true,
       data: {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        profilePhoto: user.profilePhoto,
-        role: user.role,
-        proProfile: {
-          businessName: user.proProfile?.businessName,
-          tagline: user.proProfile?.tagline,
-          bio: user.proProfile?.bio,
-          categories: user.proProfile?.categories,
-          serviceAreas: user.proProfile?.serviceAreas,
-          yearsInBusiness: user.proProfile?.yearsInBusiness,
-          teamSize: user.proProfile?.teamSize,
-          languages: user.proProfile?.languages,
-          verificationStatus: user.proProfile?.verificationStatus,
-          portfolio: user.proProfile?.portfolio,
-          featuredProjects: user.proProfile?.featuredProjects,
-          hourlyRateMin: user.proProfile?.hourlyRateMin,
-          hourlyRateMax: user.proProfile?.hourlyRateMax,
-          minimumProjectSize: user.proProfile?.minimumProjectSize,
-          rating: user.proProfile?.rating,
-          reviewCount: user.proProfile?.reviewCount,
-          projectsCompleted: user.proProfile?.projectsCompleted,
-          responseTimeHours: user.proProfile?.responseTimeHours,
-          quoteAcceptanceRate: user.proProfile?.quoteAcceptanceRate,
-          availability: user.proProfile?.availability,
-          businessType: user.proProfile?.businessType,
+        professional: {
+          id: user.id,
+          businessName: user.proProfile?.businessName || '',
+          slug: user.proProfile?.slug,
+          profilePhoto: user.profilePhoto,
+          proProfile: user.proProfile,
         },
-        createdAt: (user as any).createdAt,
       },
     });
   } catch (error) {
@@ -143,7 +267,27 @@ export const updateProfile = async (
       throw new AppError('Unauthorized', 401);
     }
 
-    const user = await User.findById(userId);
+    // Extract update data from validated request body
+    const updateData = req.body;
+
+    // Build update object with dot notation for nested fields
+    const updateObject: any = {};
+    Object.keys(updateData).forEach((key) => {
+      if (updateData[key] !== undefined) {
+        updateObject[`proProfile.${key}`] = updateData[key];
+      }
+    });
+
+    // Use findByIdAndUpdate to update only specific fields
+    // This bypasses full document validation and only validates changed fields
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $set: updateObject },
+      {
+        new: true, // Return updated document
+        runValidators: true, // Run validators on updated fields only
+      }
+    );
 
     if (!user) {
       throw new AppError('User not found', 404);
@@ -153,22 +297,21 @@ export const updateProfile = async (
       throw new AppError('Only pros can access this endpoint', 403);
     }
 
-    // Extract update data from validated request body
-    const updateData = req.body;
+    // Generate/update slug if business name changed
+    if (updateData.businessName && user.proProfile) {
+      const { generateProSlug } = await import('../utils/slugify.js');
+      const primaryEmirate = user.proProfile.serviceAreas?.[0]?.emirate;
+      const newSlug = generateProSlug(updateData.businessName, primaryEmirate);
 
-    // Initialize proProfile if it doesn't exist
-    if (!user.proProfile) {
-      user.proProfile = {} as any;
-    }
+      // Update slug separately
+      await User.findByIdAndUpdate(userId, {
+        $set: { 'proProfile.slug': newSlug },
+      });
 
-    // Update only provided fields
-    Object.keys(updateData).forEach((key) => {
-      if (updateData[key] !== undefined && user.proProfile) {
-        (user.proProfile as any)[key] = updateData[key];
+      if (user.proProfile) {
+        user.proProfile.slug = newSlug;
       }
-    });
-
-    await user.save();
+    }
 
     logger.info(`Pro profile updated for user ${userId}`, {
       userId,
@@ -179,7 +322,8 @@ export const updateProfile = async (
       success: true,
       message: 'Profile updated successfully',
       data: {
-        profile: user.proProfile,
+        proProfile: user.proProfile,
+        slug: user.proProfile?.slug,
       },
     });
   } catch (error) {
@@ -596,6 +740,154 @@ export const searchPros = async (
           limit: limitNum,
           total,
           pages: Math.ceil(total / limitNum),
+        },
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @route   GET /api/v1/pros/me/analytics
+ * @desc    Get professional's analytics and stats
+ * @access  Private (Pro only)
+ */
+export const getProAnalytics = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new AppError('Unauthorized', 401);
+    }
+
+    // Get user data
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new AppError('User not found', 404);
+    }
+
+    // Get date range for period comparison (last 7 and 30 days)
+    const now = new Date();
+    const last7Days = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const last30Days = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+    // Fetch all analytics data in parallel
+    const [
+      claimedLeads,
+      claimedLeadsLast7Days,
+      quotes,
+      quotesLast7Days,
+      acceptedQuotes,
+      creditBalance,
+      recentTransactions,
+    ] = await Promise.all([
+      // Total claimed leads
+      Lead.countDocuments({ claimedBy: userId }),
+      // Claimed leads in last 7 days
+      Lead.countDocuments({
+        claimedBy: userId,
+        claimDate: { $gte: last7Days }
+      }),
+      // All quotes
+      Quote.find({ professionalId: userId }).select('status createdAt totalPrice'),
+      // Quotes in last 7 days
+      Quote.find({
+        professionalId: userId,
+        createdAt: { $gte: last7Days }
+      }).select('status'),
+      // Accepted quotes
+      Quote.find({
+        professionalId: userId,
+        status: 'accepted'
+      }).select('totalPrice createdAt'),
+      // Credit balance
+      CreditBalance.findOne({ professionalId: userId }).select('totalBalance paidCredits freeCredits'),
+      // Recent credit transactions
+      CreditTransaction.find({ professionalId: userId })
+        .sort({ createdAt: -1 })
+        .limit(10)
+        .lean(),
+    ]);
+
+    // Calculate quote statistics
+    const totalQuotes = quotes.length;
+    const pendingQuotes = quotes.filter((q: any) => q.status === 'pending').length;
+    const respondedQuotes = quotes.filter((q: any) => q.status !== 'pending').length;
+    const acceptedQuotesCount = acceptedQuotes.length;
+    const rejectedQuotes = quotes.filter((q: any) => q.status === 'rejected').length;
+
+    // Calculate acceptance rate (accepted / responded quotes)
+    const quoteAcceptanceRate = respondedQuotes > 0
+      ? Math.round((acceptedQuotesCount / respondedQuotes) * 100)
+      : 0;
+
+    // Calculate total revenue from accepted quotes
+    const totalRevenue = acceptedQuotes.reduce((sum: number, quote: any) => {
+      return sum + (quote.totalPrice || 0);
+    }, 0);
+
+    // Revenue in last 30 days
+    const revenueLastMonth = acceptedQuotes
+      .filter((quote: any) => new Date(quote.createdAt) >= last30Days)
+      .reduce((sum: number, quote: any) => sum + (quote.totalPrice || 0), 0);
+
+    // Calculate average quote value
+    const avgQuoteValue = totalQuotes > 0
+      ? Math.round(quotes.reduce((sum: number, q: any) => sum + (q.totalPrice || 0), 0) / totalQuotes)
+      : 0;
+
+    // Response and completion metrics
+    const responseTimeHours = user.proProfile?.responseTimeHours || 0;
+    const projectsCompleted = user.proProfile?.projectsCompleted || 0;
+
+    res.status(200).json({
+      success: true,
+      data: {
+        overview: {
+          claimedLeads: {
+            total: claimedLeads,
+            last7Days: claimedLeadsLast7Days,
+            change: claimedLeads > 0
+              ? Math.round((claimedLeadsLast7Days / claimedLeads) * 100)
+              : 0,
+          },
+          creditBalance: {
+            total: creditBalance?.totalBalance || 0,
+            paid: creditBalance?.paidCredits || 0,
+            free: creditBalance?.freeCredits || 0,
+          },
+          activeQuotes: pendingQuotes,
+          projectsCompleted,
+        },
+        quotes: {
+          total: totalQuotes,
+          pending: pendingQuotes,
+          accepted: acceptedQuotesCount,
+          rejected: rejectedQuotes,
+          acceptanceRate: quoteAcceptanceRate,
+          avgValue: avgQuoteValue,
+          last7Days: quotesLast7Days.length,
+        },
+        revenue: {
+          total: totalRevenue,
+          lastMonth: revenueLastMonth,
+          change: totalRevenue > 0
+            ? Math.round((revenueLastMonth / totalRevenue) * 100)
+            : 0,
+        },
+        performance: {
+          responseTimeHours,
+          projectsCompleted,
+          rating: user.proProfile?.rating || 0,
+          reviewCount: user.proProfile?.reviewCount || 0,
+        },
+        recentActivity: {
+          transactions: recentTransactions,
         },
       },
     });

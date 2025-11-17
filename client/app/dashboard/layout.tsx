@@ -17,6 +17,7 @@ import {
   MessageCircle,
   Search
 } from 'lucide-react';
+import UserProfileDropdown from '@/components/common/UserProfileDropdown';
 
 export default function DashboardLayout({
   children,
@@ -123,21 +124,8 @@ export default function DashboardLayout({
                 </Link>
 
                 {/* User Menu */}
-                <div className="hidden md:flex items-center space-x-3">
-                  <Link
-                    href="/dashboard/settings"
-                    className="text-neutral-600 hover:text-neutral-900 p-2"
-                    title="Settings"
-                  >
-                    <Settings className="h-5 w-5" />
-                  </Link>
-
-                  <div className="flex items-center space-x-2 text-neutral-700">
-                    <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                      {user?.firstName?.[0]?.toUpperCase() || 'H'}
-                    </div>
-                    <span className="hidden lg:block font-medium text-sm">{user?.firstName}</span>
-                  </div>
+                <div className="hidden md:block">
+                  <UserProfileDropdown />
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -165,7 +153,7 @@ export default function DashboardLayout({
                     href={item.href}
                     className={`flex items-center gap-2 px-4 py-2 font-medium text-sm transition-colors rounded-md ${
                       active
-                        ? 'text-primary-600 bg-primary-50'
+                        ? 'text-neutral-900 bg-primary-50 border-b-2 border-primary-600'
                         : 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50'
                     }`}
                   >
@@ -192,7 +180,7 @@ export default function DashboardLayout({
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition-colors ${
                       active
-                        ? 'bg-primary-50 text-primary-600'
+                        ? 'bg-primary-50 text-neutral-900 border-l-4 border-primary-600'
                         : 'text-neutral-700 hover:bg-neutral-100'
                     }`}
                   >

@@ -112,13 +112,20 @@ const ServiceAreaSchema = new Schema<ServiceArea>({
 
 const ProProfileSchema = new Schema<ProProfile>({
   businessName: { type: String, required: true },
+  slug: {
+    type: String,
+    unique: true,
+    sparse: true, // Allows null values while maintaining uniqueness
+    index: true, // Index for fast lookups
+  },
   tagline: String,
   bio: String,
-  categories: [{ type: String, required: true }],
-  serviceAreas: [ServiceAreaSchema],
+  // Remove required from array elements, add default empty array
+  categories: { type: [String], default: [] },
+  serviceAreas: { type: [ServiceAreaSchema], default: [] },
   yearsInBusiness: Number,
   teamSize: Number,
-  languages: [{ type: String, default: [] }],
+  languages: { type: [String], default: [] },
 
   // Verification
   verificationStatus: {
@@ -126,11 +133,11 @@ const ProProfileSchema = new Schema<ProProfile>({
     enum: ['unverified', 'pending', 'basic', 'comprehensive', 'rejected'],
     default: 'unverified',
   },
-  verificationDocuments: [VerificationDocumentSchema],
+  verificationDocuments: { type: [VerificationDocumentSchema], default: [] },
 
   // Portfolio
-  portfolio: [PortfolioItemSchema],
-  featuredProjects: [{ type: String }],
+  portfolio: { type: [PortfolioItemSchema], default: [] },
+  featuredProjects: { type: [String], default: [] },
 
   // Pricing
   hourlyRateMin: Number,
@@ -146,10 +153,14 @@ const ProProfileSchema = new Schema<ProProfile>({
 
   // Settings
   availability: AvailabilitySchema,
+  // Make businessType required only when requesting verification
   businessType: {
     type: String,
     enum: ['sole-proprietor', 'llc', 'corporation'],
-    required: true,
+    required: function(this: any) {
+      // Only required when verification status is not unverified
+      return this.verificationStatus && this.verificationStatus !== 'unverified';
+    },
   },
 }, { _id: false });
 

@@ -19,9 +19,9 @@ export default function ProVerificationPage() {
           Upload your documents to get verified and start claiming leads
         </p>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-          <h3 className="font-semibold text-blue-900 mb-2">Why verify?</h3>
-          <ul className="space-y-2 text-sm text-blue-800">
+        <div className="bg-primary-50 border border-primary-200 rounded-lg p-6 mb-8">
+          <h3 className="font-semibold text-primary-900 mb-2">Why verify?</h3>
+          <ul className="space-y-2 text-sm text-neutral-900">
             <li>✓ Start claiming and responding to leads</li>
             <li>✓ Build trust with homeowners</li>
             <li>✓ Get 15% credit discount with comprehensive verification</li>

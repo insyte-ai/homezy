@@ -46,7 +46,7 @@ export const ChatInterface = () => {
     return (
       <div className="h-full flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4" />
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mb-4" />
           <p className="text-gray-600">Initializing Home GPT...</p>
         </div>
       </div>
@@ -75,7 +75,7 @@ export const ChatInterface = () => {
           <p className="text-gray-600 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
           >
             Refresh Page
           </button>

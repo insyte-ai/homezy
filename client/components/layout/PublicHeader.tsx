@@ -95,7 +95,7 @@ export function PublicHeader() {
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
+                    className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
                   >
                     Join free
                   </Link>

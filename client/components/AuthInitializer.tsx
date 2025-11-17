@@ -1,14 +1,21 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/store/authStore';
 
 export function AuthInitializer() {
   const { initialize, isInitialized } = useAuthStore();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     initialize();
   }, [initialize]);
+
+  // Don't render anything until mounted (prevents hydration mismatch)
+  if (!mounted) {
+    return null;
+  }
 
   // Don't render anything while initializing
   if (!isInitialized) {

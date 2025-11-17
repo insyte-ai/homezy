@@ -14,7 +14,7 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
   return (
     <div className={`flex gap-3 items-start ${isUser ? 'justify-end' : 'justify-start'}`}>
       {!isUser && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-semibold">
           AI
         </div>
       )}
@@ -22,7 +22,7 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
       <div
         className={`max-w-2xl rounded-2xl px-4 py-3 shadow-sm ${
           isUser
-            ? 'bg-blue-600 text-white'
+            ? 'bg-primary-600 text-white'
             : 'bg-white text-gray-900 border border-gray-200'
         }`}
       >
@@ -54,7 +54,7 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
         {/* Timestamp */}
         <div
           className={`text-xs mt-2 ${
-            isUser ? 'text-blue-100' : 'text-gray-500'
+            isUser ? 'text-primary-100' : 'text-gray-500'
           }`}
         >
           {format(new Date(message.createdAt), 'HH:mm')}
@@ -93,7 +93,7 @@ const FunctionCallBadge = ({ toolCall }: FunctionCallBadgeProps) => {
   };
 
   const statusColors = {
-    pending: 'bg-blue-50 text-blue-700',
+    pending: 'bg-primary-50 text-neutral-900',
     success: 'bg-green-50 text-green-700',
     error: 'bg-red-50 text-red-700',
   };

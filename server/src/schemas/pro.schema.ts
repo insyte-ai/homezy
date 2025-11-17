@@ -52,13 +52,23 @@ export const availabilitySchema = z.object({
   bufferTimeMinutes: z.number().min(0).max(120).optional().default(30),
 });
 
-// Pro Profile Update Schema
+// Onboarding Schema - Required fields for initial setup
+export const onboardingSchema = z.object({
+  businessName: z.string().min(2, 'Business name must be at least 2 characters').max(100),
+  businessType: z.enum(['sole-proprietor', 'llc', 'corporation']),
+  categories: z.array(z.string()).min(1, 'At least one category is required').max(10),
+  primaryEmirate: z.string().min(1, 'Primary emirate is required'),
+  serviceRadius: z.number().min(10).max(200).optional().default(50),
+});
+
+// Pro Profile Update Schema - All fields optional for phased completion
 export const updateProProfileSchema = z.object({
   businessName: z.string().min(2, 'Business name must be at least 2 characters').max(100).optional(),
   tagline: z.string().max(150).optional(),
   bio: z.string().max(500).optional(),
-  categories: z.array(z.string()).min(1, 'At least one service category is required').max(10).optional(),
-  serviceAreas: z.array(serviceAreaSchema).min(1, 'At least one service area is required').max(7).optional(),
+  // Remove .min(1) to allow empty arrays during partial updates
+  categories: z.array(z.string()).max(10).optional(),
+  serviceAreas: z.array(serviceAreaSchema).max(7).optional(),
   yearsInBusiness: z.number().min(0).max(100).optional(),
   teamSize: z.number().min(1).max(1000).optional(),
   languages: z.array(z.string()).optional(),
@@ -140,6 +150,7 @@ export const UAE_EMIRATES = [
 ] as const;
 
 // Export type inference
+export type OnboardingInput = z.infer<typeof onboardingSchema>;
 export type UpdateProProfile = z.infer<typeof updateProProfileSchema>;
 export type UploadVerificationDocument = z.infer<typeof uploadVerificationDocumentSchema>;
 export type AddPortfolioItem = z.infer<typeof addPortfolioItemSchema>;
