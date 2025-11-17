@@ -13,43 +13,56 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 /**
  * Credit packages available for purchase
+ * Following the Tradezy pricing structure
  */
 export const CREDIT_PACKAGES = {
   starter: {
     id: 'starter',
     name: 'Starter Pack',
-    credits: 20,
-    priceAED: 99,
-    priceUSD: 27, // ~$27
+    credits: 50,
+    bonusCredits: 0,
+    totalCredits: 50,
+    priceAED: 250,
+    priceUSD: 68,
+    perCreditCost: 5.0,
     savings: 0,
     description: 'Perfect for testing the waters',
   },
   professional: {
     id: 'professional',
     name: 'Professional Pack',
-    credits: 50,
-    priceAED: 229,
-    priceUSD: 62, // ~$62
-    savings: 18, // 18% savings
+    credits: 150,
+    bonusCredits: 10,
+    totalCredits: 160,
+    priceAED: 600,
+    priceUSD: 163,
+    perCreditCost: 4.0,
+    savings: 20, // 20% savings vs Starter
     popular: true,
     description: 'Most popular for active pros',
   },
   business: {
     id: 'business',
     name: 'Business Pack',
-    credits: 100,
-    priceAED: 399,
-    priceUSD: 109, // ~$109
-    savings: 30, // 30% savings
+    credits: 400,
+    bonusCredits: 40,
+    totalCredits: 440,
+    priceAED: 1400,
+    priceUSD: 381,
+    perCreditCost: 3.5,
+    savings: 30, // 30% savings vs Starter
     description: 'Best value for growing businesses',
   },
   enterprise: {
     id: 'enterprise',
     name: 'Enterprise Pack',
-    credits: 250,
-    priceAED: 899,
-    priceUSD: 245, // ~$245
-    savings: 40, // 40% savings
+    credits: 1000,
+    bonusCredits: 150,
+    totalCredits: 1150,
+    priceAED: 3000,
+    priceUSD: 817,
+    perCreditCost: 3.0,
+    savings: 40, // 40% savings vs Starter
     description: 'Maximum value for established companies',
   },
 } as const;
@@ -82,10 +95,12 @@ export const createCheckoutSession = async (params: {
             currency: 'aed',
             product_data: {
               name: package_.name,
-              description: `${package_.credits} credits - ${package_.description}`,
+              description: `${package_.totalCredits} credits (${package_.credits} + ${package_.bonusCredits} bonus) - ${package_.description}`,
               metadata: {
                 packageId,
-                credits: package_.credits.toString(),
+                credits: package_.totalCredits.toString(),
+                baseCredits: package_.credits.toString(),
+                bonusCredits: package_.bonusCredits.toString(),
               },
             },
             unit_amount: package_.priceAED * 100, // Stripe expects amount in fils (cents)
@@ -101,14 +116,16 @@ export const createCheckoutSession = async (params: {
       metadata: {
         professionalId,
         packageId,
-        credits: package_.credits.toString(),
+        credits: package_.totalCredits.toString(),
+        baseCredits: package_.credits.toString(),
+        bonusCredits: package_.bonusCredits.toString(),
         priceAED: package_.priceAED.toString(),
       },
       payment_intent_data: {
         metadata: {
           professionalId,
           packageId,
-          credits: package_.credits.toString(),
+          credits: package_.totalCredits.toString(),
           priceAED: package_.priceAED.toString(),
         },
       },
@@ -118,7 +135,9 @@ export const createCheckoutSession = async (params: {
       sessionId: session.id,
       professionalId,
       packageId,
-      credits: package_.credits,
+      credits: package_.totalCredits,
+      baseCredits: package_.credits,
+      bonusCredits: package_.bonusCredits,
       priceAED: package_.priceAED,
     });
 

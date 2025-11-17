@@ -11,7 +11,10 @@
     "lint": "eslint src --ext .ts",
     "worker": "tsx watch src/worker.ts",
     "seed:admin": "tsx src/seeders/adminSeeder.ts",
-    "seed:all": "tsx src/seeders/seedAll.ts"
+    "seed:all": "tsx src/seeders/seedAll.ts",
+    "credits:reset": "tsx src/scripts/monthlyCreditsReset.ts",
+    "credits:expire": "tsx src/scripts/creditExpiry.ts",
+    "credits:test": "tsx src/scripts/testCredits.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.0",

@@ -24,6 +24,7 @@ export default function ProDashboardLayout({
     { name: "Marketplace", href: "/pro/dashboard/leads/marketplace" },
     { name: "My Leads", href: "/pro/dashboard/leads" },
     { name: "Quotes", href: "/pro/dashboard/quotes" },
+    { name: "Credits", href: "/pro/dashboard/credits" },
     { name: "Messages", href: "/pro/dashboard/messages" },
     { name: "Profile", href: "/pro/dashboard/profile" },
   ];
@@ -148,15 +149,8 @@ export default function ProDashboardLayout({
                 </div>
               </div>
 
-              {/* Right Side - Credits, Settings, User */}
+              {/* Right Side - User */}
               <div className="flex items-center space-x-4">
-                <Link
-                  href="/pro/dashboard/credits"
-                  className="btn btn-outline text-sm"
-                >
-                  💰 Buy Credits
-                </Link>
-
                 <div className="hidden md:block">
                   <UserProfileDropdown />
                 </div>

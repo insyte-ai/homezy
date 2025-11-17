@@ -96,23 +96,42 @@ export const calculateCreditCost = (params: CreditCostParams): number => {
 
 /**
  * Get credit balance for a professional
- * Creates balance record if it doesn't exist
+ * Creates balance record if it doesn't exist (with 100 free credits welcome bonus)
  */
 export const getBalance = async (professionalId: string) => {
   let balance = await CreditBalance.findOne({ professionalId });
 
   if (!balance) {
-    // Create initial balance record
+    const INITIAL_FREE_CREDITS = 100;
+
+    // Create initial balance record with 100 free credits
     balance = await CreditBalance.create({
       professionalId,
-      totalBalance: 0,
-      freeCredits: 0,
+      totalBalance: INITIAL_FREE_CREDITS,
+      freeCredits: INITIAL_FREE_CREDITS,
       paidCredits: 0,
-      lifetimeEarned: 0,
+      lifetimeEarned: INITIAL_FREE_CREDITS,
       lifetimeSpent: 0,
+      lastResetDate: new Date(),
     });
 
-    logger.info('Credit balance created', { professionalId });
+    // Create initial credit transaction for welcome bonus
+    await CreditTransaction.create({
+      professionalId,
+      type: 'bonus',
+      amount: INITIAL_FREE_CREDITS,
+      creditType: 'free',
+      balanceBefore: 0,
+      balanceAfter: INITIAL_FREE_CREDITS,
+      description: 'Welcome bonus - 100 free credits',
+      remainingAmount: INITIAL_FREE_CREDITS,
+      metadata: {},
+    });
+
+    logger.info('Credit balance created with welcome bonus', {
+      professionalId,
+      initialCredits: INITIAL_FREE_CREDITS
+    });
   }
 
   return balance;
@@ -578,6 +597,76 @@ export const expireOldCredits = async () => {
   };
 };
 
+/**
+ * Reset monthly free credits for a professional
+ * Sets free credits to 100 every month (on 1st of month)
+ */
+export const resetMonthlyCredits = async (professionalId: string) => {
+  const MONTHLY_FREE_CREDITS = 100;
+
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    const balance = await getBalance(professionalId);
+    const previousFreeCredits = balance.freeCredits;
+
+    // Calculate the credit adjustment
+    const creditAdjustment = MONTHLY_FREE_CREDITS - previousFreeCredits;
+    const balanceBefore = balance.totalBalance;
+
+    // Set free credits to 100
+    balance.freeCredits = MONTHLY_FREE_CREDITS;
+    balance.totalBalance = balance.freeCredits + balance.paidCredits;
+    balance.lastResetDate = new Date();
+
+    // Update lifetime earned only if we're adding credits
+    if (creditAdjustment > 0) {
+      balance.lifetimeEarned += creditAdjustment;
+    }
+
+    await balance.save({ session });
+
+    // Create transaction record
+    await CreditTransaction.create(
+      [
+        {
+          professionalId,
+          type: 'monthly_reset',
+          amount: creditAdjustment,
+          creditType: 'free',
+          balanceBefore,
+          balanceAfter: balance.totalBalance,
+          description: `Monthly free credits reset to ${MONTHLY_FREE_CREDITS}`,
+          remainingAmount: MONTHLY_FREE_CREDITS, // All free credits are available
+          metadata: {
+            previousFreeCredits,
+          },
+        },
+      ],
+      { session }
+    );
+
+    await session.commitTransaction();
+
+    logger.info('Monthly credits reset', {
+      professionalId,
+      previousFreeCredits,
+      newFreeCredits: MONTHLY_FREE_CREDITS,
+      creditAdjustment,
+      newBalance: balance.totalBalance,
+    });
+
+    return balance;
+  } catch (error) {
+    await session.abortTransaction();
+    logger.error('Failed to reset monthly credits', error, { professionalId });
+    throw error;
+  } finally {
+    session.endSession();
+  }
+};
+
 export default {
   calculateCreditCost,
   getBalance,
@@ -589,4 +678,5 @@ export default {
   createPurchase,
   completePurchase,
   expireOldCredits,
+  resetMonthlyCredits,
 };

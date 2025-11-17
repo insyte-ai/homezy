@@ -123,18 +123,18 @@ export const CreditBalance = () => {
         </div>
       )}
 
-      {/* Credit Expiry Info */}
-      <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+      {/* Monthly Reset Info */}
+      <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
         <div className="flex items-center gap-2 mb-2">
-          <TrendingUp className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-          <h4 className="font-medium text-gray-900 dark:text-white">Credit Information</h4>
+          <TrendingUp className="h-4 w-4 text-primary-600" />
+          <h4 className="font-medium text-gray-900 dark:text-white">Monthly Free Credits</h4>
         </div>
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          Purchased credits expire 6 months after purchase. Use them before they expire!
+          You receive 100 free credits every month on the 1st. Purchased credits expire 6 months after purchase.
         </p>
         {balance.lastResetDate && (
-          <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-            Last activity: {new Date(balance.lastResetDate).toLocaleDateString()}
+          <p className="text-xs text-gray-500 mt-2">
+            Last reset: {new Date(balance.lastResetDate).toLocaleDateString()}
           </p>
         )}
       </div>

@@ -2,7 +2,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface ICreditTransaction extends Document {
   professionalId: string;
-  type: 'purchase' | 'spend' | 'refund' | 'bonus';
+  type: 'purchase' | 'spend' | 'refund' | 'bonus' | 'monthly_reset' | 'expiry';
   amount: number;
   creditType: 'free' | 'paid'; // Track if free or paid credits
   balanceBefore: number;
@@ -18,6 +18,7 @@ export interface ICreditTransaction extends Document {
     priceAED?: number;
     budgetBracket?: string;
     urgency?: string;
+    previousFreeCredits?: number;
   };
 }
 
@@ -30,6 +31,7 @@ export interface ICreditBalance extends Document {
   lifetimeSpent: number;
   lastPurchaseAt?: Date;
   lastSpendAt?: Date;
+  lastResetDate?: Date; // Last monthly reset date
 }
 
 export interface ICreditPurchase extends Document {
@@ -52,7 +54,7 @@ const CreditTransactionSchema = new Schema<ICreditTransaction>(
     },
     type: {
       type: String,
-      enum: ['purchase', 'spend', 'refund', 'bonus'],
+      enum: ['purchase', 'spend', 'refund', 'bonus', 'monthly_reset', 'expiry'],
       required: true,
       index: true,
     },
@@ -95,6 +97,7 @@ const CreditTransactionSchema = new Schema<ICreditTransaction>(
       priceAED: Number,
       budgetBracket: String,
       urgency: String,
+      previousFreeCredits: Number,
     },
   },
   {
@@ -147,6 +150,10 @@ const CreditBalanceSchema = new Schema<ICreditBalance>(
     },
     lastPurchaseAt: Date,
     lastSpendAt: Date,
+    lastResetDate: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timestamps: true,
