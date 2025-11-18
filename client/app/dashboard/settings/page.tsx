@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuthStore } from '@/store/authStore';
 import {
   User,
@@ -13,10 +13,18 @@ import {
   AlertCircle
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import {
+  updateProfile,
+  updateNotificationPreferences,
+  changePassword,
+  getNotificationPreferences,
+  type NotificationPreferences,
+} from '@/lib/services/users';
 
 export default function SettingsPage() {
-  const { user } = useAuthStore();
+  const { user, fetchCurrentUser } = useAuthStore();
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Personal Info
   const [firstName, setFirstName] = useState(user?.firstName || '');
@@ -28,6 +36,7 @@ export default function SettingsPage() {
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [newQuoteEmail, setNewQuoteEmail] = useState(true);
   const [leadUpdateEmail, setLeadUpdateEmail] = useState(true);
+  const [reviewRequestEmail, setReviewRequestEmail] = useState(true);
   const [marketingEmail, setMarketingEmail] = useState(false);
 
   // Password Change
@@ -35,14 +44,61 @@ export default function SettingsPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  // Load notification preferences on mount
+  useEffect(() => {
+    const loadPreferences = async () => {
+      try {
+        const response = await getNotificationPreferences();
+        const prefs = response.data.notificationPreferences;
+
+        if (prefs?.email) {
+          setNewQuoteEmail(prefs.email.newQuote ?? true);
+          setLeadUpdateEmail(prefs.email.projectUpdate ?? true);
+          setReviewRequestEmail(prefs.email.reviewRequest ?? true);
+          setMarketingEmail(prefs.email.marketing ?? false);
+
+          // Set master toggle based on individual settings
+          const anyEmailEnabled = prefs.email.newQuote || prefs.email.projectUpdate ||
+                                   prefs.email.reviewRequest || prefs.email.marketing;
+          setEmailNotifications(anyEmailEnabled);
+        }
+      } catch (error) {
+        console.error('Failed to load notification preferences:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPreferences();
+  }, []);
+
+  // Update user state from props when it changes
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName || '');
+      setLastName(user.lastName || '');
+      setPhone(user.phone || '');
+      setEmail(user.email || '');
+    }
+  }, [user]);
+
   const handleSaveProfile = async () => {
     try {
       setSaving(true);
-      // TODO: API call to update profile
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+
+      await updateProfile({
+        firstName,
+        lastName,
+        phone,
+      });
+
+      // Refresh user data from server
+      await fetchCurrentUser();
+
       toast.success('Profile updated successfully');
-    } catch (error) {
-      toast.error('Failed to update profile');
+    } catch (error: any) {
+      console.error('Failed to update profile:', error);
+      toast.error(error.response?.data?.message || 'Failed to update profile');
     } finally {
       setSaving(false);
     }
@@ -51,11 +107,22 @@ export default function SettingsPage() {
   const handleSaveNotifications = async () => {
     try {
       setSaving(true);
-      // TODO: API call to update notifications
-      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      const preferences: NotificationPreferences = {
+        email: {
+          newQuote: emailNotifications && newQuoteEmail,
+          newMessage: emailNotifications,
+          projectUpdate: emailNotifications && leadUpdateEmail,
+          reviewRequest: emailNotifications && reviewRequestEmail,
+          marketing: emailNotifications && marketingEmail,
+        },
+      };
+
+      await updateNotificationPreferences(preferences);
       toast.success('Notification preferences updated');
-    } catch (error) {
-      toast.error('Failed to update preferences');
+    } catch (error: any) {
+      console.error('Failed to update preferences:', error);
+      toast.error(error.response?.data?.message || 'Failed to update preferences');
     } finally {
       setSaving(false);
     }
@@ -73,14 +140,19 @@ export default function SettingsPage() {
 
     try {
       setSaving(true);
-      // TODO: API call to change password
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.success('Password changed successfully');
+
+      await changePassword({
+        currentPassword,
+        newPassword,
+      });
+
+      toast.success('Password changed successfully. Please login again.');
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-    } catch (error) {
-      toast.error('Failed to change password');
+    } catch (error: any) {
+      console.error('Failed to change password:', error);
+      toast.error(error.response?.data?.message || 'Failed to change password');
     } finally {
       setSaving(false);
     }
@@ -216,14 +288,31 @@ export default function SettingsPage() {
 
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="font-medium text-gray-900">Lead Updates</h3>
-                  <p className="text-sm text-gray-600">Updates when professionals claim your leads</p>
+                  <h3 className="font-medium text-gray-900">Request Updates</h3>
+                  <p className="text-sm text-gray-600">Updates when professionals respond to your requests</p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     checked={leadUpdateEmail}
                     onChange={(e) => setLeadUpdateEmail(e.target.checked)}
+                    disabled={!emailNotifications}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600 disabled:opacity-50"></div>
+                </label>
+              </div>
+
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <h3 className="font-medium text-gray-900">Review Requests</h3>
+                  <p className="text-sm text-gray-600">Get notified when you can review a completed project</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={reviewRequestEmail}
+                    onChange={(e) => setReviewRequestEmail(e.target.checked)}
                     disabled={!emailNotifications}
                     className="sr-only peer"
                   />

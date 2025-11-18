@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CreditBalance from '@/components/credits/CreditBalance';
 import { Coins, ShoppingCart, History,  TrendingUp, Sparkles, Check, AlertCircle } from 'lucide-react';
@@ -304,9 +304,9 @@ const CreditsPage = () => {
                           <div className="text-xs text-gray-500 mt-1">
                             AED {pkg.perCreditCost.toFixed(2)} per credit
                           </div>
-                          {pkg.savings > 0 && (
+                          {pkg.bonusCredits > 0 && (
                             <div className="text-xs text-green-600 font-medium mt-1">
-                              Save {pkg.savings}%
+                              +{pkg.bonusCredits} bonus credits
                             </div>
                           )}
                         </div>
@@ -404,4 +404,10 @@ const CreditsPage = () => {
   );
 };
 
-export default CreditsPage;
+export default function CreditsPageWrapper() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center p-8">Loading...</div>}>
+      <CreditsPage />
+    </Suspense>
+  );
+}

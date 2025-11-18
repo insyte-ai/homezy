@@ -1,26 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Search,
   MapPin,
   Star,
-  Shield,
   Briefcase,
-  MessageSquare,
   Filter,
-  Users
+  Users,
+  CheckCircle
 } from 'lucide-react';
+import { searchProfessionals, type SearchProsParams } from '@/lib/services/professional';
+import type { ProProfile } from '@homezy/shared';
+
+interface Professional {
+  id: string;
+  businessName: string;
+  slug?: string;
+  profilePhoto?: string;
+  proProfile: ProProfile;
+}
 
 export default function ProfessionalsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedEmirate, setSelectedEmirate] = useState('all');
+  const [minRating, setMinRating] = useState<number | undefined>(undefined);
 
-  // TODO: This will be replaced with actual API call
-  const professionals: any[] = [];
-  const loading = false;
+  const [professionals, setProfessionals] = useState<Professional[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [totalResults, setTotalResults] = useState(0);
 
   const categories = [
     'All Categories',
@@ -44,6 +54,47 @@ export default function ProfessionalsPage() {
     'Ras Al Khaimah',
     'Fujairah',
   ];
+
+  // Fetch professionals based on filters
+  useEffect(() => {
+    const fetchProfessionals = async () => {
+      try {
+        setLoading(true);
+
+        const params: SearchProsParams = {
+          limit: 12,
+        };
+
+        if (searchQuery.trim()) {
+          params.search = searchQuery.trim();
+        }
+
+        if (selectedCategory !== 'all') {
+          params.category = selectedCategory;
+        }
+
+        if (selectedEmirate !== 'all') {
+          params.emirate = selectedEmirate;
+        }
+
+        if (minRating) {
+          params.minRating = minRating;
+        }
+
+        const data = await searchProfessionals(params);
+        setProfessionals(data.professionals);
+        setTotalResults(data.pagination.total);
+      } catch (error) {
+        console.error('Failed to fetch professionals:', error);
+        setProfessionals([]);
+        setTotalResults(0);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfessionals();
+  }, [searchQuery, selectedCategory, selectedEmirate, minRating]);
 
   return (
     <div>
@@ -105,7 +156,11 @@ export default function ProfessionalsPage() {
           {/* Rating Filter */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Min. Rating</label>
-            <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+            <select
+              value={minRating || 'all'}
+              onChange={(e) => setMinRating(e.target.value === 'all' ? undefined : parseFloat(e.target.value))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
               <option value="all">All Ratings</option>
               <option value="4.5">4.5+ Stars</option>
               <option value="4.0">4.0+ Stars</option>
@@ -114,9 +169,15 @@ export default function ProfessionalsPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <Filter className="h-4 w-4" />
-          <span>Advanced filters coming soon...</span>
+        <div className="flex items-center justify-between text-sm text-gray-600">
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4" />
+            {totalResults > 0 && (
+              <span className="font-medium text-gray-900">
+                {totalResults} professional{totalResults !== 1 ? 's' : ''} found
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -132,49 +193,124 @@ export default function ProfessionalsPage() {
             </div>
           ))}
         </div>
-      ) : professionals.length === 0 ? (
+      ) : !professionals || professionals.length === 0 ? (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Users className="h-8 w-8 text-gray-400" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Professional Directory Coming Soon
+            No Professionals Found
           </h3>
           <p className="text-gray-600 mb-6">
-            We're building a comprehensive directory of verified professionals. In the meantime, create a lead to get matched with professionals automatically.
+            No professionals match your current filters. Try adjusting your search criteria or request quotes to get matched automatically.
           </p>
-          <Link href="/dashboard/leads" className="btn btn-primary inline-flex items-center gap-2">
-            Create a Lead
+          <Link href="/dashboard/requests" className="btn btn-primary inline-flex items-center gap-2">
+            Request Quotes
           </Link>
-
-          {/* Placeholder for future */}
-          <div className="mt-12 grid md:grid-cols-3 gap-6 text-left">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <Shield className="h-8 w-8 text-primary-600 mb-3" />
-              <h4 className="font-semibold text-gray-900 mb-2">Verified Professionals</h4>
-              <p className="text-sm text-gray-600">
-                All professionals are verified with licenses and insurance
-              </p>
-            </div>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <Star className="h-8 w-8 text-primary-600 mb-3" />
-              <h4 className="font-semibold text-gray-900 mb-2">Rated & Reviewed</h4>
-              <p className="text-sm text-gray-600">
-                Read authentic reviews from other homeowners
-              </p>
-            </div>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <Briefcase className="h-8 w-8 text-primary-600 mb-3" />
-              <h4 className="font-semibold text-gray-900 mb-2">Portfolio Showcases</h4>
-              <p className="text-sm text-gray-600">
-                View past work and project galleries
-              </p>
-            </div>
-          </div>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Professional cards will go here */}
+          {professionals.map((pro) => (
+            <Link
+              key={pro.id}
+              href={`/professionals/${pro.id}/${pro.slug || 'profile'}`}
+              className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+            >
+              {/* Profile Photo */}
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0">
+                  {pro.profilePhoto ? (
+                    <img
+                      src={pro.profilePhoto}
+                      alt={pro.businessName}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Briefcase className="h-8 w-8 text-gray-400" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-900 mb-1 truncate">
+                    {pro.businessName}
+                  </h3>
+                  {pro.proProfile.verificationStatus && (
+                    <div className="flex items-center gap-1 text-xs">
+                      {pro.proProfile.verificationStatus === 'comprehensive' ? (
+                        <>
+                          <CheckCircle className="h-3.5 w-3.5 text-primary-600" />
+                          <CheckCircle className="h-3.5 w-3.5 text-primary-600 -ml-2" />
+                          <span className="text-primary-600 font-medium">Comprehensive Verified</span>
+                        </>
+                      ) : pro.proProfile.verificationStatus === 'basic' ? (
+                        <>
+                          <CheckCircle className="h-3.5 w-3.5 text-primary-600" />
+                          <span className="text-primary-600 font-medium">Basic Verified</span>
+                        </>
+                      ) : null}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Tagline */}
+              {pro.proProfile.tagline && (
+                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                  {pro.proProfile.tagline}
+                </p>
+              )}
+
+              {/* Rating */}
+              {pro.proProfile.rating && pro.proProfile.rating > 0 && (
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                    <span className="font-medium text-gray-900">
+                      {pro.proProfile.rating.toFixed(1)}
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-500">
+                    ({pro.proProfile.reviewCount || 0} reviews)
+                  </span>
+                </div>
+              )}
+
+              {/* Categories */}
+              {pro.proProfile.categories && pro.proProfile.categories.length > 0 && (
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {pro.proProfile.categories.slice(0, 3).map((category) => (
+                    <span
+                      key={category}
+                      className="inline-block px-2 py-0.5 text-xs bg-gray-100 text-gray-700 rounded"
+                    >
+                      {category}
+                    </span>
+                  ))}
+                  {pro.proProfile.categories.length > 3 && (
+                    <span className="inline-block px-2 py-0.5 text-xs bg-gray-100 text-gray-700 rounded">
+                      +{pro.proProfile.categories.length - 3} more
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* Service Areas */}
+              {pro.proProfile.serviceAreas && pro.proProfile.serviceAreas.length > 0 && (
+                <div className="flex items-center gap-1 text-sm text-gray-600">
+                  <MapPin className="h-4 w-4" />
+                  <span>
+                    {pro.proProfile.serviceAreas.map(area => area.emirate).join(', ')}
+                  </span>
+                </div>
+              )}
+
+              {/* View Profile Button */}
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <span className="text-primary-600 text-sm font-medium hover:text-primary-700">
+                  View Profile →
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       )}
     </div>

@@ -6,6 +6,7 @@ import { logger } from './utils/logger';
 import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { setupChatSockets } from './sockets/chat.socket';
+import { setupMessagingSockets } from './sockets/messaging.socket';
 
 /**
  * Start the server
@@ -40,6 +41,9 @@ const startServer = async (): Promise<void> => {
 
     // Set up chat sockets (AI streaming, function calling, real-time chat)
     setupChatSockets(io);
+
+    // Set up messaging sockets (user-to-user messaging)
+    setupMessagingSockets(io);
 
     // Make io accessible to routes
     app.set('io', io);

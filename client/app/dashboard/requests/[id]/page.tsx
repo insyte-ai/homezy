@@ -117,11 +117,11 @@ export default function LeadDetailsPage() {
       <div>
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
           <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Lead not found</h3>
-          <p className="text-gray-600 mb-6">The lead you're looking for doesn't exist or has been removed.</p>
-          <Link href="/dashboard/leads" className="btn btn-primary">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Request not found</h3>
+          <p className="text-gray-600 mb-6">The request you're looking for doesn't exist or has been removed.</p>
+          <Link href="/dashboard/requests" className="btn btn-primary">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to My Leads
+            Back to My Requests
           </Link>
         </div>
       </div>
@@ -137,11 +137,11 @@ export default function LeadDetailsPage() {
       {/* Header */}
       <div className="mb-6">
         <Link
-          href="/dashboard/leads"
+          href="/dashboard/requests"
           className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mb-4"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to My Leads
+          Back to My Requests
         </Link>
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -159,7 +159,7 @@ export default function LeadDetailsPage() {
               className="btn btn-outline text-red-600 border-red-600 hover:bg-red-50"
             >
               <XCircle className="h-4 w-4 mr-2" />
-              Cancel Lead
+              Cancel Request
             </button>
           )}
         </div>
@@ -245,7 +245,7 @@ export default function LeadDetailsPage() {
                 <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-3" />
                 <p className="text-gray-600">No quotes yet</p>
                 <p className="text-sm text-gray-500 mt-1">
-                  Professionals will submit quotes once they claim your lead
+                  Professionals will submit quotes once they respond to your request
                 </p>
               </div>
             ) : (
@@ -318,7 +318,7 @@ export default function LeadDetailsPage() {
         <div className="space-y-6">
           {/* Details Card */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Lead Details</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Request Details</h2>
             <div className="space-y-4">
               <div>
                 <p className="text-sm text-gray-600 mb-1 flex items-center gap-2">
@@ -405,9 +405,9 @@ export default function LeadDetailsPage() {
       {cancelModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Cancel Lead?</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Cancel Request?</h3>
             <p className="text-gray-600 mb-4">
-              Are you sure you want to cancel this lead? This action cannot be undone. Any professionals who claimed this lead will be refunded their credits.
+              Are you sure you want to cancel this request? This action cannot be undone. Any professionals who responded will be refunded their credits.
             </p>
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -434,7 +434,7 @@ export default function LeadDetailsPage() {
                 disabled={cancelling}
                 className="flex-1 btn bg-red-600 text-white hover:bg-red-700"
               >
-                {cancelling ? 'Cancelling...' : 'Cancel Lead'}
+                {cancelling ? 'Cancelling...' : 'Cancel Request'}
               </button>
             </div>
           </div>

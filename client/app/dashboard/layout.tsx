@@ -15,9 +15,16 @@ import {
   Menu,
   X,
   MessageCircle,
-  Search
+  Search,
+  Mail
 } from 'lucide-react';
 import UserProfileDropdown from '@/components/common/UserProfileDropdown';
+import {
+  getUnreadCount,
+  connectMessagingSocket,
+  disconnectMessagingSocket,
+  onMessageNotification,
+} from '@/lib/services/messages';
 
 export default function DashboardLayout({
   children,
@@ -29,6 +36,7 @@ export default function DashboardLayout({
   const { user, isAuthenticated, logout } = useAuthStore();
   const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   // Check if user is homeowner
   useEffect(() => {
@@ -58,14 +66,59 @@ export default function DashboardLayout({
   }, [user, isAuthenticated, router]);
 
   // Check if user is new (created in last 7 days)
-  const isNewUser = user?.createdAt
-    ? new Date(user.createdAt).getTime() > Date.now() - 7 * 24 * 60 * 60 * 1000
-    : false;
+  const [isNewUser, setIsNewUser] = useState(false);
+
+  useEffect(() => {
+    if (user?.createdAt) {
+      const userCreatedTime = new Date(user.createdAt).getTime();
+      const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+      setIsNewUser(userCreatedTime > sevenDaysAgo);
+    } else {
+      setIsNewUser(false);
+    }
+  }, [user?.createdAt]);
+
+  // Load unread message count
+  useEffect(() => {
+    const loadUnreadCount = async () => {
+      try {
+        const response = await getUnreadCount();
+        setUnreadCount(response.data.unreadCount);
+      } catch (error) {
+        console.error('Failed to load unread count:', error);
+      }
+    };
+
+    if (isAuthenticated && user) {
+      loadUnreadCount();
+    }
+  }, [isAuthenticated, user]);
+
+  // Setup Socket.io to listen for new message notifications
+  useEffect(() => {
+    const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+    if (!accessToken || !isAuthenticated) return;
+
+    connectMessagingSocket(accessToken);
+
+    // Listen for new message notifications to update badge
+    const unsubscribe = onMessageNotification(() => {
+      getUnreadCount().then((response) => {
+        setUnreadCount(response.data.unreadCount);
+      });
+    });
+
+    return () => {
+      unsubscribe();
+      disconnectMessagingSocket();
+    };
+  }, [isAuthenticated]);
 
   const navItems = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
-    { name: 'My Leads', href: '/dashboard/leads', icon: FileText },
+    { name: 'My Requests', href: '/dashboard/requests', icon: FileText },
     { name: 'Quotes', href: '/dashboard/quotes', icon: MessageSquare },
+    { name: 'Messages', href: '/dashboard/messages', icon: Mail, badge: unreadCount },
     { name: 'Projects', href: '/dashboard/projects', icon: FolderKanban },
     { name: 'Professionals', href: '/dashboard/professionals', icon: Users },
   ];
@@ -104,7 +157,7 @@ export default function DashboardLayout({
                 <div className="w-full relative">
                   <input
                     type="text"
-                    placeholder="Search leads, quotes, or professionals..."
+                    placeholder="Search requests, quotes, or professionals..."
                     className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                   />
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -147,11 +200,12 @@ export default function DashboardLayout({
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const active = isActivePath(item.href);
+                const hasBadge = item.badge && item.badge > 0;
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center gap-2 px-4 py-2 font-medium text-sm transition-colors rounded-md ${
+                    className={`flex items-center gap-2 px-4 py-2 font-medium text-sm transition-colors rounded-md relative ${
                       active
                         ? 'text-neutral-900 bg-primary-50 border-b-2 border-primary-600'
                         : 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50'
@@ -159,6 +213,11 @@ export default function DashboardLayout({
                   >
                     <Icon className="h-4 w-4" />
                     <span>{item.name}</span>
+                    {hasBadge && (
+                      <span className="bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[1.25rem] text-center">
+                        {item.badge > 99 ? '99+' : item.badge}
+                      </span>
+                    )}
                   </Link>
                 );
               })}
@@ -173,19 +232,27 @@ export default function DashboardLayout({
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const active = isActivePath(item.href);
+                const hasBadge = item.badge && item.badge > 0;
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition-colors ${
+                    className={`flex items-center justify-between gap-3 px-3 py-2 rounded-lg font-medium transition-colors ${
                       active
                         ? 'bg-primary-50 text-neutral-900 border-l-4 border-primary-600'
                         : 'text-neutral-700 hover:bg-neutral-100'
                     }`}
                   >
-                    <Icon className="h-5 w-5" />
-                    <span>{item.name}</span>
+                    <div className="flex items-center gap-3">
+                      <Icon className="h-5 w-5" />
+                      <span>{item.name}</span>
+                    </div>
+                    {hasBadge && (
+                      <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full min-w-[1.5rem] text-center">
+                        {item.badge > 99 ? '99+' : item.badge}
+                      </span>
+                    )}
                   </Link>
                 );
               })}
@@ -221,14 +288,14 @@ export default function DashboardLayout({
                   Welcome to Homezy, {user?.firstName}! 👋
                 </h3>
                 <p className="text-sm text-gray-800">
-                  Start your first home improvement project by creating a lead. Get matched with up to 5 verified professionals and compare quotes.
+                  Start your first home improvement project by requesting quotes. Get matched with up to 5 verified professionals and compare their offers.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
-                    href="/dashboard/leads"
+                    href="/dashboard/requests"
                     className="text-sm px-4 py-2 bg-white text-primary-600 font-medium rounded-lg hover:bg-gray-100 transition-colors"
                   >
-                    Create Your First Lead
+                    Request Your First Quote
                   </Link>
                   <Link
                     href="/dashboard/professionals"

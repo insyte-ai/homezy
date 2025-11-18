@@ -55,7 +55,7 @@ export default function MyLeadsPage() {
   });
 
   const statusFilters = [
-    { value: 'all', label: 'All Leads', count: leads.length },
+    { value: 'all', label: 'All Requests', count: leads.length },
     { value: LeadStatus.OPEN, label: 'Open', count: leads.filter((l) => l.status === LeadStatus.OPEN).length },
     { value: LeadStatus.QUOTED, label: 'Quoted', count: leads.filter((l) => l.status === LeadStatus.QUOTED).length },
     { value: LeadStatus.ACCEPTED, label: 'Accepted', count: leads.filter((l) => l.status === LeadStatus.ACCEPTED).length },
@@ -101,14 +101,14 @@ export default function MyLeadsPage() {
       {/* Page Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Leads</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Quote Requests</h1>
           <p className="text-gray-600">
-            Manage your project requests and view professional responses
+            Manage your requests and view quotes from professionals
           </p>
         </div>
         <Link href="/" className="btn btn-primary flex items-center gap-2">
           <Plus className="h-5 w-5" />
-          Create Lead
+          Request Quotes
         </Link>
       </div>
 
@@ -120,7 +120,7 @@ export default function MyLeadsPage() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
-              placeholder="Search leads..."
+              placeholder="Search your requests..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -166,17 +166,17 @@ export default function MyLeadsPage() {
             <AlertCircle className="h-8 w-8 text-gray-400" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            {searchQuery ? 'No leads found' : 'No leads yet'}
+            {searchQuery ? 'No requests found' : 'No requests yet'}
           </h3>
           <p className="text-gray-600 mb-6">
             {searchQuery
               ? 'Try adjusting your search or filters'
-              : 'Create your first lead to get started with your home improvement project'}
+              : 'Request your first quote to get started with your home improvement project'}
           </p>
           {!searchQuery && (
             <Link href="/" className="btn btn-primary inline-flex items-center gap-2">
               <Plus className="h-4 w-4" />
-              Create Your First Lead
+              Request Your First Quote
             </Link>
           )}
         </div>

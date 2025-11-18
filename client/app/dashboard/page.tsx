@@ -95,8 +95,9 @@ export default function DashboardPage() {
       {/* Stats Cards */}
       <div className="grid md:grid-cols-3 gap-6 mb-8">
         <Link
-          href="/dashboard/leads"
+          href="/dashboard/requests"
           className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow group"
+          title="View all your quote requests"
         >
           <div className="flex items-center justify-between mb-4">
             <div className="p-3 bg-blue-100 rounded-lg">
@@ -107,7 +108,7 @@ export default function DashboardPage() {
           <div className="text-3xl font-bold text-gray-900 mb-1">
             {loading ? '...' : stats.activeLeads}
           </div>
-          <div className="text-sm text-gray-600">Active Leads</div>
+          <div className="text-sm text-gray-600">Active Requests</div>
           <div className="text-xs text-gray-500 mt-2">
             Currently accepting quotes
           </div>
@@ -157,17 +158,17 @@ export default function DashboardPage() {
         <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
         <div className="grid sm:grid-cols-3 gap-4">
           <Link
-            href="/dashboard/leads"
+            href="/dashboard/requests"
             className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg p-4 transition-colors group"
           >
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 bg-white/20 rounded-lg">
                 <Plus className="h-5 w-5" />
               </div>
-              <span className="font-semibold">Create Lead</span>
+              <span className="font-semibold">Request Quotes</span>
             </div>
             <p className="text-sm text-white/90">
-              Post a new project request
+              Get quotes from professionals
             </p>
           </Link>
 
@@ -207,9 +208,9 @@ export default function DashboardPage() {
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-gray-900">Recent Leads</h2>
+            <h2 className="text-xl font-semibold text-gray-900">Recent Quote Requests</h2>
             <Link
-              href="/dashboard/leads"
+              href="/dashboard/requests"
               className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
             >
               View all
@@ -235,17 +236,17 @@ export default function DashboardPage() {
               <FileText className="h-8 w-8 text-gray-400" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              No leads yet
+              No quote requests yet
             </h3>
             <p className="text-gray-600 mb-6">
-              Start your first home improvement project by creating a lead
+              Start your first home improvement project by requesting quotes
             </p>
             <Link
-              href="/dashboard/leads"
+              href="/dashboard/requests"
               className="btn btn-primary inline-flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />
-              Create Your First Lead
+              Request Your First Quote
             </Link>
           </div>
         ) : (

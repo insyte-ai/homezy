@@ -154,10 +154,10 @@ export default function QuotesPage() {
           <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-900 mb-2">No quotes yet</h3>
           <p className="text-gray-600 mb-6">
-            Quotes will appear here once professionals respond to your leads
+            Quotes will appear here once professionals respond to your requests
           </p>
-          <Link href="/dashboard/leads" className="btn btn-primary inline-flex items-center gap-2">
-            View My Leads
+          <Link href="/dashboard/requests" className="btn btn-primary inline-flex items-center gap-2">
+            View My Requests
             <ExternalLink className="h-4 w-4" />
           </Link>
         </div>
@@ -178,7 +178,7 @@ export default function QuotesPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       <Link
-                        href={`/dashboard/leads/${(quote as any).leadInfo._id}`}
+                        href={`/dashboard/requests/${(quote as any).leadInfo._id}`}
                         className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
                       >
                         For: {(quote as any).leadInfo.title}
@@ -251,7 +251,7 @@ export default function QuotesPage() {
                 {/* Actions */}
                 <div className="pt-4 border-t border-gray-200">
                   <Link
-                    href={`/dashboard/leads/${(quote as any).leadInfo._id}/quotes`}
+                    href={`/dashboard/requests/${(quote as any).leadInfo._id}/quotes`}
                     className="btn btn-primary text-sm inline-flex items-center gap-2"
                   >
                     View Full Quote

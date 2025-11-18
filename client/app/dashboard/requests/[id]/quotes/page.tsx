@@ -135,7 +135,7 @@ export default function QuoteComparisonPage() {
           <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-900 mb-2">No quotes yet</h3>
           <p className="text-gray-600">
-            Professionals will submit quotes once they claim your lead
+            Professionals will submit quotes once they respond to your request
           </p>
         </div>
       </div>

@@ -9,9 +9,11 @@ import { errorHandler, notFoundHandler } from './middleware/errorHandler.middlew
 
 // Import routes
 import authRoutes from './routes/auth.routes';
+import userRoutes from './routes/user.routes';
 import proRoutes from './routes/pro.routes';
 import creditRoutes from './routes/credit.routes';
 import chatRoutes from './routes/chat.routes';
+import messagingRoutes from './routes/messaging.routes';
 import leadRoutes from './routes/lead.routes';
 import quoteRoutes, { leadQuoteRouter } from './routes/quote.routes';
 import uploadRoutes from './routes/upload.routes';
@@ -91,9 +93,11 @@ export const createApp = (): Application => {
 
   // API Routes
   app.use(`/api/${env.API_VERSION}/auth`, authRoutes);
+  app.use(`/api/${env.API_VERSION}/users`, userRoutes);
   app.use(`/api/${env.API_VERSION}/pros`, proRoutes);
   app.use(`/api/${env.API_VERSION}/credits`, creditRoutes);
   app.use(`/api/${env.API_VERSION}/chat`, chatRoutes);
+  app.use(`/api/${env.API_VERSION}/messages`, messagingRoutes);
   app.use(`/api/${env.API_VERSION}/leads`, leadRoutes);
   app.use(`/api/${env.API_VERSION}/quotes`, quoteRoutes);
   app.use(`/api/${env.API_VERSION}/upload`, uploadRoutes);

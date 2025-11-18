@@ -118,8 +118,8 @@ export default function ProjectsPage() {
           <p className="text-gray-600 mb-6">
             Projects will appear here once you accept a quote from a professional
           </p>
-          <Link href="/dashboard/leads" className="btn btn-primary inline-flex items-center gap-2">
-            View My Leads
+          <Link href="/dashboard/requests" className="btn btn-primary inline-flex items-center gap-2">
+            View My Requests
             <ExternalLink className="h-4 w-4" />
           </Link>
         </div>
@@ -194,7 +194,7 @@ export default function ProjectsPage() {
 
                       <div className="pt-4 border-t border-gray-200">
                         <Link
-                          href={`/dashboard/leads/${lead._id}`}
+                          href={`/dashboard/requests/${lead._id}`}
                           className="btn btn-outline text-sm inline-flex items-center gap-2"
                         >
                           View Project Details
@@ -260,7 +260,7 @@ export default function ProjectsPage() {
 
                       <div className="pt-4 border-t border-gray-200 flex gap-3">
                         <Link
-                          href={`/dashboard/leads/${lead._id}`}
+                          href={`/dashboard/requests/${lead._id}`}
                           className="btn btn-outline text-sm inline-flex items-center gap-2"
                         >
                           View Details
