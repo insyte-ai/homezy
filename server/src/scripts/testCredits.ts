@@ -19,7 +19,7 @@ async function testCreditSystem() {
     // Find a verified professional or use the first one
     let professional = await User.findOne({
       role: 'professional',
-      'professionalProfile.verificationStatus': { $in: ['basic', 'comprehensive'] },
+      'proProfile.verificationStatus': { $in: ['basic', 'comprehensive'] },
     });
 
     if (!professional) {
@@ -37,7 +37,7 @@ async function testCreditSystem() {
       console.log(`Found unverified professional: ${professional.email}`);
       console.log('Updating verification status for testing...\n');
 
-      professional.professionalProfile!.verificationStatus = 'basic';
+      professional.proProfile!.verificationStatus = 'basic';
       await professional.save();
     }
 
@@ -46,7 +46,7 @@ async function testCreditSystem() {
     console.log('CREDIT SYSTEM TEST');
     console.log('='.repeat(60));
     console.log(`Professional: ${professional.email}`);
-    console.log(`Verification: ${professional.professionalProfile?.verificationStatus}`);
+    console.log(`Verification: ${professional.proProfile?.verificationStatus}`);
     console.log('='.repeat(60));
 
     // Test 1: Get initial balance
