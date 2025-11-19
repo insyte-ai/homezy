@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
+import { useChatPanelStore } from '@/store/chatPanelStore';
 import { AdminDashboardSidebar } from '@/components/dashboard/AdminDashboardSidebar';
 import UserProfileDropdown from '@/components/common/UserProfileDropdown';
 
@@ -13,6 +14,7 @@ export default function AdminLayout({
 }) {
   const router = useRouter();
   const { isAuthenticated, user, isLoading } = useAuthStore();
+  const { isOpen: isChatPanelOpen } = useChatPanelStore();
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
@@ -51,13 +53,13 @@ export default function AdminLayout({
       <AdminDashboardSidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0">
+        <header className={`h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
           <h2 className="text-lg font-semibold text-gray-900">Admin Portal</h2>
           <UserProfileDropdown />
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className={`flex-1 overflow-y-auto transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
           {children}
         </main>
       </div>

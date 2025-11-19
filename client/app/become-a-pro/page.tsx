@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { ResponsiveContainer } from '@/components/layout/ResponsiveContainer';
 
 export const metadata: Metadata = {
   title: 'Become a Professional | Homezy',
@@ -14,7 +15,7 @@ export default function BecomeAProPage() {
       <PublicHeader />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-500 to-primary-600 text-black py-20">
-        <div className="container-custom">
+        <ResponsiveContainer className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
               Grow Your Business with Homezy
@@ -40,12 +41,12 @@ export default function BecomeAProPage() {
               No subscription fees. Pay only for leads you claim.
             </p>
           </div>
-        </div>
+        </ResponsiveContainer>
       </section>
 
       {/* Benefits Section */}
       <section className="py-16">
-        <div className="container-custom">
+        <ResponsiveContainer className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               Why Join Homezy?
@@ -147,12 +148,12 @@ export default function BecomeAProPage() {
               </p>
             </div>
           </div>
-        </div>
+        </ResponsiveContainer>
       </section>
 
       {/* How It Works */}
       <section id="how-it-works" className="py-16 bg-white">
-        <div className="container-custom">
+        <ResponsiveContainer className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               How It Works
@@ -209,12 +210,12 @@ export default function BecomeAProPage() {
               </div>
             </div>
           </div>
-        </div>
+        </ResponsiveContainer>
       </section>
 
       {/* Pricing Section */}
       <section className="py-16 bg-neutral-50">
-        <div className="container-custom">
+        <ResponsiveContainer className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               Transparent Credit Pricing
@@ -285,12 +286,12 @@ export default function BecomeAProPage() {
               <strong>Comprehensive verified pros get 15% discount</strong> on all lead claims
             </p>
           </div>
-        </div>
+        </ResponsiveContainer>
       </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-br from-primary-500 to-primary-600 text-black">
-        <div className="container-custom text-center">
+        <ResponsiveContainer className="container-custom text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">
             Ready to Grow Your Business?
           </h2>
@@ -309,7 +310,7 @@ export default function BecomeAProPage() {
               Sign in
             </Link>
           </p>
-        </div>
+        </ResponsiveContainer>
       </section>
 
       <PublicFooter />

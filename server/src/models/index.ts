@@ -9,3 +9,4 @@ export { Project, IProject, IMilestone, IDocument, IPhoto } from './Project.mode
 export { Message, IMessage, IMessageAttachment } from './Message.model';
 export { Review, IReview, ICategoryRatings, IProfessionalResponse } from './Review.model';
 export { CreditTransaction, CreditBalance, ICreditTransaction, ICreditBalance } from './Credit.model';
+export { default as ServiceGroup, IServiceGroup, IServiceCategory, ISubService, IServiceType } from './Service.model';

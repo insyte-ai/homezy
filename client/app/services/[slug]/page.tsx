@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle, MessageCircle } from 'lucide-react';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { ResponsiveContainer } from '@/components/layout/ResponsiveContainer';
 import fs from 'fs';
 import path from 'path';
 
@@ -98,7 +99,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary-50 to-primary-100 py-16 md:py-24">
-        <div className="container-custom">
+        <ResponsiveContainer className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -136,13 +137,13 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               </div>
             )}
           </div>
-        </div>
+        </ResponsiveContainer>
       </section>
 
       {/* Benefits Section */}
       {serviceContent.benefits && serviceContent.benefits.length > 0 && (
         <section className="py-16 bg-white">
-          <div className="container-custom">
+          <ResponsiveContainer className="container-custom">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
               Why Choose Our {serviceContent.title}?
             </h2>
@@ -157,28 +158,28 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </div>
               ))}
             </div>
-          </div>
+          </ResponsiveContainer>
         </section>
       )}
 
       {/* What to Expect Section */}
       {serviceContent.whatToExpect && (
         <section className="py-16 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4">
+          <ResponsiveContainer className="max-w-4xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
               What to Expect
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed">
               {serviceContent.whatToExpect}
             </p>
-          </div>
+          </ResponsiveContainer>
         </section>
       )}
 
       {/* Image Gallery */}
       {serviceContent.images && serviceContent.images.length > 1 && (
         <section className="py-16 bg-white">
-          <div className="container-custom">
+          <ResponsiveContainer className="container-custom">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
               Gallery
             </h2>
@@ -197,14 +198,14 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </div>
               ))}
             </div>
-          </div>
+          </ResponsiveContainer>
         </section>
       )}
 
       {/* FAQs Section */}
       {serviceContent.faqs && serviceContent.faqs.length > 0 && (
         <section className="py-16 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4">
+          <ResponsiveContainer className="max-w-4xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
               Frequently Asked Questions
             </h2>
@@ -221,13 +222,13 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </div>
               ))}
             </div>
-          </div>
+          </ResponsiveContainer>
         </section>
       )}
 
       {/* CTA Section */}
       <section className="py-16 bg-primary-500">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+        <ResponsiveContainer className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Ready to Get Started?
           </h2>
@@ -250,13 +251,13 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               Get AI Assistance
             </Link>
           </div>
-        </div>
+        </ResponsiveContainer>
       </section>
 
       {/* Related Services */}
       {serviceContent.relatedServices && serviceContent.relatedServices.length > 0 && (
         <section className="py-16 bg-white">
-          <div className="container-custom">
+          <ResponsiveContainer className="container-custom">
             <h2 className="text-3xl font-bold text-gray-900 mb-8">
               Related Services
             </h2>
@@ -273,7 +274,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </Link>
               ))}
             </div>
-          </div>
+          </ResponsiveContainer>
         </section>
       )}
 

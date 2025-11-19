@@ -1,26 +1,24 @@
+'use client';
+
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { useChatPanelStore } from '@/store/chatPanelStore';
 import { SERVICE_NAVIGATION, SERVICE_SUBCATEGORIES, ADDITIONAL_SERVICES } from '@/lib/serviceNavigation';
 
-export const metadata: Metadata = {
-  title: 'All Services | Homezy - Home Improvement Services in UAE',
-  description:
-    'Browse all home improvement services available in UAE. From plumbing to renovation, find verified professionals for any project. Get free quotes today.',
-  keywords: 'home services, UAE, Dubai, Abu Dhabi, professionals, renovation, repair, maintenance',
-};
-
 export default function AllServicesPage() {
+  const { isOpen: isChatPanelOpen } = useChatPanelStore();
+
   return (
     <div className="min-h-screen bg-white">
       <PublicHeader />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 to-primary-100 py-16 md:py-20">
-        <div className="container-custom text-center">
+        <div className={`container-custom text-center transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             All Home Services in UAE
           </h1>
@@ -41,7 +39,7 @@ export default function AllServicesPage() {
       {/* Main Service Categories */}
       {SERVICE_NAVIGATION.map((category) => (
         <section key={category.id} className="py-12 border-b border-gray-200">
-          <div className="container-custom">
+          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
               {category.name}
             </h2>
@@ -91,7 +89,7 @@ export default function AllServicesPage() {
       {/* Additional Services */}
       {ADDITIONAL_SERVICES.length > 0 && (
         <section className="py-12 bg-gray-50">
-          <div className="container-custom">
+          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
               Additional Professional Services
             </h2>
@@ -114,7 +112,7 @@ export default function AllServicesPage() {
 
       {/* CTA Section */}
       <section className="py-16 bg-primary-500">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+        <div className={`max-w-4xl mx-auto px-4 text-center transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Can't Find What You're Looking For?
           </h2>

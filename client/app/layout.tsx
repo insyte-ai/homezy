@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { AuthInitializer } from "@/components/AuthInitializer";
+import { GlobalChatPanel } from "@/components/chat/GlobalChatPanel";
 import "./globals.css";
 
 const inter = Inter({
@@ -54,6 +55,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <GlobalChatPanel />
       </body>
     </html>
   );

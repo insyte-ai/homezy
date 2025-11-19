@@ -1,10 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useChatPanelStore } from '@/store/chatPanelStore';
 
 export function PublicFooter() {
+  const { isOpen: isChatPanelOpen } = useChatPanelStore();
+
   return (
     <footer className="bg-gray-50 border-t border-gray-200 py-12 mt-auto">
-      <div className="container-custom">
+      <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>

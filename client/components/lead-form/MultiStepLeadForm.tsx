@@ -7,6 +7,7 @@
 
 import { useEffect } from 'react';
 import { useLeadFormStore } from '@/store/leadFormStore';
+import { useChatPanelStore } from '@/store/chatPanelStore';
 import { loadQuestionnaire } from '@/lib/services/questionnaireLoader';
 import { QuestionRenderer } from './QuestionComponents';
 import { CommonFieldsStep } from './CommonFieldsStep';
@@ -42,6 +43,8 @@ export function MultiStepLeadForm({
     reset,
   } = useLeadFormStore();
 
+  const { isOpen: isChatPanelOpen } = useChatPanelStore();
+
   // Load questionnaire on mount
   useEffect(() => {
     setServiceId(serviceId);
@@ -58,7 +61,10 @@ export function MultiStepLeadForm({
 
   if (!questionnaire) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center transition-all duration-300"
+        style={{ right: isChatPanelOpen ? '450px' : '0' }}
+      >
         <div className="bg-white rounded-2xl p-8">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto"></div>
           <p className="text-gray-600 mt-4">Loading questions...</p>
@@ -118,7 +124,10 @@ export function MultiStepLeadForm({
   const isLastStep = currentStep === totalSteps - 1;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 transition-all duration-300"
+      style={{ right: isChatPanelOpen ? '450px' : '0' }}
+    >
       <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header with progress */}
         <div className="border-b border-gray-200 p-6">

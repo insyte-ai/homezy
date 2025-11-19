@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getProAnalytics, ProAnalytics } from '@/lib/services/analytics';
+import { useChatPanelStore } from '@/store/chatPanelStore';
 import { TrendingUp, TrendingDown, DollarSign, FileText, Star, Clock } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function ProDashboardPage() {
+  const { isOpen: isChatPanelOpen } = useChatPanelStore();
   const [analytics, setAnalytics] = useState<ProAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -97,7 +99,7 @@ export default function ProDashboardPage() {
   ];
 
   return (
-    <div className="container-custom py-8">
+    <div className={`container-custom py-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
       {/* Welcome Section */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-neutral-900 mb-2">

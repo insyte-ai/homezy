@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { SERVICE_CATEGORIES } from '@homezy/shared';
 import { Search } from 'lucide-react';
+import { searchServices, getAllSubservices, type SubService } from '@/lib/services/serviceData';
 
 interface SearchBarProps {
   onSelectService: (serviceId: string) => void;
@@ -12,17 +12,68 @@ export function SearchBar({ onSelectService }: SearchBarProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [filteredServices, setFilteredServices] = useState<SubService[]>([]);
+  const [allServices, setAllServices] = useState<SubService[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Filter services based on search query
-  const filteredServices = SERVICE_CATEGORIES.filter((service) => {
-    const query = searchQuery.toLowerCase();
-    return (
-      service.name.toLowerCase().includes(query) ||
-      service.description.toLowerCase().includes(query)
-    );
-  });
+  // Load all services on mount for quick filtering
+  useEffect(() => {
+    const loadServices = async () => {
+      try {
+        const services = await getAllSubservices();
+        setAllServices(services);
+      } catch (error) {
+        console.error('Failed to load services:', error);
+      }
+    };
+    loadServices();
+  }, []);
+
+  // Search services when query changes
+  useEffect(() => {
+    const performSearch = async () => {
+      if (!searchQuery.trim()) {
+        setFilteredServices([]);
+        return;
+      }
+
+      if (searchQuery.trim().length < 2) {
+        setFilteredServices([]);
+        return;
+      }
+
+      setIsLoading(true);
+      try {
+        // First try local filtering for instant results
+        const localResults = allServices.filter((service) => {
+          const query = searchQuery.toLowerCase();
+          return (
+            service.name.toLowerCase().includes(query) ||
+            service.category?.toLowerCase().includes(query)
+          );
+        });
+
+        if (localResults.length > 0) {
+          setFilteredServices(localResults.slice(0, 10));
+        } else {
+          // If no local results, try API search
+          const results = await searchServices(searchQuery);
+          setFilteredServices(results.slice(0, 10));
+        }
+      } catch (error) {
+        console.error('Search failed:', error);
+        setFilteredServices([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Debounce search
+    const timeoutId = setTimeout(performSearch, 300);
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery, allServices]);
 
   // Handle click outside to close dropdown
   useEffect(() => {
@@ -65,7 +116,7 @@ export function SearchBar({ onSelectService }: SearchBarProps) {
   };
 
   const handleSelectService = (serviceId: string) => {
-    const service = SERVICE_CATEGORIES.find((s) => s.id === serviceId);
+    const service = filteredServices.find((s) => s.id === serviceId);
     if (service) {
       setSearchQuery(service.name);
       setShowDropdown(false);
@@ -81,7 +132,7 @@ export function SearchBar({ onSelectService }: SearchBarProps) {
   };
 
   return (
-    <div ref={searchRef} className="relative w-full">
+    <div ref={searchRef} className="relative w-full max-w-3xl mx-auto">
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
           <Search className="h-5 w-5 text-gray-400" />
@@ -101,7 +152,7 @@ export function SearchBar({ onSelectService }: SearchBarProps) {
       </div>
 
       {/* Autocomplete Dropdown */}
-      {showDropdown && filteredServices.length > 0 && (
+      {showDropdown && filteredServices.length > 0 && !isLoading && (
         <div className="absolute z-50 mt-2 w-full bg-white rounded-2xl shadow-xl border border-gray-100 max-h-96 overflow-y-auto">
           {filteredServices.map((service, index) => (
             <button
@@ -113,11 +164,12 @@ export function SearchBar({ onSelectService }: SearchBarProps) {
                          ${focusedIndex === index ? 'bg-primary-50' : ''}`}
             >
               <div className="flex items-center gap-3">
-                <span className="text-2xl">{service.icon}</span>
+                {service.icon && <span className="text-2xl">{service.icon}</span>}
                 <div className="flex-1">
                   <div className="font-semibold text-gray-900">{service.name}</div>
                   <div className="text-sm text-gray-500 line-clamp-1">
-                    {service.description}
+                    {service.category && `${service.category} • `}
+                    {service.group || 'Home Service'}
                   </div>
                 </div>
               </div>
@@ -126,11 +178,18 @@ export function SearchBar({ onSelectService }: SearchBarProps) {
         </div>
       )}
 
+      {/* Loading state */}
+      {showDropdown && isLoading && (
+        <div className="absolute z-50 mt-2 w-full bg-white rounded-2xl shadow-xl border border-gray-100 p-4">
+          <p className="text-gray-500 text-center">Searching...</p>
+        </div>
+      )}
+
       {/* No results message */}
-      {showDropdown && searchQuery && filteredServices.length === 0 && (
+      {showDropdown && searchQuery && filteredServices.length === 0 && !isLoading && (
         <div className="absolute z-50 mt-2 w-full bg-white rounded-2xl shadow-xl border border-gray-100 p-4">
           <p className="text-gray-500 text-center">
-            No services found for "{searchQuery}". Try a different search term.
+            No services found for &quot;{searchQuery}&quot;. Try a different search term.
           </p>
         </div>
       )}

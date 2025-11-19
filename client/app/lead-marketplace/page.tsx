@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMarketplace, Lead, LeadFilters } from '@/lib/services/leads';
+import { useChatPanelStore } from '@/store/chatPanelStore';
 import LeadCard from '@/components/leads/LeadCard';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
@@ -11,6 +12,7 @@ import toast from 'react-hot-toast';
 
 const PublicLeadMarketplaceContent = () => {
   const router = useRouter();
+  const { isOpen: isChatPanelOpen } = useChatPanelStore();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -82,7 +84,7 @@ const PublicLeadMarketplaceContent = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="container-custom py-8">
+      <div className={`container-custom py-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
         {/* Authentication Banner for Guests */}
         <div className="mb-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-6 text-white shadow-lg">
           <div className="flex items-center justify-between flex-wrap gap-4">

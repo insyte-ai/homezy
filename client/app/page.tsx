@@ -3,24 +3,24 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ChatInterface } from "@/components/chat/ChatInterface";
 import { SearchBar } from "@/components/home/SearchBar";
 import { PopularServices } from "@/components/home/PopularServices";
 import { MultiStepLeadForm } from "@/components/lead-form/MultiStepLeadForm";
 import { PublicHeader } from "@/components/layout/PublicHeader";
 import { PublicFooter } from "@/components/layout/PublicFooter";
-import { MessageCircle, X, Briefcase, ArrowRight } from "lucide-react";
+import { Briefcase, ArrowRight } from "lucide-react";
 import { getMarketplace, Lead } from "@/lib/services/leads";
 import { useAuthStore } from "@/store/authStore";
+import { useChatPanelStore } from "@/store/chatPanelStore";
 
 export default function Home() {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthStore();
+  const { isOpen: isChatPanelOpen } = useChatPanelStore();
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<
     string | undefined
   >();
-  const [showChat, setShowChat] = useState(false);
   const [latestLeads, setLatestLeads] = useState<Lead[]>([]);
 
   // Redirect authenticated users to their dashboards
@@ -63,9 +63,9 @@ export default function Home() {
       <main className="flex-1">
         <div className="container-custom">
           {/* Hero Section Container */}
-          <div className="grid lg:grid-cols-3 gap-12 py-16">
-            {/* Left Side - Service Search & Lead Form (2/3) */}
-            <div className="lg:col-span-2">
+          <div className="py-16">
+            {/* Main Content - Full Width */}
+            <div className={`transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
               {/* Hero Section */}
               <div className="text-center mb-12">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -89,30 +89,10 @@ export default function Home() {
                 <PopularServices onSelectService={handleServiceSelect} />
               </div>
             </div>
-
-            {/* Right Side - Chat Panel (1/3) */}
-            <div className="lg:col-span-1 hidden lg:block">
-              <div className="sticky top-20">
-                <div className="bg-white border border-gray-200 rounded-lg overflow-hidden h-[600px] flex flex-col">
-                  <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                      <MessageCircle className="h-5 w-5" />
-                      Home GPT Assistant
-                    </h3>
-                    <p className="text-sm text-white/90 mt-1">
-                      Ask me anything about your home improvement project
-                    </p>
-                  </div>
-                  <div className="flex-1 overflow-hidden">
-                    <ChatInterface />
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Full Width Content Below Hero */}
-          <div className="pb-16">
+          <div className={`pb-16 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
             {/* How It Works */}
             <div className="bg-gray-50 rounded-2xl p-10 mb-16">
               <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
@@ -242,64 +222,9 @@ export default function Home() {
               </div>
             )}
 
-            {/* CTA Banner for Mobile Chat */}
-            <div className="lg:hidden bg-primary-500 text-white rounded-2xl p-8 text-center mb-16">
-              <h3 className="text-2xl font-bold mb-3">
-                Need help planning your project?
-              </h3>
-              <p className="text-white/90 mb-6">
-                Chat with our AI assistant to get cost estimates, timelines, and
-                expert advice.
-              </p>
-              <button
-                onClick={() => setShowChat(true)}
-                className="bg-white text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2 shadow-md"
-              >
-                <MessageCircle className="h-5 w-5" />
-                Start Chatting with Home GPT
-              </button>
-            </div>
           </div>
         </div>
       </main>
-
-      {/* Mobile Chat Overlay */}
-      {showChat && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden">
-          <div className="bg-white h-full flex flex-col">
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <MessageCircle className="h-5 w-5" />
-                  Home GPT Assistant
-                </h3>
-                <p className="text-sm text-white/90 mt-1">
-                  Ask me anything about your home improvement project
-                </p>
-              </div>
-              <button
-                onClick={() => setShowChat(false)}
-                className="bg-white/20 rounded-full p-2 hover:bg-white/30"
-              >
-                <X className="h-6 w-6 text-white" />
-              </button>
-            </div>
-            <div className="flex-1 overflow-hidden">
-              <ChatInterface />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Mobile Chat FAB */}
-      {!showChat && (
-        <button
-          onClick={() => setShowChat(true)}
-          className="lg:hidden fixed bottom-6 right-6 bg-primary-600 text-white rounded-full p-4 shadow-lg hover:bg-primary-700 transition-colors z-40"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </button>
-      )}
 
       {/* Lead Form Modal */}
       {showLeadForm && selectedServiceId && (
