@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { SearchBar } from "@/components/home/SearchBar";
 import { PopularServices } from "@/components/home/PopularServices";
@@ -13,8 +13,9 @@ import { getMarketplace, Lead } from "@/lib/services/leads";
 import { useAuthStore } from "@/store/authStore";
 import { useChatPanelStore } from "@/store/chatPanelStore";
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, isAuthenticated } = useAuthStore();
   const { isOpen: isChatPanelOpen } = useChatPanelStore();
   const [showLeadForm, setShowLeadForm] = useState(false);
@@ -23,16 +24,34 @@ export default function Home() {
   >();
   const [latestLeads, setLatestLeads] = useState<Lead[]>([]);
 
-  // Redirect authenticated users to their dashboards
+  // Handle return from login to resume lead form
+  useEffect(() => {
+    const returnToLeadForm = searchParams.get('returnToLeadForm');
+    const serviceId = searchParams.get('serviceId');
+
+    if (returnToLeadForm === 'true' && serviceId && isAuthenticated) {
+      // Reopen the lead form modal with the service
+      setSelectedServiceId(serviceId);
+      setShowLeadForm(true);
+
+      // Clean up URL parameters
+      const url = new URL(window.location.href);
+      url.searchParams.delete('returnToLeadForm');
+      url.searchParams.delete('serviceId');
+      window.history.replaceState({}, '', url.pathname);
+    }
+  }, [searchParams, isAuthenticated]);
+
+  // Redirect pros and admins to their dashboards (homeowners can stay on homepage to browse services)
   useEffect(() => {
     if (isAuthenticated && user) {
-      if (user.role === 'homeowner') {
-        router.push('/dashboard');
-      } else if (user.role === 'pro') {
+      // Only redirect pros and admins - homeowners should be able to browse and submit leads
+      if (user.role === 'pro') {
         router.push('/pro/dashboard');
       } else if (user.role === 'admin') {
         router.push('/admin/dashboard');
       }
+      // Homeowners remain on homepage to browse services and create leads
     }
   }, [isAuthenticated, user, router]);
 
@@ -243,5 +262,17 @@ export default function Home() {
 
       <PublicFooter />
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
   );
 }

@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, FormEvent, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, FormEvent, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { login, isLoading, error, clearError, isAuthenticated, user } = useAuthStore();
 
   const [formData, setFormData] = useState({
@@ -20,6 +21,16 @@ export default function LoginPage() {
     if (isAuthenticated && user) {
       const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
       if (token) {
+        // Check if returning to lead form
+        const returnToLeadForm = searchParams.get('returnToLeadForm');
+        const serviceId = searchParams.get('serviceId');
+
+        if (returnToLeadForm === 'true' && serviceId) {
+          // Redirect back to homepage with query params to reopen modal
+          router.replace(`/?returnToLeadForm=true&serviceId=${serviceId}`);
+          return;
+        }
+
         // Check if we have a stored redirect URL
         const redirectUrl = typeof window !== 'undefined' ? sessionStorage.getItem('redirectAfterLogin') : null;
         if (redirectUrl) {
@@ -44,7 +55,7 @@ export default function LoginPage() {
         }
       }
     }
-  }, [isAuthenticated, user, router]);
+  }, [isAuthenticated, user, router, searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,6 +72,16 @@ export default function LoginPage() {
 
     try {
       await login(formData);
+
+      // Check if returning to lead form
+      const returnToLeadForm = searchParams.get('returnToLeadForm');
+      const serviceId = searchParams.get('serviceId');
+
+      if (returnToLeadForm === 'true' && serviceId) {
+        // Redirect back to homepage with query params to reopen modal
+        router.push(`/?returnToLeadForm=true&serviceId=${serviceId}`);
+        return;
+      }
 
       // Check for stored redirect URL
       const redirectUrl = typeof window !== 'undefined' ? sessionStorage.getItem('redirectAfterLogin') : null;
@@ -92,6 +113,15 @@ export default function LoginPage() {
   };
 
   const handleGoogleSuccess = () => {
+    // Check if returning to lead form
+    const returnToLeadForm = searchParams.get('returnToLeadForm');
+    const serviceId = searchParams.get('serviceId');
+
+    if (returnToLeadForm === 'true' && serviceId) {
+      router.push(`/?returnToLeadForm=true&serviceId=${serviceId}`);
+      return;
+    }
+
     // Check for stored redirect URL
     const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
     if (redirectUrl) {
@@ -209,5 +239,17 @@ export default function LoginPage() {
         </div>
       </div>
     </>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center py-12">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }

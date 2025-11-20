@@ -1,153 +1,252 @@
 {
   "serviceId": "electrical",
   "serviceName": "Electrical",
-  "description": "Licensed electrical services for installations, repairs, and safety",
+  "description": "Professional electrical services",
   "questions": [
     {
-      "id": "work_type",
-      "question": "What electrical work do you need?",
-      "type": "single-choice",
-      "required": true,
-      "weight": 1.0,
-      "helpText": "Different electricians specialize in different types of work",
-      "options": [
-        {
-          "value": "new_installation",
-          "label": "New installation",
-          "icon": "⚡",
-          "weight": 0.9,
-          "tags": ["installation", "common"],
-          "matchType": "direct"
-        },
-        {
-          "value": "repair",
-          "label": "Repair/Fix problem",
-          "icon": "🔧",
-          "weight": 0.8,
-          "tags": ["repair", "common"],
-          "matchType": "direct"
-        },
-        {
-          "value": "upgrade",
-          "label": "Upgrade existing",
-          "icon": "⬆️",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "direct"
-        },
-        {
-          "value": "inspection",
-          "label": "Inspection/Safety check",
-          "icon": "🔍",
-          "weight": 0.7,
-          "tags": ["inspection", "maintenance"],
-          "matchType": "direct"
-        }
-      ]
-    },
-    {
-      "id": "scope",
-      "question": "What's the scope of work?",
-      "type": "single-choice",
-      "required": true,
-      "weight": 0.9,
-      "helpText": "This affects the time and cost estimate",
-      "options": [
-        {
-          "value": "single",
-          "label": "Single outlet/switch/fixture",
-          "icon": "🔌",
-          "weight": 0.6,
-          "tags": ["simple"],
-          "matchType": "partial"
-        },
-        {
-          "value": "room",
-          "label": "Entire room",
-          "icon": "🏠",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "multiple_rooms",
-          "label": "Multiple rooms",
-          "icon": "🏘️",
-          "weight": 0.9,
-          "tags": ["complex", "high_value"],
-          "matchType": "partial"
-        },
-        {
-          "value": "whole_house",
-          "label": "Whole house",
-          "icon": "🏡",
-          "weight": 1.0,
-          "tags": ["complex", "high_value", "specialized"],
-          "matchType": "direct"
-        }
-      ]
-    },
-    {
-      "id": "specific_work",
-      "question": "What specific work is needed?",
+      "id": "electrical_services",
+      "question": "What electrical services do you need?",
       "type": "multiple-choice",
-      "required": false,
-      "weight": 0.6,
-      "helpText": "Select all that apply",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your electrical needs",
       "options": [
         {
-          "value": "outlets",
-          "label": "Outlets/Switches",
-          "icon": "🔌",
+          "value": "outlet_switch",
+          "label": "Outlet/switch installation or repair",
+          "icon": "•",
           "weight": 0.7,
-          "tags": ["common", "simple"],
-          "matchType": "partial"
+          "tags": [],
+          "matchType": "direct"
         },
         {
-          "value": "lighting",
-          "label": "Lighting fixtures",
-          "icon": "💡",
+          "value": "light_fixture",
+          "label": "Light fixture installation",
+          "icon": "•",
           "weight": 0.7,
-          "tags": ["common"],
-          "matchType": "partial"
+          "tags": [],
+          "matchType": "direct"
         },
         {
           "value": "ceiling_fan",
-          "label": "Ceiling fans",
-          "icon": "🌀",
+          "label": "Ceiling fan installation",
+          "icon": "•",
           "weight": 0.7,
-          "tags": ["common"],
-          "matchType": "partial"
+          "tags": [],
+          "matchType": "direct"
         },
         {
-          "value": "circuit_breaker",
-          "label": "Circuit breaker/Panel",
-          "icon": "⚡",
-          "weight": 0.9,
-          "tags": ["specialized", "complex"],
+          "value": "panel_upgrade",
+          "label": "Electrical panel upgrade",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
           "matchType": "direct"
         },
         {
           "value": "wiring",
-          "label": "Wiring",
-          "icon": "🔌",
-          "weight": 0.9,
-          "tags": ["specialized", "complex"],
+          "label": "Wiring repair or installation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "circuit_breaker",
+          "label": "Circuit breaker service",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
           "matchType": "direct"
         },
         {
           "value": "generator",
-          "label": "Generator",
-          "icon": "🔋",
-          "weight": 1.0,
-          "tags": ["specialized", "high_value"],
+          "label": "Generator installation/service",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
           "matchType": "direct"
+        },
+        {
+          "value": "inspection",
+          "label": "Electrical safety inspection",
+          "icon": "🔍",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "type_electrical_issue",
+      "question": "What type of electrical issue are you experiencing?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your electrical needs",
+      "options": [
+        {
+          "value": "power_outage",
+          "label": "Power outage",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "breaker_tripping",
+          "label": "Circuit breaker keeps tripping",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "flickering_lights",
+          "label": "Flickering lights",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "outlet_not_working",
+          "label": "Outlet not working",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "burning_smell",
+          "label": "Burning smell from outlet or panel",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "new_installation",
+          "label": "Need new installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "Not applicable",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "electrical_system",
+      "question": "How old is your electrical system?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your electrical needs",
+      "options": [
+        {
+          "value": "under_5",
+          "label": "Less than 5 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "5_15",
+          "label": "5-15 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "15_30",
+          "label": "15-30 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "over_30",
+          "label": "Over 30 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "unknown",
+          "label": "I'm not sure",
+          "icon": "❓",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "additional_circuits_increased",
+      "question": "Do you need additional circuits or increased power capacity?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your electrical needs",
+      "options": [
+        {
+          "value": "yes_appliances",
+          "label": "Yes, for new appliances",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "yes_office",
+          "label": "Yes, for home office equipment",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "yes_renovation",
+          "label": "Yes, for renovation/addition",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "no",
+          "label": "No, just need repairs or replacements",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         }
       ]
     }
   ],
   "metadata": {
-    "createdAt": "2025-01-12",
-    "createdBy": "system"
+    "createdAt": "2025-11-20",
+    "createdBy": "auto-generator",
+    "sourceFile": "electrical.json"
   }
 }

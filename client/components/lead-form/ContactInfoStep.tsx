@@ -5,13 +5,14 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLeadFormStore } from '@/store/leadFormStore';
 import { useAuthStore } from '@/store/authStore';
 import { createLead } from '@/lib/services/leads';
-import { Mail, User, Phone, CheckCircle } from 'lucide-react';
+import { Mail, User, Phone } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { LeadSuccessWithPros } from './LeadSuccessWithPros';
 
 interface ContactInfoStepProps {
   onSubmit?: () => void;
@@ -19,7 +20,7 @@ interface ContactInfoStepProps {
 
 export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
   const router = useRouter();
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
   const {
     email,
     name,
@@ -42,7 +43,34 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
     reset,
   } = useLeadFormStore();
 
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [createdLead, setCreatedLead] = useState<{
+    leadId: string;
+    serviceCategory: string;
+    emirate: string;
+  } | null>(null);
+
+  // Pre-fill contact info for authenticated users
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      // Pre-fill email
+      if (user.email && !email) {
+        setContactField('email', user.email);
+      }
+
+      // Pre-fill name from firstName + lastName
+      if (user.firstName && !name) {
+        const fullName = user.lastName
+          ? `${user.firstName} ${user.lastName}`
+          : user.firstName;
+        setContactField('name', fullName);
+      }
+
+      // Pre-fill phone if available
+      if (user.phone && !phone) {
+        setContactField('phone', user.phone);
+      }
+    }
+  }, [isAuthenticated, user, email, name, phone, setContactField]);
 
   const handleSubmit = async () => {
     if (!validateCurrentStep()) {
@@ -78,7 +106,7 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
       }
 
       // Now create the lead (user is authenticated)
-      await createLead({
+      const lead = await createLead({
         title,
         description,
         category: selectedServiceId!,
@@ -93,14 +121,14 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
         serviceAnswers: getServiceAnswers() || undefined,
       });
 
-      setIsSuccess(true);
-      toast.success('Lead created successfully!');
+      // Store lead info to show matching professionals
+      setCreatedLead({
+        leadId: lead._id,
+        serviceCategory: selectedServiceId!,
+        emirate,
+      });
 
-      // Reset form after success
-      setTimeout(() => {
-        reset();
-        onSubmit?.();
-      }, 2000);
+      toast.success('Lead created successfully!');
     } catch (error: any) {
       console.error('Failed to create lead:', error);
       toast.error(
@@ -111,30 +139,18 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
     }
   };
 
-  // Success state
-  if (isSuccess) {
+  // Success state - Show matching professionals
+  if (createdLead) {
     return (
-      <div className="text-center py-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-6">
-          <CheckCircle className="h-10 w-10 text-green-600" />
-        </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          Lead Created Successfully!
-        </h2>
-        <p className="text-gray-600 mb-8">
-          Up to 5 verified professionals will claim your lead and submit quotes.
-          You'll be notified via email.
-        </p>
-        <div className="bg-primary-50 border border-primary-300 rounded-xl p-4 max-w-md mx-auto">
-          <p className="text-sm text-gray-800">
-            <strong className="text-gray-900">What's next?</strong>
-            <br />
-            We'll send you an email with a link to view and manage your lead. You can
-            compare quotes, chat with professionals, and hire the best fit for your
-            project.
-          </p>
-        </div>
-      </div>
+      <LeadSuccessWithPros
+        leadId={createdLead.leadId}
+        serviceCategory={createdLead.serviceCategory}
+        emirate={createdLead.emirate}
+        onClose={() => {
+          reset();
+          onSubmit?.();
+        }}
+      />
     );
   }
 
@@ -147,6 +163,35 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
         <p className="text-sm text-gray-600">
           We'll send quotes from professionals to your email
         </p>
+
+        {/* Login prompt for existing users */}
+        {!isAuthenticated && (
+          <div className="mt-3 bg-purple-50 border border-purple-200 rounded-lg p-3">
+            <p className="text-sm text-gray-700">
+              Already have an account?{' '}
+              <button
+                type="button"
+                onClick={() => {
+                  // Redirect to login with return URL
+                  const returnUrl = `/auth/login?returnToLeadForm=true&serviceId=${selectedServiceId || ''}`;
+                  router.push(returnUrl);
+                }}
+                className="font-semibold text-purple-600 hover:text-purple-700 underline"
+              >
+                Login here
+              </button>
+              {' '}to auto-fill your details
+            </p>
+          </div>
+        )}
+
+        {isAuthenticated && (
+          <div className="mt-3 bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <p className="text-sm text-blue-800">
+              ℹ️ Using your account information. You can edit these fields if needed.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Email */}
@@ -202,9 +247,18 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
       {/* Privacy notice */}
       <div className="bg-gray-50 border border-gray-300 rounded-xl p-4">
         <p className="text-xs text-gray-600">
-          By submitting this form, you agree to receive quotes from verified
-          professionals. We'll create a free account for you so you can manage your
-          lead and communicate with professionals. You can set a password later.
+          {isAuthenticated ? (
+            <>
+              By submitting this form, you agree to receive quotes from verified
+              professionals via email and in your dashboard.
+            </>
+          ) : (
+            <>
+              By submitting this form, you agree to receive quotes from verified
+              professionals. We'll create a free account for you so you can manage your
+              lead and communicate with professionals. You can set a password later.
+            </>
+          )}
         </p>
       </div>
 

@@ -1,199 +1,248 @@
 {
   "serviceId": "plumbing",
   "serviceName": "Plumbing",
-  "description": "Professional plumbing services including repairs, installations, and emergency work",
+  "description": "Professional plumbing services",
   "questions": [
     {
-      "id": "work_type",
-      "question": "What kind of plumbing work do you need?",
-      "type": "single-choice",
-      "required": true,
-      "weight": 1.0,
-      "helpText": "This helps us match you with the right type of plumber",
-      "options": [
-        {
-          "value": "repair",
-          "label": "Repair existing fixture",
-          "icon": "🔧",
-          "weight": 0.8,
-          "tags": ["repair", "common"],
-          "matchType": "direct"
-        },
-        {
-          "value": "install",
-          "label": "Install new fixture",
-          "icon": "🚰",
-          "weight": 0.9,
-          "tags": ["installation", "common"],
-          "matchType": "direct"
-        },
-        {
-          "value": "emergency",
-          "label": "Emergency/Leak",
-          "icon": "🚨",
-          "weight": 1.0,
-          "tags": ["emergency", "urgent", "high_priority"],
-          "matchType": "direct"
-        },
-        {
-          "value": "inspection",
-          "label": "Inspection or maintenance",
-          "icon": "🔍",
-          "weight": 0.7,
-          "tags": ["inspection", "maintenance"],
-          "matchType": "direct"
-        }
-      ]
-    },
-    {
-      "id": "location",
-      "question": "Where is the plumbing work needed?",
-      "type": "single-choice",
-      "required": true,
-      "weight": 0.7,
-      "helpText": "Some plumbers specialize in specific areas",
-      "options": [
-        {
-          "value": "kitchen",
-          "label": "Kitchen",
-          "icon": "🍳",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "bathroom",
-          "label": "Bathroom",
-          "icon": "🚿",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "laundry",
-          "label": "Laundry room",
-          "icon": "🧺",
-          "weight": 0.6,
-          "tags": [],
-          "matchType": "partial"
-        },
-        {
-          "value": "outdoor",
-          "label": "Outdoor",
-          "icon": "🏡",
-          "weight": 0.7,
-          "tags": ["specialized"],
-          "matchType": "partial"
-        },
-        {
-          "value": "multiple",
-          "label": "Multiple locations",
-          "icon": "📍",
-          "weight": 0.9,
-          "tags": ["complex"],
-          "matchType": "flexible"
-        }
-      ]
-    },
-    {
-      "id": "fixtures",
-      "question": "What fixtures are involved?",
+      "id": "type_plumbing_work",
+      "question": "What type of plumbing work do you need?",
       "type": "multiple-choice",
-      "required": false,
-      "weight": 0.6,
-      "helpText": "Select all that apply - this helps pros assess the work",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your plumbing needs",
       "options": [
         {
-          "value": "sink",
-          "label": "Sink",
-          "icon": "🚰",
-          "weight": 0.7,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "faucet",
-          "label": "Faucet",
-          "icon": "💧",
-          "weight": 0.7,
-          "tags": ["common", "simple"],
-          "matchType": "partial"
-        },
-        {
-          "value": "toilet",
-          "label": "Toilet",
-          "icon": "🚽",
-          "weight": 0.7,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "shower",
-          "label": "Shower/Bathtub",
-          "icon": "🚿",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "pipes",
-          "label": "Pipes",
+          "value": "leak_repair",
+          "label": "Leak repair",
           "icon": "🔧",
-          "weight": 0.9,
-          "tags": ["complex", "specialized"],
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "drain_cleaning",
+          "label": "Drain cleaning",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "fixture_install",
+          "label": "Fixture installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "pipe_replacement",
+          "label": "Pipe replacement",
+          "icon": "🔄",
+          "weight": 0.7,
+          "tags": [],
           "matchType": "direct"
         },
         {
           "value": "water_heater",
-          "label": "Water heater",
+          "label": "Water heater service",
           "icon": "♨️",
-          "weight": 0.9,
-          "tags": ["specialized", "high_value"],
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "sewer_line",
+          "label": "Sewer line service",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "bathroom",
+          "label": "Bathroom plumbing",
+          "icon": "🚿",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "kitchen",
+          "label": "Kitchen plumbing",
+          "icon": "🍳",
+          "weight": 0.7,
+          "tags": [],
           "matchType": "direct"
         }
       ]
     },
     {
-      "id": "problem_duration",
-      "question": "When did this problem start?",
-      "type": "single-choice",
+      "id": "plumbing_problem_experiencing",
+      "question": "What plumbing problem are you experiencing?",
+      "type": "multiple-choice",
       "required": false,
-      "weight": 0.3,
-      "helpText": "Understanding the timeline helps assess urgency",
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your plumbing needs",
       "options": [
         {
-          "value": "recent",
-          "label": "Less than a week ago",
-          "weight": 0.8,
-          "tags": ["urgent"],
-          "matchType": "flexible"
+          "value": "clogged_drain",
+          "label": "Clogged drain",
+          "icon": "⚠️",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "few_weeks",
-          "label": "A few weeks ago",
-          "weight": 0.6,
+          "value": "leaking_pipe",
+          "label": "Leaking pipe",
+          "icon": "⚠️",
+          "weight": 0.5,
           "tags": [],
-          "matchType": "flexible"
+          "matchType": "partial"
         },
         {
-          "value": "month_plus",
-          "label": "A month or longer",
-          "weight": 0.4,
+          "value": "low_pressure",
+          "label": "Low water pressure",
+          "icon": "⚠️",
+          "weight": 0.5,
           "tags": [],
-          "matchType": "flexible"
+          "matchType": "partial"
         },
         {
-          "value": "not_sure",
-          "label": "Not sure",
-          "weight": 0.3,
+          "value": "no_hot_water",
+          "label": "No hot water",
+          "icon": "❌",
+          "weight": 0.5,
           "tags": [],
-          "matchType": "flexible"
+          "matchType": "partial"
+        },
+        {
+          "value": "running_toilet",
+          "label": "Running toilet",
+          "icon": "🚽",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "dripping_faucet",
+          "label": "Dripping faucet",
+          "icon": "💧",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "sewer_smell",
+          "label": "Sewer smell",
+          "icon": "⚠️",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "Not applicable",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "plumbing_system",
+      "question": "How old is your plumbing system?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your plumbing needs",
+      "options": [
+        {
+          "value": "under_5",
+          "label": "Less than 5 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "5_15",
+          "label": "5-15 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "15_30",
+          "label": "15-30 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "over_30",
+          "label": "Over 30 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "unknown",
+          "label": "I'm not sure",
+          "icon": "❓",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "emergency_situation",
+      "question": "Is this an emergency situation?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your plumbing needs",
+      "options": [
+        {
+          "value": "emergency",
+          "label": "Yes, I need immediate assistance",
+          "icon": "🚨",
+          "weight": 1,
+          "tags": [
+            "urgent"
+          ],
+          "matchType": "direct"
+        },
+        {
+          "value": "urgent",
+          "label": "No, but I need service soon",
+          "icon": "🚨",
+          "weight": 1,
+          "tags": [
+            "urgent"
+          ],
+          "matchType": "direct"
+        },
+        {
+          "value": "routine",
+          "label": "No, this is routine maintenance",
+          "icon": "🚨",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         }
       ]
     }
   ],
   "metadata": {
-    "createdAt": "2025-01-12",
-    "createdBy": "system"
+    "createdAt": "2025-11-20",
+    "createdBy": "auto-generator",
+    "sourceFile": "plumbing.json"
   }
 }

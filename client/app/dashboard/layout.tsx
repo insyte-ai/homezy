@@ -294,7 +294,7 @@ export default function DashboardLayout({
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
-                    href="/dashboard/requests"
+                    href="/create-request"
                     className="text-sm px-4 py-2 bg-white text-primary-600 font-medium rounded-lg hover:bg-gray-100 transition-colors"
                   >
                     Request Your First Quote

@@ -8,8 +8,9 @@
 import { useEffect } from 'react';
 import { useLeadFormStore } from '@/store/leadFormStore';
 import { useChatPanelStore } from '@/store/chatPanelStore';
+import { useAuthStore } from '@/store/authStore';
 import { loadQuestionnaire } from '@/lib/services/questionnaireLoader';
-import { QuestionRenderer } from './QuestionComponents';
+import { ServiceQuestionsStep } from './ServiceQuestionsStep';
 import { CommonFieldsStep } from './CommonFieldsStep';
 import { PhotoUploadStep } from './PhotoUploadStep';
 import { ContactInfoStep } from './ContactInfoStep';
@@ -29,21 +30,21 @@ export function MultiStepLeadForm({
   const {
     currentStep,
     questionnaire,
-    answers,
-    errors,
     isSubmitting,
     setServiceId,
     setQuestionnaire,
-    setAnswer,
     nextStep,
     previousStep,
     validateCurrentStep,
     getTotalSteps,
     getProgress,
-    reset,
   } = useLeadFormStore();
 
   const { isOpen: isChatPanelOpen } = useChatPanelStore();
+  const { isAuthenticated } = useAuthStore();
+
+  // Skip contact step for authenticated users
+  const skipContactStep = isAuthenticated;
 
   // Load questionnaire on mount
   useEffect(() => {
@@ -51,12 +52,6 @@ export function MultiStepLeadForm({
     loadQuestionnaire(serviceId).then((q) => {
       setQuestionnaire(q);
     });
-
-    // Cleanup on unmount
-    return () => {
-      // Optional: reset form when closing
-      // reset();
-    };
   }, [serviceId]);
 
   if (!questionnaire) {
@@ -73,41 +68,43 @@ export function MultiStepLeadForm({
     );
   }
 
-  const totalSteps = getTotalSteps();
-  const progress = getProgress();
-  const serviceQuestionsCount = questionnaire.questions.length;
+  // Calculate total steps based on authentication
+  // Authenticated users: 3 steps (skip contact info)
+  // Guest users: 4 steps (include contact info)
+  const totalSteps = skipContactStep ? 3 : getTotalSteps();
+  const progress = Math.round(((currentStep + 1) / totalSteps) * 100);
 
   // Determine which step component to render
+  // For authenticated users (3 steps): Service Questions → Common Fields → Photo Upload (auto-submit)
+  // For guest users (4 steps): Service Questions → Common Fields → Photo Upload → Contact Info
   const renderStep = () => {
-    // Service-specific questions
-    if (currentStep < serviceQuestionsCount) {
-      const question = questionnaire.questions[currentStep];
-      return (
-        <QuestionRenderer
-          question={question}
-          value={answers[question.id]}
-          onChange={(value) => setAnswer(question.id, value)}
-          error={errors[question.id]}
-        />
-      );
+    if (skipContactStep) {
+      // 3-step flow for authenticated users
+      switch (currentStep) {
+        case 0:
+          return <ServiceQuestionsStep />;
+        case 1:
+          return <CommonFieldsStep />;
+        case 2:
+          return <PhotoUploadStep onAutoSubmit={onSubmit} />;
+        default:
+          return null;
+      }
+    } else {
+      // 4-step flow for guest users
+      switch (currentStep) {
+        case 0:
+          return <ServiceQuestionsStep />;
+        case 1:
+          return <CommonFieldsStep />;
+        case 2:
+          return <PhotoUploadStep />;
+        case 3:
+          return <ContactInfoStep onSubmit={onSubmit} />;
+        default:
+          return null;
+      }
     }
-
-    // Common fields step
-    if (currentStep === serviceQuestionsCount) {
-      return <CommonFieldsStep />;
-    }
-
-    // Photo upload step (optional)
-    if (currentStep === serviceQuestionsCount + 1) {
-      return <PhotoUploadStep />;
-    }
-
-    // Contact info step (final)
-    if (currentStep === serviceQuestionsCount + 2) {
-      return <ContactInfoStep onSubmit={onSubmit} />;
-    }
-
-    return null;
   };
 
   const handleNext = () => {

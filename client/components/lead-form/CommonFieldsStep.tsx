@@ -1,13 +1,16 @@
 /**
  * Common Fields Step
  * Collects title, description, location, budget, urgency
+ * Includes AI-powered auto-generation of title and description
  */
 
 'use client';
 
+import { useState } from 'react';
 import { useLeadFormStore } from '@/store/leadFormStore';
 import { EMIRATES, BUDGET_BRACKETS, URGENCY_LEVELS } from '@homezy/shared';
-import { MapPin, DollarSign, Clock, FileText } from 'lucide-react';
+import { MapPin, DollarSign, Clock, FileText, Sparkles, Loader2 } from 'lucide-react';
+import { api } from '@/lib/api';
 
 export function CommonFieldsStep() {
   const {
@@ -19,8 +22,64 @@ export function CommonFieldsStep() {
     urgency,
     timeline,
     errors,
+    selectedServiceId,
+    questionnaire,
+    answers,
     setCommonField,
   } = useLeadFormStore();
+
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generateError, setGenerateError] = useState<string | null>(null);
+
+  /**
+   * Generate title and description using AI based on questionnaire answers
+   */
+  const handleGenerateContent = async () => {
+    if (!questionnaire || !selectedServiceId) {
+      return;
+    }
+
+    setIsGenerating(true);
+    setGenerateError(null);
+
+    try {
+      // Format answers for API
+      const formattedAnswers = questionnaire.questions
+        .filter((q) => answers[q.id]) // Only include answered questions
+        .map((q) => ({
+          questionId: q.id,
+          question: q.question,
+          answer: answers[q.id],
+          type: q.type,
+        }));
+
+      // Call the API
+      const response = await api.post('/leads/generate-content', {
+        serviceId: selectedServiceId,
+        serviceName: questionnaire.serviceName,
+        answers: formattedAnswers,
+        emirate: emirate || undefined,
+      });
+
+      if (response.data.success && response.data.data) {
+        // Pre-fill the fields with generated content
+        setCommonField('title', response.data.data.title);
+        setCommonField('description', response.data.data.description);
+      } else {
+        setGenerateError('Failed to generate content. Please fill manually.');
+      }
+    } catch (error: any) {
+      console.error('Failed to generate lead content:', error);
+      setGenerateError(
+        error.response?.data?.message || 'Failed to generate content. Please try again.'
+      );
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Check if we have enough answers to generate content
+  const canGenerate = questionnaire && questionnaire.questions.some((q) => answers[q.id]);
 
   return (
     <div className="space-y-6">
@@ -32,6 +91,72 @@ export function CommonFieldsStep() {
           This information helps professionals understand your needs
         </p>
       </div>
+
+      {/* AI Auto-Generate Banner */}
+      {canGenerate && !title && !description && (
+        <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-xl p-4">
+          <div className="flex items-start gap-3">
+            <Sparkles className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="font-medium text-gray-900 mb-2">
+                Save time with AI ✨
+              </p>
+              <p className="text-sm text-gray-600 mb-3">
+                Let our AI generate a professional title and description based on your answers.
+                You can always edit them afterward.
+              </p>
+              <button
+                type="button"
+                onClick={handleGenerateContent}
+                disabled={isGenerating}
+                className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-4 w-4" />
+                    Auto-generate with AI
+                  </>
+                )}
+              </button>
+              {generateError && (
+                <p className="text-sm text-red-600 mt-2">{generateError}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Manual Generate Button (when fields have content) */}
+      {canGenerate && (title || description) && (
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={handleGenerateContent}
+            disabled={isGenerating}
+            className="flex items-center gap-2 px-4 py-2 border-2 border-purple-600 text-purple-600 rounded-lg font-medium hover:bg-purple-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+          >
+            {isGenerating ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Re-generating...
+              </>
+            ) : (
+              <>
+                <Sparkles className="h-4 w-4" />
+                Re-generate with AI
+              </>
+            )}
+          </button>
+          {generateError && (
+            <p className="text-sm text-red-600 mt-2">{generateError}</p>
+          )}
+        </div>
+      )}
 
       {/* Title */}
       <div>

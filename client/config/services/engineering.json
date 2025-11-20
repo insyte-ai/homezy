@@ -1,0 +1,354 @@
+{
+  "serviceId": "engineering",
+  "serviceName": "Engineering",
+  "description": "Professional engineering services",
+  "questions": [
+    {
+      "id": "type_engineering_service",
+      "question": "What type of engineering service do you need?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your engineering needs",
+      "options": [
+        {
+          "value": "architectural",
+          "label": "Architectural engineering",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "structural",
+          "label": "Structural engineering",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "construction",
+          "label": "Construction engineering",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "mep",
+          "label": "MEP engineering (Mechanical, Electrical, Plumbing)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "aor",
+          "label": "Architect of Record (AOR) services",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "consultation",
+          "label": "Engineering consultation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "inspection",
+          "label": "Engineering inspection",
+          "icon": "🔍",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "purpose_engineering_project",
+      "question": "What is the purpose of your engineering project?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your engineering needs",
+      "options": [
+        {
+          "value": "new_construction",
+          "label": "New construction",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "renovation",
+          "label": "Renovation/remodeling",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "addition",
+          "label": "Addition to existing structure",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "assessment",
+          "label": "Structural assessment",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "repair",
+          "label": "Repair of existing issues",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "permits",
+          "label": "Permit/compliance documentation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "consultation",
+          "label": "Expert opinion/consultation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "current_stage_project",
+      "question": "What is the current stage of your project?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your engineering needs",
+      "options": [
+        {
+          "value": "planning",
+          "label": "Initial planning/concept",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "design",
+          "label": "Design development",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "construction_docs",
+          "label": "Ready for construction documents",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "construction",
+          "label": "Under construction",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "assessment",
+          "label": "Completed but needs assessment",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "existing_plans_drawings",
+      "question": "Do you have existing plans or drawings?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your engineering needs",
+      "options": [
+        {
+          "value": "complete",
+          "label": "Yes, complete professional drawings",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_update",
+          "label": "Yes, but they need updating",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "sketches",
+          "label": "Only preliminary sketches",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No, need to start from scratch",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "approximate_size_project",
+      "question": "What is the approximate size of your project?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your engineering needs",
+      "options": [
+        {
+          "value": "small_residential",
+          "label": "Small residential (under 2,000 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "medium_residential",
+          "label": "Medium residential (2,000-5,000 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "large_residential",
+          "label": "Large residential (over 5,000 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "small_commercial",
+          "label": "Small commercial (under 5,000 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "medium_commercial",
+          "label": "Medium commercial (5,000-20,000 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "large_commercial",
+          "label": "Large commercial (over 20,000 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "specific_code_compliance",
+      "question": "Do you have specific code compliance or certification requirements?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your engineering needs",
+      "options": [
+        {
+          "value": "local_codes",
+          "label": "Local building codes",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "leed",
+          "label": "LEED certification",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "energy",
+          "label": "Energy efficiency standards",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [
+            "common"
+          ],
+          "matchType": "partial"
+        },
+        {
+          "value": "accessibility",
+          "label": "Accessibility requirements",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "historic",
+          "label": "Historic preservation guidelines",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_guidance",
+          "label": "Not sure, need guidance",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-11-20",
+    "createdBy": "auto-generator",
+    "sourceFile": "engineering.json"
+  }
+}

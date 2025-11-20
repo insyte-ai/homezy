@@ -1,0 +1,344 @@
+{
+  "serviceId": "project-management",
+  "serviceName": "Project Management",
+  "description": "Professional project management services",
+  "questions": [
+    {
+      "id": "type_project_management",
+      "question": "What type of project management service do you need?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your project management needs",
+      "options": [
+        {
+          "value": "new_construction",
+          "label": "New construction project management",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "renovation",
+          "label": "Renovation project management",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "rescue",
+          "label": "Rescue/recovery of troubled project",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "planning",
+          "label": "Project planning and scheduling",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "budget",
+          "label": "Budget management",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "contractor",
+          "label": "Contractor coordination",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "quality_control",
+          "label": "Quality control oversight",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "current_status_project",
+      "question": "What is the current status of your project?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your project management needs",
+      "options": [
+        {
+          "value": "not_started",
+          "label": "Not yet started",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "planning",
+          "label": "In planning phase",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "just_started",
+          "label": "Recently started",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "issues",
+          "label": "In progress but facing issues",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "stalled",
+          "label": "Stalled/delayed",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "nearly_complete",
+          "label": "Nearly complete",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "approximate_sizescope_project",
+      "question": "What is the approximate size/scope of your project?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your project management needs",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (under $50,000)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "medium",
+          "label": "Medium ($50,000-$250,000)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "large",
+          "label": "Large ($250,000-$1,000,000)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "very_large",
+          "label": "Very large (over $1,000,000)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "expected_timeline_project",
+      "question": "What is your expected timeline for project completion?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your project management needs",
+      "options": [
+        {
+          "value": "under_3_months",
+          "label": "Less than 3 months",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "3_6_months",
+          "label": "3-6 months",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "6_12_months",
+          "label": "6-12 months",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "over_12_months",
+          "label": "Over 12 months",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_guidance",
+          "label": "Not sure, need guidance",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "challenges_currently_facing",
+      "question": "What challenges are you currently facing with your project?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your project management needs",
+      "options": [
+        {
+          "value": "budget",
+          "label": "Budget overruns",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "schedule",
+          "label": "Schedule delays",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "contractor",
+          "label": "Contractor issues",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "quality",
+          "label": "Quality concerns",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "permits",
+          "label": "Permit/regulatory problems",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "scope",
+          "label": "Scope creep",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "communication",
+          "label": "Communication breakdowns",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No current challenges",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "level_involvement_want",
+      "question": "What level of involvement do you want from the project manager?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your project management needs",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full management (daily oversight)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "moderate",
+          "label": "Moderate involvement (weekly oversight)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "advisory",
+          "label": "Advisory role (guidance as needed)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "crisis",
+          "label": "Crisis management only",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-11-20",
+    "createdBy": "auto-generator",
+    "sourceFile": "project-management.json"
+  }
+}

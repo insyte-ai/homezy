@@ -29,6 +29,14 @@ export interface Lead {
   attachments: Attachment[];
   serviceAnswers?: ServiceAnswers;
   preferences: LeadPreferences;
+  // Lead Type: Direct (private to specific pro) or Indirect (public marketplace)
+  leadType: 'direct' | 'indirect';
+  targetProfessionalId?: string; // For direct leads
+  directLeadExpiresAt?: Date; // 24-hour expiry for direct leads
+  directLeadStatus?: 'pending' | 'accepted' | 'declined' | 'converted';
+  convertedToPublicAt?: Date; // When direct lead was converted to public
+  reminder1Sent?: boolean; // 12-hour reminder sent
+  reminder2Sent?: boolean; // 1-hour reminder sent
   status: LeadStatus;
   claimCount: number;
   maxClaims: number;

@@ -9,13 +9,31 @@ import { ServiceQuestionnaire } from '@/config/questionTypes';
 const questionnaireCache = new Map<string, ServiceQuestionnaire>();
 
 // Available service IDs with custom questionnaires
+// Updated to include all 17 auto-generated configs + 6 original configs
 const CUSTOM_SERVICES = [
+  // Original configs
   'plumbing',
   'electrical',
   'hvac',
   'kitchen-remodeling',
   'bathroom-remodeling',
   'handyman-services',
+
+  // Auto-generated configs (from data/lead-form-data)
+  'business-services',
+  'engineering',
+  'event-services',
+  'home-improvement',
+  'home-maintenance',
+  'home-remodeling',
+  'landscaping',
+  'legal-services',
+  'personal-training',
+  'pet-services',
+  'project-management',
+  'property-services',
+  'smart-home',
+  'swimming-pool',
 ];
 
 /**

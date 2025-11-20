@@ -23,6 +23,7 @@ import {
 import { getPublicProfile } from '@/lib/services/professional';
 import { VerificationBadges } from '@/components/pro/VerificationBadges';
 import { ProfileStats } from '@/components/pro/ProfileStats';
+import { DirectLeadModal } from '@/components/lead-form/DirectLeadModal';
 import toast from 'react-hot-toast';
 
 export default function PublicProfilePage() {
@@ -33,6 +34,7 @@ export default function PublicProfilePage() {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
   const [activeSection, setActiveSection] = useState('about');
+  const [showDirectLeadModal, setShowDirectLeadModal] = useState(false);
 
   useEffect(() => {
     fetchProfile();
@@ -73,8 +75,7 @@ export default function PublicProfilePage() {
   };
 
   const handleRequestQuote = () => {
-    // TODO: Open lead creation flow or login
-    toast.success('Quote request feature coming soon!');
+    setShowDirectLeadModal(true);
   };
 
   // Generate SEO metadata
@@ -659,6 +660,15 @@ export default function PublicProfilePage() {
         </div>
       </div>
     </div>
+
+    {/* Direct Lead Modal */}
+    <DirectLeadModal
+      isOpen={showDirectLeadModal}
+      onClose={() => setShowDirectLeadModal(false)}
+      professionalId={id}
+      professionalName={profile.businessName}
+      categories={proProfile.categories}
+    />
     </>
   );
 }

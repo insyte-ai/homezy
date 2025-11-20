@@ -1,0 +1,314 @@
+{
+  "serviceId": "home-remodeling",
+  "serviceName": "Home Remodeling",
+  "description": "Professional home remodeling services",
+  "questions": [
+    {
+      "id": "type_remodeling_project",
+      "question": "What type of remodeling project are you planning?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your home remodeling needs",
+      "options": [
+        {
+          "value": "full_home",
+          "label": "Full home renovation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "kitchen",
+          "label": "Kitchen remodeling",
+          "icon": "🍳",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "bathroom",
+          "label": "Bathroom remodeling",
+          "icon": "🚿",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "basement",
+          "label": "Basement finishing",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "addition",
+          "label": "Room addition",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "outdoor",
+          "label": "Outdoor living space",
+          "icon": "🏡",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "interior_design",
+          "label": "Interior design update",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "approximate_size_area",
+      "question": "What is the approximate size of the area to be remodeled?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your home remodeling needs",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (under 100 sq ft)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (100-500 sq ft)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "large",
+          "label": "Large (500-1000 sq ft)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "very_large",
+          "label": "Very large (over 1000 sq ft)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "architectural_plans_designs",
+      "question": "Do you have architectural plans or designs already?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your home remodeling needs",
+      "options": [
+        {
+          "value": "complete_plans",
+          "label": "Yes, I have complete plans ready",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "rough_sketches",
+          "label": "I have rough sketches or ideas",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_design",
+          "label": "No, I need design assistance",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "preferred_style",
+      "question": "What is your preferred style?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your home remodeling needs",
+      "options": [
+        {
+          "value": "modern",
+          "label": "Modern",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "traditional",
+          "label": "Traditional",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "contemporary",
+          "label": "Contemporary",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "minimalist",
+          "label": "Minimalist",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "industrial",
+          "label": "Industrial",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "farmhouse",
+          "label": "Farmhouse",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "rustic",
+          "label": "Rustic",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "mediterranean",
+          "label": "Mediterranean",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure yet",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "interested_ecofriendly_sustainable",
+      "question": "Are you interested in eco-friendly or sustainable materials?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your home remodeling needs",
+      "options": [
+        {
+          "value": "high_priority",
+          "label": "Yes, sustainability is a top priority",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [
+            "high_value"
+          ],
+          "matchType": "partial"
+        },
+        {
+          "value": "budget_dependent",
+          "label": "Yes, if it fits within my budget",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_priority",
+          "label": "No, I'm more concerned with other factors",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_info",
+          "label": "Not sure, I need more information",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "will_live_home",
+      "question": "Will you need to live in the home during the remodel?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your home remodeling needs",
+      "options": [
+        {
+          "value": "stay_in_home",
+          "label": "Yes, I need to stay in the home",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "can_relocate",
+          "label": "No, I can relocate during construction",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "depends",
+          "label": "Depends on the timeline and extent of work",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-11-20",
+    "createdBy": "auto-generator",
+    "sourceFile": "home-remodeling.json"
+  }
+}

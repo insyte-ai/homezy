@@ -895,3 +895,82 @@ export const getProAnalytics = async (
     next(error);
   }
 };
+
+/**
+ * Get matching professionals for a lead
+ * @route GET /api/v1/pros/matching
+ * @access Public
+ */
+export const getMatchingPros = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { category, emirate, limit = 10 } = req.query;
+
+    // Build query
+    const query: any = {
+      role: 'pro',
+      'proProfile.isOnboarded': true,
+      'proProfile.isActive': true,
+    };
+
+    if (category) {
+      query['proProfile.services'] = category;
+    }
+
+    if (emirate) {
+      query['proProfile.serviceAreas.emirates'] = emirate;
+    }
+
+    // Find matching professionals
+    const professionals = await User.find(query)
+      .select(
+        'firstName lastName email phone proProfile.businessName proProfile.avatar proProfile.rating proProfile.reviewCount proProfile.completedJobs proProfile.responseTime proProfile.location proProfile.services proProfile.verified proProfile.topPro proProfile.hourlyRate'
+      )
+      .sort({
+        'proProfile.topPro': -1, // Top pros first
+        'proProfile.rating': -1, // Then by rating
+        'proProfile.reviewCount': -1, // Then by review count
+      })
+      .limit(Number(limit))
+      .lean();
+
+    // Transform data
+    const transformedPros = professionals.map((pro: any) => ({
+      _id: pro._id,
+      businessName: pro.proProfile?.businessName || `${pro.firstName} ${pro.lastName}`,
+      firstName: pro.firstName,
+      lastName: pro.lastName,
+      email: pro.email,
+      phone: pro.phone,
+      avatar: pro.proProfile?.avatar,
+      rating: pro.proProfile?.rating,
+      reviewCount: pro.proProfile?.reviewCount,
+      completedJobs: pro.proProfile?.completedJobs,
+      responseTime: pro.proProfile?.responseTime,
+      location: pro.proProfile?.location,
+      services: pro.proProfile?.services || [],
+      verified: pro.proProfile?.verified,
+      topPro: pro.proProfile?.topPro,
+      hourlyRate: pro.proProfile?.hourlyRate,
+    }));
+
+    res.status(200).json({
+      success: true,
+      data: {
+        professionals: transformedPros,
+        count: transformedPros.length,
+      },
+    });
+  } catch (error: any) {
+    logger.error('Failed to get matching professionals', {
+      error: error.message,
+    });
+
+    res.status(500).json({
+      success: false,
+      message: 'Failed to load professionals',
+    });
+  }
+};

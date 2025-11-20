@@ -7,6 +7,7 @@ import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { setupChatSockets } from './sockets/chat.socket';
 import { setupMessagingSockets } from './sockets/messaging.socket';
+import { initializeJobs } from './jobs';
 
 /**
  * Start the server
@@ -23,6 +24,9 @@ const startServer = async (): Promise<void> => {
       rateLimitRedis.ping(),
     ]);
     logger.info('All Redis connections established');
+
+    // Initialize scheduled jobs (cron jobs)
+    initializeJobs();
 
     // Create Express app
     const app = createApp();

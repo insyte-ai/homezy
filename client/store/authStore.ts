@@ -178,7 +178,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         localStorage.setItem('accessToken', accessToken);
       }
 
-      logger.authEvent('google_auth', { userId: user._id, email: user.email, role: user.role });
+      logger.authEvent('login', { userId: user._id, email: user.email, role: user.role, method: 'google' });
       set({
         user,
         isAuthenticated: true,

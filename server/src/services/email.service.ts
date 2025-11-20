@@ -503,6 +503,603 @@ class EmailService {
       throw error;
     }
   }
+
+  /**
+   * Send email when a homeowner sends a direct lead to a professional
+   */
+  async sendDirectLeadReceived(
+    to: string,
+    data: {
+      professionalName: string;
+      homeownerName: string;
+      leadTitle: string;
+      leadCategory: string;
+      leadBudget: string;
+      leadId: string;
+      expiresAt: Date;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const leadUrl = `${clientUrl}/pro/leads/${data.leadId}`;
+      const expiryHours = 24;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+      sendSmtpEmail.subject = `New Direct Lead: ${data.leadTitle}`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.professionalName }];
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .lead-info { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid #FFD700; }
+            .urgent { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>🎯 New Direct Lead</h1>
+            </div>
+            <div class="content">
+              <h2>Hi ${data.professionalName},</h2>
+              <p><strong>${data.homeownerName}</strong> has sent you a private lead request!</p>
+
+              <div class="lead-info">
+                <h3>${data.leadTitle}</h3>
+                <p><strong>Category:</strong> ${data.leadCategory}</p>
+                <p><strong>Budget:</strong> AED ${data.leadBudget}</p>
+              </div>
+
+              <div class="urgent">
+                <strong>⏰ This is a private opportunity for ${expiryHours} hours</strong><br>
+                You have exclusive access to this lead until ${data.expiresAt.toLocaleString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'medium', timeStyle: 'short' })} (Dubai time).<br><br>
+                After ${expiryHours} hours, if not accepted, this lead will become public on the marketplace.
+              </div>
+
+              <div style="text-align: center;">
+                <a href="${leadUrl}" class="button">View Lead Details</a>
+              </div>
+
+              <p style="margin-top: 30px;">Don't miss this opportunity to connect directly with a homeowner who specifically selected you!</p>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        New Direct Lead
+
+        Hi ${data.professionalName},
+
+        ${data.homeownerName} has sent you a private lead request!
+
+        Lead Details:
+        - Title: ${data.leadTitle}
+        - Category: ${data.leadCategory}
+        - Budget: AED ${data.leadBudget}
+
+        ⏰ This is a private opportunity for ${expiryHours} hours
+        You have exclusive access until ${data.expiresAt.toLocaleString('en-US', { timeZone: 'Asia/Dubai' })}.
+        After ${expiryHours} hours, if not accepted, this lead will become public.
+
+        View lead details: ${leadUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Direct lead received email sent', {
+        to,
+        leadId: data.leadId,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending direct lead received email', {
+        to,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Send 12-hour reminder for pending direct lead
+   */
+  async sendDirectLeadReminder1(
+    to: string,
+    data: {
+      professionalName: string;
+      leadTitle: string;
+      leadCategory: string;
+      leadId: string;
+      expiresAt: Date;
+      hoursRemaining: number;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const leadUrl = `${clientUrl}/pro/leads/${data.leadId}`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+      sendSmtpEmail.subject = `Reminder: Direct Lead Expires in ${data.hoursRemaining} Hours`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.professionalName }];
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #ffc107; color: #000; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .urgent { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>⏰ Reminder: Direct Lead Expiring Soon</h1>
+            </div>
+            <div class="content">
+              <h2>Hi ${data.professionalName},</h2>
+              <p>You have a pending direct lead that will expire in approximately <strong>${data.hoursRemaining} hours</strong>.</p>
+
+              <div class="urgent">
+                <strong>Lead:</strong> ${data.leadTitle}<br>
+                <strong>Category:</strong> ${data.leadCategory}<br>
+                <strong>Expires:</strong> ${data.expiresAt.toLocaleString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'medium', timeStyle: 'short' })} (Dubai time)
+              </div>
+
+              <p>After expiry, this lead will become available to other professionals on the marketplace.</p>
+
+              <div style="text-align: center;">
+                <a href="${leadUrl}" class="button">Review & Accept Lead</a>
+              </div>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        Reminder: Direct Lead Expiring Soon
+
+        Hi ${data.professionalName},
+
+        You have a pending direct lead that will expire in approximately ${data.hoursRemaining} hours.
+
+        Lead: ${data.leadTitle}
+        Category: ${data.leadCategory}
+        Expires: ${data.expiresAt.toLocaleString('en-US', { timeZone: 'Asia/Dubai' })}
+
+        After expiry, this lead will become available to other professionals.
+
+        Review & accept: ${leadUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Direct lead reminder 1 sent', {
+        to,
+        leadId: data.leadId,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending direct lead reminder 1', {
+        to,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Send 1-hour reminder for pending direct lead
+   */
+  async sendDirectLeadReminder2(
+    to: string,
+    data: {
+      professionalName: string;
+      leadTitle: string;
+      leadCategory: string;
+      leadId: string;
+      expiresAt: Date;
+      minutesRemaining: number;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const leadUrl = `${clientUrl}/pro/leads/${data.leadId}`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+      sendSmtpEmail.subject = `🚨 Final Reminder: Direct Lead Expires in ${data.minutesRemaining} Minutes`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.professionalName }];
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #ff6b6b; color: white; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: #ff6b6b; color: white; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .urgent { background: #ffebee; border-left: 4px solid #ff6b6b; padding: 15px; margin: 20px 0; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>🚨 Final Reminder: Lead Expiring Soon!</h1>
+            </div>
+            <div class="content">
+              <h2>Hi ${data.professionalName},</h2>
+              <p><strong>Last chance!</strong> Your direct lead expires in approximately <strong>${data.minutesRemaining} minutes</strong>.</p>
+
+              <div class="urgent">
+                <strong>Lead:</strong> ${data.leadTitle}<br>
+                <strong>Category:</strong> ${data.leadCategory}<br>
+                <strong>Expires:</strong> ${data.expiresAt.toLocaleString('en-US', { timeZone: 'Asia/Dubai', timeStyle: 'short' })} (Dubai time)
+              </div>
+
+              <p><strong>Act now</strong> or this opportunity will be opened to other professionals!</p>
+
+              <div style="text-align: center;">
+                <a href="${leadUrl}" class="button">Accept Lead Now</a>
+              </div>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        🚨 Final Reminder: Lead Expiring Soon!
+
+        Hi ${data.professionalName},
+
+        Last chance! Your direct lead expires in approximately ${data.minutesRemaining} minutes.
+
+        Lead: ${data.leadTitle}
+        Category: ${data.leadCategory}
+        Expires: ${data.expiresAt.toLocaleString('en-US', { timeZone: 'Asia/Dubai', timeStyle: 'short' })}
+
+        Act now or this opportunity will be opened to other professionals!
+
+        Accept lead now: ${leadUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Direct lead reminder 2 sent', {
+        to,
+        leadId: data.leadId,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending direct lead reminder 2', {
+        to,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Send email when direct lead is converted to public
+   */
+  async sendDirectLeadConvertedToPublic(
+    to: string,
+    data: {
+      homeownerName: string;
+      leadTitle: string;
+      leadId: string;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const leadUrl = `${clientUrl}/dashboard/leads/${data.leadId}`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+      sendSmtpEmail.subject = `Your Lead is Now on the Marketplace`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.homeownerName }];
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .info-box { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid #FFD700; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>📢 Lead Now on Marketplace</h1>
+            </div>
+            <div class="content">
+              <h2>Hi ${data.homeownerName},</h2>
+              <p>Your lead "<strong>${data.leadTitle}</strong>" is now available on the public marketplace.</p>
+
+              <div class="info-box">
+                <strong>What this means:</strong>
+                <ul style="margin: 10px 0;">
+                  <li>Up to 5 verified professionals can now claim your lead</li>
+                  <li>You'll start receiving quotes from interested professionals</li>
+                  <li>Compare quotes and choose the best professional for your project</li>
+                </ul>
+              </div>
+
+              <div style="text-align: center;">
+                <a href="${leadUrl}" class="button">View Your Lead</a>
+              </div>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        Lead Now on Marketplace
+
+        Hi ${data.homeownerName},
+
+        Your lead "${data.leadTitle}" is now available on the public marketplace.
+
+        What this means:
+        - Up to 5 verified professionals can now claim your lead
+        - You'll start receiving quotes from interested professionals
+        - Compare quotes and choose the best professional for your project
+
+        View your lead: ${leadUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Direct lead converted email sent', {
+        to,
+        leadId: data.leadId,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending direct lead converted email', {
+        to,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Send email when professional accepts a direct lead
+   */
+  async sendDirectLeadAccepted(
+    to: string,
+    data: {
+      homeownerName: string;
+      professionalName: string;
+      leadTitle: string;
+      leadId: string;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const leadUrl = `${clientUrl}/dashboard/leads/${data.leadId}`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+      sendSmtpEmail.subject = `${data.professionalName} Accepted Your Lead!`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.homeownerName }];
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: #4CAF50; color: white; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .info-box { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid #4CAF50; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>✅ Professional Accepted!</h1>
+            </div>
+            <div class="content">
+              <h2>Great news, ${data.homeownerName}!</h2>
+              <p><strong>${data.professionalName}</strong> has accepted your lead for "<strong>${data.leadTitle}</strong>".</p>
+
+              <div class="info-box">
+                <strong>Next steps:</strong>
+                <ul style="margin: 10px 0;">
+                  <li>Wait for ${data.professionalName} to submit a detailed quote</li>
+                  <li>Review the quote and ask any questions via chat</li>
+                  <li>Accept the quote if you're happy to proceed</li>
+                </ul>
+              </div>
+
+              <div style="text-align: center;">
+                <a href="${leadUrl}" class="button">View Lead Details</a>
+              </div>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        Professional Accepted!
+
+        Great news, ${data.homeownerName}!
+
+        ${data.professionalName} has accepted your lead for "${data.leadTitle}".
+
+        Next steps:
+        - Wait for ${data.professionalName} to submit a detailed quote
+        - Review the quote and ask any questions via chat
+        - Accept the quote if you're happy to proceed
+
+        View lead details: ${leadUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Direct lead accepted email sent', {
+        to,
+        leadId: data.leadId,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending direct lead accepted email', {
+        to,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Send email when professional declines a direct lead
+   */
+  async sendDirectLeadDeclined(
+    to: string,
+    data: {
+      homeownerName: string;
+      professionalName: string;
+      leadTitle: string;
+      leadId: string;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const leadUrl = `${clientUrl}/dashboard/leads/${data.leadId}`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+      sendSmtpEmail.subject = `Update on Your Lead: ${data.leadTitle}`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.homeownerName }];
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .info-box { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid #FFD700; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>📢 Lead Update</h1>
+            </div>
+            <div class="content">
+              <h2>Hi ${data.homeownerName},</h2>
+              <p>${data.professionalName} was unable to accept your lead for "<strong>${data.leadTitle}</strong>".</p>
+
+              <div class="info-box">
+                <strong>Good news:</strong><br>
+                Your lead has been automatically posted to the public marketplace where up to 5 verified professionals can claim it and submit quotes.
+              </div>
+
+              <p>You'll start receiving quotes from interested professionals soon.</p>
+
+              <div style="text-align: center;">
+                <a href="${leadUrl}" class="button">View Your Lead</a>
+              </div>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        Lead Update
+
+        Hi ${data.homeownerName},
+
+        ${data.professionalName} was unable to accept your lead for "${data.leadTitle}".
+
+        Good news:
+        Your lead has been automatically posted to the public marketplace where up to 5 verified professionals can claim it and submit quotes.
+
+        You'll start receiving quotes from interested professionals soon.
+
+        View your lead: ${leadUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Direct lead declined email sent', {
+        to,
+        leadId: data.leadId,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending direct lead declined email', {
+        to,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
 }
 
 // Export singleton instance

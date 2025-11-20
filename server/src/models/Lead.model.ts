@@ -108,6 +108,48 @@ const LeadSchema = new Schema<ILead>(
       type: LeadPreferencesSchema,
       default: () => ({}),
     },
+    // Lead Type: Direct (private to specific pro) or Indirect (public marketplace)
+    leadType: {
+      type: String,
+      enum: ['direct', 'indirect'],
+      default: 'indirect',
+      required: true,
+      index: true,
+    },
+    // For direct leads: the professional this lead is sent to
+    targetProfessionalId: {
+      type: String,
+      index: true,
+      // Required if leadType is 'direct'
+      required: function(this: ILead) {
+        return this.leadType === 'direct';
+      },
+    },
+    // For direct leads: 24-hour expiry before converting to public
+    directLeadExpiresAt: {
+      type: Date,
+      index: true,
+    },
+    // Direct lead status tracking
+    directLeadStatus: {
+      type: String,
+      enum: ['pending', 'accepted', 'declined', 'converted'],
+      // Only set for direct leads
+      required: function(this: ILead) {
+        return this.leadType === 'direct';
+      },
+    },
+    // When direct lead was converted to public
+    convertedToPublicAt: Date,
+    // Reminder tracking for direct leads
+    reminder1Sent: {
+      type: Boolean,
+      default: false,
+    },
+    reminder2Sent: {
+      type: Boolean,
+      default: false,
+    },
     status: {
       type: String,
       enum: ['open', 'full', 'quoted', 'accepted', 'expired', 'cancelled'],
@@ -161,6 +203,10 @@ LeadSchema.index({ homeownerId: 1, createdAt: -1 });
 LeadSchema.index({ expiresAt: 1 }); // For TTL cleanup
 LeadSchema.index({ budgetBracket: 1 });
 LeadSchema.index({ urgency: 1 });
+// Direct lead specific indexes
+LeadSchema.index({ leadType: 1, targetProfessionalId: 1, directLeadStatus: 1 });
+LeadSchema.index({ leadType: 1, directLeadExpiresAt: 1, directLeadStatus: 1 }); // For expiry job
+LeadSchema.index({ targetProfessionalId: 1, createdAt: -1 }); // For pro's direct leads
 
 // Virtual for checking if lead is full
 LeadSchema.virtual('isFull').get(function () {

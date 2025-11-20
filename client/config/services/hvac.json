@@ -1,141 +1,340 @@
 {
   "serviceId": "hvac",
-  "serviceName": "HVAC (Air Conditioning)",
-  "description": "Air conditioning installation, repair, and maintenance services",
+  "serviceName": "Hvac",
+  "description": "Professional hvac services",
   "questions": [
     {
-      "id": "service_type",
-      "question": "What HVAC service do you need?",
-      "type": "single-choice",
+      "id": "type_hvac_service",
+      "question": "What type of HVAC service do you need?",
+      "type": "multiple-choice",
       "required": true,
-      "weight": 1.0,
-      "helpText": "Different technicians specialize in different services",
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your hvac needs",
       "options": [
         {
-          "value": "installation",
-          "label": "New AC installation",
-          "icon": "❄️",
-          "weight": 1.0,
-          "tags": ["installation", "high_value"],
+          "value": "ac_install",
+          "label": "AC installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
           "matchType": "direct"
         },
         {
-          "value": "repair",
-          "label": "Repair not cooling",
+          "value": "ac_repair",
+          "label": "AC repair",
           "icon": "🔧",
-          "weight": 0.9,
-          "tags": ["repair", "common", "urgent"],
+          "weight": 0.8,
+          "tags": [],
           "matchType": "direct"
         },
         {
-          "value": "maintenance",
-          "label": "Maintenance/Cleaning",
-          "icon": "🧹",
+          "value": "ac_maintenance",
+          "label": "AC maintenance",
+          "icon": "🛠️",
           "weight": 0.7,
-          "tags": ["maintenance", "common"],
+          "tags": [],
           "matchType": "direct"
         },
         {
-          "value": "inspection",
-          "label": "Inspection",
-          "icon": "🔍",
-          "weight": 0.6,
-          "tags": ["inspection"],
+          "value": "heating_install",
+          "label": "Heating system installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "heating_repair",
+          "label": "Heating system repair",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "ventilation",
+          "label": "Ventilation system service",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "thermostat",
+          "label": "Thermostat installation/repair",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "air_quality",
+          "label": "Air quality assessment",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
           "matchType": "direct"
         }
       ]
     },
     {
-      "id": "system_type",
-      "question": "What type of AC system?",
+      "id": "type_system_currently",
+      "question": "What type of system do you currently have?",
       "type": "single-choice",
-      "required": true,
-      "weight": 0.8,
-      "helpText": "Some technicians specialize in specific system types",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your hvac needs",
       "options": [
         {
-          "value": "split",
-          "label": "Split AC",
-          "icon": "❄️",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "direct"
+          "value": "central_ac",
+          "label": "Central air conditioning",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "central",
-          "label": "Central AC",
-          "icon": "🏢",
-          "weight": 0.9,
-          "tags": ["specialized", "high_value"],
-          "matchType": "direct"
+          "value": "split_ac",
+          "label": "Split AC system",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "duct",
-          "label": "Duct AC",
-          "icon": "🌬️",
-          "weight": 0.8,
-          "tags": ["specialized"],
-          "matchType": "direct"
+          "value": "window_ac",
+          "label": "Window/portable AC units",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "window",
-          "label": "Window AC",
-          "icon": "🪟",
-          "weight": 0.6,
-          "tags": ["simple"],
-          "matchType": "direct"
+          "value": "heat_pump",
+          "label": "Heat pump",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "furnace",
+          "label": "Furnace",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "ductless",
+          "label": "Ductless system",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "Don't have one yet",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
           "value": "not_sure",
           "label": "Not sure",
-          "icon": "❓",
-          "weight": 0.3,
+          "icon": "❌",
+          "weight": 0.5,
           "tags": [],
-          "matchType": "flexible"
+          "matchType": "partial"
         }
       ]
     },
     {
-      "id": "units",
-      "question": "How many units need service?",
+      "id": "current_hvac_system",
+      "question": "How old is your current HVAC system?",
       "type": "single-choice",
-      "required": true,
-      "weight": 0.7,
-      "helpText": "This affects pricing and time needed",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your hvac needs",
       "options": [
         {
-          "value": "1",
-          "label": "1 unit",
-          "weight": 0.6,
-          "tags": ["simple"],
-          "matchType": "flexible"
+          "value": "under_5",
+          "label": "Less than 5 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "2-3",
-          "label": "2-3 units",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "flexible"
+          "value": "5_10",
+          "label": "5-10 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "4-5",
-          "label": "4-5 units",
-          "weight": 0.9,
-          "tags": ["complex"],
-          "matchType": "flexible"
+          "value": "10_15",
+          "label": "10-15 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "6+",
-          "label": "6 or more units",
-          "weight": 1.0,
-          "tags": ["complex", "high_value"],
-          "matchType": "flexible"
+          "value": "over_15",
+          "label": "More than 15 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "I don't currently have a system",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "unknown",
+          "label": "I'm not sure",
+          "icon": "❓",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "specific_energy_efficiency",
+      "question": "Do you have specific energy efficiency requirements?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your hvac needs",
+      "options": [
+        {
+          "value": "high_efficiency",
+          "label": "Yes, I want high-efficiency equipment",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [
+            "high_value"
+          ],
+          "matchType": "partial"
+        },
+        {
+          "value": "energy_saving",
+          "label": "Yes, I'm interested in energy-saving options",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "standard",
+          "label": "No, standard efficiency is fine",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [
+            "common"
+          ],
+          "matchType": "partial"
+        },
+        {
+          "value": "cost_focused",
+          "label": "I'm primarily concerned with cost",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "issue_experiencing_with",
+      "question": "What issue are you experiencing with your current system?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your hvac needs",
+      "options": [
+        {
+          "value": "poor_performance",
+          "label": "Not cooling/heating properly",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "noises",
+          "label": "Strange noises",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "leaking",
+          "label": "Leaking water",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "uneven_temp",
+          "label": "Uneven temperature in home",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "high_bills",
+          "label": "High energy bills",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [
+            "high_value"
+          ],
+          "matchType": "partial"
+        },
+        {
+          "value": "operation_issue",
+          "label": "System won't turn on/off",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "maintenance",
+          "label": "No issues, just maintenance",
+          "icon": "🛠️",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "Not applicable",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         }
       ]
     }
   ],
   "metadata": {
-    "createdAt": "2025-01-12",
-    "createdBy": "system"
+    "createdAt": "2025-11-20",
+    "createdBy": "auto-generator",
+    "sourceFile": "hvac.json"
   }
 }

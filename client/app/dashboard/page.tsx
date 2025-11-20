@@ -158,7 +158,7 @@ export default function DashboardPage() {
         <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
         <div className="grid sm:grid-cols-3 gap-4">
           <Link
-            href="/dashboard/requests"
+            href="/create-request"
             className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg p-4 transition-colors group"
           >
             <div className="flex items-center gap-3 mb-2">
@@ -242,7 +242,7 @@ export default function DashboardPage() {
               Start your first home improvement project by requesting quotes
             </p>
             <Link
-              href="/dashboard/requests"
+              href="/create-request"
               className="btn btn-primary inline-flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />

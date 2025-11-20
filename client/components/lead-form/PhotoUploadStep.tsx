@@ -7,12 +7,43 @@
 
 import { useState } from 'react';
 import { useLeadFormStore } from '@/store/leadFormStore';
+import { useAuthStore } from '@/store/authStore';
+import { createLead } from '@/lib/services/leads';
 import { Upload, X, Camera, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { LeadSuccessWithPros } from './LeadSuccessWithPros';
 
-export function PhotoUploadStep() {
-  const { photos, addPhoto, removePhoto } = useLeadFormStore();
+interface PhotoUploadStepProps {
+  onAutoSubmit?: () => void;
+}
+
+export function PhotoUploadStep({ onAutoSubmit }: PhotoUploadStepProps) {
+  const router = useRouter();
+  const { user, isAuthenticated } = useAuthStore();
+  const {
+    photos,
+    addPhoto,
+    removePhoto,
+    // Common fields
+    title,
+    description,
+    emirate,
+    neighborhood,
+    budgetBracket,
+    urgency,
+    timeline,
+    selectedServiceId,
+    getServiceAnswers,
+    setSubmitting,
+    reset,
+  } = useLeadFormStore();
   const [isUploading, setIsUploading] = useState(false);
+  const [createdLead, setCreatedLead] = useState<{
+    leadId: string;
+    serviceCategory: string;
+    emirate: string;
+  } | null>(null);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -69,6 +100,64 @@ export function PhotoUploadStep() {
       e.target.value = '';
     }
   };
+
+  const handleSubmit = async () => {
+    if (!isAuthenticated || !user) {
+      toast.error('Please log in to submit your request');
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      // Create the lead
+      const lead = await createLead({
+        title,
+        description,
+        category: selectedServiceId!,
+        location: {
+          emirate,
+          neighborhood: neighborhood || undefined,
+        },
+        budgetBracket,
+        urgency,
+        timeline: timeline || undefined,
+        photos,
+        serviceAnswers: getServiceAnswers() || undefined,
+      });
+
+      // Store lead info to show matching professionals
+      setCreatedLead({
+        leadId: lead._id,
+        serviceCategory: selectedServiceId!,
+        emirate,
+      });
+
+      toast.success('Request created successfully!');
+    } catch (error: any) {
+      console.error('Failed to create lead:', error);
+      toast.error(
+        error.response?.data?.message || error.message || 'Failed to create request. Please try again.'
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Success state - Show matching professionals
+  if (createdLead) {
+    return (
+      <LeadSuccessWithPros
+        leadId={createdLead.leadId}
+        serviceCategory={createdLead.serviceCategory}
+        emirate={createdLead.emirate}
+        onClose={() => {
+          reset();
+          onAutoSubmit?.();
+        }}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -154,6 +243,20 @@ export function PhotoUploadStep() {
           </div>
         </div>
       </div>
+
+      {/* Submit button for authenticated users */}
+      {isAuthenticated && onAutoSubmit && (
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={useLeadFormStore.getState().isSubmitting}
+          className="w-full py-4 bg-primary-500 text-white rounded-xl font-semibold hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {useLeadFormStore.getState().isSubmitting
+            ? 'Creating your request...'
+            : 'Submit Request'}
+        </button>
+      )}
     </div>
   );
 }

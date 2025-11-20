@@ -139,6 +139,75 @@ export const TOOLS: Tool[] = [
       required: ['query'],
     },
   },
+  {
+    name: 'create_lead',
+    description: `Create a new lead (service request) in the marketplace when the user expresses clear intent to get quotes or hire professionals.
+    Use this when the user:
+    - Explicitly wants to post a project or get quotes
+    - Has provided enough project details (what they need, location, budget, urgency)
+    - Is ready to connect with professionals
+
+    ONLY use this tool when the user clearly wants to proceed with getting professional help.
+    Do NOT use if they're just asking questions or exploring options.
+
+    This creates a public marketplace lead that up to 5 verified professionals can claim.`,
+    input_schema: {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string',
+          description: 'Clear, descriptive title for the project (e.g., "Kitchen Renovation in Dubai Marina")',
+        },
+        description: {
+          type: 'string',
+          description: 'Detailed description of what work needs to be done, including specifics from the conversation',
+        },
+        category: {
+          type: 'string',
+          enum: [
+            'plumbing',
+            'electrical',
+            'painting',
+            'carpentry',
+            'hvac',
+            'flooring',
+            'roofing',
+            'landscaping',
+            'home-cleaning',
+            'pest-control',
+            'handyman',
+            'interior-design',
+            'tiling',
+            'waterproofing',
+            'masonry',
+            'glass-aluminum',
+            'renovation',
+          ],
+          description: 'Service category that best matches the project type',
+        },
+        emirate: {
+          type: 'string',
+          enum: ['dubai', 'abu-dhabi', 'sharjah', 'ajman', 'rak', 'fujairah', 'uaq'],
+          description: 'Emirate where the work needs to be done',
+        },
+        budgetBracket: {
+          type: 'string',
+          enum: ['500-1k', '1k-5k', '5k-15k', '15k-50k', '50k-150k', '150k+'],
+          description: 'Budget range in AED for the project',
+        },
+        urgency: {
+          type: 'string',
+          enum: ['emergency', 'urgent', 'flexible', 'planning'],
+          description: 'How quickly the work needs to be done: emergency (24-48h), urgent (this week), flexible (within month), planning (future project)',
+        },
+        timeline: {
+          type: 'string',
+          description: 'Optional: When the user wants the project completed (e.g., "Within 2 weeks", "Before summer")',
+        },
+      },
+      required: ['title', 'description', 'category', 'emirate', 'budgetBracket', 'urgency'],
+    },
+  },
 ];
 
 // Helper function to get tool by name
@@ -171,4 +240,14 @@ export type TimelineEstimateArgs = {
 export type KnowledgeSearchArgs = {
   query: string;
   category?: 'regulations' | 'best_practices' | 'materials' | 'maintenance' | 'general';
+};
+
+export type CreateLeadArgs = {
+  title: string;
+  description: string;
+  category: string;
+  emirate: string;
+  budgetBracket: string;
+  urgency: 'emergency' | 'urgent' | 'flexible' | 'planning';
+  timeline?: string;
 };

@@ -91,7 +91,31 @@ export const useLeadFormStore = create<LeadFormState>()(
     (set, get) => ({
       ...initialState,
 
-      setServiceId: (serviceId) => set({ selectedServiceId: serviceId }),
+      setServiceId: (serviceId) => {
+        const currentServiceId = get().selectedServiceId;
+
+        // If changing service (not initial set), clear all related state
+        if (currentServiceId && currentServiceId !== serviceId) {
+          set({
+            selectedServiceId: serviceId,
+            answers: {},              // Clear previous service answers
+            photos: [],               // Clear uploaded photos
+            currentStep: 0,           // Reset to first step
+            questionnaire: null,      // Will reload new questionnaire
+            errors: {},               // Clear any validation errors
+            title: '',                // Clear common fields
+            description: '',
+            emirate: '',
+            neighborhood: '',
+            budgetBracket: '',
+            urgency: '',
+            timeline: '',
+          });
+        } else {
+          // Initial set or same service - just update serviceId
+          set({ selectedServiceId: serviceId });
+        }
+      },
 
       setQuestionnaire: (questionnaire) => set({ questionnaire }),
 
@@ -181,24 +205,25 @@ export const useLeadFormStore = create<LeadFormState>()(
           email,
           setError,
           clearAllErrors,
-          getTotalSteps,
         } = get();
 
         clearAllErrors();
         let isValid = true;
 
-        // Service-specific question steps
-        if (questionnaire && currentStep < questionnaire.questions.length) {
-          const question = questionnaire.questions[currentStep];
-          if (question.required && !answers[question.id]) {
-            setError(question.id, 'This question is required');
-            isValid = false;
+        // Step 0: Service-specific questions (all grouped)
+        if (currentStep === 0) {
+          if (questionnaire && questionnaire.questions) {
+            questionnaire.questions.forEach((question) => {
+              if (question.required && !answers[question.id]) {
+                setError(question.id, 'This question is required');
+                isValid = false;
+              }
+            });
           }
         }
 
-        // Common fields step (after service questions)
-        const commonFieldsStep = questionnaire?.questions.length || 0;
-        if (currentStep === commonFieldsStep) {
+        // Step 1: Common fields (title, description, location, budget, urgency)
+        if (currentStep === 1) {
           if (!title || title.length < 10) {
             setError('title', 'Title must be at least 10 characters');
             isValid = false;
@@ -221,9 +246,10 @@ export const useLeadFormStore = create<LeadFormState>()(
           }
         }
 
-        // Contact info step (final step)
-        const contactStep = getTotalSteps() - 1;
-        if (currentStep === contactStep) {
+        // Step 2: Photo upload (optional - no validation required)
+
+        // Step 3: Contact info (email, name, phone)
+        if (currentStep === 3) {
           if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             setError('email', 'Please enter a valid email address');
             isValid = false;
@@ -238,9 +264,12 @@ export const useLeadFormStore = create<LeadFormState>()(
       reset: () => set(initialState),
 
       getTotalSteps: () => {
-        const { questionnaire } = get();
-        // Service questions + Common fields + Photo upload (optional) + Contact info
-        return (questionnaire?.questions.length || 0) + 3;
+        // Fixed 4-step flow:
+        // 1. Service-specific questions (all grouped)
+        // 2. Common fields (title, description, location, budget, urgency)
+        // 3. Photo upload (optional)
+        // 4. Contact info (email, name, phone)
+        return 4;
       },
 
       getProgress: () => {

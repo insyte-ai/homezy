@@ -12,6 +12,7 @@ import {
   uploadVerificationDocument,
   searchPros,
   getProAnalytics,
+  getMatchingPros,
 } from '../controllers/pro.controller';
 import { authenticate, authorize } from '../middleware/auth.middleware';
 import { validate } from '../middleware/validation.middleware';
@@ -32,6 +33,9 @@ const router = express.Router();
 
 // Search pros
 router.get('/search', searchPros);
+
+// Get matching pros for a lead (category + location based)
+router.get('/matching', getMatchingPros);
 
 /**
  * Private Routes (Pro only)

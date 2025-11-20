@@ -1,0 +1,380 @@
+{
+  "serviceId": "legal-services",
+  "serviceName": "Legal Services",
+  "description": "Professional legal services services",
+  "questions": [
+    {
+      "id": "type_legal_service",
+      "question": "What type of legal service do you need?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your legal services needs",
+      "options": [
+        {
+          "value": "rental_property",
+          "label": "Rental and property disputes",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "contract",
+          "label": "Contract review/drafting",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "business",
+          "label": "Business legal advice",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "real_estate",
+          "label": "Real estate legal services",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "employment",
+          "label": "Employment law issues",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "family",
+          "label": "Family law matters",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "immigration",
+          "label": "Immigration assistance",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "current_status_legal",
+      "question": "What is the current status of your legal matter?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your legal services needs",
+      "options": [
+        {
+          "value": "preventative",
+          "label": "Preventative (seeking to avoid issues)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "early",
+          "label": "Early stages (issue just arose)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "ongoing",
+          "label": "Ongoing (in process of resolution)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "critical",
+          "label": "Critical (immediate attention needed)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "rental_disputes_nature",
+      "question": "For rental disputes: What is the nature of your dispute?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your legal services needs",
+      "options": [
+        {
+          "value": "lease_termination",
+          "label": "Lease termination issues",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "deposit",
+          "label": "Security deposit disputes",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "rent_increase",
+          "label": "Rent increase disputes",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "maintenance",
+          "label": "Property maintenance issues",
+          "icon": "🛠️",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "eviction",
+          "label": "Eviction proceedings",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "tenant_rights",
+          "label": "Tenant rights violation",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "landlord_rights",
+          "label": "Landlord rights violation",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_applicable",
+          "label": "Not applicable",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "currently_represented_another",
+      "question": "Are you currently represented by another attorney for this matter?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your legal services needs",
+      "options": [
+        {
+          "value": "yes_additional",
+          "label": "Yes, but seeking additional counsel",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "yes_changing",
+          "label": "Yes, but considering changing representation",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "no_first",
+          "label": "No, this would be my first legal representation",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "no_previous",
+          "label": "No, but I've had representation in the past",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "preferred_communication_style",
+      "question": "What is your preferred communication style with your legal representative?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your legal services needs",
+      "options": [
+        {
+          "value": "detailed",
+          "label": "Regular detailed updates",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "brief",
+          "label": "Brief updates only when necessary",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "phone",
+          "label": "Phone calls",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "email",
+          "label": "Email communication",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "in_person",
+          "label": "In-person meetings",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "video",
+          "label": "Video conferences",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "timeline_resolving_legal",
+      "question": "What is your timeline for resolving this legal matter?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your legal services needs",
+      "options": [
+        {
+          "value": "urgent",
+          "label": "Urgent (within days)",
+          "icon": "⏰",
+          "weight": 1,
+          "tags": [
+            "urgent"
+          ],
+          "matchType": "direct"
+        },
+        {
+          "value": "short",
+          "label": "Short-term (within weeks)",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "medium",
+          "label": "Medium-term (within months)",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "long",
+          "label": "Long-term (ongoing representation)",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "attempted_resolve_matter",
+      "question": "Have you attempted to resolve this matter without legal assistance?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your legal services needs",
+      "options": [
+        {
+          "value": "yes_unsuccessful",
+          "label": "Yes, but was unsuccessful",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "yes_partial",
+          "label": "Yes, with partial success",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "no",
+          "label": "No, seeking legal help first",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_applicable",
+          "label": "Not applicable to my situation",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-11-20",
+    "createdBy": "auto-generator",
+    "sourceFile": "legal-services.json"
+  }
+}

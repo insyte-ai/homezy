@@ -204,7 +204,7 @@ export default function ProfessionalsPage() {
           <p className="text-gray-600 mb-6">
             No professionals match your current filters. Try adjusting your search criteria or request quotes to get matched automatically.
           </p>
-          <Link href="/dashboard/requests" className="btn btn-primary inline-flex items-center gap-2">
+          <Link href="/create-request" className="btn btn-primary inline-flex items-center gap-2">
             Request Quotes
           </Link>
         </div>

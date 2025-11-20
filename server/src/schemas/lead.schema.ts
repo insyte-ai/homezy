@@ -205,3 +205,49 @@ export const cancelLeadSchema = z.object({
 });
 
 export type CancelLeadInput = z.infer<typeof cancelLeadSchema>;
+
+/**
+ * Create direct lead schema
+ * Same as createLeadSchema but requires professionalId
+ */
+export const createDirectLeadSchema = z.object({
+  professionalId: z.string().min(1, 'Professional ID is required'),
+  title: z.string()
+    .min(5, 'Title must be at least 5 characters')
+    .max(100, 'Title must be at most 100 characters')
+    .trim(),
+  description: z.string()
+    .min(20, 'Description must be at least 20 characters')
+    .max(2000, 'Description must be at most 2000 characters'),
+  category: categoryEnum,
+  location: locationSchema,
+  budgetBracket: budgetBracketEnum,
+  urgency: urgencyEnum,
+  timeline: z.string().max(500).optional(),
+  photos: z.array(z.string().url()).max(10, 'Maximum 10 photos allowed').optional(),
+  attachments: z.array(attachmentSchema).max(10, 'Maximum 10 attachments allowed').default([]),
+  serviceAnswers: serviceAnswersSchema.optional(),
+  preferences: leadPreferencesSchema.default({}),
+});
+
+export type CreateDirectLeadInput = z.infer<typeof createDirectLeadSchema>;
+
+/**
+ * Get my direct leads schema (professional view)
+ */
+export const getMyDirectLeadsSchema = z.object({
+  status: z.enum(['pending', 'accepted', 'declined', 'converted']).optional(),
+});
+
+export type GetMyDirectLeadsInput = z.infer<typeof getMyDirectLeadsSchema>;
+
+/**
+ * Decline direct lead schema
+ */
+export const declineDirectLeadSchema = z.object({
+  reason: z.string()
+    .max(500, 'Reason must be at most 500 characters')
+    .optional(),
+});
+
+export type DeclineDirectLeadInput = z.infer<typeof declineDirectLeadSchema>;

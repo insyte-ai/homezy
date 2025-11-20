@@ -9,6 +9,12 @@ import {
   getMyClaimedLeads,
   claimLead,
   getClaimsForLead,
+  createDirectLead,
+  getMyDirectLeads,
+  acceptDirectLead,
+  declineDirectLead,
+  generateLeadContent,
+  sendDirectLeadsToSelectedPros,
 } from '../controllers/lead.controller';
 import { authenticate, authorize, optionalAuth } from '../middleware/auth.middleware';
 import { validate } from '../middleware/validation.middleware';
@@ -19,6 +25,9 @@ import {
   getMyLeadsSchema,
   getMyClaimedLeadsSchema,
   cancelLeadSchema,
+  createDirectLeadSchema,
+  getMyDirectLeadsSchema,
+  declineDirectLeadSchema,
 } from '../schemas/lead.schema';
 
 const router = express.Router();
@@ -45,6 +54,31 @@ router.get(
   getMyLeads
 );
 
+// Create direct lead (sent to specific professional)
+router.post(
+  '/direct',
+  authenticate,
+  authorize('homeowner'),
+  validate(createDirectLeadSchema),
+  createDirectLead
+);
+
+// Generate AI-powered lead title and description
+// Uses optionalAuth to allow both authenticated and guest users
+router.post(
+  '/generate-content',
+  optionalAuth,
+  generateLeadContent
+);
+
+// Send direct leads to selected professionals
+router.post(
+  '/send-to-pros',
+  authenticate,
+  authorize('homeowner'),
+  sendDirectLeadsToSelectedPros
+);
+
 /**
  * Professional Routes (must come before /:id routes to avoid conflicts)
  */
@@ -56,6 +90,15 @@ router.get(
   authorize('pro'),
   validate(getMyClaimedLeadsSchema, 'query'),
   getMyClaimedLeads
+);
+
+// Get my direct leads (leads sent directly to me)
+router.get(
+  '/my-direct-leads',
+  authenticate,
+  authorize('pro'),
+  validate(getMyDirectLeadsSchema, 'query'),
+  getMyDirectLeads
 );
 
 /**
@@ -106,6 +149,23 @@ router.post(
   authenticate,
   authorize('pro'),
   claimLead
+);
+
+// Accept direct lead (professional only - target professional)
+router.post(
+  '/:id/accept-direct',
+  authenticate,
+  authorize('pro'),
+  acceptDirectLead
+);
+
+// Decline direct lead (professional only - target professional)
+router.post(
+  '/:id/decline-direct',
+  authenticate,
+  authorize('pro'),
+  validate(declineDirectLeadSchema),
+  declineDirectLead
 );
 
 // Get lead by ID (optionally authenticated for full details)

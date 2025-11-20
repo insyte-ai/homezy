@@ -8,6 +8,7 @@ import { buildSystemPrompt } from './system-prompts';
 import { BudgetEstimatorService } from '../tools/budget-estimator.service';
 import { TimelineEstimatorService } from '../tools/timeline-estimator.service';
 import { KnowledgeBaseService } from '../tools/knowledge-base.service';
+import { createLeadFromAI } from '../tools/lead-creator.service';
 import { logger } from '../../utils/logger';
 
 /**
@@ -162,7 +163,7 @@ export class AIService {
               const startTime = Date.now();
 
               // Execute the tool
-              const result = await this.executeToolCall(currentToolCall.name, currentToolCall.input);
+              const result = await this.executeToolCall(currentToolCall.name, currentToolCall.input, userId);
 
               const executionTime = Date.now() - startTime;
 
@@ -292,7 +293,7 @@ export class AIService {
   /**
    * Execute tool based on name - router to specific tool services
    */
-  private async executeToolCall(toolName: string, args: any): Promise<any> {
+  private async executeToolCall(toolName: string, args: any, userId?: string): Promise<any> {
     switch (toolName) {
       case 'estimate_budget':
         return await this.budgetEstimator.calculateBudget(args);
@@ -302,6 +303,12 @@ export class AIService {
 
       case 'search_knowledge_base':
         return await this.knowledgeBase.searchKnowledge(args.query, args.category);
+
+      case 'create_lead':
+        if (!userId) {
+          return 'I apologize, but you need to be signed in to create a lead. Please [sign in](/auth/login) or [create an account](/auth/register) to post your project and get quotes from professionals.';
+        }
+        return await createLeadFromAI(args, userId);
 
       default:
         throw new Error(`Unknown tool: ${toolName}`);
