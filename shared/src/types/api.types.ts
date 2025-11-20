@@ -56,6 +56,11 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface GoogleAuthRequest {
+  token: string; // Google ID token
+  role?: 'homeowner' | 'pro';
+}
+
 export interface AuthResponse {
   user: User;
   accessToken: string;

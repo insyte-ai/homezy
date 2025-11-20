@@ -4,10 +4,12 @@ import { useState, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton';
+import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { register, isLoading, error, clearError, isAuthenticated } = useAuthStore();
+  const { register, isLoading, error, clearError, isAuthenticated, user } = useAuthStore();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -32,10 +34,25 @@ export default function RegisterPage() {
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (isAuthenticated) {
-      router.push('/');
+    if (isAuthenticated && user) {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+      if (token) {
+        switch (user.role) {
+          case 'admin':
+            router.push('/admin/dashboard');
+            break;
+          case 'pro':
+            router.push('/pro/dashboard');
+            break;
+          case 'homeowner':
+            router.push('/dashboard');
+            break;
+          default:
+            router.push('/');
+        }
+      }
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, user, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -82,11 +99,17 @@ export default function RegisterPage() {
 
     try {
       await register(formData);
-      router.push('/');
+      toast.success('Account created successfully!');
+      router.push('/dashboard');
     } catch (err) {
       // Error is already handled in the store
       console.error('Registration error:', err);
     }
+  };
+
+  const handleGoogleSuccess = () => {
+    // Google users are auto-verified, so redirect directly
+    // The useEffect will handle the role-based redirect
   };
 
   return (
@@ -229,37 +252,40 @@ export default function RegisterPage() {
         >
           {isLoading ? 'Creating account...' : 'Create account'}
         </button>
-      </form>
 
-      <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-neutral-300" />
+            <div className="w-full border-t border-gray-300" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-neutral-500">
-              Already have an account?
-            </span>
+            <span className="px-2 bg-white text-gray-500">Or</span>
           </div>
         </div>
 
-        <div className="mt-6 space-y-3">
-          <Link
-            href="/auth/login"
-            className="btn btn-outline w-full"
-          >
-            Sign in
-          </Link>
-          <div className="text-center">
-            <Link
-              href="/auth/pro/register"
-              className="text-sm text-neutral-600 hover:text-neutral-900"
-            >
-              Are you a professional? <span className="font-medium">Sign up here</span>
-            </Link>
-          </div>
-        </div>
-      </div>
+        <GoogleSignInButton
+          role="homeowner"
+          onSuccess={handleGoogleSuccess}
+          text="Continue with Google"
+        />
+      </form>
+
+      <p className="text-center mt-6 text-sm text-gray-600">
+        Already have an account?{' '}
+        <Link href="/auth/login" className="text-black font-medium hover:underline">
+          Sign in
+        </Link>
+        {' · '}
+        <Link href="/become-a-pro" className="text-black font-medium hover:underline">
+          Sign up as Pro
+        </Link>
+      </p>
+
+      <p className="text-center mt-4 text-xs text-gray-500">
+        By signing up, you agree to our{' '}
+        <Link href="/terms" className="underline">Terms</Link>
+        {' and '}
+        <Link href="/privacy" className="underline">Privacy</Link>
+      </p>
     </div>
   );
 }

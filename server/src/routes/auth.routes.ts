@@ -11,6 +11,7 @@ import {
   guestSignupSchema,
   verifyMagicLinkSchema,
   setPasswordWithMagicLinkSchema,
+  googleAuthSchema,
 } from '../schemas/auth.schema';
 
 const router = Router();
@@ -106,6 +107,18 @@ router.post(
   rateLimitAuth,
   validate(setPasswordWithMagicLinkSchema),
   asyncHandler(authController.setPasswordWithMagicLink)
+);
+
+/**
+ * @route   POST /api/v1/auth/google
+ * @desc    Google OAuth login/signup
+ * @access  Public
+ */
+router.post(
+  '/google',
+  rateLimitAuth,
+  validate(googleAuthSchema),
+  asyncHandler(authController.googleAuth)
 );
 
 export default router;

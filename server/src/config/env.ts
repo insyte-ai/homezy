@@ -52,6 +52,9 @@ const envSchema = z.object({
   EMAIL_FROM: z.string().email(),
   EMAIL_FROM_NAME: z.string().default('Homezy'),
 
+  // Google OAuth
+  GOOGLE_CLIENT_ID: z.string().min(1),
+
   // Rate Limiting
   RATE_LIMIT_WINDOW_MS: z.string().transform(Number).default('900000'),
   RATE_LIMIT_MAX_REQUESTS: z.string().transform(Number).default('100'),
@@ -75,6 +78,9 @@ const validateEnv = () => {
 
 // Export validated environment variables
 export const env = validateEnv();
+
+// Export as config for convenience
+export const config = env;
 
 // Export helper to check if running in production
 export const isProduction = env.NODE_ENV === 'production';

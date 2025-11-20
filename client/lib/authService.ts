@@ -14,6 +14,11 @@ export interface RegisterData {
   role: 'homeowner' | 'pro';
 }
 
+export interface GoogleAuthData {
+  token: string; // Google ID token
+  role?: 'homeowner' | 'pro';
+}
+
 export interface AuthResponse {
   success: boolean;
   message: string;
@@ -44,6 +49,14 @@ class AuthService {
    */
   async register(data: RegisterData): Promise<AuthResponse> {
     const response = await api.post<AuthResponse>('/auth/register', data);
+    return response.data;
+  }
+
+  /**
+   * Google OAuth login/signup
+   */
+  async googleAuth(data: GoogleAuthData): Promise<AuthResponse> {
+    const response = await api.post<AuthResponse>('/auth/google', data);
     return response.data;
   }
 

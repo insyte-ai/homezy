@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { authService, LoginCredentials, RegisterData } from '@/lib/authService';
+import { authService, LoginCredentials, RegisterData, GoogleAuthData } from '@/lib/authService';
 import { logger } from '@/lib/logger';
 import toast from 'react-hot-toast';
 
@@ -26,6 +26,7 @@ interface AuthState {
   // Actions
   login: (credentials: LoginCredentials) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
+  googleAuth: (data: GoogleAuthData) => Promise<void>;
   logout: () => Promise<void>;
   fetchCurrentUser: () => Promise<void>;
   clearError: () => void;
@@ -159,6 +160,50 @@ export const useAuthStore = create<AuthState>((set) => ({
       });
 
       toast.error(errorMessage);
+      throw error;
+    }
+  },
+
+  // Google OAuth login/signup
+  googleAuth: async (data) => {
+    logger.userAction('google_auth_attempt', { role: data.role });
+    set({ isLoading: true, error: null });
+
+    try {
+      const response = await authService.googleAuth(data);
+      const { user, accessToken } = response.data;
+
+      // Store tokens in localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('accessToken', accessToken);
+      }
+
+      logger.authEvent('google_auth', { userId: user._id, email: user.email, role: user.role });
+      set({
+        user,
+        isAuthenticated: true,
+        isLoading: false,
+        error: null,
+      });
+
+      // Note: toast.success is handled in GoogleSignInButton component
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message
+        || error.response?.data?.error
+        || error.message
+        || 'Google authentication failed';
+
+      logger.error('Google auth failed', error, {
+        role: data.role,
+        statusCode: error.response?.status,
+      });
+
+      set({
+        isLoading: false,
+        error: errorMessage,
+      });
+
+      // Note: toast.error is handled in GoogleSignInButton component
       throw error;
     }
   },

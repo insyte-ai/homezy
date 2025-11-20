@@ -10,6 +10,8 @@ export interface User {
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
   profilePhoto?: string;
+  googleId?: string;
+  authProvider: 'local' | 'google';
   createdAt: Date;
   updatedAt: Date;
   homeownerProfile?: HomeownerProfile;

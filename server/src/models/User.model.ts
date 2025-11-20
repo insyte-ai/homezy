@@ -212,8 +212,22 @@ const UserSchema = new Schema<IUser>(
     },
     password: {
       type: String,
-      required: true,
+      required: function(this: any) {
+        // Password is only required if using local auth (not Google)
+        return !this.googleId;
+      },
       select: false, // Don't include password by default in queries
+    },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true, // Allows null values while maintaining uniqueness
+      index: true,
+    },
+    authProvider: {
+      type: String,
+      enum: ['local', 'google'],
+      default: 'local',
     },
     firstName: {
       type: String,
@@ -294,6 +308,7 @@ const UserSchema = new Schema<IUser>(
 
 // Indexes for performance
 UserSchema.index({ email: 1 });
+UserSchema.index({ googleId: 1 });
 UserSchema.index({ role: 1 });
 UserSchema.index({ 'proProfile.categories': 1 });
 UserSchema.index({ 'proProfile.serviceAreas.emirate': 1 });

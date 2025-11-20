@@ -112,6 +112,16 @@ export const setPasswordWithMagicLinkSchema = z.object({
 
 export type SetPasswordWithMagicLinkInput = z.infer<typeof setPasswordWithMagicLinkSchema>;
 
+/**
+ * Google OAuth authentication schema
+ */
+export const googleAuthSchema = z.object({
+  token: z.string().min(1, 'Google token is required'),
+  role: z.enum(['homeowner', 'pro']).optional(),
+});
+
+export type GoogleAuthInput = z.infer<typeof googleAuthSchema>;
+
 export default {
   registerSchema,
   loginSchema,
@@ -122,4 +132,5 @@ export default {
   guestSignupSchema,
   verifyMagicLinkSchema,
   setPasswordWithMagicLinkSchema,
+  googleAuthSchema,
 };

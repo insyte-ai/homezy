@@ -4,6 +4,7 @@ import { useState, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,8 +18,31 @@ export default function LoginPage() {
   // Redirect if already authenticated (with role-based routing)
   useEffect(() => {
     if (isAuthenticated && user) {
-      const redirectPath = user.role === 'pro' ? '/pro/dashboard' : '/';
-      router.push(redirectPath);
+      const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+      if (token) {
+        // Check if we have a stored redirect URL
+        const redirectUrl = typeof window !== 'undefined' ? sessionStorage.getItem('redirectAfterLogin') : null;
+        if (redirectUrl) {
+          sessionStorage.removeItem('redirectAfterLogin');
+          router.replace(redirectUrl);
+          return;
+        }
+
+        // Default redirects based on role
+        switch (user.role) {
+          case 'admin':
+            router.replace('/admin/dashboard');
+            break;
+          case 'pro':
+            router.replace('/pro/dashboard');
+            break;
+          case 'homeowner':
+            router.replace('/dashboard');
+            break;
+          default:
+            router.replace('/');
+        }
+      }
     }
   }, [isAuthenticated, user, router]);
 
@@ -37,46 +61,67 @@ export default function LoginPage() {
 
     try {
       await login(formData);
+
+      // Check for stored redirect URL
+      const redirectUrl = typeof window !== 'undefined' ? sessionStorage.getItem('redirectAfterLogin') : null;
+      if (redirectUrl) {
+        sessionStorage.removeItem('redirectAfterLogin');
+        router.push(redirectUrl);
+        return;
+      }
+
       // Redirect based on user role (user is now set in store after login)
       const currentUser = useAuthStore.getState().user;
-      const redirectPath = currentUser?.role === 'pro' ? '/pro/dashboard' : '/';
-      router.push(redirectPath);
+      switch (currentUser?.role) {
+        case 'admin':
+          router.push('/admin/dashboard');
+          break;
+        case 'pro':
+          router.push('/pro/dashboard');
+          break;
+        case 'homeowner':
+          router.push('/dashboard');
+          break;
+        default:
+          router.push('/');
+      }
     } catch (err) {
       // Error is already handled in the store
       console.error('Login error:', err);
     }
   };
 
-  return (
-    <div>
-      <h2 className="text-2xl font-bold text-neutral-900 mb-6">
-        Sign in to your account
-      </h2>
+  const handleGoogleSuccess = () => {
+    // Check for stored redirect URL
+    const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+    if (redirectUrl) {
+      sessionStorage.removeItem('redirectAfterLogin');
+      router.push(redirectUrl);
+    }
+    // Otherwise, useEffect will handle role-based redirect
+  };
 
-      {error && (
-        <div className="rounded-md bg-red-50 p-4 mb-6 border border-red-200">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <svg
-                className="h-5 w-5 text-red-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-red-800">{error}</p>
-            </div>
-          </div>
-        </div>
-      )}
+  return (
+    <>
+      <h2 className="text-2xl font-bold mb-6 text-center">Sign in to your account</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Error Message Display */}
+        {error && (
+          <div className="rounded-md bg-red-50 p-4 border border-red-200">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-red-800">{error}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div>
           <label htmlFor="email" className="label">
             Email address
@@ -90,7 +135,6 @@ export default function LoginPage() {
             value={formData.email}
             onChange={handleChange}
             className="input"
-            placeholder="you@example.com"
           />
         </div>
 
@@ -107,66 +151,63 @@ export default function LoginPage() {
             value={formData.password}
             onChange={handleChange}
             className="input"
-            placeholder="••••••••"
           />
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              className="h-4 w-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-500"
-            />
-            <label
-              htmlFor="remember-me"
-              className="ml-2 block text-sm text-neutral-700"
-            >
-              Remember me
-            </label>
-          </div>
-
-          <div className="text-sm">
-            <Link
-              href="/auth/forgot-password"
-              className="font-medium text-neutral-900 hover:text-neutral-700"
-            >
-              Forgot your password?
-            </Link>
-          </div>
+          <Link href="/auth/forgot-password" className="text-sm text-primary-600 hover:text-primary-500">
+            Forgot your password?
+          </Link>
         </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="btn btn-primary w-full"
-        >
-          {isLoading ? 'Signing in...' : 'Sign in'}
-        </button>
+        <div>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="btn btn-primary w-full"
+          >
+            {isLoading ? 'Signing in...' : 'Sign in'}
+          </button>
+        </div>
       </form>
 
       <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-neutral-300" />
+            <div className="w-full border-t border-gray-300" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-neutral-500">
-              New to Homezy?
-            </span>
+            <span className="px-2 bg-white text-gray-500">Or continue with</span>
           </div>
         </div>
 
         <div className="mt-6">
-          <Link
-            href="/auth/register"
-            className="btn btn-outline w-full"
-          >
-            Create an account
+          <GoogleSignInButton
+            onSuccess={handleGoogleSuccess}
+            text="Sign in with Google"
+          />
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-gray-500">Don't have an account?</span>
+          </div>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          <Link href="/auth/register" className="btn btn-outline w-full text-center">
+            Sign up as Homeowner
+          </Link>
+          <Link href="/become-a-pro" className="btn btn-outline w-full text-center">
+            Sign up as Pro
           </Link>
         </div>
       </div>
-    </div>
+    </>
   );
 }

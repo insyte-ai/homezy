@@ -5,11 +5,13 @@ import { generateTokenPair, verifyRefreshToken } from '../utils/jwt';
 import { ConflictError, UnauthorizedError, NotFoundError, BadRequestError } from '../middleware/errorHandler.middleware';
 import { logger } from '../utils/logger';
 import { emailService } from '../services/email.service';
+import { verifyGoogleToken, findOrCreateGoogleUser } from '../services/googleAuthService';
 import type {
   RegisterInput,
   LoginInput,
   RefreshTokenInput,
   GuestSignupInput,
+  GoogleAuthInput,
 } from '../schemas/auth.schema';
 
 /**
@@ -452,6 +454,62 @@ export const setPasswordWithMagicLink = async (req: Request, res: Response): Pro
   });
 };
 
+/**
+ * Google OAuth login/signup
+ */
+export const googleAuth = async (req: Request<{}, {}, GoogleAuthInput>, res: Response): Promise<void> => {
+  const { token, role } = req.body;
+
+  logger.info('Google auth attempt', { hasToken: !!token, role });
+
+  if (!token) {
+    throw new BadRequestError('Google token is required');
+  }
+
+  // Verify the Google token
+  const googlePayload = await verifyGoogleToken(token);
+
+  logger.info('Google token verified', {
+    googleId: googlePayload.sub,
+    email: googlePayload.email,
+    emailVerified: googlePayload.email_verified
+  });
+
+  // Find or create user with auto-account-linking
+  const user = await findOrCreateGoogleUser(googlePayload, role);
+
+  // Generate JWT tokens
+  const tokens = generateTokenPair({
+    userId: user._id.toString(),
+    email: user.email,
+    role: user.role,
+    tokenVersion: user.refreshTokenVersion,
+  });
+
+  // Set refresh token in httpOnly cookie
+  res.cookie('refreshToken', tokens.refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+
+  logger.info('Google auth successful', {
+    userId: user._id,
+    email: user.email,
+    isNewUser: !user.password && user.authProvider === 'google'
+  });
+
+  res.status(200).json({
+    success: true,
+    message: 'Google authentication successful',
+    data: {
+      user: user.toJSON(),
+      accessToken: tokens.accessToken,
+    },
+  });
+};
+
 export default {
   register,
   login,
@@ -461,4 +519,5 @@ export default {
   guestSignup,
   verifyMagicLink,
   setPasswordWithMagicLink,
+  googleAuth,
 };
