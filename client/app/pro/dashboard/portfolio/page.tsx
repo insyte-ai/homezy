@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getMyProfile, addPortfolioItem, updatePortfolioItem, deletePortfolioItem, updateFeaturedProjects, uploadPortfolioImages } from '@/lib/services/professional';
-import { SERVICE_CATEGORIES } from '@homezy/shared';
+import { getAllSubservices, SubService } from '@/lib/services/serviceData';
 import type { PortfolioItem } from '@homezy/shared';
 import { Plus, Edit2, Trash2, Star, X, Upload, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -37,10 +37,24 @@ export default function ProPortfolioPage() {
   const [formData, setFormData] = useState<PortfolioFormData>(emptyFormData);
   const [uploading, setUploading] = useState(false);
   const [featuredProjects, setFeaturedProjects] = useState<string[]>([]);
+  const [serviceCategories, setServiceCategories] = useState<SubService[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
   useEffect(() => {
     loadPortfolio();
+    loadCategories();
   }, []);
+
+  const loadCategories = async () => {
+    try {
+      const subservices = await getAllSubservices();
+      setServiceCategories(subservices);
+    } catch (error) {
+      console.error('Failed to load categories:', error);
+    } finally {
+      setLoadingCategories(false);
+    }
+  };
 
   const loadPortfolio = async () => {
     try {
@@ -214,7 +228,7 @@ export default function ProPortfolioPage() {
   };
 
   const getCategoryName = (categoryId: string) => {
-    return SERVICE_CATEGORIES.find(cat => cat.id === categoryId)?.name || categoryId;
+    return serviceCategories.find(cat => cat.id === categoryId)?.name || categoryId;
   };
 
   if (loading) {
@@ -412,9 +426,10 @@ export default function ProPortfolioPage() {
                   onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
+                  disabled={loadingCategories}
                 >
-                  <option value="">Select a category</option>
-                  {SERVICE_CATEGORIES.map(cat => (
+                  <option value="">{loadingCategories ? 'Loading...' : 'Select a category'}</option>
+                  {serviceCategories.map(cat => (
                     <option key={cat.id} value={cat.id}>
                       {cat.name}
                     </option>

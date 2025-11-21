@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { getMarketplace, claimLead, Lead, LeadFilters } from '@/lib/services/leads';
 import { getBalance, CreditBalance as CreditBalanceType } from '@/lib/services/credits';
+import { useAuthStore } from '@/store/authStore';
 import LeadCard from '@/components/leads/LeadCard';
 import CreditBalance from '@/components/credits/CreditBalance';
 import { Filter, Search, RefreshCw, AlertCircle } from 'lucide-react';
@@ -13,6 +14,7 @@ const ProLeadMarketplaceContent = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { user } = useAuthStore();
   const highlightedLeadId = searchParams?.get('leadId');
   const leadRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
@@ -408,6 +410,7 @@ const ProLeadMarketplaceContent = () => {
                         onClaim={handleClaimClick}
                         isClaimed={false}
                         claiming={claiming === lead._id}
+                        verificationStatus={(user as any)?.proProfile?.verificationStatus}
                       />
                     </div>
                   ))}
@@ -461,7 +464,7 @@ const ProLeadMarketplaceContent = () => {
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-600 dark:text-gray-400">Balance After Claim:</span>
                 <span className="font-semibold text-gray-900 dark:text-white">
-                  {balance.totalCredits - (selectedLead.creditsRequired || 0)} credits
+                  {(balance?.totalCredits || 0) - (selectedLead.creditsRequired || 0)} credits
                 </span>
               </div>
             </div>

@@ -124,8 +124,7 @@ export function calculateProfileCompleteness(
 
   // 5. Verification (25 points) - Most important!
   const isVerified =
-    profile.verificationStatus === 'basic' ||
-    profile.verificationStatus === 'comprehensive';
+    profile.verificationStatus === 'approved';
   const hasDocuments = (profile.verificationDocuments?.length || 0) >= 2;
 
   sectionDetails.verification = {

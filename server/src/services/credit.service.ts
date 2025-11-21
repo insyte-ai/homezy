@@ -11,7 +11,7 @@ import mongoose from 'mongoose';
 interface CreditCostParams {
   budgetBracket: 'under-5k' | '5k-20k' | '20k-50k' | '50k-100k' | 'over-100k';
   urgency: 'flexible' | 'within-month' | 'within-week' | 'emergency';
-  verificationStatus: 'unverified' | 'pending' | 'basic' | 'comprehensive';
+  verificationStatus: 'pending' | 'approved' | 'rejected';
 }
 
 interface AddCreditsParams {
@@ -61,10 +61,9 @@ const URGENCY_MULTIPLIERS = {
 } as const;
 
 const VERIFICATION_DISCOUNTS = {
-  'unverified': 0,
   'pending': 0,
-  'basic': 0.05, // 5% discount
-  'comprehensive': 0.15, // 15% discount
+  'approved': 0.1, // 10% discount for approved professionals
+  'rejected': 0,
 } as const;
 
 /**

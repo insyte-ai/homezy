@@ -32,22 +32,14 @@ export default function ProDashboardPage() {
   const nextSteps = [
     {
       id: 1,
-      icon: '📄',
-      title: 'Upload verification documents',
-      description: 'Get verified to start claiming leads',
-      link: '/pro/dashboard/verification',
-      primary: true,
-    },
-    {
-      id: 2,
       icon: '📸',
       title: 'Add portfolio photos',
       description: 'Pros with portfolios get 3x more responses',
       link: '/pro/dashboard/portfolio',
-      primary: false,
+      primary: true,
     },
     {
-      id: 3,
+      id: 2,
       icon: '💰',
       title: 'Purchase credits',
       description: 'Get ready to claim your first lead',
@@ -55,7 +47,7 @@ export default function ProDashboardPage() {
       primary: false,
     },
     {
-      id: 4,
+      id: 3,
       icon: '✍️',
       title: 'Complete your bio',
       description: 'Tell homeowners about your experience',
@@ -375,30 +367,6 @@ export default function ProDashboardPage() {
 
         {/* Right Column - Help & Resources */}
         <div className="space-y-6">
-          {/* Verification Status */}
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
-            <h3 className="font-semibold text-neutral-900 mb-3">Verification Status</h3>
-            <div className="space-y-3">
-              <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center mr-3">
-                  <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-neutral-900">Not Verified</p>
-                  <p className="text-xs text-neutral-500">Upload documents to get started</p>
-                </div>
-              </div>
-              <Link
-                href="/pro/dashboard/verification"
-                className="btn btn-primary w-full text-sm"
-              >
-                Start Verification
-              </Link>
-            </div>
-          </div>
-
           {/* Quick Stats */}
           <div className="bg-primary-50 border border-primary-200 rounded-lg shadow-sm p-6">
             <h3 className="font-semibold text-neutral-900 mb-3">Market Insights</h3>

@@ -51,7 +51,7 @@ export type StripeWebhookInput = z.infer<typeof stripeWebhookSchema>;
 export const calculateCreditCostSchema = z.object({
   budgetBracket: z.enum(['under-5k', '5k-20k', '20k-50k', '50k-100k', 'over-100k']),
   urgency: z.enum(['flexible', 'within-month', 'within-week', 'emergency']),
-  verificationStatus: z.enum(['unverified', 'pending', 'basic', 'comprehensive']).optional(),
+  verificationStatus: z.enum(['pending', 'approved', 'rejected']).optional(),
 });
 
 export type CalculateCreditCostInput = z.infer<typeof calculateCreditCostSchema>;

@@ -5,7 +5,6 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuthStore } from "@/store/authStore";
-import { useChatPanelStore } from "@/store/chatPanelStore";
 import { Search, Menu, X } from "lucide-react";
 import UserProfileDropdown from "@/components/common/UserProfileDropdown";
 
@@ -16,10 +15,16 @@ export default function ProDashboardLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isAuthenticated, logout } = useAuthStore();
-  const { isOpen: isChatPanelOpen } = useChatPanelStore();
+  const { user, isAuthenticated, logout, isInitialized, initialize } = useAuthStore();
   const [showProgressBanner, setShowProgressBanner] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Initialize auth state on mount
+  useEffect(() => {
+    if (!isInitialized) {
+      initialize();
+    }
+  }, [isInitialized, initialize]);
 
   const navItems = [
     { name: "Dashboard", href: "/pro/dashboard" },
@@ -45,8 +50,13 @@ export default function ProDashboardLayout({
     return pathname?.startsWith(href);
   };
 
-  // Check if user is pro
+  // Check if user is pro and if onboarding is complete
   useEffect(() => {
+    // Wait for auth to initialize before making routing decisions
+    if (!isInitialized) {
+      return;
+    }
+
     if (!isAuthenticated) {
       router.push("/auth/login");
       return;
@@ -61,13 +71,21 @@ export default function ProDashboardLayout({
     if (user.role !== "pro") {
       console.log("Redirecting non-pro user to homepage", { role: user.role });
       router.push("/");
+      return;
     }
-  }, [user, isAuthenticated, router]);
+
+    // Check if onboarding is complete - redirect to onboarding if not
+    // Skip this check if we're already on the onboarding page
+    if (!pathname?.includes('/onboarding') && !user.proOnboardingCompleted) {
+      console.log("Redirecting to onboarding - profile incomplete");
+      router.push("/pro/onboarding");
+    }
+  }, [user, isAuthenticated, router, pathname, isInitialized]);
 
   // Mock profile completion - TODO: Get from API
   const profileCompletion = {
     completed: 2,
-    total: 6,
+    total: 5,
     tasks: [
       {
         id: 1,
@@ -83,25 +101,19 @@ export default function ProDashboardLayout({
       },
       {
         id: 3,
-        name: "Upload verification documents",
+        name: "Add bio and tagline",
         completed: false,
-        link: "/pro/dashboard/verification",
+        link: "/pro/dashboard/profile",
         highlight: true,
       },
       {
         id: 4,
-        name: "Add bio and tagline",
-        completed: false,
-        link: "/pro/dashboard/profile",
-      },
-      {
-        id: 5,
         name: "Upload portfolio photos",
         completed: false,
         link: "/pro/dashboard/portfolio",
       },
       {
-        id: 6,
+        id: 5,
         name: "Set pricing and availability",
         completed: false,
         link: "/pro/dashboard/settings",
@@ -120,7 +132,7 @@ export default function ProDashboardLayout({
       <header className="bg-white shadow-sm border-b border-neutral-200 sticky top-0 z-40">
         {/* Top Level - Logo, Search, Credits, User */}
         <div className="border-b border-neutral-100">
-          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className="container-custom">
             <div className="flex justify-between items-center h-16">
               {/* Logo */}
               <Link href="/pro/dashboard" className="flex items-center gap-0.5">
@@ -175,7 +187,7 @@ export default function ProDashboardLayout({
 
         {/* Bottom Level - Navigation Links */}
         <div className="hidden md:block">
-          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className="container-custom">
             <nav className="flex items-center justify-end space-x-1 h-12">
               {navItems.map((item) => {
                 const active = isActivePath(item.href);
@@ -235,7 +247,7 @@ export default function ProDashboardLayout({
       {/* Profile Completion Banner */}
       {showProgressBanner && completionPercentage < 100 && (
         <div className="bg-primary-50 border-b border-primary-200">
-          <div className={`container-custom py-4 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className="container-custom py-4">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-2">

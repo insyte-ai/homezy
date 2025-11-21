@@ -14,6 +14,7 @@ interface User {
   phone?: string;
   avatar?: string;
   createdAt?: string;
+  proOnboardingCompleted?: boolean;
 }
 
 interface AuthState {

@@ -39,7 +39,7 @@ export const register = async (req: Request<{}, {}, RegisterInput>, res: Respons
     // Create minimal proProfile for pro users
     ...(role === 'pro' && {
       proProfile: {
-        businessName: `${firstName} ${lastName}`, // Temporary - will be updated in onboarding
+        businessName: (firstName && lastName) ? `${firstName} ${lastName}` : email.split('@')[0], // Temporary - will be updated in onboarding
         categories: [],
         serviceAreas: [],
         languages: [],

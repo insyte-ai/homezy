@@ -19,6 +19,7 @@ interface LeadCardProps {
   onViewDetails?: (leadId: string) => void;
   isClaimed?: boolean;
   claiming?: boolean;
+  verificationStatus?: 'pending' | 'approved' | 'rejected';
 }
 
 export const LeadCard = ({
@@ -27,7 +28,8 @@ export const LeadCard = ({
   onClaim,
   onViewDetails,
   isClaimed = false,
-  claiming = false
+  claiming = false,
+  verificationStatus
 }: LeadCardProps) => {
   // Helper to get urgency color
   const getUrgencyColor = (urgency: string) => {
@@ -223,25 +225,38 @@ export const LeadCard = ({
       {/* Actions */}
       <div className="p-4 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-700">
         {variant === 'marketplace' && !isClaimed && onClaim && (
-          <button
-            onClick={() => onClaim(lead._id)}
-            disabled={claiming || lead.claimsCount >= (lead.maxClaimsAllowed || 5)}
-            className="w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {claiming ? (
-              <>
-                <div className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent mr-2 align-middle"></div>
-                Claiming...
-              </>
-            ) : lead.claimsCount >= (lead.maxClaimsAllowed || 5) ? (
-              'Fully Claimed'
-            ) : (
-              <>
-                <CheckCircle className="h-4 w-4 inline mr-2" />
-                Claim Lead
-              </>
+          <>
+            <button
+              onClick={() => onClaim(lead._id)}
+              disabled={
+                claiming ||
+                lead.claimsCount >= (lead.maxClaimsAllowed || 5) ||
+                verificationStatus !== 'approved'
+              }
+              className="w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {claiming ? (
+                <>
+                  <div className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent mr-2 align-middle"></div>
+                  Claiming...
+                </>
+              ) : lead.claimsCount >= (lead.maxClaimsAllowed || 5) ? (
+                'Fully Claimed'
+              ) : verificationStatus !== 'approved' ? (
+                'Pending Approval'
+              ) : (
+                <>
+                  <CheckCircle className="h-4 w-4 inline mr-2" />
+                  Claim Lead
+                </>
+              )}
+            </button>
+            {verificationStatus !== 'approved' && (
+              <p className="mt-2 text-xs text-center text-gray-600 dark:text-gray-400">
+                Your account must be approved by admin before claiming leads
+              </p>
             )}
-          </button>
+          </>
         )}
 
         {(variant !== 'marketplace' || isClaimed) && onViewDetails && (

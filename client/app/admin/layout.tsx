@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
-import { useChatPanelStore } from '@/store/chatPanelStore';
 import { AdminDashboardSidebar } from '@/components/dashboard/AdminDashboardSidebar';
 import UserProfileDropdown from '@/components/common/UserProfileDropdown';
 
@@ -13,11 +12,22 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { isAuthenticated, user, isLoading } = useAuthStore();
-  const { isOpen: isChatPanelOpen } = useChatPanelStore();
+  const { isAuthenticated, user, isLoading, isInitialized, initialize } = useAuthStore();
   const [isAuthorized, setIsAuthorized] = useState(false);
 
+  // Initialize auth state on mount
   useEffect(() => {
+    if (!isInitialized) {
+      initialize();
+    }
+  }, [isInitialized, initialize]);
+
+  useEffect(() => {
+    // Wait for auth to initialize before making routing decisions
+    if (!isInitialized) {
+      return;
+    }
+
     if (!isLoading) {
       if (!isAuthenticated) {
         // Not authenticated, redirect to login
@@ -34,10 +44,10 @@ export default function AdminLayout({
         setIsAuthorized(true);
       }
     }
-  }, [isAuthenticated, user, isLoading, router]);
+  }, [isAuthenticated, user, isLoading, router, isInitialized]);
 
   // Show loading state while checking authentication
-  if (isLoading || !isAuthorized) {
+  if (!isInitialized || isLoading || !isAuthorized) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
@@ -53,13 +63,13 @@ export default function AdminLayout({
       <AdminDashboardSidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
-        <header className={`h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0">
           <h2 className="text-lg font-semibold text-gray-900">Admin Portal</h2>
           <UserProfileDropdown />
         </header>
 
         {/* Main Content */}
-        <main className={`flex-1 overflow-y-auto transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+        <main className="flex-1 overflow-y-auto">
           {children}
         </main>
       </div>

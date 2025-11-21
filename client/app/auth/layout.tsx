@@ -16,7 +16,7 @@ export default function AuthLayout({
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <PublicHeader />
       <div className={`flex-1 flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="sm:mx-auto sm:w-full sm:max-w-2xl">
           <div className="flex items-center justify-center gap-0.5 mb-2">
             <Image
               src="/house-logo.svg"
@@ -30,7 +30,7 @@ export default function AuthLayout({
             </h1>
           </div>
         </div>
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-2xl">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             {children}
           </div>

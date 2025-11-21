@@ -23,7 +23,7 @@ export const getDashboardStats = async (req: Request, res: Response): Promise<vo
       totalCreditsUsed,
     ] = await Promise.all([
       User.countDocuments({ role: 'pro' }),
-      User.countDocuments({ role: 'pro', 'proProfile.verificationStatus': { $in: ['basic', 'comprehensive'] } }),
+      User.countDocuments({ role: 'pro', 'proProfile.verificationStatus': 'approved' }),
       User.countDocuments({ role: 'pro', 'proProfile.verificationStatus': 'pending' }),
       User.countDocuments({ role: 'homeowner' }),
       Lead.countDocuments(),
@@ -157,7 +157,6 @@ export const getProfessionals = async (req: Request, res: Response): Promise<voi
       businessName: pro.proProfile?.businessName,
       serviceCategories: pro.proProfile?.serviceCategories || [],
       verificationStatus: pro.proProfile?.verificationStatus || 'pending',
-      isActive: pro.proProfile?.isActive || false,
       createdAt: pro.createdAt,
       totalLeadsClaimed: 0, // TODO: Calculate from leads
       totalJobsCompleted: 0, // TODO: Calculate from completed quotes
@@ -192,9 +191,9 @@ export const getProfessionalById = async (req: Request, res: Response): Promise<
   try {
     const { id } = req.params;
 
-    const professional = await User.findOne({ _id: id, role: 'pro' }).lean();
+    const user = await User.findOne({ _id: id, role: 'pro' }).lean();
 
-    if (!professional) {
+    if (!user) {
       throw new NotFoundError('Professional not found');
     }
 
@@ -204,15 +203,57 @@ export const getProfessionalById = async (req: Request, res: Response): Promise<
       Quote.countDocuments({ professionalId: id, status: 'accepted' }),
     ]);
 
+    // Extract nested proProfile fields to match frontend expectations
+    const proProfile = (user as any).proProfile || {};
+    const verificationDocs = proProfile.verificationDocuments || [];
+    const tradeLicenseDoc = verificationDocs.find((doc: any) => doc.type === 'license');
+    const vatDoc = verificationDocs.find((doc: any) => doc.type === 'vat');
+
+    // Build response matching frontend interface
+    const responseData = {
+      _id: (user as any)._id,
+      firstName: (user as any).firstName,
+      lastName: (user as any).lastName,
+      email: (user as any).email,
+      phoneNumber: (user as any).phone,
+      profilePhoto: (user as any).profilePhoto,
+      businessName: proProfile.businessName,
+      businessType: proProfile.businessType,
+      serviceCategories: proProfile.categories || [],
+      serviceAreas: proProfile.serviceAreas || [],
+      yearsInBusiness: proProfile.yearsInBusiness,
+      teamSize: proProfile.teamSize,
+      languages: proProfile.languages || [],
+      verificationStatus: proProfile.verificationStatus || 'pending',
+      tradeLicense: {
+        number: proProfile.tradeLicenseNumber,
+        documentUrl: tradeLicenseDoc?.url,
+        status: tradeLicenseDoc?.status || 'pending',
+      },
+      vatNumber: proProfile.vatNumber,
+      vatDocument: {
+        url: vatDoc?.url,
+        status: vatDoc?.status || 'pending',
+      },
+      verificationDocuments: verificationDocs,
+      portfolio: proProfile.portfolio || [],
+      hourlyRateMin: proProfile.hourlyRateMin,
+      hourlyRateMax: proProfile.hourlyRateMax,
+      rating: proProfile.rating || 0,
+      reviewCount: proProfile.reviewCount || 0,
+      projectsCompleted: proProfile.projectsCompleted || 0,
+      responseTimeHours: proProfile.responseTimeHours || 24,
+      createdAt: (user as any).createdAt,
+      updatedAt: (user as any).updatedAt,
+      stats: {
+        quotesCount,
+        activeProjectsCount,
+      },
+    };
+
     res.json({
       success: true,
-      data: {
-        ...professional,
-        stats: {
-          quotesCount,
-          activeProjectsCount,
-        },
-      },
+      data: responseData,
     });
   } catch (error) {
     logger.error('Error fetching professional:', error);
@@ -236,11 +277,7 @@ export const getProfessionalById = async (req: Request, res: Response): Promise<
 export const approveProfessional = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    const { verificationLevel, notes } = req.body;
-
-    if (!verificationLevel || !['basic', 'comprehensive'].includes(verificationLevel)) {
-      throw new BadRequestError('Invalid verification level');
-    }
+    const { notes } = req.body;
 
     const professional = await User.findOne({ _id: id, role: 'pro' });
 
@@ -252,8 +289,8 @@ export const approveProfessional = async (req: Request, res: Response): Promise<
       throw new BadRequestError('User is not a professional');
     }
 
-    // Update verification status
-    professional.proProfile.verificationStatus = verificationLevel;
+    // Update verification status to approved
+    professional.proProfile.verificationStatus = 'approved';
 
     // Update verification documents status
     if (professional.proProfile.verificationDocuments) {
@@ -268,7 +305,7 @@ export const approveProfessional = async (req: Request, res: Response): Promise<
 
     await professional.save();
 
-    logger.info(`Professional ${id} approved with ${verificationLevel} verification`);
+    logger.info(`Professional ${id} approved`);
 
     res.json({
       success: true,

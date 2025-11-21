@@ -139,7 +139,7 @@ export const findOrCreateGoogleUser = async (
         businessName: `${user.firstName} ${user.lastName}`.trim() || 'My Business',
         categories: [],
         serviceAreas: [],
-        verificationStatus: 'unverified',
+        verificationStatus: 'pending',
         verificationDocuments: [],
         portfolio: [],
         featuredProjects: [],

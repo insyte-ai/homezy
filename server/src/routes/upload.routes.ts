@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import * as uploadController from '../controllers/upload.controller';
-import { uploadImage } from '../middleware/upload.middleware';
+import { uploadImage, uploadDocument } from '../middleware/upload.middleware';
 import { asyncHandler } from '../middleware/errorHandler.middleware';
 import { rateLimitUpload } from '../middleware/rateLimit.middleware';
+import { authenticate, authorize } from '../middleware/auth.middleware';
 
 const router = Router();
 
@@ -16,6 +17,20 @@ router.post(
   rateLimitUpload,
   uploadImage.single('image'),
   asyncHandler(uploadController.uploadLeadImage)
+);
+
+/**
+ * @route   POST /api/v1/upload/verification-document
+ * @desc    Upload a verification document (PDF or image)
+ * @access  Private (Pro only, rate limited)
+ */
+router.post(
+  '/verification-document',
+  authenticate,
+  authorize('pro'),
+  rateLimitUpload,
+  uploadDocument.single('document'),
+  asyncHandler(uploadController.uploadVerificationDoc)
 );
 
 export default router;

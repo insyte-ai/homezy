@@ -233,20 +233,10 @@ export default function ProfessionalsPage() {
                   <h3 className="font-semibold text-gray-900 mb-1 truncate">
                     {pro.businessName}
                   </h3>
-                  {pro.proProfile.verificationStatus && (
+                  {pro.proProfile.verificationStatus === 'approved' && (
                     <div className="flex items-center gap-1 text-xs">
-                      {pro.proProfile.verificationStatus === 'comprehensive' ? (
-                        <>
-                          <CheckCircle className="h-3.5 w-3.5 text-primary-600" />
-                          <CheckCircle className="h-3.5 w-3.5 text-primary-600 -ml-2" />
-                          <span className="text-primary-600 font-medium">Comprehensive Verified</span>
-                        </>
-                      ) : pro.proProfile.verificationStatus === 'basic' ? (
-                        <>
-                          <CheckCircle className="h-3.5 w-3.5 text-primary-600" />
-                          <span className="text-primary-600 font-medium">Basic Verified</span>
-                        </>
-                      ) : null}
+                      <CheckCircle className="h-3.5 w-3.5 text-primary-600" />
+                      <span className="text-primary-600 font-medium">Verified</span>
                     </div>
                   )}
                 </div>

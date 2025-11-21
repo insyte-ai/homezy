@@ -31,8 +31,13 @@ export const completeOnboarding = async (
     }
 
     const {
+      firstName,
+      lastName,
+      phone,
       businessName,
       businessType,
+      tradeLicenseNumber,
+      vatNumber,
       categories,
       primaryEmirate,
       serviceRadius,
@@ -46,15 +51,22 @@ export const completeOnboarding = async (
       willingToTravelOutside: false,
     };
 
-    // Update profile with onboarding data
+    // Update user and profile with onboarding data
     const user = await User.findByIdAndUpdate(
       userId,
       {
         $set: {
+          firstName,
+          lastName,
+          phone,
+          proOnboardingCompleted: true,
           'proProfile.businessName': businessName,
           'proProfile.businessType': businessType,
+          'proProfile.tradeLicenseNumber': tradeLicenseNumber,
+          'proProfile.vatNumber': vatNumber,
           'proProfile.categories': categories,
           'proProfile.serviceAreas': [serviceArea],
+          'proProfile.verificationStatus': 'pending',
         },
       },
       { new: true, runValidators: true }
@@ -226,8 +238,7 @@ export const getProProfile = async (
     }
 
     // Only show verified pros to public
-    if (user.proProfile?.verificationStatus === 'unverified' ||
-        user.proProfile?.verificationStatus === 'pending' ||
+    if (user.proProfile?.verificationStatus === 'pending' ||
         user.proProfile?.verificationStatus === 'rejected') {
       throw new AppError('Pro profile not available', 403);
     }
@@ -594,11 +605,31 @@ export const uploadVerificationDocument = async (
 ): Promise<void> => {
   try {
     const userId = req.user?.id;
-    const { type, url } = req.body;
 
     if (!userId) {
       throw new AppError('Unauthorized', 401);
     }
+
+    if (!req.file) {
+      throw new AppError('No file uploaded', 400);
+    }
+
+    const { type } = req.body;
+
+    if (!type || !['license', 'vat', 'insurance', 'id', 'reference'].includes(type)) {
+      throw new AppError(
+        'Invalid document type. Must be one of: license, vat, insurance, id, reference',
+        400
+      );
+    }
+
+    // Upload document to Cloudinary or local storage
+    const { uploadDocument: uploadDocumentHelper } = await import('../utils/uploadHelper.js');
+    const url = await uploadDocumentHelper(
+      req.file.buffer,
+      'verification-documents',
+      req.file.mimetype
+    );
 
     const user = await User.findById(userId);
 

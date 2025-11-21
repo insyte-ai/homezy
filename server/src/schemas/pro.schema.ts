@@ -54,6 +54,9 @@ export const availabilitySchema = z.object({
 
 // Onboarding Schema - Required fields for initial setup
 export const onboardingSchema = z.object({
+  firstName: z.string().min(2, 'First name must be at least 2 characters').max(50),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters').max(50),
+  phone: z.string().min(1, 'Phone number is required'),
   businessName: z.string().min(2, 'Business name must be at least 2 characters').max(100),
   businessType: z.enum(['sole-proprietor', 'llc', 'corporation']),
   categories: z.array(z.string()).min(1, 'At least one category is required').max(10),
@@ -97,7 +100,7 @@ export const updateProProfileSchema = z.object({
 
 // Verification Document Upload Schema
 export const uploadVerificationDocumentSchema = z.object({
-  type: z.enum(['license', 'insurance', 'id', 'portfolio', 'reference']),
+  type: z.enum(['license', 'vat', 'insurance', 'id', 'portfolio', 'reference']),
   url: z.string().url('Invalid document URL'),
 });
 
@@ -111,32 +114,6 @@ export const updatePortfolioItemSchema = portfolioItemSchema.partial().required(
 export const updateFeaturedProjectsSchema = z.object({
   featuredProjects: z.array(z.string()).max(6, 'Maximum 6 featured projects allowed'),
 });
-
-// Service Categories (from PRD - 22 categories)
-export const SERVICE_CATEGORIES = [
-  'plumbing',
-  'electrical',
-  'hvac',
-  'general-contracting',
-  'roofing',
-  'painting-wallpaper',
-  'flooring',
-  'kitchen-remodeling',
-  'bathroom-remodeling',
-  'carpentry',
-  'masonry-tiling',
-  'landscaping-garden',
-  'windows-doors',
-  'interior-design',
-  'architecture',
-  'waterproofing-insulation',
-  'smart-home-security',
-  'pest-control',
-  'cleaning-services',
-  'pool-spa',
-  'appliance-repair',
-  'handyman-services',
-] as const;
 
 // UAE Emirates
 export const UAE_EMIRATES = [

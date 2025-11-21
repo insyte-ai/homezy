@@ -54,7 +54,7 @@ export const submitQuote = async (leadId: string, professionalId: string, data: 
     }
 
     const verificationStatus = professional.proProfile?.verificationStatus;
-    if (verificationStatus !== 'basic' && verificationStatus !== 'comprehensive') {
+    if (verificationStatus !== 'approved') {
       throw new ForbiddenError('You must be verified to submit quotes');
     }
 

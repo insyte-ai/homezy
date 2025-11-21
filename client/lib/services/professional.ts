@@ -190,8 +190,13 @@ export const getMyProfilePreview = async (): Promise<PublicProfileResponse['data
  * @returns Updated profile with slug
  */
 export const completeOnboarding = async (data: {
+  firstName: string;
+  lastName: string;
+  phone: string;
   businessName: string;
   businessType: 'sole-proprietor' | 'llc' | 'corporation';
+  tradeLicenseNumber: string;
+  vatNumber: string;
   categories: string[];
   primaryEmirate: string;
   serviceRadius?: number;
@@ -382,7 +387,7 @@ export const uploadPortfolioImages = async (files: File[]): Promise<string[]> =>
  */
 export const uploadVerificationDocument = async (
   file: File,
-  type: 'license' | 'insurance' | 'id' | 'reference'
+  type: 'license' | 'vat' | 'insurance' | 'id' | 'reference'
 ): Promise<VerificationUploadResponse['data']> => {
   const formData = new FormData();
   formData.append('document', file);

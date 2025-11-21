@@ -11,8 +11,8 @@ export const registerSchema = z.object({
     .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
     .regex(/[0-9]/, 'Password must contain at least one number')
     .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character'),
-  firstName: z.string().min(2, 'First name must be at least 2 characters').max(50),
-  lastName: z.string().min(2, 'Last name must be at least 2 characters').max(50),
+  firstName: z.string().min(2, 'First name must be at least 2 characters').max(50).optional(),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters').max(50).optional(),
   phone: z.string().optional(),
   role: z.enum(['homeowner', 'pro']).default('homeowner'),
 });

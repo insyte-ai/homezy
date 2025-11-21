@@ -4,10 +4,18 @@ import { useState } from 'react';
 import { MessageCircle, ChevronRight, X } from 'lucide-react';
 import { ChatInterface } from './ChatInterface';
 import { useChatPanelStore } from '@/store/chatPanelStore';
+import { useAuthStore } from '@/store/authStore';
 
 export function GlobalChatPanel() {
   const { isOpen, toggle } = useChatPanelStore();
+  const { user } = useAuthStore();
   const [showMobileChat, setShowMobileChat] = useState(false);
+
+  // Only show chat panel for homeowners and unauthenticated users (guests)
+  // Hide for admins and professionals
+  if (user && (user.role === 'admin' || user.role === 'pro')) {
+    return null;
+  }
 
   return (
     <>

@@ -47,7 +47,7 @@ export const createDirectLead = async (
 
   if (
     professional.proProfile.verificationStatus === 'rejected' ||
-    professional.proProfile.verificationStatus === 'unverified'
+    professional.proProfile.verificationStatus === 'pending'
   ) {
     throw new BadRequestError('Professional is not verified');
   }

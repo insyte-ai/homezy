@@ -33,8 +33,7 @@ export interface ProfessionalListItem {
   phoneNumber?: string;
   businessName?: string;
   serviceCategories: string[];
-  verificationStatus: 'pending' | 'basic' | 'comprehensive' | 'rejected';
-  isActive: boolean;
+  verificationStatus: 'pending' | 'approved' | 'rejected';
   createdAt: string;
   totalLeadsClaimed: number;
   totalJobsCompleted: number;
@@ -217,7 +216,7 @@ export const getProfessionalDetails = async (id: string): Promise<ProfessionalDe
 export const approveProfessional = async (
   id: string,
   data: {
-    verificationLevel: 'basic' | 'comprehensive';
+    verificationLevel?: 'basic' | 'comprehensive';
     notes?: string;
   }
 ): Promise<void> => {

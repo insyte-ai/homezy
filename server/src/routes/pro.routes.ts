@@ -22,8 +22,8 @@ import {
   addPortfolioItemSchema,
   updatePortfolioItemSchema,
   updateFeaturedProjectsSchema,
-  uploadVerificationDocumentSchema,
 } from '../schemas/pro.schema';
+import { uploadDocument } from '../middleware/upload.middleware';
 
 const router = express.Router();
 
@@ -127,7 +127,7 @@ router.post(
   '/me/verification/upload',
   authenticate,
   authorize('pro'),
-  validate(uploadVerificationDocumentSchema),
+  uploadDocument.single('document'),
   uploadVerificationDocument
 );
 

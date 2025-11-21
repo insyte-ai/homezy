@@ -434,17 +434,10 @@ export const claimLead = async (leadId: string, professionalId: string) => {
       throw new ForbiddenError('Only verified professionals can claim leads');
     }
 
-    // Check if professional meets lead preferences
-    if (lead.preferences.requiredVerification !== 'any') {
-      const proStatus = professional.proProfile?.verificationStatus || 'unverified';
-
-      if (lead.preferences.requiredVerification === 'comprehensive' && proStatus !== 'comprehensive') {
-        throw new ForbiddenError('This lead requires comprehensive verification');
-      }
-
-      if (lead.preferences.requiredVerification === 'basic' && proStatus === 'unverified') {
-        throw new ForbiddenError('This lead requires at least basic verification');
-      }
+    // Check if professional is approved
+    const verificationStatus = professional.proProfile?.verificationStatus || 'pending';
+    if (verificationStatus !== 'approved') {
+      throw new ForbiddenError('Your account must be approved by admin before claiming leads. Please complete your profile and wait for admin approval.');
     }
 
     // Calculate credit cost
@@ -458,12 +451,6 @@ export const claimLead = async (leadId: string, professionalId: string) => {
     // Apply urgency multiplier
     if (lead.urgency === 'emergency') {
       creditsCost = Math.ceil(creditsCost * 1.5);
-    }
-
-    // Apply verification discount
-    const verificationStatus = professional.proProfile?.verificationStatus || 'unverified';
-    if (verificationStatus === 'comprehensive') {
-      creditsCost = Math.ceil(creditsCost * (1 - PLATFORM_CONFIG.COMPREHENSIVE_DISCOUNT));
     }
 
     // Spend credits

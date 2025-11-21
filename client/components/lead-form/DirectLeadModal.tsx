@@ -11,7 +11,8 @@ import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import toast from 'react-hot-toast';
-import { SERVICE_CATEGORIES, URGENCY_LEVELS, BUDGET_BRACKETS, EMIRATES } from '@homezy/shared';
+import { URGENCY_LEVELS, BUDGET_BRACKETS, EMIRATES } from '@homezy/shared';
+import { getAllSubservices, SubService } from '@/lib/services/serviceData';
 
 interface DirectLeadModalProps {
   isOpen: boolean;
@@ -31,6 +32,8 @@ export function DirectLeadModal({
   const router = useRouter();
   const { isAuthenticated, user } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serviceCategories, setServiceCategories] = useState<SubService[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -42,6 +45,22 @@ export function DirectLeadModal({
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Fetch service categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const subservices = await getAllSubservices();
+        setServiceCategories(subservices);
+      } catch (err) {
+        console.error('Failed to load service categories:', err);
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   // Pre-fill category if professional has only one
   useEffect(() => {
@@ -222,10 +241,10 @@ export function DirectLeadModal({
               className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
                 errors.category ? 'border-red-500' : 'border-gray-300'
               }`}
-              disabled={isSubmitting}
+              disabled={isSubmitting || loadingCategories}
             >
-              <option value="">Select a service</option>
-              {SERVICE_CATEGORIES.map((cat) => (
+              <option value="">{loadingCategories ? 'Loading...' : 'Select a service'}</option>
+              {serviceCategories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}
                 </option>

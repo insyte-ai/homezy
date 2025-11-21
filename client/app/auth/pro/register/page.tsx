@@ -12,11 +12,10 @@ export default function ProRegisterPage() {
   const { register, isLoading, error, clearError, isAuthenticated, user } = useAuthStore();
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
     firstName: '',
     lastName: '',
-    phone: '',
+    email: '',
+    password: '',
     role: 'pro' as const,
   });
 
@@ -42,7 +41,7 @@ export default function ProRegisterPage() {
             router.push('/admin/dashboard');
             break;
           case 'pro':
-            router.push('/pro/dashboard');
+            router.push('/pro/onboarding');
             break;
           case 'homeowner':
             router.push('/dashboard');
@@ -100,8 +99,8 @@ export default function ProRegisterPage() {
     try {
       await register(formData);
       toast.success('Pro account created successfully!');
-      // Redirect to pro dashboard
-      router.push('/pro/dashboard');
+      // Redirect to onboarding to complete profile
+      router.push('/pro/onboarding');
     } catch (err) {
       // Error is already handled in the store
       console.error('Registration error:', err);
@@ -149,7 +148,7 @@ export default function ProRegisterPage() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label htmlFor="firstName" className="label">
-              First name
+              First Name
             </label>
             <input
               id="firstName"
@@ -163,10 +162,9 @@ export default function ProRegisterPage() {
               placeholder="John"
             />
           </div>
-
           <div>
             <label htmlFor="lastName" className="label">
-              Last name
+              Last Name
             </label>
             <input
               id="lastName"
@@ -197,26 +195,6 @@ export default function ProRegisterPage() {
             className="input"
             placeholder="you@example.com"
           />
-        </div>
-
-        <div>
-          <label htmlFor="phone" className="label">
-            Phone number <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            required
-            value={formData.phone}
-            onChange={handleChange}
-            className="input"
-            placeholder="+971 50 123 4567"
-          />
-          <p className="mt-1 text-xs text-neutral-500">
-            Your phone number will be shared with homeowners when you respond to leads
-          </p>
         </div>
 
         <div>
@@ -283,7 +261,7 @@ export default function ProRegisterPage() {
             </div>
             <div className="ml-3">
               <p className="text-sm text-blue-800">
-                <strong>Next step:</strong> After registration, complete your pro profile to start receiving leads and connecting with homeowners.
+                <strong>Next step:</strong> After registration, you'll complete your profile with your name, phone number, and business details to start receiving leads.
               </p>
             </div>
           </div>

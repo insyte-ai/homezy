@@ -150,8 +150,8 @@ export const calculateCost = async (
   const userVerificationStatus = req.user?.proProfile?.verificationStatus;
   const effectiveVerificationStatus =
     verificationStatus ||
-    (userVerificationStatus === 'rejected' ? 'unverified' : userVerificationStatus) ||
-    'unverified';
+    (userVerificationStatus === 'rejected' ? 'pending' : userVerificationStatus) ||
+    'pending';
 
   const cost = creditService.calculateCreditCost({
     budgetBracket,

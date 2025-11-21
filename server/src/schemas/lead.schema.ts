@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BUDGET_BRACKETS, URGENCY_LEVELS, EMIRATES, SERVICE_CATEGORIES } from '@homezy/shared';
+import { BUDGET_BRACKETS, URGENCY_LEVELS, EMIRATES } from '@homezy/shared';
 
 /**
  * Enums for lead validation
@@ -7,12 +7,12 @@ import { BUDGET_BRACKETS, URGENCY_LEVELS, EMIRATES, SERVICE_CATEGORIES } from '@
 const budgetBracketIds = BUDGET_BRACKETS.map(b => b.id);
 const urgencyLevelIds = URGENCY_LEVELS.map(u => u.id);
 const emirateIds = EMIRATES.map(e => e.id);
-const categoryIds = SERVICE_CATEGORIES.map(c => c.id);
 
 export const budgetBracketEnum = z.enum(budgetBracketIds as [string, ...string[]]);
 export const urgencyEnum = z.enum(urgencyLevelIds as [string, ...string[]]);
 export const emirateEnum = z.enum(emirateIds as [string, ...string[]]);
-export const categoryEnum = z.enum(categoryIds as [string, ...string[]]);
+// Category validation is done against database in controller
+export const categorySchema = z.string().min(1, 'Category is required');
 export const leadStatusEnum = z.enum(['open', 'full', 'quoted', 'accepted', 'expired', 'cancelled']);
 
 /**
@@ -77,7 +77,7 @@ export const createLeadSchema = z.object({
   description: z.string()
     .min(20, 'Description must be at least 20 characters')
     .max(2000, 'Description must be at most 2000 characters'),
-  category: categoryEnum,
+  category: categorySchema,
   location: locationSchema,
   budgetBracket: budgetBracketEnum,
   urgency: urgencyEnum,
@@ -103,7 +103,7 @@ export const updateLeadSchema = z.object({
     .min(20, 'Description must be at least 20 characters')
     .max(2000, 'Description must be at most 2000 characters')
     .optional(),
-  category: categoryEnum.optional(),
+  category: categorySchema.optional(),
   location: locationSchema.optional(),
   budgetBracket: budgetBracketEnum.optional(),
   urgency: urgencyEnum.optional(),
@@ -119,7 +119,7 @@ export type UpdateLeadInput = z.infer<typeof updateLeadSchema>;
  */
 export const getLeadsSchema = z.object({
   // Filters
-  category: categoryEnum.optional(),
+  category: categorySchema.optional(),
   emirate: emirateEnum.optional(),
   budgetBracket: budgetBracketEnum.optional(),
   urgency: urgencyEnum.optional(),
@@ -219,7 +219,7 @@ export const createDirectLeadSchema = z.object({
   description: z.string()
     .min(20, 'Description must be at least 20 characters')
     .max(2000, 'Description must be at most 2000 characters'),
-  category: categoryEnum,
+  category: categorySchema,
   location: locationSchema,
   budgetBracket: budgetBracketEnum,
   urgency: urgencyEnum,

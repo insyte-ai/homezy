@@ -1,4 +1,7 @@
-import type { UserRole, EmirateId, ServiceCategoryId } from '../constants';
+import type { UserRole, EmirateId } from '../constants';
+
+// Service category IDs are loaded from the database
+export type ServiceCategoryId = string;
 
 export interface User {
   id: string;
@@ -9,6 +12,7 @@ export interface User {
   role: UserRole;
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
+  proOnboardingCompleted: boolean;
   profilePhoto?: string;
   googleId?: string;
   authProvider: 'local' | 'google';
@@ -37,7 +41,7 @@ export interface ProProfile {
   languages?: string[];
 
   // Verification
-  verificationStatus: 'unverified' | 'pending' | 'basic' | 'comprehensive' | 'rejected';
+  verificationStatus: 'pending' | 'approved' | 'rejected';
   verificationDocuments?: VerificationDocument[];
 
   // Portfolio
@@ -70,7 +74,7 @@ export interface ServiceArea {
 }
 
 export interface VerificationDocument {
-  type: 'license' | 'insurance' | 'id' | 'portfolio' | 'reference';
+  type: 'license' | 'vat' | 'insurance' | 'id' | 'portfolio' | 'reference';
   url: string;
   status: 'pending' | 'approved' | 'rejected';
   uploadedAt: Date;

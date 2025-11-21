@@ -37,7 +37,7 @@ async function testCreditSystem() {
       console.log(`Found unverified professional: ${professional.email}`);
       console.log('Updating verification status for testing...\n');
 
-      professional.proProfile!.verificationStatus = 'basic';
+      professional.proProfile!.verificationStatus = 'approved';
       await professional.save();
     }
 

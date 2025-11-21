@@ -87,6 +87,101 @@ const saveToLocalStorage = async (
 };
 
 /**
+ * Upload document (PDF or image) to Cloudinary or local filesystem
+ */
+export const uploadDocument = async (
+  buffer: Buffer,
+  folder: string,
+  mimeType: string
+): Promise<string> => {
+  try {
+    // For local development, save to local filesystem
+    if (process.env.NODE_ENV === 'development' && !process.env.CLOUDINARY_URL) {
+      return await saveDocumentToLocalStorage(buffer, folder, mimeType);
+    }
+
+    // For production, upload to Cloudinary
+    return new Promise((resolve, reject) => {
+      const resourceType = mimeType === 'application/pdf' ? 'raw' : 'image';
+      const uploadOptions: any = {
+        folder: `homezy/${folder}`,
+        resource_type: resourceType,
+      };
+
+      // Only add transformations for images, not PDFs
+      if (resourceType === 'image') {
+        uploadOptions.transformation = [
+          { width: 1200, height: 1200, crop: 'limit' },
+          { quality: 'auto' },
+          { format: 'auto' },
+        ];
+      }
+
+      const uploadStream = cloudinary.uploader.upload_stream(
+        uploadOptions,
+        (error: any, result: any) => {
+          if (error) {
+            reject(error);
+          } else if (result) {
+            resolve(result.secure_url);
+          }
+        }
+      );
+
+      uploadStream.end(buffer);
+    });
+  } catch (error) {
+    console.error('Error uploading document:', error);
+    throw new Error('Failed to upload file');
+  }
+};
+
+/**
+ * Save document to local storage for development
+ */
+const saveDocumentToLocalStorage = async (
+  buffer: Buffer,
+  folder: string,
+  mimeType: string
+): Promise<string> => {
+  try {
+    const uploadsDir = path.join(process.cwd(), 'uploads', folder);
+    await fs.mkdir(uploadsDir, { recursive: true });
+
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substring(7);
+    const extension = mimeType === 'application/pdf' ? 'pdf' : 'jpg';
+    const filename = `${timestamp}-${randomString}.${extension}`;
+    const filepath = path.join(uploadsDir, filename);
+
+    // Process images with sharp, save PDFs as-is
+    if (mimeType === 'application/pdf') {
+      await fs.writeFile(filepath, buffer);
+    } else {
+      const processedBuffer = await sharp(buffer)
+        .flatten({ background: '#ffffff' })
+        .resize(1200, 1200, {
+          fit: 'inside',
+          withoutEnlargement: true,
+          background: '#ffffff',
+        })
+        .jpeg({ quality: 85 })
+        .toBuffer();
+
+      await fs.writeFile(filepath, processedBuffer);
+    }
+
+    // Return a URL that can be served by the backend
+    const port = process.env.PORT || 5001;
+    const baseUrl = process.env.BASE_URL || `http://localhost:${port}`;
+    return `${baseUrl}/uploads/${folder}/${filename}`;
+  } catch (error) {
+    console.error('Error saving to local storage:', error);
+    throw new Error('Failed to save file locally');
+  }
+};
+
+/**
  * Delete image from Cloudinary or local filesystem
  */
 export const deleteImage = async (url: string): Promise<void> => {

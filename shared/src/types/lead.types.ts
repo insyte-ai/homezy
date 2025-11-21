@@ -1,11 +1,11 @@
 import type {
-  ServiceCategoryId,
   EmirateId,
   BudgetBracketId,
   UrgencyLevel,
   LeadStatus,
   QuoteStatus,
 } from '../constants';
+import type { ServiceCategoryId } from './user.types';
 
 export interface ServiceAnswers {
   serviceId: string;

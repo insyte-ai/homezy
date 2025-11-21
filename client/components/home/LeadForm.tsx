@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { SERVICE_CATEGORIES, EMIRATES, BUDGET_BRACKETS, URGENCY_LEVELS } from '@homezy/shared';
+import { useState, useEffect } from 'react';
+import { EMIRATES, BUDGET_BRACKETS, URGENCY_LEVELS } from '@homezy/shared';
 import { X, MapPin, DollarSign, Clock, FileText } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { createLead } from '@/lib/services/leads';
+import { getAllSubservices, SubService } from '@/lib/services/serviceData';
 
 interface LeadFormProps {
   selectedServiceId?: string;
@@ -17,8 +18,28 @@ export function LeadForm({ selectedServiceId, onClose }: LeadFormProps) {
   const router = useRouter();
   const { isAuthenticated } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serviceCategories, setServiceCategories] = useState<SubService[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
-  const selectedService = SERVICE_CATEGORIES.find((s) => s.id === selectedServiceId);
+  const selectedService = serviceCategories.find((s) => s.id === selectedServiceId);
+
+  // Fetch service categories from database
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoadingCategories(true);
+        const subservices = await getAllSubservices();
+        setServiceCategories(subservices);
+      } catch (err) {
+        console.error('Failed to load service categories:', err);
+        toast.error('Failed to load service categories');
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -125,11 +146,12 @@ export function LeadForm({ selectedServiceId, onClose }: LeadFormProps) {
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
               className="input"
               required
+              disabled={loadingCategories}
             >
-              <option value="">Select a service</option>
-              {SERVICE_CATEGORIES.map((service) => (
+              <option value="">{loadingCategories ? 'Loading services...' : 'Select a service'}</option>
+              {serviceCategories.map((service) => (
                 <option key={service.id} value={service.id}>
-                  {service.icon} {service.name}
+                  {service.icon && `${service.icon} `}{service.name}
                 </option>
               ))}
             </select>

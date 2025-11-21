@@ -66,8 +66,7 @@ export default function ProfessionalsPage() {
   const getVerificationBadge = (status: string) => {
     const badges = {
       pending: 'bg-yellow-100 text-yellow-800',
-      basic: 'bg-blue-100 text-blue-800',
-      comprehensive: 'bg-green-100 text-green-800',
+      approved: 'bg-green-100 text-green-800',
       rejected: 'bg-red-100 text-red-800',
     };
     return badges[status as keyof typeof badges] || 'bg-gray-100 text-gray-800';
@@ -154,21 +153,6 @@ export default function ProfessionalsPage() {
       ),
     },
     {
-      key: 'isActive',
-      header: 'Status',
-      render: (item) => (
-        <span
-          className={`px-2 py-1 text-xs font-medium rounded-full ${
-            item.isActive
-              ? 'bg-green-100 text-green-800'
-              : 'bg-gray-100 text-gray-800'
-          }`}
-        >
-          {item.isActive ? 'Active' : 'Inactive'}
-        </span>
-      ),
-    },
-    {
       key: 'createdAt',
       header: 'Registered',
       render: (item) => (
@@ -217,8 +201,7 @@ export default function ProfessionalsPage() {
           >
             <option value="">All Verification</option>
             <option value="pending">Pending</option>
-            <option value="basic">Basic</option>
-            <option value="comprehensive">Comprehensive</option>
+            <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
           </select>
 
@@ -248,9 +231,9 @@ export default function ProfessionalsPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="text-sm text-gray-600">Total</div>
+          <div className="text-sm text-gray-600">Total Professionals</div>
           <div className="text-2xl font-bold text-gray-900">{pagination.total}</div>
         </div>
         <div className="bg-white rounded-lg border border-gray-200 p-4">
@@ -260,15 +243,9 @@ export default function ProfessionalsPage() {
           </div>
         </div>
         <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="text-sm text-gray-600">Active</div>
+          <div className="text-sm text-gray-600">Approved</div>
           <div className="text-2xl font-bold text-green-600">
-            {professionals.filter((p) => p.isActive).length}
-          </div>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="text-sm text-gray-600">Comprehensive</div>
-          <div className="text-2xl font-bold text-blue-600">
-            {professionals.filter((p) => p.verificationStatus === 'comprehensive').length}
+            {professionals.filter((p) => p.verificationStatus === 'approved').length}
           </div>
         </div>
       </div>

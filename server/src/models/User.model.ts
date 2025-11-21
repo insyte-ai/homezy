@@ -22,6 +22,7 @@ export interface IUser extends Omit<UserType, 'id' | 'createdAt' | 'updatedAt'>,
   magicLinkExpiry?: Date;
   hasSetPassword: boolean;
   isGuestAccount: boolean;
+  proOnboardingCompleted: boolean;
   comparePassword(candidatePassword: string): Promise<boolean>;
   incrementRefreshTokenVersion(): Promise<void>;
   generateMagicLinkToken(): Promise<string>;
@@ -88,7 +89,7 @@ const PortfolioItemSchema = new Schema<PortfolioItem>({
 const VerificationDocumentSchema = new Schema<VerificationDocument>({
   type: {
     type: String,
-    enum: ['license', 'insurance', 'id', 'portfolio', 'reference'],
+    enum: ['license', 'vat', 'insurance', 'id', 'portfolio', 'reference'],
     required: true,
   },
   url: { type: String, required: true },
@@ -130,8 +131,8 @@ const ProProfileSchema = new Schema<ProProfile>({
   // Verification
   verificationStatus: {
     type: String,
-    enum: ['unverified', 'pending', 'basic', 'comprehensive', 'rejected'],
-    default: 'unverified',
+    enum: ['pending', 'approved', 'rejected'],
+    default: 'pending',
   },
   verificationDocuments: { type: [VerificationDocumentSchema], default: [] },
 
@@ -162,6 +163,8 @@ const ProProfileSchema = new Schema<ProProfile>({
       return this.verificationStatus && this.verificationStatus !== 'unverified';
     },
   },
+  tradeLicenseNumber: String,
+  vatNumber: String,
 }, { _id: false });
 
 const SavedSearchSchema = new Schema<SavedSearch>({
@@ -231,12 +234,12 @@ const UserSchema = new Schema<IUser>(
     },
     firstName: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     lastName: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     phone: {
@@ -262,6 +265,10 @@ const UserSchema = new Schema<IUser>(
       default: false,
     },
     hasSetPassword: {
+      type: Boolean,
+      default: false,
+    },
+    proOnboardingCompleted: {
       type: Boolean,
       default: false,
     },
