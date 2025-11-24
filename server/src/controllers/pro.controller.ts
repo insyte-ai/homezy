@@ -709,10 +709,10 @@ export const searchPros = async (
       sort = '-rating',
     } = req.query;
 
-    // Build query - only show verified pros (basic or comprehensive)
+    // Build query - only show verified pros
     const query: any = {
       role: 'pro',
-      'proProfile.verificationStatus': { $in: ['basic', 'comprehensive'] },
+      'proProfile.verificationStatus': 'approved',
     };
 
     if (category) {
@@ -751,20 +751,27 @@ export const searchPros = async (
     res.status(200).json({
       success: true,
       data: {
-        pros: pros.map((pro) => ({
+        professionals: pros.map((pro) => ({
           id: pro._id,
-          firstName: pro.firstName,
-          lastName: pro.lastName,
-          profilePhoto: pro.profilePhoto,
           businessName: pro.proProfile?.businessName,
-          tagline: pro.proProfile?.tagline,
-          categories: pro.proProfile?.categories,
-          serviceAreas: pro.proProfile?.serviceAreas,
-          verificationStatus: pro.proProfile?.verificationStatus,
-          rating: pro.proProfile?.rating,
-          reviewCount: pro.proProfile?.reviewCount,
-          responseTimeHours: pro.proProfile?.responseTimeHours,
-          quoteAcceptanceRate: pro.proProfile?.quoteAcceptanceRate,
+          slug: pro.proProfile?.slug,
+          profilePhoto: pro.profilePhoto,
+          proProfile: {
+            businessName: pro.proProfile?.businessName,
+            slug: pro.proProfile?.slug,
+            tagline: pro.proProfile?.tagline,
+            categories: pro.proProfile?.categories,
+            serviceAreas: pro.proProfile?.serviceAreas,
+            verificationStatus: pro.proProfile?.verificationStatus,
+            rating: pro.proProfile?.rating || 0,
+            reviewCount: pro.proProfile?.reviewCount || 0,
+            projectsCompleted: pro.proProfile?.projectsCompleted || 0,
+            responseTimeHours: pro.proProfile?.responseTimeHours || 0,
+            quoteAcceptanceRate: pro.proProfile?.quoteAcceptanceRate || 0,
+            yearsInBusiness: pro.proProfile?.yearsInBusiness,
+            hourlyRateMin: pro.proProfile?.hourlyRateMin,
+            hourlyRateMax: pro.proProfile?.hourlyRateMax,
+          },
         })),
         pagination: {
           page: pageNum,

@@ -117,6 +117,12 @@ export function PublicHeader() {
               <div className="flex items-center space-x-8">
                 <ServicesDropdown />
                 <Link
+                  href="/pros"
+                  className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+                >
+                  Browse Professionals
+                </Link>
+                <Link
                   href="/lead-marketplace"
                   className="text-sm text-gray-600 hover:text-gray-900 font-medium"
                 >

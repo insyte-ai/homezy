@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import {
@@ -19,11 +20,15 @@ import {
   Award,
   Shield,
   ExternalLink,
+  ArrowLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { getPublicProfile } from '@/lib/services/professional';
 import { VerificationBadges } from '@/components/pro/VerificationBadges';
 import { ProfileStats } from '@/components/pro/ProfileStats';
-import { DirectLeadModal } from '@/components/lead-form/DirectLeadModal';
+import { MultiStepLeadForm } from '@/components/lead-form/MultiStepLeadForm';
+import { PublicHeader } from '@/components/layout/PublicHeader';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 import toast from 'react-hot-toast';
 
 export default function PublicProfilePage() {
@@ -34,7 +39,7 @@ export default function PublicProfilePage() {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
   const [activeSection, setActiveSection] = useState('about');
-  const [showDirectLeadModal, setShowDirectLeadModal] = useState(false);
+  const [showLeadForm, setShowLeadForm] = useState(false);
 
   useEffect(() => {
     fetchProfile();
@@ -45,7 +50,7 @@ export default function PublicProfilePage() {
       setLoading(true);
       const data = await getPublicProfile(id);
       setProfile(data.professional);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to load profile:', error);
       toast.error('Failed to load professional profile');
       // Redirect to 404 or professionals search page
@@ -75,13 +80,14 @@ export default function PublicProfilePage() {
   };
 
   const handleRequestQuote = () => {
-    setShowDirectLeadModal(true);
+    setShowLeadForm(true);
   };
 
   // Generate SEO metadata
   const generateSEO = () => {
-    if (!profile || !proProfile) return null;
+    if (!profile || !profile.proProfile) return null;
 
+    const proProfile = profile.proProfile;
     const primaryEmirate = proProfile.serviceAreas?.[0]?.emirate || 'UAE';
     const primaryCategory = proProfile.categories?.[0] || 'Home Services';
     const title = `${profile.businessName} - ${primaryCategory} in ${primaryEmirate} | Homezy`;
@@ -109,8 +115,9 @@ export default function PublicProfilePage() {
 
   // Generate structured data (JSON-LD)
   const generateStructuredData = () => {
-    if (!profile || !proProfile) return null;
+    if (!profile || !profile.proProfile) return null;
 
+    const proProfile = profile.proProfile;
     const primaryEmirate = proProfile.serviceAreas?.[0]?.emirate || '';
     const structuredData = {
       '@context': 'https://schema.org',
@@ -182,7 +189,9 @@ export default function PublicProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <>
+        <PublicHeader />
+        <div className="min-h-screen bg-gray-50">
         {/* Loading Skeleton */}
         <div className="bg-white border-b border-gray-200">
           <div className="container-custom py-8">
@@ -208,12 +217,22 @@ export default function PublicProfilePage() {
             <div className="h-4 bg-gray-200 rounded w-4/6"></div>
           </div>
         </div>
-      </div>
+        </div>
+        <PublicFooter />
+      </>
     );
   }
 
   if (!profile) {
-    return null;
+    return (
+      <>
+        <PublicHeader />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <p className="text-gray-600">Professional not found</p>
+        </div>
+        <PublicFooter />
+      </>
+    );
   }
 
   const { proProfile } = profile;
@@ -263,6 +282,31 @@ export default function PublicProfilePage() {
           }}
         />
       )}
+
+      <PublicHeader />
+
+      {/* Breadcrumb Navigation */}
+      <div className="bg-white border-b border-gray-100">
+        <div className="container-custom py-3">
+          <nav className="flex items-center gap-2 text-sm">
+            <Link
+              href="/"
+              className="text-gray-600 hover:text-gray-900 transition"
+            >
+              Home
+            </Link>
+            <ChevronRight className="h-4 w-4 text-gray-400" />
+            <Link
+              href="/pros"
+              className="text-gray-600 hover:text-gray-900 transition"
+            >
+              Browse Professionals
+            </Link>
+            <ChevronRight className="h-4 w-4 text-gray-400" />
+            <span className="text-gray-900 font-medium">{profile.businessName}</span>
+          </nav>
+        </div>
+      </div>
 
       <div className="min-h-screen bg-gray-50">
         {/* Header Section */}
@@ -661,14 +705,17 @@ export default function PublicProfilePage() {
       </div>
     </div>
 
-    {/* Direct Lead Modal */}
-    <DirectLeadModal
-      isOpen={showDirectLeadModal}
-      onClose={() => setShowDirectLeadModal(false)}
-      professionalId={id}
-      professionalName={profile.businessName}
-      categories={proProfile.categories}
-    />
+    {/* Direct Lead Form */}
+    {showLeadForm && (
+      <MultiStepLeadForm
+        serviceId={proProfile.categories?.[0] || 'general contracting'}
+        onClose={() => setShowLeadForm(false)}
+        professionalId={id}
+        professionalName={profile.businessName}
+        professionalPhoto={profile.profilePhoto}
+      />
+    )}
+    <PublicFooter />
     </>
   );
 }

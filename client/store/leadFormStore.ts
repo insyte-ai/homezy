@@ -26,6 +26,9 @@ interface LeadFormState {
   urgency: string;
   timeline: string;
 
+  // Direct lead context (optional - for sending to specific professional)
+  targetProfessionalId: string | null;
+
   // Contact info (for guest signup)
   email: string;
   name: string;
@@ -38,6 +41,7 @@ interface LeadFormState {
   // Actions
   setServiceId: (serviceId: string) => void;
   setQuestionnaire: (questionnaire: ServiceQuestionnaire) => void;
+  setTargetProfessionalId: (professionalId: string | null) => void;
   nextStep: () => void;
   previousStep: () => void;
   goToStep: (step: number) => void;
@@ -79,6 +83,7 @@ const initialState = {
   budgetBracket: '',
   urgency: '',
   timeline: '',
+  targetProfessionalId: null,
   email: '',
   name: '',
   phone: '',
@@ -118,6 +123,8 @@ export const useLeadFormStore = create<LeadFormState>()(
       },
 
       setQuestionnaire: (questionnaire) => set({ questionnaire }),
+
+      setTargetProfessionalId: (professionalId) => set({ targetProfessionalId: professionalId }),
 
       nextStep: () => {
         const { currentStep, getTotalSteps, validateCurrentStep } = get();
@@ -308,6 +315,7 @@ export const useLeadFormStore = create<LeadFormState>()(
         budgetBracket: state.budgetBracket,
         urgency: state.urgency,
         timeline: state.timeline,
+        targetProfessionalId: state.targetProfessionalId,
         email: state.email,
         name: state.name,
         phone: state.phone,

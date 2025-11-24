@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { connectDatabase, disconnectDatabase } from '../config/database';
 import { logger } from '../utils/logger';
 import { seedAdmins } from './adminSeeder';
+import { seedProfessionals } from './professionalSeeder';
 
 // Load environment variables
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
@@ -37,19 +38,18 @@ const runAllSeeders = async (): Promise<void> => {
       hasErrors = true;
     }
 
-    // Add more seeders here as they are created
-    // Example:
-    // try {
-    //   logger.info('\n' + '━'.repeat(60));
-    //   logger.info('STEP 2: Seeding Service Categories');
-    //   logger.info('━'.repeat(60));
-    //   const categoryResult = await seedCategories();
-    //   results.push({ name: 'Service Categories', ...categoryResult });
-    // } catch (error: any) {
-    //   logger.error('❌ Category seeder failed:', error.message);
-    //   results.push({ name: 'Service Categories', created: 0, skipped: 0, error: error.message });
-    //   hasErrors = true;
-    // }
+    // Seeder 2: Professional Users
+    try {
+      logger.info('\n' + '━'.repeat(60));
+      logger.info('STEP 2: Seeding Professional Users');
+      logger.info('━'.repeat(60));
+      const proResult = await seedProfessionals();
+      results.push({ name: 'Professional Users', ...proResult });
+    } catch (error: any) {
+      logger.error('❌ Professional seeder failed:', error.message);
+      results.push({ name: 'Professional Users', created: 0, skipped: 0, error: error.message });
+      hasErrors = true;
+    }
 
     // Display summary
     logger.info('\n\n' + '='.repeat(60));

@@ -14,25 +14,34 @@ import { ServiceQuestionsStep } from './ServiceQuestionsStep';
 import { CommonFieldsStep } from './CommonFieldsStep';
 import { PhotoUploadStep } from './PhotoUploadStep';
 import { ContactInfoStep } from './ContactInfoStep';
-import { ArrowLeft, ArrowRight, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, X, Send } from 'lucide-react';
 
 interface MultiStepLeadFormProps {
   serviceId: string;
   onClose: () => void;
   onSubmit?: () => void;
+  // For direct leads to a specific professional
+  professionalId?: string;
+  professionalName?: string;
+  professionalPhoto?: string;
 }
 
 export function MultiStepLeadForm({
   serviceId,
   onClose,
   onSubmit,
+  professionalId,
+  professionalName,
+  professionalPhoto,
 }: MultiStepLeadFormProps) {
+  const isDirectLead = !!professionalId;
   const {
     currentStep,
     questionnaire,
     isSubmitting,
     setServiceId,
     setQuestionnaire,
+    setTargetProfessionalId,
     nextStep,
     previousStep,
     validateCurrentStep,
@@ -46,13 +55,14 @@ export function MultiStepLeadForm({
   // Skip contact step for authenticated users
   const skipContactStep = isAuthenticated;
 
-  // Load questionnaire on mount
+  // Load questionnaire and set professional context on mount
   useEffect(() => {
     setServiceId(serviceId);
+    setTargetProfessionalId(professionalId || null);
     loadQuestionnaire(serviceId).then((q) => {
       setQuestionnaire(q);
     });
-  }, [serviceId]);
+  }, [serviceId, professionalId]);
 
   if (!questionnaire) {
     return (
@@ -153,6 +163,32 @@ export function MultiStepLeadForm({
             />
           </div>
         </div>
+
+        {/* Direct Lead Banner */}
+        {isDirectLead && professionalName && (
+          <div className="border-b border-gray-200 bg-primary-50 px-6 py-4">
+            <div className="flex items-center gap-3 max-w-2xl mx-auto">
+              {professionalPhoto && (
+                <img
+                  src={professionalPhoto}
+                  alt={professionalName}
+                  className="h-12 w-12 rounded-full object-cover border-2 border-primary-200"
+                />
+              )}
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <Send className="h-4 w-4 text-primary-600" />
+                  <p className="text-sm font-semibold text-gray-900">
+                    Sending direct request to
+                  </p>
+                </div>
+                <p className="text-base font-bold text-primary-700">
+                  {professionalName}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Main content */}
         <div className="flex-1 overflow-y-auto p-6">

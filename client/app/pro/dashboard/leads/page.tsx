@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getMyClaims, Lead } from '@/lib/services/leads';
+import { getMyClaims, Lead, getMyDirectLeads } from '@/lib/services/leads';
 import {
   Search,
   MessageSquare,
@@ -11,10 +11,17 @@ import {
   DollarSign,
   Trophy,
   AlertCircle,
+  Inbox,
+  Users,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { DirectRequestsPanel } from '@/components/professional/DirectRequestsPanel';
+
+type TabType = 'claimed' | 'direct';
 
 export default function MyClaimedLeads() {
+  const [activeTab, setActiveTab] = useState<TabType>('direct');
+  const [directLeadsCount, setDirectLeadsCount] = useState(0);
   const router = useRouter();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +32,17 @@ export default function MyClaimedLeads() {
 
   useEffect(() => {
     fetchLeads();
+    fetchDirectLeadsCount();
   }, [page]);
+
+  const fetchDirectLeadsCount = async () => {
+    try {
+      const data = await getMyDirectLeads({ status: 'pending' });
+      setDirectLeadsCount(data.total || 0);
+    } catch (error) {
+      console.error('Failed to load direct leads count:', error);
+    }
+  };
 
   const fetchLeads = async () => {
     try {
@@ -36,9 +53,12 @@ export default function MyClaimedLeads() {
       });
       setLeads(data.leads || []);
       setTotalPages(data.pagination?.pages || 1);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to load claimed leads:', error);
-      toast.error(error.response?.data?.message || 'Failed to load claimed leads');
+      const message = error instanceof Error && 'response' in error
+        ? ((error as any).response?.data?.message || 'Failed to load claimed leads')
+        : 'Failed to load claimed leads';
+      toast.error(message);
       setLeads([]);
     } finally {
       setLoading(false);
@@ -115,70 +135,112 @@ export default function MyClaimedLeads() {
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-8 py-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              My Claimed Leads
+              My Leads
             </h1>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              Leads you've claimed - ready to quote
+              Manage direct requests and claimed leads
             </p>
           </div>
         </div>
+
+        {/* Tabs */}
+        <div className="flex gap-2 border-b border-gray-200 -mb-px">
+          <button
+            onClick={() => setActiveTab('direct')}
+            className={`px-4 py-2 font-medium text-sm transition-colors relative ${
+              activeTab === 'direct'
+                ? 'text-primary-600 border-b-2 border-primary-600'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Inbox className="h-4 w-4" />
+              <span>Direct Requests</span>
+              {directLeadsCount > 0 && (
+                <span className="bg-primary-600 text-white text-xs px-2 py-0.5 rounded-full">
+                  {directLeadsCount}
+                </span>
+              )}
+            </div>
+          </button>
+          <button
+            onClick={() => setActiveTab('claimed')}
+            className={`px-4 py-2 font-medium text-sm transition-colors relative ${
+              activeTab === 'claimed'
+                ? 'text-primary-600 border-b-2 border-primary-600'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              <span>Claimed Leads</span>
+            </div>
+          </button>
+        </div>
       </div>
 
-      {/* Stats Cards */}
-      <div className="px-8 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Active Leads</p>
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  {stats.active}
-                </p>
+      {/* Tab Content */}
+      {activeTab === 'direct' ? (
+        <div className="px-8 py-6">
+          <DirectRequestsPanel />
+        </div>
+      ) : (
+        <>
+          {/* Stats Cards */}
+          <div className="px-8 py-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Active Leads</p>
+                    <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                      {stats.active}
+                    </p>
+                  </div>
+                  <MessageSquare className="h-8 w-8 text-green-600 dark:text-green-400" />
+                </div>
               </div>
-              <MessageSquare className="h-8 w-8 text-green-600 dark:text-green-400" />
-            </div>
-          </div>
 
-          <div className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 p-4 rounded-lg border-2 border-yellow-400 dark:border-yellow-600 shadow-md">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">
-                  Leads Won! 🎉
-                </p>
-                <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
-                  {stats.accepted}
-                </p>
+              <div className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 p-4 rounded-lg border-2 border-yellow-400 dark:border-yellow-600 shadow-md">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">
+                      Leads Won! 🎉
+                    </p>
+                    <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+                      {stats.accepted}
+                    </p>
+                  </div>
+                  <Trophy className="h-8 w-8 text-yellow-500 dark:text-yellow-400" />
+                </div>
               </div>
-              <Trophy className="h-8 w-8 text-yellow-500 dark:text-yellow-400" />
-            </div>
-          </div>
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Total Claimed</p>
-                <p className="text-2xl font-bold text-primary-600 dark:text-primary-400">
-                  {stats.totalClaimed}
-                </p>
+              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Total Claimed</p>
+                    <p className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+                      {stats.totalClaimed}
+                    </p>
+                  </div>
+                  <FileText className="h-8 w-8 text-primary-600 dark:text-primary-400" />
+                </div>
               </div>
-              <FileText className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-            </div>
-          </div>
 
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Active Value</p>
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  AED {stats.totalValue.toLocaleString()}
-                </p>
+              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Active Value</p>
+                    <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                      AED {stats.totalValue.toLocaleString()}
+                    </p>
+                  </div>
+                  <DollarSign className="h-8 w-8 text-green-600 dark:text-green-400" />
+                </div>
               </div>
-              <DollarSign className="h-8 w-8 text-green-600 dark:text-green-400" />
-            </div>
-          </div>
         </div>
       </div>
 
@@ -413,6 +475,8 @@ export default function MyClaimedLeads() {
           </>
         )}
       </div>
+        </>
+      )}
     </div>
   );
 }

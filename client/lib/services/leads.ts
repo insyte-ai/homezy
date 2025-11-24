@@ -170,6 +170,20 @@ export const createLead = async (input: CreateLeadInput): Promise<Lead> => {
 };
 
 /**
+ * Create a direct lead (sent to specific professional)
+ */
+export const createDirectLead = async (
+  professionalId: string,
+  input: CreateLeadInput
+): Promise<Lead> => {
+  const response = await api.post<LeadResponse>('/leads/direct', {
+    professionalId,
+    ...input,
+  });
+  return response.data.data.lead;
+};
+
+/**
  * Get my leads (homeowner view)
  */
 export const getMyLeads = async (params?: {
@@ -249,8 +263,60 @@ export const calculateCreditCost = async (leadId: string): Promise<{
   return response.data.data;
 };
 
+/**
+ * Get my direct leads (professional view)
+ * Direct leads are sent specifically to this professional
+ */
+export const getMyDirectLeads = async (params?: {
+  status?: 'pending' | 'accepted' | 'declined' | 'converted';
+}): Promise<{ leads: Lead[]; total: number }> => {
+  const response = await api.get<{
+    success: boolean;
+    data: { leads: Lead[]; total: number };
+  }>('/leads/my-direct-leads', { params });
+  return response.data.data;
+};
+
+/**
+ * Accept a direct lead
+ * Deducts credits and claims the lead
+ */
+export const acceptDirectLead = async (leadId: string): Promise<{
+  lead: Lead;
+  claim: LeadClaim;
+  creditsDeducted: number;
+}> => {
+  const response = await api.post<{
+    success: boolean;
+    message: string;
+    data: {
+      lead: Lead;
+      claim: LeadClaim;
+      creditsDeducted: number;
+    };
+  }>(`/leads/${leadId}/accept-direct`);
+  return response.data.data;
+};
+
+/**
+ * Decline a direct lead
+ * Converts it to a public marketplace lead
+ */
+export const declineDirectLead = async (
+  leadId: string,
+  reason?: string
+): Promise<Lead> => {
+  const response = await api.post<{
+    success: boolean;
+    message: string;
+    data: { lead: Lead };
+  }>(`/leads/${leadId}/decline-direct`, { reason });
+  return response.data.data.lead;
+};
+
 export default {
   createLead,
+  createDirectLead,
   getMyLeads,
   getLeadById,
   cancelLead,
@@ -258,4 +324,7 @@ export default {
   claimLead,
   getMyClaims,
   calculateCreditCost,
+  getMyDirectLeads,
+  acceptDirectLead,
+  declineDirectLead,
 };

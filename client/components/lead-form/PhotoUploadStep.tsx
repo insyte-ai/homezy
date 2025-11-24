@@ -8,7 +8,7 @@
 import { useState } from 'react';
 import { useLeadFormStore } from '@/store/leadFormStore';
 import { useAuthStore } from '@/store/authStore';
-import { createLead } from '@/lib/services/leads';
+import { createLead, createDirectLead } from '@/lib/services/leads';
 import { Upload, X, Camera, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -34,6 +34,7 @@ export function PhotoUploadStep({ onAutoSubmit }: PhotoUploadStepProps) {
     urgency,
     timeline,
     selectedServiceId,
+    targetProfessionalId,
     getServiceAnswers,
     setSubmitting,
     reset,
@@ -110,8 +111,7 @@ export function PhotoUploadStep({ onAutoSubmit }: PhotoUploadStepProps) {
     setSubmitting(true);
 
     try {
-      // Create the lead
-      const lead = await createLead({
+      const leadInput = {
         title,
         description,
         category: selectedServiceId!,
@@ -124,16 +124,33 @@ export function PhotoUploadStep({ onAutoSubmit }: PhotoUploadStepProps) {
         timeline: timeline || undefined,
         photos,
         serviceAnswers: getServiceAnswers() || undefined,
-      });
+      };
 
-      // Store lead info to show matching professionals
-      setCreatedLead({
-        leadId: lead._id,
-        serviceCategory: selectedServiceId!,
-        emirate,
-      });
+      // Check if this is a direct lead or indirect lead
+      const isDirectLead = !!targetProfessionalId;
 
-      toast.success('Request created successfully!');
+      let lead;
+      if (isDirectLead) {
+        // Create direct lead (sent to specific professional)
+        lead = await createDirectLead(targetProfessionalId!, leadInput);
+        toast.success('Direct request sent successfully!');
+
+        // For direct leads, just reset and close the modal
+        reset();
+        onAutoSubmit?.();
+      } else {
+        // Create indirect lead (goes to marketplace)
+        lead = await createLead(leadInput);
+
+        // Store lead info to show matching professionals
+        setCreatedLead({
+          leadId: lead._id,
+          serviceCategory: selectedServiceId!,
+          emirate,
+        });
+
+        toast.success('Request created successfully!');
+      }
     } catch (error: any) {
       console.error('Failed to create lead:', error);
       toast.error(
