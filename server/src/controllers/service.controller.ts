@@ -39,7 +39,7 @@ export const getAllSubservices = async (req: Request, res: Response) => {
             slug: subservice.slug,
             category: category.name,
             group: group.name,
-            icon: category.icon,
+            icon: subservice.icon || category.icon,
           });
         });
       });
@@ -115,7 +115,7 @@ export const searchServices = async (req: Request, res: Response) => {
               slug: subservice.slug,
               category: category.name,
               group: group.name,
-              icon: category.icon,
+              icon: subservice.icon || category.icon,
               serviceTypes: subservice.serviceTypes,
             });
           }

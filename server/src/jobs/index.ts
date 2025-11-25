@@ -1,5 +1,6 @@
 import { startDirectLeadExpiryJob } from './directLeadExpiry.job';
 import { startDirectLeadRemindersJob } from './directLeadReminders.job';
+import { startSitemapJob } from './sitemap.job';
 import { logger } from '../utils/logger';
 
 /**
@@ -14,6 +15,9 @@ export const initializeJobs = () => {
 
     // Start direct lead reminders job (sends 12h and 1h reminder emails)
     startDirectLeadRemindersJob();
+
+    // Start sitemap jobs (cache warming and search engine notifications)
+    startSitemapJob();
 
     logger.info('All scheduled jobs initialized successfully');
   } catch (error: any) {

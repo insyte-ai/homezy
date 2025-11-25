@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { SearchBar } from "@/components/home/SearchBar";
 import { PopularServices } from "@/components/home/PopularServices";
+import { AppDownload } from "@/components/home/AppDownload";
 import { MultiStepLeadForm } from "@/components/lead-form/MultiStepLeadForm";
 import { PublicHeader } from "@/components/layout/PublicHeader";
 import { PublicFooter } from "@/components/layout/PublicFooter";
@@ -259,6 +260,9 @@ function HomeContent() {
           }}
         />
       )}
+
+      {/* App Download Section */}
+      <AppDownload />
 
       <PublicFooter />
     </div>

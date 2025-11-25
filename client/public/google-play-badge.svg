@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 50">
+  <rect width="170" height="50" rx="8" fill="#000"/>
+  <g fill="#fff">
+    <!-- Play triangle icon -->
+    <path d="M22 12l12 13-12 13V12z" fill="#48b9e6"/>
+    <path d="M22 12l8 8.7-8 8.6V12z" fill="#3ed9a4"/>
+    <path d="M22 38l8-8.7 4 4.3-12 4.4z" fill="#f3454f"/>
+    <path d="M22 12l12 4.4-4 4.3-8-8.7z" fill="#f9c52a"/>
+    <text x="44" y="18" font-family="Arial, sans-serif" font-size="7" font-weight="400" fill="#a0a0a0">GET IT ON</text>
+    <text x="44" y="34" font-family="Arial, sans-serif" font-size="14" font-weight="600">Google Play</text>
+  </g>
+</svg>

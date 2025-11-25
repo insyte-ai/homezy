@@ -22,6 +22,7 @@ const serviceStructure = [
             id: 'plumbing',
             name: 'Plumbing',
             slug: 'plumbing',
+            icon: '🚿',
             serviceTypes: [
               { id: 'pipe-repair', name: 'Pipe Repair & Replacement' },
               { id: 'leak-fixing', name: 'Leak Detection & Fixing' },
@@ -35,6 +36,7 @@ const serviceStructure = [
             id: 'electrical',
             name: 'Electrical',
             slug: 'electrical',
+            icon: '⚡',
             serviceTypes: [
               { id: 'wiring', name: 'Wiring & Rewiring' },
               { id: 'lighting-installation', name: 'Lighting Installation' },
@@ -48,6 +50,7 @@ const serviceStructure = [
             id: 'hvac',
             name: 'HVAC (Air Conditioning)',
             slug: 'heating-ventilation-air-conditioning',
+            icon: '❄️',
             serviceTypes: [
               { id: 'ac-installation', name: 'AC Installation' },
               { id: 'ac-repair', name: 'AC Repair & Maintenance' },
@@ -61,6 +64,7 @@ const serviceStructure = [
             id: 'handyman',
             name: 'Handyman Services',
             slug: 'handyman',
+            icon: '🔧',
             serviceTypes: [
               { id: 'general-repairs', name: 'General Home Repairs' },
               { id: 'furniture-assembly', name: 'Furniture Assembly' },
@@ -73,6 +77,7 @@ const serviceStructure = [
             id: 'appliance-repair',
             name: 'Appliance Repair',
             slug: 'appliance-repair',
+            icon: '🔌',
             serviceTypes: [
               { id: 'washing-machine', name: 'Washing Machine Repair' },
               { id: 'refrigerator', name: 'Refrigerator Repair' },
@@ -85,6 +90,7 @@ const serviceStructure = [
             id: 'door-windows',
             name: 'Doors & Windows',
             slug: 'door-windows',
+            icon: '🚪',
             serviceTypes: [
               { id: 'door-installation', name: 'Door Installation' },
               { id: 'window-installation', name: 'Window Installation' },
@@ -104,6 +110,7 @@ const serviceStructure = [
             id: 'home-cleaning',
             name: 'Home Cleaning',
             slug: 'home-cleaning',
+            icon: '🏠',
             serviceTypes: [
               { id: 'regular-cleaning', name: 'Regular House Cleaning' },
               { id: 'move-in-out', name: 'Move-In/Move-Out Cleaning' },
@@ -115,6 +122,7 @@ const serviceStructure = [
             id: 'deep-cleaning',
             name: 'Deep Cleaning',
             slug: 'deep-cleaning',
+            icon: '✨',
             serviceTypes: [
               { id: 'kitchen-deep-clean', name: 'Kitchen Deep Cleaning' },
               { id: 'bathroom-deep-clean', name: 'Bathroom Deep Cleaning' },
@@ -126,6 +134,7 @@ const serviceStructure = [
             id: 'specialized-cleaning',
             name: 'Specialized Cleaning',
             slug: 'specialized-cleaning',
+            icon: '🧽',
             serviceTypes: [
               { id: 'sofa-cleaning', name: 'Sofa Cleaning' },
               { id: 'mattress-cleaning', name: 'Mattress Cleaning' },
@@ -137,6 +146,7 @@ const serviceStructure = [
             id: 'junk-removal',
             name: 'Junk Removal',
             slug: 'junk-removal',
+            icon: '🗑️',
             serviceTypes: [
               { id: 'furniture-removal', name: 'Furniture Removal' },
               { id: 'appliance-removal', name: 'Appliance Removal' },
@@ -155,6 +165,7 @@ const serviceStructure = [
             id: 'kitchen-remodelling',
             name: 'Kitchen Remodeling',
             slug: 'kitchen-remodelling',
+            icon: '🍳',
             serviceTypes: [
               { id: 'full-kitchen-remodel', name: 'Full Kitchen Remodel' },
               { id: 'cabinet-installation', name: 'Cabinet Installation' },
@@ -167,6 +178,7 @@ const serviceStructure = [
             id: 'bathroom-remodelling',
             name: 'Bathroom Remodeling',
             slug: 'bathroom-remodelling',
+            icon: '🛁',
             serviceTypes: [
               { id: 'full-bathroom-remodel', name: 'Full Bathroom Remodel' },
               { id: 'shower-installation', name: 'Shower Installation' },
@@ -179,6 +191,7 @@ const serviceStructure = [
             id: 'flooring',
             name: 'Flooring',
             slug: 'flooring',
+            icon: '🪵',
             serviceTypes: [
               { id: 'hardwood', name: 'Hardwood Flooring' },
               { id: 'laminate', name: 'Laminate Flooring' },
@@ -192,6 +205,7 @@ const serviceStructure = [
             id: 'painting',
             name: 'Interior Painting',
             slug: 'interior-painting',
+            icon: '🎨',
             serviceTypes: [
               { id: 'wall-painting', name: 'Wall Painting' },
               { id: 'ceiling-painting', name: 'Ceiling Painting' },
@@ -204,6 +218,7 @@ const serviceStructure = [
             id: 'interior-design',
             name: 'Interior Design',
             slug: 'interior-design',
+            icon: '🛋️',
             serviceTypes: [
               { id: 'consultation', name: 'Design Consultation' },
               { id: 'space-planning', name: 'Space Planning' },
@@ -216,6 +231,7 @@ const serviceStructure = [
             id: 'fit-outs',
             name: 'Fit-Outs',
             slug: 'fit-outs',
+            icon: '🏗️',
             serviceTypes: [
               { id: 'office-fitout', name: 'Office Fit-Out' },
               { id: 'retail-fitout', name: 'Retail Fit-Out' },
@@ -227,6 +243,7 @@ const serviceStructure = [
             id: 'villa-renovation',
             name: 'Villa Renovation',
             slug: 'villa-renovation',
+            icon: '🏡',
             serviceTypes: [
               { id: 'full-villa-remodel', name: 'Full Villa Remodel' },
               { id: 'partial-renovation', name: 'Partial Renovation' },
@@ -251,6 +268,7 @@ const serviceStructure = [
             id: 'exterior-painting',
             name: 'Exterior Painting',
             slug: 'exterior-painting',
+            icon: '🖌️',
             serviceTypes: [
               { id: 'house-painting', name: 'House Painting' },
               { id: 'fence-painting', name: 'Fence Painting' },
@@ -262,6 +280,7 @@ const serviceStructure = [
             id: 'roofing',
             name: 'Roofing',
             slug: 'roofing',
+            icon: '🏠',
             serviceTypes: [
               { id: 'roof-installation', name: 'Roof Installation' },
               { id: 'roof-repair', name: 'Roof Repair' },
@@ -274,6 +293,7 @@ const serviceStructure = [
             id: 'waterproofing',
             name: 'Waterproofing',
             slug: 'waterproofing',
+            icon: '💧',
             serviceTypes: [
               { id: 'basement-waterproofing', name: 'Basement Waterproofing' },
               { id: 'roof-waterproofing', name: 'Roof Waterproofing' },
@@ -285,6 +305,7 @@ const serviceStructure = [
             id: 'masonry',
             name: 'Masonry',
             slug: 'masonry',
+            icon: '🧱',
             serviceTypes: [
               { id: 'brick-work', name: 'Brick Work' },
               { id: 'stone-work', name: 'Stone Work' },
@@ -296,6 +317,7 @@ const serviceStructure = [
             id: 'facade-work',
             name: 'Facade Work',
             slug: 'facade-work',
+            icon: '🏢',
             serviceTypes: [
               { id: 'facade-cleaning', name: 'Facade Cleaning' },
               { id: 'facade-painting', name: 'Facade Painting' },
@@ -314,6 +336,7 @@ const serviceStructure = [
             id: 'landscaping',
             name: 'Landscaping Design',
             slug: 'landscaping',
+            icon: '🌳',
             serviceTypes: [
               { id: 'landscape-design', name: 'Landscape Design' },
               { id: 'garden-installation', name: 'Garden Installation' },
@@ -325,6 +348,7 @@ const serviceStructure = [
             id: 'landscape-maintenance',
             name: 'Landscape Maintenance',
             slug: 'landscape-maintenance',
+            icon: '🌿',
             serviceTypes: [
               { id: 'lawn-mowing', name: 'Lawn Mowing' },
               { id: 'tree-trimming', name: 'Tree Trimming & Pruning' },
@@ -337,6 +361,7 @@ const serviceStructure = [
             id: 'pool-construction',
             name: 'Swimming Pool Construction',
             slug: 'in-ground-swimming-pool-construction',
+            icon: '🏊',
             serviceTypes: [
               { id: 'inground-pool', name: 'In-Ground Pool Construction' },
               { id: 'pool-design', name: 'Pool Design & Planning' },
@@ -347,6 +372,7 @@ const serviceStructure = [
             id: 'pool-services',
             name: 'Pool Services',
             slug: 'swimming-pool-services',
+            icon: '🏊‍♂️',
             serviceTypes: [
               { id: 'pool-cleaning', name: 'Pool Cleaning' },
               { id: 'pool-maintenance', name: 'Pool Maintenance' },
@@ -358,6 +384,7 @@ const serviceStructure = [
             id: 'outdoor-structures',
             name: 'Outdoor Structures',
             slug: 'outdoor-structures',
+            icon: '🏕️',
             serviceTypes: [
               { id: 'pergola', name: 'Pergola Installation' },
               { id: 'gazebo', name: 'Gazebo Installation' },
@@ -370,6 +397,7 @@ const serviceStructure = [
             id: 'outdoor-lighting',
             name: 'Outdoor Lighting',
             slug: 'outdoor-lighting',
+            icon: '💡',
             serviceTypes: [
               { id: 'landscape-lighting', name: 'Landscape Lighting' },
               { id: 'pathway-lights', name: 'Pathway Lights' },
@@ -394,6 +422,7 @@ const serviceStructure = [
             id: 'packers-movers',
             name: 'Packers & Movers',
             slug: 'packers-movers',
+            icon: '📦',
             serviceTypes: [
               { id: 'local-moving', name: 'Local Moving' },
               { id: 'long-distance', name: 'Long Distance Moving' },
@@ -406,6 +435,7 @@ const serviceStructure = [
             id: 'storage',
             name: 'Storage Solutions',
             slug: 'storage',
+            icon: '🗄️',
             serviceTypes: [
               { id: 'self-storage', name: 'Self Storage' },
               { id: 'climate-controlled', name: 'Climate Controlled Storage' },
@@ -423,6 +453,7 @@ const serviceStructure = [
             id: 'home-automation',
             name: 'Home Automation',
             slug: 'home-automation',
+            icon: '🏠',
             serviceTypes: [
               { id: 'smart-home-setup', name: 'Smart Home Setup' },
               { id: 'smart-lighting', name: 'Smart Lighting Installation' },
@@ -435,6 +466,7 @@ const serviceStructure = [
             id: 'tv-mounting',
             name: 'TV Mounting',
             slug: 'tv-mounting',
+            icon: '📺',
             serviceTypes: [
               { id: 'wall-mount', name: 'Wall Mount Installation' },
               { id: 'ceiling-mount', name: 'Ceiling Mount Installation' },
@@ -445,6 +477,7 @@ const serviceStructure = [
             id: 'furniture-assembly',
             name: 'Furniture Assembly',
             slug: 'furniture-assembly',
+            icon: '🪑',
             serviceTypes: [
               { id: 'ikea-assembly', name: 'IKEA Furniture Assembly' },
               { id: 'office-furniture', name: 'Office Furniture Assembly' },
@@ -462,6 +495,7 @@ const serviceStructure = [
             id: 'pest-control',
             name: 'Pest Control',
             slug: 'pest-control',
+            icon: '🐜',
             serviceTypes: [
               { id: 'general-pest', name: 'General Pest Control' },
               { id: 'termite-control', name: 'Termite Control' },
@@ -474,6 +508,7 @@ const serviceStructure = [
             id: 'disinfection',
             name: 'Disinfection Services',
             slug: 'disinfection',
+            icon: '🧴',
             serviceTypes: [
               { id: 'sanitization', name: 'Home Sanitization' },
               { id: 'covid-disinfection', name: 'COVID-19 Disinfection' },
@@ -484,6 +519,7 @@ const serviceStructure = [
             id: 'air-quality',
             name: 'Air Quality',
             slug: 'air-quality',
+            icon: '🌬️',
             serviceTypes: [
               { id: 'air-duct-cleaning', name: 'Air Duct Cleaning' },
               { id: 'mold-removal', name: 'Mold Removal' },
@@ -501,6 +537,7 @@ const serviceStructure = [
             id: 'event-setup',
             name: 'Event Setup',
             slug: 'event-setup',
+            icon: '🎉',
             serviceTypes: [
               { id: 'party-setup', name: 'Party Setup & Decoration' },
               { id: 'tent-rental', name: 'Tent & Canopy Rental' },
@@ -511,6 +548,7 @@ const serviceStructure = [
             id: 'personal-services',
             name: 'Personal Services',
             slug: 'personal-services',
+            icon: '💆',
             serviceTypes: [
               { id: 'personal-training', name: 'Personal Training' },
               { id: 'yoga', name: 'Yoga Classes' },

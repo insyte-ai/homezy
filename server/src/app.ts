@@ -19,6 +19,7 @@ import quoteRoutes, { leadQuoteRouter } from './routes/quote.routes';
 import uploadRoutes from './routes/upload.routes';
 import adminRoutes from './routes/admin.routes';
 import serviceRoutes from './routes/service.routes';
+import sitemapRoutes from './routes/sitemap.routes';
 
 /**
  * Create and configure Express application
@@ -91,6 +92,9 @@ export const createApp = (): Application => {
       documentation: '/api/docs',
     });
   });
+
+  // Sitemap and robots.txt routes (served from root)
+  app.use(sitemapRoutes);
 
   // API Routes
   app.use(`/api/${env.API_VERSION}/auth`, authRoutes);
