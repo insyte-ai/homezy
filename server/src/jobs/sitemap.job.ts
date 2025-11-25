@@ -2,7 +2,7 @@ import cron from 'node-cron';
 import axios from 'axios';
 import { logger } from '../utils/logger';
 
-const BASE_URL = process.env.BASE_URL || 'https://homezy.ae';
+const BASE_URL = process.env.BASE_URL || 'https://homezy.co';
 
 /**
  * Sitemap cron jobs for cache warming and search engine notifications

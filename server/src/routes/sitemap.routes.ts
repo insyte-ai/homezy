@@ -4,7 +4,7 @@ import User from '../models/User.model';
 import Lead from '../models/Lead.model';
 
 const router = Router();
-const BASE_URL = process.env.BASE_URL || 'https://homezy.ae';
+const BASE_URL = process.env.BASE_URL || 'https://homezy.co';
 
 // ==========================================
 // MAIN SITEMAP INDEX

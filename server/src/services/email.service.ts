@@ -6,7 +6,7 @@ class EmailService {
   private apiInstance: brevo.TransactionalEmailsApi;
   private sender = {
     name: env.EMAIL_FROM_NAME || 'Homezy',
-    email: env.EMAIL_FROM || 'noreply@homezy.ae',
+    email: env.EMAIL_FROM || 'noreply@homezy.co',
   };
 
   constructor() {
@@ -380,7 +380,7 @@ class EmailService {
             </div>
             <div class="footer">
               <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
-              <p>Questions? Contact us at support@homezy.ae</p>
+              <p>Questions? Contact us at support@homezy.co</p>
             </div>
           </div>
         </body>

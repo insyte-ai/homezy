@@ -262,7 +262,7 @@ Note: The `NEXT_PUBLIC_SITE_URL` will be updated after the first deployment.
 ### For Client
 1. Go to client service settings → Domains
 2. Click "Custom Domain"
-3. Add your domain (e.g., `homezy.com`)
+3. Add your domain (e.g., `homezy.co`)
 4. Update DNS records as instructed
 5. Update `NEXT_PUBLIC_SITE_URL` with your custom domain
 6. Update server's `CORS_ORIGIN` with your custom domain
@@ -270,7 +270,7 @@ Note: The `NEXT_PUBLIC_SITE_URL` will be updated after the first deployment.
 ### For Server
 1. Go to server service settings → Domains
 2. Click "Custom Domain"
-3. Add your API subdomain (e.g., `api.homezy.com`)
+3. Add your API subdomain (e.g., `api.homezy.co`)
 4. Update DNS records as instructed
 5. Update client's `NEXT_PUBLIC_API_URL` with your custom API domain
 
