@@ -129,9 +129,17 @@ export function PhotoUploadStep({ onAutoSubmit }: PhotoUploadStepProps) {
       // Check if this is a direct lead or indirect lead
       const isDirectLead = !!targetProfessionalId;
 
+      // Debug logging
+      console.log('[PhotoUploadStep] Submitting lead:', {
+        isDirectLead,
+        targetProfessionalId,
+        leadInput,
+      });
+
       let lead;
       if (isDirectLead) {
         // Create direct lead (sent to specific professional)
+        console.log('[PhotoUploadStep] Calling createDirectLead with professionalId:', targetProfessionalId);
         lead = await createDirectLead(targetProfessionalId!, leadInput);
         toast.success('Direct request sent successfully!');
 
@@ -168,6 +176,7 @@ export function PhotoUploadStep({ onAutoSubmit }: PhotoUploadStepProps) {
         leadId={createdLead.leadId}
         serviceCategory={createdLead.serviceCategory}
         emirate={createdLead.emirate}
+        isGuest={false}
         onClose={() => {
           reset();
           onAutoSubmit?.();

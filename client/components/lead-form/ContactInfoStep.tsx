@@ -8,7 +8,7 @@
 import { useState, useEffect } from 'react';
 import { useLeadFormStore } from '@/store/leadFormStore';
 import { useAuthStore } from '@/store/authStore';
-import { createLead } from '@/lib/services/leads';
+import { createLead, createDirectLead } from '@/lib/services/leads';
 import { Mail, User, Phone } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -40,6 +40,7 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
     timeline,
     photos,
     selectedServiceId,
+    targetProfessionalId,
     reset,
   } = useLeadFormStore();
 
@@ -47,6 +48,7 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
     leadId: string;
     serviceCategory: string;
     emirate: string;
+    wasGuest: boolean;
   } | null>(null);
 
   // Pre-fill contact info for authenticated users
@@ -80,60 +82,112 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
     setSubmitting(true);
 
     try {
-      // If user is NOT authenticated, create guest account first
-      if (!isAuthenticated) {
+      // Check if this is a direct lead or indirect lead
+      const isDirectLead = !!targetProfessionalId;
+
+      if (isAuthenticated) {
+        // AUTHENTICATED USER: Use existing lead creation flow
+        const leadInput = {
+          title,
+          description,
+          category: selectedServiceId!,
+          location: {
+            emirate,
+            neighborhood: neighborhood || undefined,
+          },
+          budgetBracket,
+          urgency,
+          timeline: timeline || undefined,
+          photos,
+          serviceAnswers: getServiceAnswers() || undefined,
+        };
+
+        console.log('[ContactInfoStep] Authenticated user creating lead:', { isDirectLead, targetProfessionalId });
+
+        let lead;
+        if (isDirectLead) {
+          lead = await createDirectLead(targetProfessionalId!, leadInput);
+          console.log('[ContactInfoStep] Direct lead created:', lead._id);
+          toast.success('Direct request sent successfully!');
+        } else {
+          lead = await createLead(leadInput);
+          console.log('[ContactInfoStep] Indirect lead created:', lead._id);
+          toast.success('Request created successfully!');
+        }
+
+        setCreatedLead({
+          leadId: lead._id,
+          serviceCategory: selectedServiceId!,
+          emirate,
+          wasGuest: false,
+        });
+      } else {
+        // UNAUTHENTICATED USER: Use new /leads/guest endpoint
+        // This creates user + lead atomically and sends magic link
+        console.log('[ContactInfoStep] Guest user creating lead via /leads/guest');
+
         const { api } = await import('@/lib/api');
 
-        const guestSignupResponse = await api.post('/auth/guest-signup', {
+        const guestLeadInput = {
+          // Contact info
           email,
           firstName: name || undefined,
           phone: phone || undefined,
-        });
+          // Lead data
+          title,
+          description,
+          category: selectedServiceId!,
+          location: {
+            emirate,
+            neighborhood: neighborhood || undefined,
+          },
+          budgetBracket,
+          urgency,
+          timeline: timeline || undefined,
+          photos,
+          serviceAnswers: getServiceAnswers() || undefined,
+          // Optional: Direct lead
+          targetProfessionalId: targetProfessionalId || undefined,
+        };
 
-        const { data } = guestSignupResponse.data;
+        const response = await api.post('/leads/guest', guestLeadInput);
+        const { data } = response.data;
 
-        // Store access token in localStorage and update auth store
-        // This will authenticate the user for the lead creation
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('accessToken', data.accessToken);
-        }
+        console.log('[ContactInfoStep] Guest lead created:', data.leadId);
 
-        // Update auth store state directly
-        useAuthStore.setState({
-          user: data.user,
-          isAuthenticated: true,
+        // Show appropriate success message
+        toast.success(
+          data.isNewUser
+            ? 'Request submitted! Check your email to set up your account.'
+            : 'Request submitted! Check your email to access your dashboard.'
+        );
+
+        // Show success screen
+        setCreatedLead({
+          leadId: data.leadId,
+          serviceCategory: selectedServiceId!,
+          emirate,
+          wasGuest: true,
         });
       }
-
-      // Now create the lead (user is authenticated)
-      const lead = await createLead({
-        title,
-        description,
-        category: selectedServiceId!,
-        location: {
-          emirate,
-          neighborhood: neighborhood || undefined,
-        },
-        budgetBracket,
-        urgency,
-        timeline: timeline || undefined,
-        photos,
-        serviceAnswers: getServiceAnswers() || undefined,
-      });
-
-      // Store lead info to show matching professionals
-      setCreatedLead({
-        leadId: lead._id,
-        serviceCategory: selectedServiceId!,
-        emirate,
-      });
-
-      toast.success('Lead created successfully!');
     } catch (error: any) {
-      console.error('Failed to create lead:', error);
-      toast.error(
-        error.response?.data?.message || error.message || 'Failed to create lead. Please try again.'
-      );
+      console.error('[ContactInfoStep] Failed to create lead:', error);
+      console.error('[ContactInfoStep] Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+      });
+
+      // Handle specific error cases
+      if (error.response?.status === 409) {
+        toast.error('This email is registered as a professional. Please use a different email or login.');
+      } else if (error.response?.status === 429) {
+        toast.error('Too many requests. Please wait a moment and try again.');
+      } else {
+        toast.error(
+          error.response?.data?.message || error.message || 'Failed to create request. Please try again.'
+        );
+      }
     } finally {
       setSubmitting(false);
     }
@@ -146,6 +200,7 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
         leadId={createdLead.leadId}
         serviceCategory={createdLead.serviceCategory}
         emirate={createdLead.emirate}
+        isGuest={createdLead.wasGuest}
         onClose={() => {
           reset();
           onSubmit?.();

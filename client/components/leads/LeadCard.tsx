@@ -107,10 +107,10 @@ export const LeadCard = ({
                 {lead.category}
               </span>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-2 min-h-[3.5rem]">
               {lead.title}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2 min-h-[2.5rem]">
               {lead.description}
             </p>
           </div>

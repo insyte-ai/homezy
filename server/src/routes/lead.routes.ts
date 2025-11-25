@@ -15,9 +15,11 @@ import {
   declineDirectLead,
   generateLeadContent,
   sendDirectLeadsToSelectedPros,
+  createGuestLead,
 } from '../controllers/lead.controller';
 import { authenticate, authorize, optionalAuth } from '../middleware/auth.middleware';
 import { validate } from '../middleware/validation.middleware';
+import { rateLimitAuth } from '../middleware/rateLimit.middleware';
 import {
   createLeadSchema,
   updateLeadSchema,
@@ -28,6 +30,7 @@ import {
   createDirectLeadSchema,
   getMyDirectLeadsSchema,
   declineDirectLeadSchema,
+  createGuestLeadSchema,
 } from '../schemas/lead.schema';
 
 const router = express.Router();
@@ -61,6 +64,15 @@ router.post(
   authorize('homeowner'),
   validate(createDirectLeadSchema),
   createDirectLead
+);
+
+// Create guest lead (unauthenticated users)
+// Handles user creation + lead creation atomically
+router.post(
+  '/guest',
+  rateLimitAuth,
+  validate(createGuestLeadSchema),
+  createGuestLead
 );
 
 // Generate AI-powered lead title and description

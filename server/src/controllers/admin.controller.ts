@@ -149,7 +149,7 @@ export const getProfessionals = async (req: Request, res: Response): Promise<voi
 
     // Transform to flatten proProfile fields
     const transformedProfessionals = professionals.map((pro: any) => ({
-      _id: pro._id,
+      _id: pro._id.toString(),
       firstName: pro.firstName,
       lastName: pro.lastName,
       email: pro.email,
@@ -211,7 +211,7 @@ export const getProfessionalById = async (req: Request, res: Response): Promise<
 
     // Build response matching frontend interface
     const responseData = {
-      _id: (user as any)._id,
+      _id: (user as any)._id.toString(),
       firstName: (user as any).firstName,
       lastName: (user as any).lastName,
       email: (user as any).email,
@@ -441,7 +441,7 @@ export const getHomeowners = async (req: Request, res: Response): Promise<void> 
     const transformedHomeowners = homeowners.map((homeowner: any) => {
       const stats = statsMap.get(homeowner._id.toString()) || { totalLeads: 0, activeLeads: 0 };
       return {
-        _id: homeowner._id,
+        _id: homeowner._id.toString(),
         firstName: homeowner.firstName,
         lastName: homeowner.lastName,
         email: homeowner.email,
@@ -508,7 +508,7 @@ export const getLeads = async (req: Request, res: Response): Promise<void> => {
 
     // Transform leads to match frontend interface
     const transformedLeads = leads.map((lead: any) => ({
-      _id: lead._id,
+      _id: lead._id.toString(),
       title: lead.title,
       description: lead.description,
       category: lead.category,
@@ -516,7 +516,7 @@ export const getLeads = async (req: Request, res: Response): Promise<void> => {
       urgency: lead.urgency,
       status: lead.status,
       homeowner: {
-        _id: lead.homeownerId?._id,
+        _id: lead.homeownerId?._id?.toString(),
         firstName: lead.homeownerId?.firstName || 'Unknown',
         lastName: lead.homeownerId?.lastName || '',
         email: lead.homeownerId?.email || '',
@@ -531,7 +531,17 @@ export const getLeads = async (req: Request, res: Response): Promise<void> => {
       creditsRequired: lead.creditsRequired || 1,
       createdAt: lead.createdAt,
       expiresAt: lead.expiresAt,
-      claims: lead.claims || [],
+      claims: (lead.claims || []).map((claim: any) => ({
+        _id: claim._id?.toString(),
+        professional: {
+          _id: claim.professional?._id?.toString(),
+          firstName: claim.professional?.firstName,
+          lastName: claim.professional?.lastName,
+          businessName: claim.professional?.businessName,
+        },
+        claimedAt: claim.claimedAt,
+        creditsUsed: claim.creditsUsed,
+      })),
     }));
 
     res.json({
@@ -582,9 +592,9 @@ export const getCreditTransactions = async (req: Request, res: Response): Promis
 
     // Transform transactions to match frontend interface
     const transformedTransactions = transactions.map((txn: any) => ({
-      _id: txn._id,
+      _id: txn._id.toString(),
       user: {
-        _id: txn.professionalId?._id || txn.professionalId,
+        _id: (txn.professionalId?._id || txn.professionalId)?.toString(),
         firstName: txn.professionalId?.firstName || 'Unknown',
         lastName: txn.professionalId?.lastName || '',
         email: txn.professionalId?.email || '',

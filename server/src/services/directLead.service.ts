@@ -5,6 +5,43 @@ import { logger } from '../utils/logger';
 import { PLATFORM_CONFIG } from '@homezy/shared';
 import type { CreateLeadInput } from '../schemas/lead.schema';
 import { emailService } from './email.service';
+import * as creditService from './credit.service';
+
+type BudgetBracketForCredits = 'under-5k' | '5k-20k' | '20k-50k' | '50k-100k' | 'over-100k';
+type UrgencyForCredits = 'flexible' | 'within-month' | 'within-week' | 'emergency';
+
+// Map budget brackets to credit service format
+const mapBudgetBracketForCredits = (bracket: string): BudgetBracketForCredits => {
+  const mapping: Record<string, BudgetBracketForCredits> = {
+    '500-1k': 'under-5k',
+    '1k-5k': 'under-5k',
+    '5k-15k': '5k-20k',
+    '15k-50k': '20k-50k',
+    '50k-150k': '50k-100k',
+    '150k+': 'over-100k',
+  };
+  return mapping[bracket] || 'under-5k';
+};
+
+// Map urgency to credit service format
+const mapUrgencyForCredits = (urgency: string): UrgencyForCredits => {
+  const mapping: Record<string, UrgencyForCredits> = {
+    'emergency': 'emergency',
+    'urgent': 'within-week',
+    'flexible': 'within-month',
+    'planning': 'flexible',
+  };
+  return mapping[urgency] || 'flexible';
+};
+
+// Calculate credit cost for display (without verification discount)
+const calculateDisplayCreditCost = (lead: { budgetBracket: string; urgency: string }): number => {
+  return creditService.calculateCreditCost({
+    budgetBracket: mapBudgetBracketForCredits(lead.budgetBracket),
+    urgency: mapUrgencyForCredits(lead.urgency),
+    verificationStatus: 'pending', // Base cost without discount
+  });
+};
 
 /**
  * Direct Lead Service
@@ -84,8 +121,6 @@ export const createDirectLead = async (
     homeownerId,
     professionalId,
     category: data.category,
-    budgetBracket: data.budgetBracket,
-    directLeadExpiresAt,
   });
 
   // Send immediate notification to professional
@@ -344,9 +379,15 @@ export const getMyDirectLeads = async (professionalId: string, status?: string) 
     query.directLeadStatus = status;
   }
 
-  const leads = await Lead.find(query).sort({ createdAt: -1 });
+  const leads = await Lead.find(query).sort({ createdAt: -1 }).lean();
 
-  return leads;
+  // Add creditsRequired to each lead
+  const leadsWithCredits = leads.map(lead => ({
+    ...lead,
+    creditsRequired: calculateDisplayCreditCost(lead),
+  }));
+
+  return leadsWithCredits;
 };
 
 /**

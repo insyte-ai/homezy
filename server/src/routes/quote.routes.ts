@@ -4,6 +4,7 @@ import {
   updateQuote,
   getQuoteById,
   getQuotesForLead,
+  getMyQuoteForLead,
   getMyQuotes,
   acceptQuote,
   declineQuote,
@@ -82,6 +83,14 @@ router.post(
  * These are mounted under /leads/:leadId/quotes in the main app
  */
 export const leadQuoteRouter = express.Router({ mergeParams: true });
+
+// Get my quote for a lead (professional only)
+leadQuoteRouter.get(
+  '/my-quote',
+  authenticate,
+  authorize('pro'),
+  getMyQuoteForLead
+);
 
 // Submit quote for a lead (professional only)
 leadQuoteRouter.post(

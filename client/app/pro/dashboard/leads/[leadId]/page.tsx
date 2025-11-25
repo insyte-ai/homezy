@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { getLeadById, Lead } from '@/lib/services/leads';
-import { submitQuote, getQuotesForLead, Quote, QuoteItem } from '@/lib/services/quotes';
+import { submitQuote, getMyQuoteForLead, Quote, QuoteItem } from '@/lib/services/quotes';
 import {
   ArrowLeft,
   MapPin,
@@ -27,7 +27,7 @@ export default function LeadDetailPage() {
   const leadId = params?.leadId as string;
 
   const [lead, setLead] = useState<Lead | null>(null);
-  const [existingQuotes, setExistingQuotes] = useState<Quote[]>([]);
+  const [myQuote, setMyQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [showQuoteForm, setShowQuoteForm] = useState(false);
@@ -44,7 +44,7 @@ export default function LeadDetailPage() {
   useEffect(() => {
     if (leadId) {
       loadLead();
-      loadExistingQuotes();
+      loadMyQuote();
     }
   }, [leadId]);
 
@@ -62,12 +62,12 @@ export default function LeadDetailPage() {
     }
   };
 
-  const loadExistingQuotes = async () => {
+  const loadMyQuote = async () => {
     try {
-      const data = await getQuotesForLead(leadId);
-      setExistingQuotes(data.quotes);
+      const quote = await getMyQuoteForLead(leadId);
+      setMyQuote(quote);
     } catch (error) {
-      console.error('Failed to load existing quotes:', error);
+      console.error('Failed to load my quote:', error);
     }
   };
 
@@ -180,7 +180,6 @@ export default function LeadDetailPage() {
     );
   }
 
-  const myQuote = existingQuotes.find((q) => typeof q.professional !== 'string');
   const { subtotal, vat, total } = calculateTotals();
 
   return (
@@ -234,7 +233,7 @@ export default function LeadDetailPage() {
                     </h3>
                     <p className="text-green-700 mb-4">
                       You've already submitted a quote for this lead on{' '}
-                      {new Date(myQuote.submittedAt).toLocaleDateString()}.
+                      {new Date(myQuote.createdAt).toLocaleDateString()}.
                     </p>
                     <button
                       onClick={() => router.push(`/pro/dashboard/quotes`)}

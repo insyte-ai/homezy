@@ -17,7 +17,6 @@ import { searchProfessionals, type SearchProsParams } from '@/lib/services/profe
 import type { ProProfile } from '@homezy/shared';
 import { MultiStepLeadForm } from '@/components/lead-form/MultiStepLeadForm';
 import { useAuthStore } from '@/store/authStore';
-import { useRouter } from 'next/navigation';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
 
@@ -30,8 +29,8 @@ interface Professional {
 }
 
 export default function BrowseProfessionalsPage() {
-  const router = useRouter();
   const { user } = useAuthStore();
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedEmirate, setSelectedEmirate] = useState('all');
@@ -115,18 +114,14 @@ export default function BrowseProfessionalsPage() {
   const handleRequestQuote = (pro: Professional, e: React.MouseEvent) => {
     e.preventDefault(); // Prevent Link navigation
 
-    // Check if user is authenticated and is a homeowner
-    if (!user) {
-      // Redirect to login with return URL
-      router.push(`/auth/login?returnUrl=${encodeURIComponent(`/pros?requestQuote=${pro.id}`)}`);
+    // Only block if user is a professional (they shouldn't request quotes)
+    if (user?.role === 'pro') {
+      alert('Professionals cannot request quotes');
       return;
     }
 
-    if (user.role !== 'homeowner') {
-      alert('Only homeowners can request quotes');
-      return;
-    }
-
+    // Allow both authenticated homeowners and guests to request quotes
+    // The MultiStepLeadForm handles contact info collection for guests
     setSelectedProfessional(pro);
     setShowLeadForm(true);
   };

@@ -3,17 +3,20 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getProAnalytics, ProAnalytics } from '@/lib/services/analytics';
+import { getMyDirectLeads } from '@/lib/services/leads';
 import { useChatPanelStore } from '@/store/chatPanelStore';
-import { TrendingUp, TrendingDown, DollarSign, FileText, Star, Clock } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, FileText, Star, Clock, Inbox, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function ProDashboardPage() {
   const { isOpen: isChatPanelOpen } = useChatPanelStore();
   const [analytics, setAnalytics] = useState<ProAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
+  const [directLeadsCount, setDirectLeadsCount] = useState(0);
 
   useEffect(() => {
     loadAnalytics();
+    loadDirectLeadsCount();
   }, []);
 
   const loadAnalytics = async () => {
@@ -26,6 +29,15 @@ export default function ProDashboardPage() {
       toast.error('Failed to load dashboard data');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadDirectLeadsCount = async () => {
+    try {
+      const data = await getMyDirectLeads({ status: 'pending' });
+      setDirectLeadsCount(data.total || 0);
+    } catch (error) {
+      console.error('Failed to load direct leads count:', error);
     }
   };
 
@@ -58,7 +70,7 @@ export default function ProDashboardPage() {
 
   const recentLeads = [
     {
-      id: 1,
+      _id: '1',
       title: 'Kitchen Remodeling in Dubai Marina',
       category: 'Kitchen Remodeling',
       budget: 'AED 15K-50K',
@@ -68,7 +80,7 @@ export default function ProDashboardPage() {
       maxClaims: 5,
     },
     {
-      id: 2,
+      _id: '2',
       title: 'Emergency Plumbing Repair',
       category: 'Plumbing',
       budget: 'AED 500-1K',
@@ -79,7 +91,7 @@ export default function ProDashboardPage() {
       urgent: true,
     },
     {
-      id: 3,
+      _id: '3',
       title: 'AC Installation for Villa',
       category: 'HVAC',
       budget: 'AED 5K-15K',
@@ -92,6 +104,36 @@ export default function ProDashboardPage() {
 
   return (
     <div className={`container-custom py-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+      {/* Direct Requests Alert Banner */}
+      {directLeadsCount > 0 && (
+        <Link
+          href="/pro/dashboard/leads"
+          className="block mb-6 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="bg-white/20 rounded-full p-3">
+                <Inbox className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-lg">
+                  You have {directLeadsCount} direct request{directLeadsCount > 1 ? 's' : ''} waiting!
+                </h3>
+                <p className="text-white/80 text-sm">
+                  Homeowners sent you direct quotes. Respond within 24 hours or they'll go to the public marketplace.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 bg-white text-primary-600 px-4 py-2 rounded-lg font-semibold">
+              View Requests
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </Link>
+      )}
+
       {/* Welcome Section */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-neutral-900 mb-2">
@@ -327,7 +369,7 @@ export default function ProDashboardPage() {
             <div className="space-y-4">
               {recentLeads.map((lead) => (
                 <div
-                  key={lead.id}
+                  key={lead._id}
                   className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-start justify-between mb-2">

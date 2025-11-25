@@ -176,7 +176,9 @@ export function DirectRequestsPanel() {
 
       {/* Direct Requests List */}
       {leads.map((lead) => {
-        const timeRemaining = getTimeRemaining(lead.expiresAt);
+        // Use directLeadExpiresAt for direct leads, fallback to expiresAt
+        const expiryDate = lead.directLeadExpiresAt || lead.expiresAt;
+        const timeRemaining = getTimeRemaining(expiryDate);
         const isProcessing = processingLeadId === lead._id;
 
         return (

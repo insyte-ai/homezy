@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as leadService from '../services/lead.service';
 import * as directLeadService from '../services/directLead.service';
+import * as guestLeadService from '../services/guestLead.service';
 import { leadContentGenerator } from '../services/lead-content-generator.service';
 import { logger } from '../utils/logger';
 import type {
@@ -13,6 +14,7 @@ import type {
   CreateDirectLeadInput,
   GetMyDirectLeadsInput,
   DeclineDirectLeadInput,
+  CreateGuestLeadInput,
 } from '../schemas/lead.schema';
 
 /**
@@ -485,6 +487,38 @@ export const sendDirectLeadsToSelectedPros = async (
   }
 };
 
+/**
+ * Create a guest lead (unauthenticated user)
+ * Handles user creation + lead creation atomically
+ * @route POST /api/v1/leads/guest
+ * @access Public (rate limited)
+ */
+export const createGuestLead = async (
+  req: Request<{}, {}, CreateGuestLeadInput>,
+  res: Response
+): Promise<void> => {
+  const result = await guestLeadService.createGuestLead(req.body);
+
+  logger.info('Guest lead created successfully', {
+    leadId: result.lead._id,
+    userId: result.user._id,
+    isNewUser: result.isNewUser,
+    isDirectLead: !!req.body.targetProfessionalId,
+  });
+
+  res.status(201).json({
+    success: true,
+    message: result.isNewUser
+      ? 'Request created! Check your email to set up your account.'
+      : 'Request created! Check your email for a login link.',
+    data: {
+      leadId: result.lead._id,
+      isNewUser: result.isNewUser,
+      email: result.user.email,
+    },
+  });
+};
+
 export default {
   createLead,
   getLeadById,
@@ -501,4 +535,5 @@ export default {
   declineDirectLead,
   generateLeadContent,
   sendDirectLeadsToSelectedPros,
+  createGuestLead,
 };

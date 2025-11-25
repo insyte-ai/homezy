@@ -81,6 +81,11 @@ export interface Lead {
   updatedAt: string;
   matchScore?: number;
   claim?: LeadClaim;
+  // Direct lead fields
+  leadType?: 'direct' | 'indirect';
+  targetProfessionalId?: string;
+  directLeadExpiresAt?: string;
+  directLeadStatus?: 'pending' | 'accepted' | 'declined' | 'converted';
 }
 
 export interface LeadClaim {

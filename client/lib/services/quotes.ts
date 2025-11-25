@@ -128,6 +128,16 @@ export const getQuotesForLead = async (leadId: string, params?: {
 };
 
 /**
+ * Get my quote for a specific lead (professional view)
+ */
+export const getMyQuoteForLead = async (leadId: string): Promise<Quote | null> => {
+  const response = await api.get<{ success: boolean; data: { quote: Quote | null } }>(
+    `/leads/${leadId}/quotes/my-quote`
+  );
+  return response.data.data.quote;
+};
+
+/**
  * Get my quotes (professional view)
  */
 export const getMyQuotes = async (params?: {
@@ -181,6 +191,7 @@ export const declineQuote = async (quoteId: string, reason?: string): Promise<Qu
 export default {
   submitQuote,
   getQuotesForLead,
+  getMyQuoteForLead,
   getMyQuotes,
   getQuoteById,
   updateQuote,

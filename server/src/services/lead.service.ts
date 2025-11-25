@@ -12,6 +12,39 @@ import { PLATFORM_CONFIG, BUDGET_BRACKETS } from '@homezy/shared';
  * Handles all lead-related business logic
  */
 
+// Map lead budget brackets to credit cost brackets
+const mapBudgetBracketForCredits = (bracket: string): 'under-5k' | '5k-20k' | '20k-50k' | '50k-100k' | 'over-100k' => {
+  const mapping: Record<string, 'under-5k' | '5k-20k' | '20k-50k' | '50k-100k' | 'over-100k'> = {
+    '500-1k': 'under-5k',
+    '1k-5k': 'under-5k',
+    '5k-15k': '5k-20k',
+    '15k-50k': '20k-50k',
+    '50k-150k': '50k-100k',
+    '150k+': 'over-100k',
+  };
+  return mapping[bracket] || 'under-5k';
+};
+
+// Map lead urgency to credit urgency
+const mapUrgencyForCredits = (urgency: string): 'flexible' | 'within-month' | 'within-week' | 'emergency' => {
+  const mapping: Record<string, 'flexible' | 'within-month' | 'within-week' | 'emergency'> = {
+    'planning': 'flexible',
+    'flexible': 'within-month',
+    'urgent': 'within-week',
+    'emergency': 'emergency',
+  };
+  return mapping[urgency] || 'flexible';
+};
+
+// Calculate credit cost for a lead (without verification discount for display)
+const calculateLeadCreditCost = (lead: { budgetBracket: string; urgency: string }): number => {
+  return creditService.calculateCreditCost({
+    budgetBracket: mapBudgetBracketForCredits(lead.budgetBracket),
+    urgency: mapUrgencyForCredits(lead.urgency),
+    verificationStatus: 'pending', // Base cost without discount
+  });
+};
+
 /**
  * Create a new lead
  */
@@ -68,7 +101,15 @@ export const getLeadById = async (leadId: string, userId?: string) => {
   if (userId) {
     isOwner = lead.homeownerId === userId;
 
-    if (!isOwner) {
+    // Check if this is a direct lead accepted by this professional
+    if (lead.leadType === 'direct' &&
+        lead.targetProfessionalId === userId &&
+        lead.directLeadStatus === 'accepted') {
+      hasClaimed = true;
+    }
+
+    // Check for regular claim
+    if (!isOwner && !hasClaimed) {
       const claim = await LeadClaim.findOne({
         leadId: leadId,
         professionalId: userId,
@@ -78,9 +119,22 @@ export const getLeadById = async (leadId: string, userId?: string) => {
   }
 
   // Hide full address unless claimed or owner
-  const leadData = lead.toJSON();
+  const leadData: any = lead.toJSON();
   if (!hasClaimed && !isOwner && leadData.location.fullAddress) {
     delete leadData.location.fullAddress;
+  }
+
+  // Populate homeowner info if claimed or owner
+  if (hasClaimed || isOwner) {
+    const homeowner = await User.findById(lead.homeownerId).select('firstName lastName email phone');
+    if (homeowner) {
+      leadData.homeownerId = {
+        id: homeowner._id.toString(),
+        name: `${homeowner.firstName} ${homeowner.lastName}`.trim(),
+        email: homeowner.email,
+        phone: homeowner.phone,
+      };
+    }
   }
 
   return {
@@ -208,6 +262,20 @@ export const browseLeads = async (filters: GetLeadsInput, professionalId?: strin
   // Not expired
   query.expiresAt = { $gt: new Date() };
 
+  // Only show indirect leads (public marketplace) or converted direct leads
+  // Direct leads that are still pending should not appear in public marketplace
+  // Use $and to combine with potential search $or
+  if (!query.$and) {
+    query.$and = [];
+  }
+  query.$and.push({
+    $or: [
+      { leadType: 'indirect' },
+      { leadType: { $exists: false } }, // Legacy leads without leadType field
+      { leadType: 'direct', directLeadStatus: 'converted' }, // Direct leads that converted to public
+    ],
+  });
+
   // Apply filters
   if (filters.category) {
     query.category = filters.category;
@@ -235,10 +303,12 @@ export const browseLeads = async (filters: GetLeadsInput, professionalId?: strin
 
   // Search in title and description
   if (filters.search) {
-    query.$or = [
-      { title: { $regex: filters.search, $options: 'i' } },
-      { description: { $regex: filters.search, $options: 'i' } },
-    ];
+    query.$and.push({
+      $or: [
+        { title: { $regex: filters.search, $options: 'i' } },
+        { description: { $regex: filters.search, $options: 'i' } },
+      ],
+    });
   }
 
   // Sorting
@@ -278,40 +348,42 @@ export const browseLeads = async (filters: GetLeadsInput, professionalId?: strin
   ]);
 
   // For each lead, check if current professional has claimed it
-  let leadsWithClaimStatus = leads;
+  let leadsWithClaimStatus: any[] = leads;
   if (professionalId) {
     const leadIds = leads.map(l => l._id.toString());
     const claims = await LeadClaim.find({
       leadId: { $in: leadIds },
       professionalId,
-    }).lean();
+    });
 
     const claimMap = new Map(claims.map(c => [c.leadId, true]));
 
-    leadsWithClaimStatus = leads.map(lead => {
+    leadsWithClaimStatus = leads.map((lead) => {
       // Hide full address unless claimed
       const leadData = { ...lead };
       const hasClaimed = claimMap.has(lead._id.toString());
 
-      if (!hasClaimed && leadData.location.fullAddress) {
+      if (!hasClaimed && leadData.location?.fullAddress) {
         delete leadData.location.fullAddress;
       }
 
       return {
         ...leadData,
         hasClaimed,
+        creditsRequired: calculateLeadCreditCost(lead),
       };
     });
   } else {
     // Hide full address for non-authenticated users
-    leadsWithClaimStatus = leads.map(lead => {
+    leadsWithClaimStatus = leads.map((lead) => {
       const leadData = { ...lead };
-      if (leadData.location.fullAddress) {
+      if (leadData.location?.fullAddress) {
         delete leadData.location.fullAddress;
       }
       return {
         ...leadData,
         hasClaimed: false,
+        creditsRequired: calculateLeadCreditCost(lead),
       };
     });
   }
@@ -354,38 +426,55 @@ export const getMyLeads = async (homeownerId: string, options?: { status?: strin
 /**
  * Get my claimed leads (professional view)
  */
-export const getMyClaimedLeads = async (professionalId: string, options?: { quoteSubmitted?: boolean; limit?: number; offset?: number }) => {
+export const getMyClaimedLeads = async (professionalId: string, options?: { quoteSubmitted?: boolean; limit?: number; offset?: number; page?: number }) => {
   const query: any = { professionalId };
 
   if (options?.quoteSubmitted !== undefined) {
     query.quoteSubmitted = options.quoteSubmitted;
   }
 
+  const limit = options?.limit || 20;
+  const page = options?.page || 1;
+  const skip = (page - 1) * limit;
+
   const [claims, total] = await Promise.all([
     LeadClaim.find(query)
       .sort({ claimedAt: -1 })
-      .skip(options?.offset || 0)
-      .limit(options?.limit || 20)
+      .skip(skip)
+      .limit(limit)
       .lean(),
     LeadClaim.countDocuments(query),
   ]);
 
   // Fetch full lead details for each claim
   const leadIds = claims.map(c => c.leadId);
-  const leads = await Lead.find({ _id: { $in: leadIds } }).lean();
+  const leadsData = await Lead.find({ _id: { $in: leadIds } }).lean();
 
-  const leadMap = new Map(leads.map(l => [l._id.toString(), l]));
+  const leadMap = new Map(leadsData.map(l => [l._id.toString(), l]));
 
-  const claimsWithLeads = claims.map(claim => ({
-    ...claim,
-    lead: leadMap.get(claim.leadId),
-  }));
+  // Return leads with claim info attached
+  const leads = claims.map(claim => {
+    const lead = leadMap.get(claim.leadId);
+    if (!lead) return null;
+    return {
+      ...lead,
+      claim: {
+        _id: claim._id,
+        claimedAt: claim.claimedAt,
+        creditsCost: claim.creditsCost,
+        quoteSubmitted: claim.quoteSubmitted,
+      },
+    };
+  }).filter(Boolean);
 
   return {
-    claims: claimsWithLeads,
-    total,
-    limit: options?.limit || 20,
-    offset: options?.offset || 0,
+    leads,
+    pagination: {
+      page,
+      limit,
+      total,
+      pages: Math.ceil(total / limit),
+    },
   };
 };
 

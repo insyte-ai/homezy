@@ -251,3 +251,37 @@ export const declineDirectLeadSchema = z.object({
 });
 
 export type DeclineDirectLeadInput = z.infer<typeof declineDirectLeadSchema>;
+
+/**
+ * Create guest lead schema
+ * For unauthenticated users - combines contact info with lead data
+ */
+export const createGuestLeadSchema = z.object({
+  // Contact info
+  email: z.string().email('Valid email is required'),
+  firstName: z.string().min(1).max(50).optional(),
+  phone: z.string().optional(),
+
+  // Lead data (same as createLeadSchema)
+  title: z.string()
+    .min(5, 'Title must be at least 5 characters')
+    .max(100, 'Title must be at most 100 characters')
+    .trim(),
+  description: z.string()
+    .min(20, 'Description must be at least 20 characters')
+    .max(2000, 'Description must be at most 2000 characters'),
+  category: categorySchema,
+  location: locationSchema,
+  budgetBracket: budgetBracketEnum,
+  urgency: urgencyEnum,
+  timeline: z.string().max(500).optional(),
+  photos: z.array(z.string().url()).max(10, 'Maximum 10 photos allowed').optional(),
+  attachments: z.array(attachmentSchema).max(10, 'Maximum 10 attachments allowed').default([]),
+  serviceAnswers: serviceAnswersSchema.optional(),
+  preferences: leadPreferencesSchema.default({}),
+
+  // Optional: Direct lead to specific professional
+  targetProfessionalId: z.string().optional(),
+});
+
+export type CreateGuestLeadInput = z.infer<typeof createGuestLeadSchema>;

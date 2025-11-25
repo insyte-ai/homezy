@@ -15,12 +15,12 @@ export interface DashboardStats {
 }
 
 export interface RecentActivity {
-  id: string;
+  _id: string;
   type: 'lead_created' | 'professional_registered' | 'lead_claimed' | 'credit_purchased';
   description: string;
   timestamp: string;
   user?: {
-    id: string;
+    _id: string;
     name: string;
   };
 }

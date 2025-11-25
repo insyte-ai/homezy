@@ -44,6 +44,7 @@ export function MultiStepLeadForm({
     setTargetProfessionalId,
     nextStep,
     previousStep,
+    goToStep,
     validateCurrentStep,
     getTotalSteps,
     getProgress,
@@ -55,14 +56,43 @@ export function MultiStepLeadForm({
   // Skip contact step for authenticated users
   const skipContactStep = isAuthenticated;
 
-  // Load questionnaire and set professional context on mount
+  // Adjust step when user becomes authenticated (e.g., after login redirect)
+  // Authenticated users only have 3 steps (0-2), so if they're on step 3, move to step 2
+  useEffect(() => {
+    if (isAuthenticated && currentStep >= 3) {
+      console.log('[MultiStepLeadForm] User authenticated, adjusting step from', currentStep, 'to 2');
+      goToStep(2); // Go to PhotoUploadStep which has submit button for authenticated users
+    }
+  }, [isAuthenticated, currentStep, goToStep]);
+
+  // Set target professional ID immediately on mount (before any other state)
+  // This must happen before the questionnaire loads to ensure direct lead routing
+  useEffect(() => {
+    // IMPORTANT: Set target professional first, before service changes that might reset state
+    setTargetProfessionalId(professionalId || null);
+
+    // Log for debugging direct leads
+    console.log('[MultiStepLeadForm] Setting targetProfessionalId:', professionalId || 'null (indirect lead)');
+  }, [professionalId, setTargetProfessionalId]);
+
+  // Load questionnaire and set service context
   useEffect(() => {
     setServiceId(serviceId);
-    setTargetProfessionalId(professionalId || null);
     loadQuestionnaire(serviceId).then((q) => {
       setQuestionnaire(q);
     });
-  }, [serviceId, professionalId]);
+  }, [serviceId, setServiceId, setQuestionnaire]);
+
+  // Reset targetProfessionalId when form closes/unmounts to prevent stale state
+  useEffect(() => {
+    return () => {
+      // Only reset if this was a direct lead form (to not affect other form instances)
+      if (professionalId) {
+        console.log('[MultiStepLeadForm] Unmounting - clearing targetProfessionalId');
+        setTargetProfessionalId(null);
+      }
+    };
+  }, [professionalId, setTargetProfessionalId]);
 
   if (!questionnaire) {
     return (

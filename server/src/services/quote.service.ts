@@ -244,6 +244,32 @@ export const getQuotesForLead = async (leadId: string, homeownerId: string, opti
 };
 
 /**
+ * Get my quote for a specific lead (professional view)
+ * Returns the professional's own quote for a lead, if any
+ */
+export const getMyQuoteForLead = async (leadId: string, professionalId: string) => {
+  const lead = await Lead.findById(leadId);
+
+  if (!lead) {
+    throw new NotFoundError('Lead not found');
+  }
+
+  // Verify professional has access to this lead (claimed or accepted direct lead)
+  const hasClaim = await LeadClaim.findOne({ leadId, professionalId });
+  const isDirectLeadTarget = lead.leadType === 'direct' &&
+    lead.targetProfessionalId === professionalId;
+
+  if (!hasClaim && !isDirectLeadTarget) {
+    throw new ForbiddenError('You do not have access to this lead');
+  }
+
+  // Get the professional's quote for this lead
+  const quote = await Quote.findOne({ leadId, professionalId }).lean();
+
+  return quote;
+};
+
+/**
  * Get my quotes (professional view)
  */
 export const getMyQuotes = async (professionalId: string, options?: { status?: string; limit?: number; offset?: number }) => {
@@ -463,6 +489,7 @@ export default {
   updateQuote,
   getQuoteById,
   getQuotesForLead,
+  getMyQuoteForLead,
   getMyQuotes,
   acceptQuote,
   declineQuote,

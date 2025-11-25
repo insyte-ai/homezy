@@ -212,7 +212,7 @@ export default function AdminDashboard() {
             </div>
           ) : (
             recentActivity.map((activity) => (
-              <div key={activity.id} className="p-4 hover:bg-gray-50 transition-colors">
+              <div key={activity._id} className="p-4 hover:bg-gray-50 transition-colors">
                 <div className="flex items-start gap-4">
                   <div className={`p-2 rounded-lg ${getActivityColor(activity.type)}`}>
                     {getActivityIcon(activity.type)}

@@ -112,6 +112,28 @@ export const getQuotesForLead = async (
 };
 
 /**
+ * Get my quote for a specific lead
+ * @route GET /api/v1/leads/:leadId/my-quote
+ * @access Private (Professional only - must have claimed lead)
+ */
+export const getMyQuoteForLead = async (
+  req: Request<{ leadId: string }>,
+  res: Response
+): Promise<void> => {
+  const { leadId } = req.params;
+  const professionalId = (req.user!._id as any).toString();
+
+  const quote = await quoteService.getMyQuoteForLead(leadId, professionalId);
+
+  res.status(200).json({
+    success: true,
+    data: {
+      quote,
+    },
+  });
+};
+
+/**
  * Get my quotes (professional view)
  * @route GET /api/v1/quotes/my-quotes
  * @access Private (Professional only)
@@ -210,6 +232,7 @@ export default {
   updateQuote,
   getQuoteById,
   getQuotesForLead,
+  getMyQuoteForLead,
   getMyQuotes,
   acceptQuote,
   declineQuote,

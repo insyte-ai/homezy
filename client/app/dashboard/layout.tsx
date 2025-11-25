@@ -26,6 +26,7 @@ import {
   disconnectMessagingSocket,
   onMessageNotification,
 } from '@/lib/services/messages';
+import { getMyLeads } from '@/lib/services/leads';
 
 export default function DashboardLayout({
   children,
@@ -67,8 +68,9 @@ export default function DashboardLayout({
     }
   }, [user, isAuthenticated, router]);
 
-  // Check if user is new (created in last 7 days)
+  // Check if user is new (created in last 7 days) AND has no leads
   const [isNewUser, setIsNewUser] = useState(false);
+  const [hasLeads, setHasLeads] = useState(true); // Default to true to hide banner until we check
 
   useEffect(() => {
     if (user?.createdAt) {
@@ -79,6 +81,22 @@ export default function DashboardLayout({
       setIsNewUser(false);
     }
   }, [user?.createdAt]);
+
+  // Check if user has any leads
+  useEffect(() => {
+    const checkUserLeads = async () => {
+      try {
+        const { leads } = await getMyLeads({ limit: 1 });
+        setHasLeads(leads.length > 0);
+      } catch {
+        setHasLeads(false);
+      }
+    };
+
+    if (isAuthenticated && user) {
+      checkUserLeads();
+    }
+  }, [isAuthenticated, user]);
 
   // Load unread message count
   useEffect(() => {
@@ -280,8 +298,8 @@ export default function DashboardLayout({
         )}
       </header>
 
-      {/* Welcome Banner for New Users */}
-      {showWelcomeBanner && isNewUser && (
+      {/* Welcome Banner for New Users with No Leads */}
+      {showWelcomeBanner && isNewUser && !hasLeads && (
         <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-black">
           <div className={`container-custom py-4 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
             <div className="flex items-center justify-between">

@@ -41,6 +41,7 @@ interface LeadSuccessWithProsProps {
   serviceCategory: string;
   emirate: string;
   onClose: () => void;
+  isGuest?: boolean;
 }
 
 export function LeadSuccessWithPros({
@@ -48,6 +49,7 @@ export function LeadSuccessWithPros({
   serviceCategory,
   emirate,
   onClose,
+  isGuest = false,
 }: LeadSuccessWithProsProps) {
   const router = useRouter();
   const [professionals, setProfessionals] = useState<Professional[]>([]);
@@ -100,6 +102,12 @@ export function LeadSuccessWithPros({
       return;
     }
 
+    // Guest users can't send direct leads (requires auth)
+    if (isGuest) {
+      toast.error('Please check your email to set up your account first, then you can send direct requests.');
+      return;
+    }
+
     setIsSending(true);
     try {
       // Send direct leads to selected professionals
@@ -136,9 +144,20 @@ export function LeadSuccessWithPros({
           Request Posted Successfully!
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Your request is now live on the marketplace. Choose professionals below to send your
-          request directly to them for faster quotes.
+          {isGuest
+            ? 'Your request is now live on the marketplace. Professionals will contact you with quotes.'
+            : 'Your request is now live on the marketplace. Choose professionals below to send your request directly to them for faster quotes.'}
         </p>
+
+        {/* Guest user email notice */}
+        {isGuest && (
+          <div className="mt-4 bg-green-50 border border-green-200 rounded-xl p-4 max-w-md mx-auto">
+            <p className="text-sm text-green-800">
+              <strong>Check your email!</strong> We've sent you a link to manage your requests
+              and communicate with professionals.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Loading State */}
@@ -157,10 +176,10 @@ export function LeadSuccessWithPros({
             still live on the marketplace and professionals can claim it.
           </p>
           <button
-            onClick={() => router.push('/dashboard')}
+            onClick={() => router.push(isGuest ? '/' : '/dashboard')}
             className="px-6 py-2 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-600 transition-colors"
           >
-            Go to Dashboard
+            {isGuest ? 'Go to Homepage' : 'Go to Dashboard'}
           </button>
         </div>
       )}
@@ -235,13 +254,13 @@ export function LeadSuccessWithPros({
         </div>
       )}
 
-      {/* Skip and Go to Dashboard */}
+      {/* Skip and Go to Dashboard/Homepage */}
       <div className="text-center">
         <button
-          onClick={() => router.push('/dashboard')}
+          onClick={() => router.push(isGuest ? '/' : '/dashboard')}
           className="text-gray-600 hover:text-gray-800 underline"
         >
-          Skip and go to dashboard
+          {isGuest ? 'Skip and go to homepage' : 'Skip and go to dashboard'}
         </button>
       </div>
     </div>
