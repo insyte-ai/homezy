@@ -1,0 +1,143 @@
+[article]
+id = "kb_bp_001"
+category = "best_practices"
+topic = "How to Hire Contractors in UAE"
+summary = "Essential guide to finding, vetting, and working with home improvement contractors in the UAE"
+emirates = ["dubai", "abu-dhabi", "sharjah", "ajman", "rak", "fujairah", "uaq"]
+services = ["renovation", "plumbing", "electrical", "painting", "carpentry", "hvac", "flooring", "tiling"]
+
+[content]
+text = """
+# How to Hire Contractors in UAE
+
+Finding reliable contractors in the UAE can be challenging. This guide helps you navigate the process and avoid common pitfalls.
+
+## Before You Start
+
+### Define Your Project Clearly
+- Write detailed scope of work
+- List specific materials if you have preferences
+- Set realistic budget range
+- Determine your timeline
+
+### Gather Multiple Quotes
+- Get at least 3-5 quotes
+- Compare like-for-like (same scope)
+- Be wary of quotes that are too low
+- Ask for itemized breakdowns
+
+## Vetting Contractors
+
+### Essential Checks
+1. **Trade License** - Valid UAE trade license for their service category
+2. **Insurance** - Liability insurance for damages
+3. **References** - Contact previous clients
+4. **Portfolio** - Photos of completed projects
+5. **Online Reviews** - Check Google, social media
+
+### Red Flags to Avoid
+- No trade license or expired license
+- Unwilling to provide references
+- Demands full payment upfront
+- No written contract
+- Pressure to sign immediately
+- Cannot provide itemized quote
+- No physical office or workshop
+
+## The Quotation Process
+
+### What a Good Quote Includes
+- Detailed scope of work
+- Material specifications and brands
+- Labor costs breakdown
+- Timeline with milestones
+- Payment schedule
+- Warranty terms
+- Permit responsibility
+
+### Comparing Quotes
+| Item | Check For |
+|------|-----------|
+| Materials | Same brand/quality specified? |
+| Labor | Similar crew size/timeline? |
+| Inclusions | What's included vs extra? |
+| Warranty | Coverage period and terms |
+
+## Contracts and Agreements
+
+### Must-Have Contract Terms
+1. Full scope of work description
+2. Total price and payment schedule
+3. Start and completion dates
+4. Penalty clause for delays
+5. Change order process
+6. Warranty period and coverage
+7. Dispute resolution method
+
+### Payment Structure Best Practices
+- **Deposit:** 10-20% to secure booking
+- **Progress payments:** Tied to milestones
+- **Final payment:** 10-20% after completion and inspection
+- Never pay more than 50% before work starts
+
+## During the Project
+
+### Communication Tips
+- Establish primary contact person
+- Set up WhatsApp group for updates
+- Request daily/weekly progress photos
+- Document any changes in writing
+
+### Site Visits
+- Visit regularly (at least weekly)
+- Check work quality against specifications
+- Address issues immediately
+- Take photos of progress
+
+## Common Challenges in UAE
+
+### Language Barriers
+- Use translation apps if needed
+- Get important terms in writing
+- Use visual references (photos, drawings)
+
+### Labor Scheduling
+- Workers often juggle multiple projects
+- Confirm crew availability
+- Build buffer time into schedule
+
+### Material Sourcing
+- Verify materials match quotes
+- Accompany contractor to buy key materials
+- Keep receipts for everything
+
+## After Completion
+
+### Final Inspection Checklist
+- All work completed per contract
+- Materials match specifications
+- Finishes are clean and professional
+- All systems functional
+- No damage to existing property
+
+### Documentation to Collect
+- Completion certificate
+- Warranty documents
+- Material receipts
+- Before/after photos
+- Maintenance instructions
+
+## Tips for Success
+
+1. **Build relationships** - Good contractors are worth keeping
+2. **Pay fairly** - Cheap often costs more long-term
+3. **Communicate clearly** - Assumptions cause problems
+4. **Document everything** - Photos, messages, receipts
+5. **Be respectful** - Professional relationships work both ways
+"""
+
+[metadata]
+tags = ["contractors", "hiring", "quotes", "vetting", "contracts", "best-practices"]
+keywords = ["hire contractor", "find handyman", "contractor quotes", "trade license", "contractor tips"]
+last_updated = "2024-11-26"
+version = 1

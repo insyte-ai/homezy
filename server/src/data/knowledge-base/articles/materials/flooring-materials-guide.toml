@@ -1,0 +1,228 @@
+[article]
+id = "kb_mat_001"
+category = "materials"
+topic = "Flooring Materials Guide for UAE"
+summary = "Comprehensive comparison of flooring options suitable for UAE climate and lifestyle"
+emirates = ["dubai", "abu-dhabi", "sharjah", "ajman", "rak", "fujairah", "uaq"]
+services = ["flooring", "tiling", "renovation"]
+
+[content]
+text = """
+# Flooring Materials Guide for UAE
+
+Choosing the right flooring for UAE homes requires considering heat, humidity, sand, and lifestyle factors. This guide covers all major options.
+
+## UAE Climate Considerations
+
+### What UAE Floors Must Handle
+- Temperature swings (AC vs outdoor heat)
+- High humidity in bathrooms and kitchens
+- Sand and dust tracked indoors
+- Heavy AC use (cold floors)
+- Direct sunlight through windows
+
+### Best Overall for UAE
+1. Porcelain tiles (most popular)
+2. Ceramic tiles (budget-friendly)
+3. Vinyl/LVT (comfortable, practical)
+4. Marble (luxury, traditional)
+
+## Tile Options
+
+### Porcelain Tiles
+**Pros:**
+- Extremely durable
+- Water and stain resistant
+- Handles temperature changes
+- Low maintenance
+- Huge variety of designs
+
+**Cons:**
+- Cold underfoot (good for UAE!)
+- Hard on dropped items
+- Grout requires maintenance
+- Installation more expensive
+
+**Best for:** Living areas, kitchens, bathrooms, throughout home
+
+**Cost:** AED 80-250/sqm + AED 40-60/sqm installation
+
+### Ceramic Tiles
+**Pros:**
+- More affordable than porcelain
+- Good for walls and floors
+- Easy to clean
+- Many design options
+
+**Cons:**
+- Less durable than porcelain
+- Can crack under heavy impact
+- May absorb water (check rating)
+
+**Best for:** Bathrooms, kitchens, budget renovations
+
+**Cost:** AED 40-120/sqm + AED 35-50/sqm installation
+
+### Marble
+**Pros:**
+- Luxurious appearance
+- Naturally cool
+- Increases property value
+- Each piece unique
+
+**Cons:**
+- Requires sealing
+- Can stain (porous)
+- Expensive
+- Needs professional installation
+
+**Best for:** Living rooms, entryways, luxury properties
+
+**Cost:** AED 200-600/sqm + AED 60-100/sqm installation
+
+## Wood and Wood-Look Options
+
+### Engineered Wood
+**Pros:**
+- Real wood appearance
+- More stable than solid wood in UAE
+- Can be refinished (thick veneer)
+- Good for AC environments
+
+**Cons:**
+- Not for wet areas
+- More expensive than laminate
+- Scratches visible
+- Expansion/contraction in humidity
+
+**Best for:** Bedrooms, living areas (with good AC)
+
+**Cost:** AED 100-300/sqm + AED 40-60/sqm installation
+
+### Laminate
+**Pros:**
+- Affordable wood look
+- Easy DIY installation
+- Durable surface
+- Good for rentals
+
+**Cons:**
+- Cannot be refinished
+- Can look artificial
+- Swells with moisture
+- Hollow sound underfoot
+
+**Best for:** Bedrooms, budget renovations
+
+**Cost:** AED 30-80/sqm + AED 15-25/sqm installation
+
+### Vinyl/LVT (Luxury Vinyl Tile)
+**Pros:**
+- Waterproof
+- Comfortable underfoot
+- Excellent wood/stone looks
+- Easy maintenance
+- Quieter than tile
+
+**Cons:**
+- Can be damaged by heavy furniture
+- Not as prestigious as natural materials
+- May fade in direct sunlight
+- Cannot be refinished
+
+**Best for:** Throughout home, especially kitchens and bathrooms
+
+**Cost:** AED 50-150/sqm + AED 20-35/sqm installation
+
+## Natural Stone Options
+
+### Granite
+**Pros:**
+- Extremely hard and durable
+- Heat resistant
+- Unique patterns
+- Good for high-traffic areas
+
+**Cons:**
+- Cold and hard
+- Heavy (structural consideration)
+- Expensive
+- Requires sealing
+
+**Cost:** AED 150-400/sqm + AED 50-80/sqm installation
+
+### Travertine
+**Pros:**
+- Natural, warm appearance
+- Good for Mediterranean style
+- Naturally cool
+- Traditional UAE choice
+
+**Cons:**
+- Porous (needs sealing)
+- Can be slippery when wet
+- Fills can come out
+- Scratches visible
+
+**Cost:** AED 100-300/sqm + AED 50-70/sqm installation
+
+## Room-by-Room Recommendations
+
+### Living Room
+| Budget | Recommendation |
+|--------|----------------|
+| Economy | Large format ceramic tiles |
+| Standard | Porcelain tiles (wood look) |
+| Premium | Marble or natural stone |
+
+### Kitchen
+| Budget | Recommendation |
+|--------|----------------|
+| Economy | Ceramic tiles |
+| Standard | Porcelain or quality vinyl |
+| Premium | Porcelain large format |
+
+### Bathroom
+| Budget | Recommendation |
+|--------|----------------|
+| Economy | Ceramic tiles (non-slip) |
+| Standard | Porcelain (non-slip rating) |
+| Premium | Natural stone with proper sealing |
+
+### Bedroom
+| Budget | Recommendation |
+|--------|----------------|
+| Economy | Laminate flooring |
+| Standard | Vinyl LVT or engineered wood |
+| Premium | Engineered hardwood |
+
+## Important Specifications
+
+### Tile Ratings
+- **PEI Rating:** Wear resistance (1-5, use 3+ for floors)
+- **Slip Resistance:** R9-R13 (R10+ for wet areas)
+- **Water Absorption:** <0.5% for porcelain
+
+### Installation Tips
+1. Acclimate materials 48+ hours
+2. Use flexible adhesive for UAE temperature swings
+3. Leave expansion gaps at edges
+4. Use proper underlayment for comfort
+
+## Cost Comparison Summary
+
+| Material | Material Cost/sqm | Installation/sqm | Total/sqm |
+|----------|-------------------|------------------|-----------|
+| Ceramic Tiles | AED 40-120 | AED 35-50 | AED 75-170 |
+| Porcelain Tiles | AED 80-250 | AED 40-60 | AED 120-310 |
+| Laminate | AED 30-80 | AED 15-25 | AED 45-105 |
+| Vinyl/LVT | AED 50-150 | AED 20-35 | AED 70-185 |
+| Engineered Wood | AED 100-300 | AED 40-60 | AED 140-360 |
+| Marble | AED 200-600 | AED 60-100 | AED 260-700 |
+"""
+
+[metadata]
+tags = ["flooring", "tiles", "materials", "porcelain", "marble", "vinyl", "wood"]
+keywords = ["flooring UAE", "best tiles", "porcelain vs ceramic", "flooring cost", "marble flooring"]
+last_updated = "2024-11-26"
+version = 1

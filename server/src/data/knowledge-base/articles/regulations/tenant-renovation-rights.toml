@@ -1,0 +1,118 @@
+[article]
+id = "kb_reg_002"
+category = "regulations"
+topic = "Tenant Renovation Rights in UAE"
+summary = "Understanding what modifications tenants can make and landlord NOC requirements"
+emirates = ["dubai", "abu-dhabi", "sharjah", "ajman", "rak", "fujairah", "uaq"]
+services = ["renovation", "painting", "flooring", "hvac", "electrical", "plumbing"]
+
+[content]
+text = """
+# Tenant Renovation Rights in UAE
+
+As a tenant in the UAE, understanding your rights and limitations regarding property modifications is essential before starting any home improvement project.
+
+## What Tenants Can Usually Do (Without NOC)
+
+### Minor Cosmetic Changes
+- Painting walls (in same or similar colors)
+- Hanging pictures and wall decor
+- Installing curtain rods
+- Replacing light bulbs
+- Adding furniture and appliances
+- Installing removable shelving
+
+### With Restoration Clause
+Some landlords allow:
+- Different wall colors (with restoration commitment)
+- Temporary wallpaper
+- Stick-on tiles (removable)
+
+## What Requires Landlord NOC
+
+### Always Requires NOC
+- Any structural modifications
+- Permanent fixture changes
+- Drilling into walls for mounting
+- AC unit installation/relocation
+- Kitchen or bathroom modifications
+- Flooring changes
+- Electrical outlet additions
+- Plumbing modifications
+
+## Getting Landlord NOC
+
+### Steps to Follow
+1. Submit written request to landlord
+2. Include detailed project description
+3. Attach contractor quote
+4. Specify timeline
+5. Get signed NOC document
+
+### NOC Should Include
+- Landlord's full name and ID
+- Property details (Ejari reference)
+- Scope of approved work
+- Duration of approval
+- Restoration requirements
+- Both parties' signatures
+
+## Lease Agreement Clauses
+
+### What to Look For
+- Modification clause
+- Restoration requirements
+- Security deposit implications
+- Permitted vs prohibited changes
+
+### Common Lease Terms
+- "No alterations without written consent"
+- "Tenant to restore at end of tenancy"
+- "Landlord approval required for all fixtures"
+
+## Financial Considerations
+
+### Who Pays for What?
+**Tenant typically pays for:**
+- Cosmetic upgrades (painting, flooring)
+- Additional fixtures they want
+- Restoration at end of lease
+
+**Landlord may contribute to:**
+- Essential repairs (HVAC, plumbing issues)
+- Improvements that add property value
+- Long-term tenant incentives
+
+### Security Deposit Impact
+- Some modifications may require additional deposit
+- Failure to restore can result in deposit deduction
+- Document property condition before and after
+
+## Emirates-Specific Notes
+
+### Dubai
+- Ejari registration may need updating for major changes
+- RERA can mediate landlord-tenant disputes
+
+### Abu Dhabi
+- Tawtheeq registration considerations
+- Municipality permits for structural work
+
+### Other Emirates
+- Local municipality rules apply
+- Check with building management
+
+## Tips for Tenants
+
+1. **Get Everything in Writing** - Verbal agreements don't protect you
+2. **Take Photos** - Document condition before modifications
+3. **Keep Receipts** - Especially for improvements landlord agreed to
+4. **Hire Licensed Contractors** - Protects both parties
+5. **Plan for Restoration** - Budget for end-of-lease restoration
+"""
+
+[metadata]
+tags = ["tenant", "landlord", "NOC", "rental", "ejari", "modifications", "lease"]
+keywords = ["tenant rights", "landlord permission", "NOC", "rental property", "renovation rights"]
+last_updated = "2024-11-26"
+version = 1

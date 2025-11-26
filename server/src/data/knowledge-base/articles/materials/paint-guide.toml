@@ -1,0 +1,217 @@
+[article]
+id = "kb_mat_002"
+category = "materials"
+topic = "Paint Selection Guide for UAE"
+summary = "How to choose the right paint for UAE's climate and different surfaces"
+emirates = ["dubai", "abu-dhabi", "sharjah", "ajman", "rak", "fujairah", "uaq"]
+services = ["painting"]
+
+[content]
+text = """
+# Paint Selection Guide for UAE
+
+Choosing the right paint in UAE's harsh climate is crucial for durability and appearance. This guide covers interior and exterior paint selection.
+
+## UAE Climate Challenges for Paint
+
+### What Paint Must Withstand
+- Extreme UV radiation
+- Temperature swings (outdoor: 20°C to 50°C)
+- High humidity (70-90%)
+- Salt air in coastal areas
+- Sand and dust accumulation
+- AC condensation (interior)
+
+## Interior Paint Types
+
+### Matte/Flat Finish
+**Best for:** Ceilings, low-traffic areas
+**Pros:** Hides imperfections, no glare
+**Cons:** Hard to clean, marks easily
+**Durability:** Low
+
+### Eggshell Finish
+**Best for:** Living rooms, bedrooms
+**Pros:** Slight sheen, more washable than matte
+**Cons:** Shows some imperfections
+**Durability:** Medium
+
+### Satin Finish
+**Best for:** Kitchens, kids rooms, high-traffic areas
+**Pros:** Easy to clean, good durability
+**Cons:** Shows wall imperfections more
+**Durability:** Medium-High
+
+### Semi-Gloss Finish
+**Best for:** Bathrooms, kitchens, trim
+**Pros:** Very washable, moisture resistant
+**Cons:** Shows every wall flaw
+**Durability:** High
+
+### Gloss Finish
+**Best for:** Doors, trim, woodwork
+**Pros:** Very durable, easy to clean
+**Cons:** Shows all imperfections
+**Durability:** Very High
+
+## Exterior Paint Types
+
+### Acrylic Latex
+**Best for:** Most UAE exterior walls
+**Features:**
+- Flexible (handles expansion/contraction)
+- UV resistant
+- Breathable (allows moisture escape)
+- Easy cleanup
+
+### Elastomeric Paint
+**Best for:** Walls with hairline cracks
+**Features:**
+- Stretches up to 300%
+- Bridges small cracks
+- Excellent waterproofing
+- Premium price
+
+### Textured/Sand Finish
+**Best for:** Hiding surface imperfections
+**Features:**
+- Creates dimensional surface
+- Hides minor cracks
+- Good for older buildings
+- Difficult to touch up
+
+## Recommended Brands in UAE
+
+### Premium Tier
+| Brand | Strengths | Price Range |
+|-------|-----------|-------------|
+| Jotun | UAE market leader, excellent durability | AED 150-350/gallon |
+| Dulux | Good color range, trusted brand | AED 140-300/gallon |
+| Benjamin Moore | Premium quality, designer colors | AED 200-400/gallon |
+
+### Mid Tier
+| Brand | Strengths | Price Range |
+|-------|-----------|-------------|
+| National Paints | Local, good value | AED 80-180/gallon |
+| Berger | Reliable, widely available | AED 90-200/gallon |
+| Asian Paints | Good coverage, affordable | AED 70-150/gallon |
+
+### Budget Tier
+| Brand | Strengths | Price Range |
+|-------|-----------|-------------|
+| White Knight | Basic, rental-grade | AED 50-100/gallon |
+| Rainbow | Very affordable | AED 40-80/gallon |
+
+## Room-by-Room Paint Selection
+
+### Living Room
+- **Finish:** Eggshell or Satin
+- **Sheen:** Low to medium
+- **Tip:** Consider darker accent walls (hide AC marks)
+
+### Bedroom
+- **Finish:** Matte or Eggshell
+- **Sheen:** Minimal
+- **Tip:** Light colors keep room cool-feeling
+
+### Kitchen
+- **Finish:** Satin or Semi-gloss
+- **Sheen:** Medium to high
+- **Tip:** Avoid pure white (shows grease)
+
+### Bathroom
+- **Finish:** Semi-gloss or specialized bathroom paint
+- **Sheen:** High
+- **Tip:** Must have anti-mold properties
+
+### Exterior
+- **Finish:** Satin or Semi-gloss
+- **Sheen:** Medium
+- **Tip:** Use heat-reflective light colors
+
+## Paint Coverage and Quantity
+
+### Coverage Estimates
+| Surface | Coverage per Liter |
+|---------|-------------------|
+| Smooth walls | 10-12 sqm |
+| Textured walls | 6-8 sqm |
+| Ceilings | 10-12 sqm |
+| Woodwork | 12-14 sqm |
+
+### Calculating Quantity
+```
+Wall area = (Room perimeter × Height) - (Door/window areas)
+Paint needed = Wall area ÷ Coverage × Number of coats
+Add 10% for wastage
+```
+
+### Typical Requirements
+| Space | Walls Only | With Ceiling |
+|-------|------------|--------------|
+| 1BR Apartment | 8-12 liters | 12-16 liters |
+| 2BR Apartment | 14-20 liters | 20-28 liters |
+| 3BR Villa | 25-35 liters | 35-50 liters |
+
+## Color Selection Tips for UAE
+
+### Best Colors for UAE Interiors
+- **Whites/Off-whites:** Reflect light, feel cool
+- **Light grays:** Modern, hide dust
+- **Soft beiges:** Warm, traditional
+- **Light blues:** Cool, calming
+
+### Colors to Avoid
+- Dark colors in sunny rooms (fade quickly)
+- Pure bright white (shows every mark)
+- Flat finish in high-traffic areas
+
+### Exterior Color Tips
+- Light colors reduce heat absorption by 20-30%
+- Check HOA/building regulations
+- Consider how color looks in harsh UAE sun
+- Test large samples before committing
+
+## Paint Preparation
+
+### Wall Preparation Steps
+1. Clean walls (remove dust, grease)
+2. Fill cracks and holes
+3. Sand rough spots
+4. Apply primer if needed
+5. Allow proper drying time
+
+### When Primer is Needed
+- New drywall
+- Over dark colors
+- Covering stains
+- On patched areas
+- Bare wood/metal
+
+## UAE-Specific Tips
+
+### Painting in Summer
+- Use AC to control humidity
+- Paint early morning or evening
+- Allow extra drying time
+- Don't paint exteriors in direct sun
+
+### Painting in Humid Season
+- Use dehumidifier
+- Increase drying time between coats
+- Check for condensation before painting
+- Use mold-resistant paint in bathrooms
+
+### Common Mistakes
+1. Not cleaning walls before painting
+2. Skipping primer when needed
+3. Painting in high humidity
+4. Applying too thick coats
+5. Not allowing proper dry time
+"""
+
+[metadata]
+tags = ["paint", "painting", "colors", "interior", "exterior", "materials"]
+keywords = ["paint UAE", "best paint brand", "Jotun", "Dulux", "paint colors", "interior paint"]
+last_updated = "2024-11-26"
+version = 1

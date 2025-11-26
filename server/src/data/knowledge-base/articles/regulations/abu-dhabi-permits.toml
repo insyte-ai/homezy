@@ -1,0 +1,182 @@
+[article]
+id = "kb_reg_003"
+category = "regulations"
+topic = "Building Permits in Abu Dhabi"
+summary = "Guide to Abu Dhabi Municipality (ADM) building permit requirements for home improvements"
+emirates = ["abu-dhabi"]
+services = ["renovation", "plumbing", "electrical", "hvac", "carpentry", "masonry"]
+
+[content]
+text = """
+# Building Permits in Abu Dhabi
+
+Abu Dhabi Municipality (ADM) has specific requirements for home improvement permits. This guide covers what you need to know.
+
+## Abu Dhabi vs Dubai Differences
+
+### Key Differences
+- Different municipality systems
+- ADM uses TAMM platform
+- Slightly different fee structures
+- Generally similar permit requirements
+
+## When Permits Are Required
+
+### Always Required
+- Structural modifications
+- Electrical system changes
+- Plumbing rerouting
+- HVAC system changes
+- Extensions and additions
+- Window/door modifications to exterior
+
+### Usually Not Required
+- Interior painting
+- Flooring replacement (same level)
+- Cabinet replacement (no MEP changes)
+- Fixture replacement (like for like)
+- Minor cosmetic updates
+
+## The TAMM Platform
+
+### What is TAMM?
+- Abu Dhabi's unified government services platform
+- Online permit applications
+- Track application status
+- Pay fees online
+
+### How to Apply
+1. Create TAMM account (www.tamm.abudhabi)
+2. Navigate to Construction & Building permits
+3. Select appropriate permit type
+4. Upload required documents
+5. Pay application fee
+6. Track status online
+
+## Required Documents
+
+### For Residential Modifications
+1. Title deed or tenancy contract
+2. Emirates ID of applicant
+3. NOC from landlord (if renting)
+4. NOC from building management
+5. Detailed scope of work
+6. Engineering drawings (for structural)
+7. Contractor trade license
+
+### For Major Renovations
+- Structural engineer report
+- MEP consultant drawings
+- Fire safety compliance
+- DCD approval (if applicable)
+
+## Permit Fees
+
+### Typical Fee Ranges
+| Permit Type | Fee Range |
+|-------------|-----------|
+| Minor modifications | AED 200-500 |
+| Interior renovation | AED 500-1,500 |
+| Structural changes | AED 1,000-3,000 |
+| Major renovation | AED 2,000-5,000 |
+
+### Additional Fees
+- Engineering review fees
+- Inspection fees
+- Completion certificate
+
+## Processing Times
+
+### Typical Timelines
+| Permit Type | Processing Time |
+|-------------|-----------------|
+| Simple modifications | 3-5 business days |
+| Interior work | 5-10 business days |
+| Structural work | 10-20 business days |
+| Complex projects | 20-30+ business days |
+
+## Villa vs Apartment
+
+### Villa Owners
+- More flexibility for modifications
+- Direct application to ADM
+- May need community approval
+- Larger scope typically approved
+
+### Apartment Owners
+- Building management NOC required
+- May have restrictions
+- Structural usually not permitted
+- Common areas off-limits
+
+### Tenants
+- Landlord NOC always required
+- Limited to interior modifications
+- Restoration clause likely
+- Cannot modify structure
+
+## Al Ain and Western Region
+
+### Same ADM Jurisdiction
+- Same permit requirements
+- Use TAMM platform
+- Local ADM offices available
+- May have longer processing times
+
+## Inspections
+
+### Types of Inspections
+1. **Pre-construction** - Verify approved plans
+2. **Progress** - During major milestones
+3. **Final** - Completion verification
+
+### Preparing for Inspection
+- Work matches approved plans
+- Materials as specified
+- Licensed contractor performed work
+- Safety standards met
+
+## Penalties for Non-Compliance
+
+### Possible Consequences
+- Fines (AED 5,000-50,000)
+- Stop-work orders
+- Removal of unauthorized work
+- Property registration issues
+- Legal complications
+
+## Tips for Smooth Approval
+
+### Do's
+1. Apply before starting work
+2. Use licensed contractors
+3. Submit complete documentation
+4. Respond promptly to queries
+5. Keep copies of everything
+
+### Don'ts
+1. Start work without approval
+2. Deviate from approved plans
+3. Use unlicensed workers
+4. Ignore inspection requests
+5. Assume verbal approval is enough
+
+## Contact Information
+
+### Abu Dhabi Municipality
+- Website: www.tamm.abudhabi
+- Call center: 800 555
+- Service centers: Multiple locations
+
+### Emergency Works
+- Can start critical repairs immediately
+- Apply for permit within 48 hours
+- Document emergency nature
+- Keep photos of damage
+"""
+
+[metadata]
+tags = ["permits", "abu-dhabi", "ADM", "TAMM", "regulations", "approval"]
+keywords = ["abu dhabi permit", "ADM approval", "TAMM permit", "building permit abu dhabi"]
+last_updated = "2024-11-26"
+version = 1

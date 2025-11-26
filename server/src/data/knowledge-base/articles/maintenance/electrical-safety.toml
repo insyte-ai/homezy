@@ -1,0 +1,251 @@
+[article]
+id = "kb_maint_003"
+category = "maintenance"
+topic = "Electrical Safety and Maintenance"
+summary = "Essential electrical safety tips and maintenance guide for UAE homes"
+emirates = ["dubai", "abu-dhabi", "sharjah", "ajman", "rak", "fujairah", "uaq"]
+services = ["electrical"]
+
+[content]
+text = """
+# Electrical Safety and Maintenance for UAE Homes
+
+Electrical safety is critical in UAE where high AC usage and summer heat put significant demands on electrical systems. This guide covers safety and maintenance essentials.
+
+## UAE Electrical System Basics
+
+### Standard Specifications
+- **Voltage:** 220-240V
+- **Frequency:** 50 Hz
+- **Plug type:** Type G (UK-style 3-pin)
+- **Circuit breakers:** Standard residential
+
+### Common UAE Electrical Setup
+- Main distribution board (DB)
+- Individual circuit breakers
+- ELCB/RCD for safety
+- Separate AC circuits
+- Dedicated water heater circuit
+
+## Electrical Safety Rules
+
+### The 10 Commandments of Electrical Safety
+
+1. **Never overload outlets**
+   - One high-power appliance per outlet
+   - Use quality power strips with surge protection
+   - Never daisy-chain extensions
+
+2. **Keep water away**
+   - No electrical items near water
+   - Use GFCI outlets in bathrooms/kitchens
+   - Dry hands before touching switches
+
+3. **Don't ignore warning signs**
+   - Flickering lights
+   - Burning smell
+   - Warm outlets
+   - Sparking
+
+4. **Use correct wattage**
+   - Check light fixture ratings
+   - Don't exceed appliance limits
+   - LED bulbs reduce load
+
+5. **Replace damaged cords**
+   - Frayed wires are fire hazards
+   - Don't tape over damage
+   - Replace the cord/appliance
+
+6. **Keep away from children**
+   - Use outlet covers
+   - Secure loose cords
+   - Educate children on dangers
+
+7. **Hire licensed electricians**
+   - DIY electrical is dangerous
+   - UAE requires licensed contractors
+   - Verify trade license
+
+8. **Know your breaker box**
+   - Label all circuits
+   - Know how to shut off power
+   - Keep area accessible
+
+9. **Test safety devices**
+   - Test RCD monthly
+   - Check smoke detectors
+   - Test GFCI outlets
+
+10. **Report concerns immediately**
+    - Don't ignore problems
+    - Better safe than sorry
+    - Call electrician for any concern
+
+## Monthly Maintenance
+
+### Visual Inspection
+- [ ] Check outlets for discoloration
+- [ ] Look for frayed cords
+- [ ] Test light switches (smooth operation)
+- [ ] Check outdoor outlets
+- [ ] Inspect extension cords
+
+### Testing Safety Devices
+**RCD/ELCB Test:**
+1. Press "Test" button on distribution board
+2. Power should cut off
+3. Reset switch
+4. If test fails, call electrician immediately
+
+**GFCI Test:**
+1. Press "Test" button on outlet
+2. Power should stop
+3. Press "Reset" to restore
+4. Test monthly
+
+## Common Electrical Problems
+
+### Frequent Breaker Trips
+
+**Possible causes:**
+- Overloaded circuit
+- Short circuit
+- Ground fault
+- Faulty appliance
+- Outdated wiring
+
+**What to do:**
+1. Unplug items on that circuit
+2. Reset breaker
+3. Add items back one by one
+4. If keeps tripping, call electrician
+
+### Flickering Lights
+
+**Possible causes:**
+| Symptom | Likely Cause |
+|---------|--------------|
+| One light flickers | Loose bulb or fixture |
+| Room flickers | Loose wiring connection |
+| Whole house flickers | Main connection issue |
+| Flickers when appliance starts | Circuit overload |
+
+### Warm Outlets/Switches
+
+**This is serious. Possible causes:**
+- Overloaded outlet
+- Loose wiring
+- Damaged outlet
+- Too many items plugged in
+
+**Action:** Stop using immediately, call electrician
+
+### Burning Smell
+
+**Emergency response:**
+1. Turn off power at main breaker
+2. Don't use any electrical
+3. Check for smoke/fire
+4. Call electrician immediately
+5. If smoke, call Civil Defense
+
+## AC Electrical Considerations
+
+### High Demand Circuits
+- AC units need dedicated circuits
+- Don't share AC outlet with other appliances
+- Voltage fluctuations damage AC compressors
+
+### Signs of AC Electrical Issues
+- AC trips breaker repeatedly
+- Lights dim when AC starts
+- Burning smell from AC
+- AC not cooling despite running
+
+### AC Electrical Maintenance
+- Annual electrical connection check
+- Verify correct breaker size
+- Check for loose connections
+- Test emergency shut-off
+
+## Water Heater Electrical Safety
+
+### Important Safety Features
+- Dedicated circuit required
+- Timer to reduce energy use
+- Temperature limit switch
+- Proper grounding essential
+
+### Warning Signs
+- Water heater trips breaker
+- Not heating consistently
+- Burning smell
+- Visible corrosion on connections
+
+## When to Call an Electrician
+
+### Emergency (Call Immediately)
+- Burning smell
+- Sparks from outlets
+- Electric shock received
+- Smoke from electrical
+- Power completely out
+
+### Urgent (Within 24-48 Hours)
+- Frequent breaker trips
+- Warm outlets or switches
+- Flickering throughout house
+- Buzzing sounds
+
+### Schedule Soon
+- Outlet not working
+- Single light issue
+- Want to add outlets
+- Upgrade old wiring
+
+## Cost of Electrical Services
+
+### Common Services
+| Service | Cost Range |
+|---------|------------|
+| Call-out/inspection | AED 100-200 |
+| Outlet replacement | AED 100-200 |
+| Switch replacement | AED 80-150 |
+| Light fixture install | AED 100-300 |
+| Ceiling fan install | AED 150-350 |
+| Circuit breaker replace | AED 200-500 |
+| DB upgrade | AED 1,500-4,000 |
+
+### Finding Licensed Electricians
+- Verify trade license
+- Check insurance
+- Get written quotes
+- Ask for warranty
+
+## UAE-Specific Considerations
+
+### Summer Load
+- AC runs constantly
+- Higher electrical load
+- More stress on circuits
+- Consider electrical audit before summer
+
+### Building Types
+| Type | Considerations |
+|------|----------------|
+| Old villa | May need rewiring |
+| New apartment | Usually good |
+| Old apartment | Check DB capacity |
+
+### DEWA/ADDC Responsibilities
+- Main meter and connection
+- Report outages to them
+- Internal wiring is owner's responsibility
+"""
+
+[metadata]
+tags = ["electrical", "safety", "maintenance", "wiring", "breakers", "outlets"]
+keywords = ["electrical safety UAE", "electrician", "breaker trips", "electrical maintenance"]
+last_updated = "2024-11-26"
+version = 1

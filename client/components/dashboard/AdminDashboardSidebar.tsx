@@ -18,6 +18,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ArrowRightOnRectangleIcon,
+  SparklesIcon,
 } from '@heroicons/react/24/outline';
 
 interface NavItem {
@@ -55,6 +56,7 @@ export function AdminDashboardSidebar() {
     { name: 'Credits', href: '/admin/credits', icon: CreditCardIcon },
     { name: 'Analytics', href: '/admin/analytics', icon: ChartBarIcon },
     { name: 'Audit Logs', href: '/admin/audit', icon: ClipboardDocumentListIcon },
+    { name: 'AI', href: '/admin/ai', icon: SparklesIcon },
   ];
 
   const handleLogout = () => {

@@ -1,0 +1,80 @@
+[article]
+id = "kb_reg_001"
+category = "regulations"
+topic = "Building Permits in Dubai"
+summary = "Complete guide to Dubai Municipality building permit requirements for home improvement projects"
+emirates = ["dubai"]
+services = ["renovation", "plumbing", "electrical", "hvac", "carpentry", "masonry"]
+
+[content]
+text = """
+# Building Permits in Dubai
+
+Dubai Municipality requires building permits for various types of home improvement work. Understanding these requirements helps avoid fines and ensures your project meets safety standards.
+
+## When Permits Are Required
+
+### Structural Changes (Always Required)
+- Removing or adding walls
+- Changes to load-bearing structures
+- Expanding rooms or adding extensions
+- Modifying balconies or terraces
+- Roof modifications
+
+### MEP Work (Usually Required)
+- Electrical panel upgrades
+- New electrical circuits for renovations
+- Plumbing modifications affecting main lines
+- HVAC system installations or relocations
+- Gas line work
+
+### Cosmetic Work (Usually Not Required)
+- Interior painting
+- Flooring replacement (same level)
+- Kitchen cabinet replacement (without plumbing/electrical changes)
+- Light fixture replacement (like for like)
+- Wall tiling
+
+## Permit Application Process
+
+### Step 1: Document Preparation
+1. Title deed or tenancy contract
+2. NOC from building management/landlord
+3. Detailed project drawings (for structural work)
+4. Contractor trade license copy
+5. ID copies of owner/tenant
+
+### Step 2: Application Submission
+- Submit through Dubai Municipality portal (dm.gov.ae)
+- Pay application fees (AED 500-2,000 depending on scope)
+- Processing time: 5-10 business days
+
+### Step 3: Inspection
+- Schedule inspection after completion
+- Ensure work matches approved plans
+- Obtain completion certificate
+
+## Important Notes
+
+**Penalties for Unpermitted Work:**
+- Fines up to AED 50,000
+- Mandatory removal of unauthorized work
+- Legal complications when selling property
+
+**Tenant Considerations:**
+- Always get landlord NOC before any modifications
+- Major work may require landlord to apply for permit
+- Check lease agreement for renovation clauses
+
+**Common Mistakes to Avoid:**
+1. Starting work before permit approval
+2. Making changes not in approved plans
+3. Using unlicensed contractors
+4. Skipping final inspection
+"""
+
+[metadata]
+tags = ["permits", "dubai", "municipality", "regulations", "approval", "DM", "construction"]
+keywords = ["building permit", "DM approval", "dubai municipality", "NOC", "renovation permit"]
+last_updated = "2024-11-26"
+version = 1

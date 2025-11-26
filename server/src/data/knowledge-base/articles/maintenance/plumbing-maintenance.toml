@@ -1,0 +1,218 @@
+[article]
+id = "kb_maint_002"
+category = "maintenance"
+topic = "Plumbing Maintenance for UAE Homes"
+summary = "Preventive plumbing maintenance and common issue solutions for UAE properties"
+emirates = ["dubai", "abu-dhabi", "sharjah", "ajman", "rak", "fujairah", "uaq"]
+services = ["plumbing"]
+
+[content]
+text = """
+# Plumbing Maintenance for UAE Homes
+
+UAE's water quality, building standards, and climate create unique plumbing challenges. Regular maintenance prevents costly repairs and water damage.
+
+## UAE-Specific Plumbing Considerations
+
+### Water Quality Issues
+- High mineral content (hard water)
+- Chlorine levels vary by emirate
+- Salt content in some areas
+- Causes limescale buildup
+
+### Common UAE Plumbing Features
+- Water tanks on roof (villa)
+- Water heaters (electric storage)
+- Chiller water for AC
+- District cooling connections
+
+## Monthly Maintenance Checklist
+
+### Kitchen
+- [ ] Run garbage disposal with ice cubes (cleans blades)
+- [ ] Check under sink for leaks
+- [ ] Clean faucet aerator (remove mineral buildup)
+- [ ] Pour hot water down drains
+
+### Bathrooms
+- [ ] Check toilet for running water (lift tank lid, listen)
+- [ ] Test all faucets for drips
+- [ ] Clear hair from shower drain
+- [ ] Check caulking around tub/shower
+
+### Water Heater
+- [ ] Check for leaks around base
+- [ ] Listen for unusual sounds
+- [ ] Verify temperature (50-60°C recommended)
+- [ ] Note water heating time (slow = sediment buildup)
+
+## Quarterly Maintenance
+
+### Drain Cleaning
+1. Pour boiling water down drains
+2. Follow with 1/2 cup baking soda
+3. Add 1/2 cup vinegar
+4. Wait 15 minutes
+5. Flush with hot water
+
+### Check Water Pressure
+- Normal: 40-60 PSI
+- Too high: Can damage fixtures
+- Too low: May indicate blockage
+- Test with pressure gauge at hose bib
+
+### Inspect Visible Pipes
+- Look for corrosion (green/white buildup)
+- Check for small leaks
+- Feel for temperature variations
+- Note any bulging or damage
+
+## Annual Professional Service
+
+### What Plumber Should Check
+1. Water heater flush and inspection
+2. Main shutoff valve operation
+3. Toilet mechanisms and seals
+4. All fixture connections
+5. Water pressure test
+6. Drain camera inspection (if issues)
+
+### Cost: AED 200-500 for annual inspection
+
+## Common Plumbing Problems
+
+### Clogged Drains
+
+**Kitchen clogs:**
+- Cause: Grease, food particles
+- Prevention: Never pour grease down drain
+- DIY fix: Plunger, baking soda/vinegar
+
+**Bathroom clogs:**
+- Cause: Hair, soap buildup
+- Prevention: Use drain covers
+- DIY fix: Drain snake, chemical cleaner
+
+**When to call plumber:**
+- Multiple drains clogged
+- Plunger doesn't work
+- Water backing up
+- Gurgling sounds
+
+### Leaky Faucets
+
+**Common causes:**
+- Worn washer (most common)
+- Corroded valve seat
+- O-ring damage
+- Loose parts
+
+**DIY fix (compression faucet):**
+1. Turn off water supply
+2. Remove handle and packing nut
+3. Replace washer and O-ring
+4. Reassemble and test
+
+**Cost if hiring:** AED 100-300 per faucet
+
+### Running Toilet
+
+**Diagnosis:**
+1. Remove tank lid
+2. Add food coloring to tank
+3. Wait 15 minutes
+4. Color in bowl = leak
+
+**Common fixes:**
+- Adjust float height
+- Replace flapper valve (AED 20-50)
+- Replace fill valve (AED 50-100)
+
+### Low Water Pressure
+
+**Check these first:**
+1. Only one fixture? Clean aerator
+2. Hot water only? Check water heater
+3. Whole house? Check main valve
+
+**Possible causes:**
+- Mineral buildup in pipes
+- Leaking pipe
+- Pressure regulator failure
+- Municipal supply issue
+
+### Water Heater Issues
+
+**No hot water:**
+- Check thermostat setting
+- Test heating element
+- Check circuit breaker
+
+**Not enough hot water:**
+- Sediment buildup (needs flush)
+- Undersized unit
+- Heating element failing
+
+**Strange noises:**
+- Popping/rumbling = sediment (flush needed)
+- Screeching = valve issue
+
+## Emergency Plumbing
+
+### What Constitutes Emergency
+- Burst pipe
+- Major leak
+- No water at all
+- Sewage backup
+- Gas smell (call ADDC/DEWA + plumber)
+
+### While Waiting for Plumber
+1. Shut off main water valve
+2. Turn off water heater
+3. Open faucets to drain
+4. Document damage (photos)
+5. Contain water with towels/buckets
+
+### Emergency Plumber Costs
+- Call-out fee: AED 150-300
+- After-hours: 50-100% surcharge
+- Weekend: 25-50% surcharge
+
+## Water-Saving Tips
+
+### Easy Wins
+- Fix dripping faucets immediately
+- Install low-flow showerheads
+- Use dual-flush toilet mechanisms
+- Don't run water while brushing teeth
+
+### Bigger Investments
+- Tankless water heater
+- Greywater recycling system
+- Smart leak detectors
+- Pressure-reducing valve
+
+## Finding a Good Plumber
+
+### Must-Haves
+- Valid trade license
+- Insurance coverage
+- Clear pricing before work
+- Warranty on repairs
+
+### Average Costs in UAE
+| Service | Cost Range |
+|---------|------------|
+| Basic call-out | AED 100-200 |
+| Faucet repair | AED 100-300 |
+| Toilet repair | AED 150-400 |
+| Drain unclogging | AED 150-350 |
+| Water heater service | AED 200-500 |
+| Pipe leak repair | AED 200-800 |
+"""
+
+[metadata]
+tags = ["plumbing", "maintenance", "leaks", "drains", "water-heater", "pipes"]
+keywords = ["plumbing maintenance", "clogged drain", "leaky faucet", "water heater", "plumber UAE"]
+last_updated = "2024-11-26"
+version = 1

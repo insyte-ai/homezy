@@ -1,0 +1,169 @@
+[article]
+id = "kb_maint_001"
+category = "maintenance"
+topic = "AC Maintenance Guide for UAE"
+summary = "Essential air conditioning maintenance tips for UAE's extreme climate"
+emirates = ["dubai", "abu-dhabi", "sharjah", "ajman", "rak", "fujairah", "uaq"]
+services = ["hvac"]
+
+[content]
+text = """
+# AC Maintenance Guide for UAE
+
+In UAE's extreme climate, your AC works overtime. Proper maintenance extends lifespan, reduces energy bills, and ensures reliable cooling when you need it most.
+
+## Why AC Maintenance Matters in UAE
+
+### UAE-Specific Challenges
+- Running 8-10 months per year
+- Extreme temperature differentials (50°C outside to 22°C inside)
+- High humidity causing strain
+- Sand and dust infiltration
+- Salt air in coastal areas
+
+### Benefits of Regular Maintenance
+- 20-30% energy savings
+- Extended equipment life (15+ years vs 8-10)
+- Better air quality
+- Fewer emergency breakdowns
+- Consistent cooling performance
+
+## Monthly Maintenance (DIY)
+
+### Filter Cleaning/Replacement
+1. Turn off AC unit
+2. Remove filter (usually behind front panel)
+3. Vacuum loose dust
+4. Wash with mild soap and water
+5. Dry completely before reinstalling
+6. Replace if damaged or every 3 months
+
+### Visual Inspection
+- Check for water leaks around unit
+- Listen for unusual noises
+- Verify air flow from vents
+- Check thermostat accuracy
+
+## Quarterly Maintenance
+
+### Clean Outdoor Unit
+1. Turn off power at breaker
+2. Remove debris around unit
+3. Gently rinse condenser coils with water
+4. Straighten bent fins with fin comb
+5. Ensure 2-foot clearance around unit
+
+### Check Drain Line
+- Locate condensate drain
+- Pour cup of bleach/vinegar to prevent clogs
+- Ensure water drains freely
+- Check drip pan for standing water
+
+## Annual Professional Service
+
+### What Technicians Should Do
+1. **Refrigerant check** - Measure and top up if needed
+2. **Coil cleaning** - Deep clean evaporator and condenser
+3. **Electrical inspection** - Check connections and capacitors
+4. **Thermostat calibration** - Verify accurate readings
+5. **Duct inspection** - Check for leaks
+6. **Blower motor** - Clean and lubricate
+
+### When to Schedule
+- **Best time:** March-April (before summer)
+- **Second service:** October (before winter)
+- Cost: AED 150-350 per unit
+
+## Common AC Problems
+
+### Not Cooling Properly
+**Possible causes:**
+- Dirty filters (most common)
+- Low refrigerant
+- Frozen evaporator coil
+- Faulty compressor
+- Blocked condenser
+
+**DIY fixes:**
+- Clean/replace filters
+- Clear debris from outdoor unit
+- Check thermostat settings
+
+### Water Leaking
+**Possible causes:**
+- Clogged drain line
+- Frozen coil (thawing)
+- Cracked drain pan
+- Improper installation
+
+**DIY fixes:**
+- Clear drain line with vacuum/bleach
+- Change dirty filter
+- Check drain pan
+
+### Strange Noises
+| Sound | Likely Cause | Action |
+|-------|--------------|--------|
+| Rattling | Loose parts | Tighten screws |
+| Squealing | Belt issue | Call technician |
+| Grinding | Motor bearings | Call technician |
+| Bubbling | Refrigerant leak | Call technician |
+| Clicking | Electrical issue | Call technician |
+
+### Bad Smell
+- **Musty:** Mold in ducts/unit - needs cleaning
+- **Burning:** Electrical issue - turn off, call technician
+- **Rotten:** Dead animal in ducts - call technician
+
+## Energy Saving Tips
+
+### Optimal Settings
+- Set to 24°C (ideal for UAE)
+- Each degree lower = 6% more energy
+- Use "Auto" fan mode
+- Enable sleep mode at night
+
+### Reduce AC Load
+- Close curtains during peak sun
+- Seal gaps around doors/windows
+- Use ceiling fans to circulate air
+- Avoid heat-generating activities midday
+
+## When to Replace Your AC
+
+### Signs It's Time
+- Over 10-12 years old
+- Frequent repairs (3+ per year)
+- Energy bills increasing significantly
+- Uneven cooling despite repairs
+- Uses R-22 refrigerant (being phased out)
+
+### Replacement Costs (Dubai)
+| Type | Unit Cost | Installation |
+|------|-----------|--------------|
+| Window AC (1.5 ton) | AED 1,500-3,000 | AED 200-400 |
+| Split AC (1.5 ton) | AED 2,500-5,000 | AED 500-800 |
+| Split AC (2 ton) | AED 3,500-7,000 | AED 600-1,000 |
+| Central AC | AED 15,000-40,000 | AED 3,000-8,000 |
+
+## Choosing AC Service Companies
+
+### What to Look For
+- Licensed HVAC contractor
+- Experienced with your AC brand
+- Transparent pricing
+- Emergency service availability
+- Warranty on repairs
+
+### Red Flags
+- No trade license
+- Won't provide written quote
+- Pushes unnecessary repairs
+- No warranty on work
+"""
+
+[metadata]
+tags = ["AC", "maintenance", "HVAC", "cooling", "air-conditioning", "energy-saving"]
+keywords = ["AC maintenance", "air conditioner service", "HVAC maintenance", "AC not cooling", "AC cleaning"]
+last_updated = "2024-11-26"
+version = 1
