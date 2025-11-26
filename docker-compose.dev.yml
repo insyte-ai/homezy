@@ -64,6 +64,7 @@ services:
   weaviate:
     image: semitechnologies/weaviate:1.22.4
     container_name: homezy-weaviate-dev
+    hostname: weaviate-node
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -74,6 +75,7 @@ services:
       DEFAULT_VECTORIZER_MODULE: 'text2vec-transformers'
       ENABLE_MODULES: 'text2vec-transformers'
       TRANSFORMERS_INFERENCE_API: 'http://t2v-transformers:8080'
+      CLUSTER_HOSTNAME: 'weaviate-node'
     volumes:
       - weaviate-data-dev:/var/lib/weaviate
     depends_on:

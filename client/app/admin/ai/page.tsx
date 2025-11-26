@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { api } from '@/lib/api';
 
 interface KnowledgeBaseStats {
-  articleCount: number;
-  isSemanticSearchAvailable: boolean;
+  totalArticles: number;
+  semanticSearchEnabled: boolean;
 }
 
 export default function AIPage() {
@@ -50,12 +50,12 @@ export default function AIPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Articles Loaded</p>
-                  <p className="text-2xl font-semibold text-gray-900">{stats.articleCount}</p>
+                  <p className="text-2xl font-semibold text-gray-900">{stats.totalArticles}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Semantic Search</p>
                   <p className="text-2xl font-semibold">
-                    {stats.isSemanticSearchAvailable ? (
+                    {stats.semanticSearchEnabled ? (
                       <span className="text-green-600">Active</span>
                     ) : (
                       <span className="text-yellow-600">Fallback Mode</span>
