@@ -10,6 +10,8 @@ import {
   getHomeowners,
   getLeads,
   getCreditTransactions,
+  reloadKnowledgeBase,
+  getKnowledgeBaseStats,
 } from '../controllers/admin.controller';
 
 const router = Router();
@@ -36,5 +38,9 @@ router.get('/leads', getLeads);
 
 // Credit management routes
 router.get('/credits', getCreditTransactions);
+
+// Knowledge base management routes
+router.get('/knowledge-base/stats', getKnowledgeBaseStats);
+router.post('/knowledge-base/reload', reloadKnowledgeBase);
 
 export default router;

@@ -18,7 +18,7 @@ export default function AllServicesPage() {
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 to-primary-100 py-16 md:py-20">
-        <div className={`container-custom text-center transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+        <div className={`container-custom text-center transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             All Home Services in UAE
           </h1>
@@ -39,11 +39,11 @@ export default function AllServicesPage() {
       {/* Main Service Categories */}
       {SERVICE_NAVIGATION.map((category) => (
         <section key={category.id} className="py-12 border-b border-gray-200">
-          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
               {category.name}
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
               {category.services.map((service) => {
                 const subcategories = SERVICE_SUBCATEGORIES[service.id] || [];
                 return (
@@ -89,11 +89,11 @@ export default function AllServicesPage() {
       {/* Additional Services */}
       {ADDITIONAL_SERVICES.length > 0 && (
         <section className="py-12 bg-gray-50">
-          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
               Additional Professional Services
             </h2>
-            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
               {ADDITIONAL_SERVICES.map((service) => (
                 <Link
                   key={service.id}
@@ -112,7 +112,7 @@ export default function AllServicesPage() {
 
       {/* CTA Section */}
       <section className="py-16 bg-primary-500">
-        <div className={`max-w-4xl mx-auto px-4 text-center transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+        <div className={`max-w-4xl mx-auto px-4 text-center transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Can't Find What You're Looking For?
           </h2>

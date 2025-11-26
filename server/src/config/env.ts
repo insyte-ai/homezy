@@ -61,6 +61,11 @@ const envSchema = z.object({
 
   // File Upload
   MAX_FILE_SIZE: z.string().transform(Number).default('5242880'),
+
+  // Weaviate (optional - semantic search for knowledge base)
+  WEAVIATE_HOST: z.string().default('localhost'),
+  WEAVIATE_PORT: z.string().default('8080'),
+  WEAVIATE_SCHEME: z.enum(['http', 'https']).default('http'),
 });
 
 // Validate environment variables

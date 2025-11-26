@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle, MessageCircle } from 'lucide-react';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
-import { ResponsiveContainer } from '@/components/layout/ResponsiveContainer';
+import { ChatPanelAwareContainer } from '@/components/layout/ChatPanelAwareContainer';
 import fs from 'fs';
 import path from 'path';
 
@@ -99,16 +99,16 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary-50 to-primary-100 py-16 md:py-24">
-        <ResponsiveContainer className="container-custom">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+        <ChatPanelAwareContainer className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 {serviceContent.title}
               </h1>
               <p className="text-lg text-gray-700 mb-8">
                 {serviceContent.description}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                 <Link
                   href="/auth/register"
                   className="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
@@ -126,7 +126,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
             {serviceContent.headerImage && (
-              <div className="relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-xl">
                 <Image
                   src={serviceContent.headerImage}
                   alt={serviceContent.title}
@@ -137,17 +137,17 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               </div>
             )}
           </div>
-        </ResponsiveContainer>
+        </ChatPanelAwareContainer>
       </section>
 
       {/* Benefits Section */}
       {serviceContent.benefits && serviceContent.benefits.length > 0 && (
         <section className="py-16 bg-white">
-          <ResponsiveContainer className="container-custom">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          <ChatPanelAwareContainer className="container-custom">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
               Why Choose Our {serviceContent.title}?
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               {serviceContent.benefits.map((benefit: string, index: number) => (
                 <div
                   key={index}
@@ -158,32 +158,32 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </div>
               ))}
             </div>
-          </ResponsiveContainer>
+          </ChatPanelAwareContainer>
         </section>
       )}
 
       {/* What to Expect Section */}
       {serviceContent.whatToExpect && (
         <section className="py-16 bg-gray-50">
-          <ResponsiveContainer className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          <ChatPanelAwareContainer className="container-custom">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
               What to Expect
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed">
               {serviceContent.whatToExpect}
             </p>
-          </ResponsiveContainer>
+          </ChatPanelAwareContainer>
         </section>
       )}
 
       {/* Image Gallery */}
       {serviceContent.images && serviceContent.images.length > 1 && (
         <section className="py-16 bg-white">
-          <ResponsiveContainer className="container-custom">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          <ChatPanelAwareContainer className="container-custom">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
               Gallery
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {serviceContent.images.slice(0, 4).map((image: string, index: number) => (
                 <div
                   key={index}
@@ -198,70 +198,74 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </div>
               ))}
             </div>
-          </ResponsiveContainer>
+          </ChatPanelAwareContainer>
         </section>
       )}
 
       {/* FAQs Section */}
       {serviceContent.faqs && serviceContent.faqs.length > 0 && (
         <section className="py-16 bg-gray-50">
-          <ResponsiveContainer className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-6">
-              {serviceContent.faqs.map((faq: { question: string; answer: string }, index: number) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-lg p-6 shadow-sm border border-gray-200"
-                >
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    {faq.question}
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-                </div>
-              ))}
+          <ChatPanelAwareContainer className="container-custom">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-6">
+                {serviceContent.faqs.map((faq: { question: string; answer: string }, index: number) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-lg p-6 shadow-sm border border-gray-200"
+                  >
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                      {faq.question}
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </ResponsiveContainer>
+          </ChatPanelAwareContainer>
         </section>
       )}
 
       {/* CTA Section */}
       <section className="py-16 bg-primary-500">
-        <ResponsiveContainer className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Ready to Get Started?
-          </h2>
-          <p className="text-lg text-gray-800 mb-8">
-            Connect with verified professionals in minutes. Get free quotes and compare options.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/auth/register"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Find a Pro Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              Get AI Assistance
-            </Link>
+        <ChatPanelAwareContainer className="container-custom text-center">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+              Ready to Get Started?
+            </h2>
+            <p className="text-lg text-white/90 mb-8">
+              Connect with verified professionals in minutes. Get free quotes and compare options.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/auth/register"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+              >
+                Find a Pro Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+              <Link
+                href="/"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white border-2 border-white font-bold rounded-lg hover:bg-white/20 transition-colors"
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Get AI Assistance
+              </Link>
+            </div>
           </div>
-        </ResponsiveContainer>
+        </ChatPanelAwareContainer>
       </section>
 
       {/* Related Services */}
       {serviceContent.relatedServices && serviceContent.relatedServices.length > 0 && (
         <section className="py-16 bg-white">
-          <ResponsiveContainer className="container-custom">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+          <ChatPanelAwareContainer className="container-custom">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
               Related Services
             </h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {serviceContent.relatedServices.map((related: { id: string; title: string }) => (
                 <Link
                   key={related.id}
@@ -274,7 +278,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </Link>
               ))}
             </div>
-          </ResponsiveContainer>
+          </ChatPanelAwareContainer>
         </section>
       )}
 

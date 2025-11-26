@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
-import { ResponsiveContainer } from '@/components/layout/ResponsiveContainer';
+import { ChatPanelAwareContainer } from '@/components/layout/ChatPanelAwareContainer';
 
 export const metadata: Metadata = {
   title: 'Become a Professional | Homezy',
@@ -14,13 +14,13 @@ export default function BecomeAProPage() {
     <div className="min-h-screen bg-neutral-50">
       <PublicHeader />
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-500 to-primary-600 text-black py-20">
-        <ResponsiveContainer className="container-custom">
+      <section className="bg-gradient-to-br from-primary-500 to-primary-600 text-white py-20">
+        <ChatPanelAwareContainer className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
               Grow Your Business with Homezy
             </h1>
-            <p className="text-xl sm:text-2xl text-gray-800 mb-8">
+            <p className="text-xl sm:text-2xl text-white/90 mb-8">
               Connect with thousands of UAE homeowners looking for trusted professionals like you
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -32,21 +32,21 @@ export default function BecomeAProPage() {
               </Link>
               <a
                 href="#how-it-works"
-                className="btn btn-outline border-black text-black hover:bg-black/10 px-8 py-4 text-lg font-semibold"
+                className="btn btn-outline border-white text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold"
               >
                 Learn More
               </a>
             </div>
-            <p className="mt-6 text-gray-800">
+            <p className="mt-6 text-white/80">
               No subscription fees. Pay only for leads you claim.
             </p>
           </div>
-        </ResponsiveContainer>
+        </ChatPanelAwareContainer>
       </section>
 
       {/* Benefits Section */}
       <section className="py-16">
-        <ResponsiveContainer className="container-custom">
+        <ChatPanelAwareContainer className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               Why Join Homezy?
@@ -148,12 +148,12 @@ export default function BecomeAProPage() {
               </p>
             </div>
           </div>
-        </ResponsiveContainer>
+        </ChatPanelAwareContainer>
       </section>
 
       {/* How It Works */}
       <section id="how-it-works" className="py-16 bg-white">
-        <ResponsiveContainer className="container-custom">
+        <ChatPanelAwareContainer className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               How It Works
@@ -210,12 +210,12 @@ export default function BecomeAProPage() {
               </div>
             </div>
           </div>
-        </ResponsiveContainer>
+        </ChatPanelAwareContainer>
       </section>
 
       {/* Pricing Section */}
       <section className="py-16 bg-neutral-50">
-        <ResponsiveContainer className="container-custom">
+        <ChatPanelAwareContainer className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
               Transparent Credit Pricing
@@ -286,16 +286,16 @@ export default function BecomeAProPage() {
               <strong>Comprehensive verified pros get 15% discount</strong> on all lead claims
             </p>
           </div>
-        </ResponsiveContainer>
+        </ChatPanelAwareContainer>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-primary-500 to-primary-600 text-black">
-        <ResponsiveContainer className="container-custom text-center">
+      <section className="py-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white">
+        <ChatPanelAwareContainer className="container-custom text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">
             Ready to Grow Your Business?
           </h2>
-          <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Join hundreds of verified professionals already winning projects on Homezy
           </p>
           <Link
@@ -304,13 +304,13 @@ export default function BecomeAProPage() {
           >
             Get Started Free
           </Link>
-          <p className="mt-4 text-gray-800">
+          <p className="mt-4 text-white/80">
             Already have an account?{' '}
-            <Link href="/auth/login" className="underline font-medium hover:text-gray-900">
+            <Link href="/auth/login" className="underline font-medium hover:text-white">
               Sign in
             </Link>
           </p>
-        </ResponsiveContainer>
+        </ChatPanelAwareContainer>
       </section>
 
       <PublicFooter />

@@ -20,7 +20,7 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
       )}
 
       <div
-        className={`max-w-2xl rounded-2xl px-4 py-3 shadow-sm ${
+        className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-sm ${
           isUser
             ? 'bg-primary-600 text-white'
             : 'bg-white text-gray-900 border border-gray-200'

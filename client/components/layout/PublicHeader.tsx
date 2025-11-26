@@ -30,7 +30,7 @@ export function PublicHeader() {
       {/* Top Banner - Only for unauthenticated users */}
       {!isAuthenticated && (
         <div className="bg-gray-50 py-2 text-center text-xs border-b border-gray-200">
-          <div className={`transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className={`transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <p className="text-gray-600">
               Find trusted home improvement professionals in UAE.
               <Link
@@ -46,7 +46,7 @@ export function PublicHeader() {
 
       {/* Main Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+        <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-0.5">
@@ -111,7 +111,7 @@ export function PublicHeader() {
 
         {/* Secondary Navigation Bar */}
         <div className="hidden lg:block border-t border-gray-200 bg-white">
-          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <div className="flex items-center justify-between h-12">
               {/* Left side navigation */}
               <div className="flex items-center space-x-8">

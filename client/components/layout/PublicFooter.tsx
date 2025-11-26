@@ -9,7 +9,7 @@ export function PublicFooter() {
 
   return (
     <footer className="bg-gray-50 border-t border-gray-200 py-12 mt-auto">
-      <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+      <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>

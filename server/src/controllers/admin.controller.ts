@@ -5,11 +5,15 @@ import { CreditTransaction } from '../models/Credit.model';
 import { Quote } from '../models/Quote.model';
 import { logger } from '../utils/logger';
 import { BadRequestError, NotFoundError } from '../middleware/errorHandler.middleware';
+import { KnowledgeBaseService } from '../services/tools/knowledge-base.service';
+
+// Singleton instance of knowledge base service
+const knowledgeBaseService = new KnowledgeBaseService();
 
 /**
  * Get dashboard statistics
  */
-export const getDashboardStats = async (req: Request, res: Response): Promise<void> => {
+export const getDashboardStats = async (_req: Request, res: Response): Promise<void> => {
   try {
     // Get counts
     const [
@@ -627,6 +631,64 @@ export const getCreditTransactions = async (req: Request, res: Response): Promis
     res.status(500).json({
       success: false,
       error: 'Failed to fetch credit transactions',
+    });
+  }
+};
+
+/**
+ * Get knowledge base statistics
+ */
+export const getKnowledgeBaseStats = async (_req: Request, res: Response): Promise<void> => {
+  try {
+    const articleCount = knowledgeBaseService.getArticleCount();
+    const categories = knowledgeBaseService.getCategories();
+    const isSemanticSearchAvailable = knowledgeBaseService.isSemanticSearchAvailable();
+
+    res.json({
+      success: true,
+      data: {
+        totalArticles: articleCount,
+        categories,
+        semanticSearchEnabled: isSemanticSearchAvailable,
+        searchMethod: isSemanticSearchAvailable ? 'semantic' : 'keyword',
+      },
+    });
+  } catch (error) {
+    logger.error('Error fetching knowledge base stats:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch knowledge base statistics',
+    });
+  }
+};
+
+/**
+ * Reload knowledge base articles from TOML files
+ */
+export const reloadKnowledgeBase = async (_req: Request, res: Response): Promise<void> => {
+  try {
+    logger.info('Admin requested knowledge base reload');
+
+    await knowledgeBaseService.reloadArticles();
+
+    const articleCount = knowledgeBaseService.getArticleCount();
+    const isSemanticSearchAvailable = knowledgeBaseService.isSemanticSearchAvailable();
+
+    logger.info('Knowledge base reloaded successfully', { articleCount, isSemanticSearchAvailable });
+
+    res.json({
+      success: true,
+      message: 'Knowledge base reloaded successfully',
+      data: {
+        totalArticles: articleCount,
+        semanticSearchEnabled: isSemanticSearchAvailable,
+      },
+    });
+  } catch (error) {
+    logger.error('Error reloading knowledge base:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to reload knowledge base',
     });
   }
 };

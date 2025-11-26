@@ -13,7 +13,7 @@ interface ChatPanelStore {
 export const useChatPanelStore = create<ChatPanelStore>()(
   persist(
     (set) => ({
-      isOpen: false,
+      isOpen: true,
       hasHydrated: false,
       toggle: () => set((state) => ({ isOpen: !state.isOpen })),
       open: () => set({ isOpen: true }),

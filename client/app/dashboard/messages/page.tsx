@@ -105,7 +105,7 @@ export default function MessagesPage() {
   });
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="w-full p-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">

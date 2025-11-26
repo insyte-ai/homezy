@@ -156,7 +156,7 @@ export default function DashboardLayout({
       <header className="bg-white shadow-sm border-b border-neutral-200 sticky top-0 z-40">
         {/* Top Level - Logo, Search, User */}
         <div className="border-b border-neutral-100">
-          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <div className="flex justify-between items-center h-16">
               {/* Logo */}
               <Link href="/dashboard" className="flex items-center gap-0.5">
@@ -215,7 +215,7 @@ export default function DashboardLayout({
 
         {/* Bottom Level - Navigation Links */}
         <div className="hidden md:block">
-          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <nav className="flex items-center justify-end space-x-1 h-12">
               {navItems.map((item) => {
                 const Icon = item.icon;
@@ -301,7 +301,7 @@ export default function DashboardLayout({
       {/* Welcome Banner for New Users with No Leads */}
       {showWelcomeBanner && isNewUser && !hasLeads && (
         <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-black">
-          <div className={`container-custom py-4 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className={`container-custom py-4 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <h3 className="font-semibold mb-1">
@@ -337,7 +337,7 @@ export default function DashboardLayout({
       )}
 
       {/* Main Content */}
-      <main className={`container-custom py-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+      <main className={`container-custom py-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
         {children}
       </main>
     </div>

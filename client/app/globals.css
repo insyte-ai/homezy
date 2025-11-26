@@ -42,7 +42,7 @@ body {
 /* Custom component styles */
 @layer components {
   .container-custom {
-    @apply max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8;
+    @apply w-full mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .btn {

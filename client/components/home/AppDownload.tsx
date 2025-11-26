@@ -13,7 +13,7 @@ export function AppDownload() {
 
   return (
     <section className="bg-gradient-to-r from-primary-600 to-primary-700 py-16">
-      <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+      <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-32">
           {/* Left Content */}
           <div className="text-center lg:text-left max-w-lg">

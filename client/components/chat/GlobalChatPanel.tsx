@@ -24,7 +24,7 @@ export function GlobalChatPanel() {
         className={`hidden lg:block fixed top-0 right-0 h-screen transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-[calc(100%-48px)]'
         }`}
-        style={{ width: '33.333%', maxWidth: '500px', minWidth: '400px' }}
+        style={{ width: '40vw', minWidth: '400px' }}
       >
       {/* Collapse/Expand Toggle */}
       <button

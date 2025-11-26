@@ -11,7 +11,7 @@ export function ChatPanelAwareContainer({ children, className = '' }: ChatPanelA
   const { isOpen: isChatPanelOpen } = useChatPanelStore();
 
   return (
-    <div className={`transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'} ${className}`}>
+    <div className={`transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'} ${className}`}>
       {children}
     </div>
   );

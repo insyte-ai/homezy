@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Search,
   MapPin,
@@ -19,6 +20,8 @@ import { MultiStepLeadForm } from '@/components/lead-form/MultiStepLeadForm';
 import { useAuthStore } from '@/store/authStore';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { ChatPanelAwareContainer } from '@/components/layout/ChatPanelAwareContainer';
+import { useChatPanelStore } from '@/store/chatPanelStore';
 
 interface Professional {
   id: string;
@@ -30,6 +33,7 @@ interface Professional {
 
 export default function BrowseProfessionalsPage() {
   const { user } = useAuthStore();
+  const { isOpen: isChatPanelOpen } = useChatPanelStore();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -160,7 +164,7 @@ export default function BrowseProfessionalsPage() {
     <>
       <PublicHeader />
       <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <ChatPanelAwareContainer className="container-custom py-8">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Find Home Improvement Professionals</h1>
@@ -184,9 +188,9 @@ export default function BrowseProfessionalsPage() {
         </div>
 
         {/* Main Content with Sidebar */}
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col xl:flex-row gap-6">
           {/* Sidebar Filters */}
-          <aside className="lg:w-64 flex-shrink-0">
+          <aside className="xl:w-64 flex-shrink-0">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sticky top-4">
               <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <Filter className="h-4 w-4" />
@@ -280,7 +284,7 @@ export default function BrowseProfessionalsPage() {
 
             {/* Results */}
             {loading ? (
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className={`grid gap-4 ${isChatPanelOpen ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div key={i} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 animate-pulse">
                     <div className="w-20 h-20 bg-gray-200 rounded-full mb-4"></div>
@@ -306,7 +310,7 @@ export default function BrowseProfessionalsPage() {
                 </Link>
               </div>
             ) : (
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className={`grid gap-4 ${isChatPanelOpen ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
                 {professionals.map((pro) => {
                   const pricing = getPricingDisplay(pro.proProfile.hourlyRateMin, pro.proProfile.hourlyRateMax);
 
@@ -317,23 +321,24 @@ export default function BrowseProfessionalsPage() {
                     >
                   <Link
                     href={`/pros/${pro.id}/${pro.slug || 'profile'}`}
-                    className="p-6 flex-1"
+                    className="p-4 flex-1"
                   >
                     {/* Profile Photo and Info */}
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 relative">
                         {pro.profilePhoto ? (
-                          <img
+                          <Image
                             src={pro.profilePhoto}
                             alt={pro.businessName}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                           />
                         ) : (
-                          <Briefcase className="h-8 w-8 text-gray-400" />
+                          <Briefcase className="h-6 w-6 text-gray-400" />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 mb-1 truncate">
+                        <h3 className="font-semibold text-gray-900 text-sm mb-0.5 truncate">
                           {pro.businessName}
                         </h3>
                         {getVerificationBadge(
@@ -345,22 +350,22 @@ export default function BrowseProfessionalsPage() {
 
                     {/* Tagline */}
                     {pro.proProfile.tagline && (
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <p className="text-xs text-gray-600 mb-2 line-clamp-2">
                         {pro.proProfile.tagline}
                       </p>
                     )}
 
                     {/* Rating and Stats */}
-                    <div className="space-y-2 mb-3">
+                    <div className="space-y-1.5 mb-2">
                       {pro.proProfile.rating && pro.proProfile.rating > 0 && (
                         <div className="flex items-center gap-2">
                           <div className="flex items-center gap-1">
-                            <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                            <span className="font-medium text-gray-900">
+                            <Star className="h-3.5 w-3.5 text-yellow-400 fill-yellow-400" />
+                            <span className="font-medium text-gray-900 text-sm">
                               {pro.proProfile.rating.toFixed(1)}
                             </span>
                           </div>
-                          <span className="text-sm text-gray-500">
+                          <span className="text-xs text-gray-500">
                             ({pro.proProfile.reviewCount || 0} reviews)
                           </span>
                         </div>
@@ -368,15 +373,15 @@ export default function BrowseProfessionalsPage() {
 
                       {/* Years in Business */}
                       {pro.proProfile.yearsInBusiness && pro.proProfile.yearsInBusiness > 0 && (
-                        <div className="flex items-center gap-1 text-sm text-gray-600">
-                          <Award className="h-4 w-4 text-gray-400" />
-                          <span>{pro.proProfile.yearsInBusiness} years in business</span>
+                        <div className="flex items-center gap-1 text-xs text-gray-600">
+                          <Award className="h-3.5 w-3.5 text-gray-400" />
+                          <span>{pro.proProfile.yearsInBusiness} yrs exp</span>
                         </div>
                       )}
 
                       {/* Pricing */}
                       {pricing && (
-                        <div className="text-sm font-medium text-primary-600">
+                        <div className="text-xs font-medium text-primary-600">
                           {pricing}
                         </div>
                       )}
@@ -384,18 +389,18 @@ export default function BrowseProfessionalsPage() {
 
                     {/* Categories */}
                     {pro.proProfile.categories && pro.proProfile.categories.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mb-3">
-                        {pro.proProfile.categories.slice(0, 3).map((category) => (
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {pro.proProfile.categories.slice(0, 2).map((category) => (
                           <span
                             key={category}
-                            className="inline-block px-2 py-0.5 text-xs bg-gray-100 text-gray-700 rounded"
+                            className="inline-block px-1.5 py-0.5 text-xs bg-gray-100 text-gray-700 rounded"
                           >
                             {category}
                           </span>
                         ))}
-                        {pro.proProfile.categories.length > 3 && (
-                          <span className="inline-block px-2 py-0.5 text-xs bg-gray-100 text-gray-700 rounded">
-                            +{pro.proProfile.categories.length - 3} more
+                        {pro.proProfile.categories.length > 2 && (
+                          <span className="inline-block px-1.5 py-0.5 text-xs bg-gray-100 text-gray-700 rounded">
+                            +{pro.proProfile.categories.length - 2}
                           </span>
                         )}
                       </div>
@@ -403,8 +408,8 @@ export default function BrowseProfessionalsPage() {
 
                     {/* Service Areas */}
                     {pro.proProfile.serviceAreas && pro.proProfile.serviceAreas.length > 0 && (
-                      <div className="flex items-center gap-1 text-sm text-gray-600">
-                        <MapPin className="h-4 w-4" />
+                      <div className="flex items-center gap-1 text-xs text-gray-600">
+                        <MapPin className="h-3.5 w-3.5" />
                         <span className="truncate">
                           {pro.proProfile.serviceAreas.map(area => area.emirate).join(', ')}
                         </span>
@@ -413,16 +418,16 @@ export default function BrowseProfessionalsPage() {
                   </Link>
 
                   {/* Action Buttons */}
-                  <div className="px-6 pb-6 pt-0 flex gap-2 border-t border-gray-200 mt-auto">
+                  <div className="px-4 pb-4 pt-3 flex gap-2 border-t border-gray-200 mt-auto">
                     <Link
                       href={`/pros/${pro.id}/${pro.slug || 'profile'}`}
-                      className="flex-1 text-center py-2 text-primary-600 text-sm font-medium hover:bg-primary-50 rounded-lg transition-colors"
+                      className="flex-1 text-center py-2 text-primary-600 text-sm font-medium border border-primary-200 hover:bg-primary-50 rounded-lg transition-colors"
                     >
                       View Profile
                     </Link>
                     <button
                       onClick={(e) => handleRequestQuote(pro, e)}
-                      className="flex-1 btn btn-primary text-sm py-2 flex items-center justify-center gap-1"
+                      className="flex-1 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-1.5"
                     >
                       <MessageCircle className="h-4 w-4" />
                       Request Quote
@@ -435,21 +440,21 @@ export default function BrowseProfessionalsPage() {
             )}
           </div>
         </div>
-      </div>
 
-      {/* Direct Lead Form */}
-      {selectedProfessional && showLeadForm && (
-        <MultiStepLeadForm
-          serviceId={selectedProfessional.proProfile.categories?.[0] || 'general contracting'}
-          onClose={() => {
-            setShowLeadForm(false);
-            setSelectedProfessional(null);
-          }}
-          professionalId={selectedProfessional.id}
-          professionalName={selectedProfessional.businessName}
-          professionalPhoto={selectedProfessional.profilePhoto}
-        />
-      )}
+        {/* Direct Lead Form */}
+        {selectedProfessional && showLeadForm && (
+          <MultiStepLeadForm
+            serviceId={selectedProfessional.proProfile.categories?.[0] || 'general contracting'}
+            onClose={() => {
+              setShowLeadForm(false);
+              setSelectedProfessional(null);
+            }}
+            professionalId={selectedProfessional.id}
+            professionalName={selectedProfessional.businessName}
+            professionalPhoto={selectedProfessional.profilePhoto}
+          />
+        )}
+      </ChatPanelAwareContainer>
       </div>
       <PublicFooter />
     </>

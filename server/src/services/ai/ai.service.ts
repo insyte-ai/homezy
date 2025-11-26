@@ -9,6 +9,8 @@ import { BudgetEstimatorService } from '../tools/budget-estimator.service';
 import { TimelineEstimatorService } from '../tools/timeline-estimator.service';
 import { KnowledgeBaseService } from '../tools/knowledge-base.service';
 import { createLeadFromAI } from '../tools/lead-creator.service';
+import { createGuestLeadFromAI } from '../tools/guest-lead-creator.service';
+import { searchProfessionalsFromAI } from '../tools/professional-search.service';
 import { logger } from '../../utils/logger';
 
 /**
@@ -183,8 +185,23 @@ export class AIService {
 
               toolCalls.push(currentToolCall);
 
-              // Continue conversation with tool result
-              // Claude needs to see the tool result to generate a natural language response
+              // Build proper message sequence for Claude API
+              // 1. Assistant message with tool_use block
+              const assistantToolUseMessage = {
+                role: 'assistant' as const,
+                content: [
+                  // Include any text that was generated before the tool call
+                  ...(fullResponse ? [{ type: 'text' as const, text: fullResponse }] : []),
+                  {
+                    type: 'tool_use' as const,
+                    id: currentToolCall.id,
+                    name: currentToolCall.name,
+                    input: currentToolCall.input,
+                  },
+                ],
+              };
+
+              // 2. User message with tool_result block
               const toolResultMessage = {
                 role: 'user' as const,
                 content: [
@@ -197,8 +214,9 @@ export class AIService {
               };
 
               // Continue the conversation with tool result
+              // Messages: history + user message + assistant tool_use + user tool_result
               await this.continueStreamingWithToolResult(
-                [...messages, toolResultMessage],
+                [...messages, assistantToolUseMessage, toolResultMessage],
                 systemPrompt,
                 socket,
                 (text) => {
@@ -309,6 +327,13 @@ export class AIService {
           return 'I apologize, but you need to be signed in to create a lead. Please [sign in](/auth/login) or [create an account](/auth/register) to post your project and get quotes from professionals.';
         }
         return await createLeadFromAI(args, userId);
+
+      case 'create_guest_lead':
+        // Guest lead creation - doesn't require userId
+        return await createGuestLeadFromAI(args);
+
+      case 'search_professionals':
+        return await searchProfessionalsFromAI(args);
 
       default:
         throw new Error(`Unknown tool: ${toolName}`);

@@ -141,13 +141,14 @@ export const TOOLS: Tool[] = [
   },
   {
     name: 'create_lead',
-    description: `Create a new lead (service request) in the marketplace when the user expresses clear intent to get quotes or hire professionals.
+    description: `Create a new lead (service request) in the marketplace when an AUTHENTICATED user expresses clear intent to get quotes or hire professionals.
     Use this when the user:
+    - Is logged in (authenticated)
     - Explicitly wants to post a project or get quotes
     - Has provided enough project details (what they need, location, budget, urgency)
     - Is ready to connect with professionals
 
-    ONLY use this tool when the user clearly wants to proceed with getting professional help.
+    ONLY use this tool for authenticated users. For guest users, use create_guest_lead instead.
     Do NOT use if they're just asking questions or exploring options.
 
     This creates a public marketplace lead that up to 5 verified professionals can claim.`,
@@ -208,6 +209,148 @@ export const TOOLS: Tool[] = [
       required: ['title', 'description', 'category', 'emirate', 'budgetBracket', 'urgency'],
     },
   },
+  {
+    name: 'create_guest_lead',
+    description: `Create a new lead for GUEST (unauthenticated) users. This tool handles user creation, lead posting, and sends a magic link email.
+    Use this when:
+    - The user is NOT logged in (guest/anonymous)
+    - User wants to post a project and has provided their email
+    - User has provided enough project details
+
+    IMPORTANT: You must collect the user's email address BEFORE calling this tool.
+    Ask naturally: "To post your project and receive quotes, I just need your email address."
+
+    This creates:
+    1. A guest user account (if email is new)
+    2. A marketplace lead visible to professionals
+    3. Sends a magic link email for the user to access their account`,
+    input_schema: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+          description: 'User email address (required for guest leads)',
+        },
+        firstName: {
+          type: 'string',
+          description: 'User first name (optional but helps personalization)',
+        },
+        phone: {
+          type: 'string',
+          description: 'User phone number (optional)',
+        },
+        title: {
+          type: 'string',
+          description: 'Clear, descriptive title for the project',
+        },
+        description: {
+          type: 'string',
+          description: 'Detailed description of what work needs to be done',
+        },
+        category: {
+          type: 'string',
+          enum: [
+            'plumbing',
+            'electrical',
+            'painting',
+            'carpentry',
+            'hvac',
+            'flooring',
+            'roofing',
+            'landscaping',
+            'home-cleaning',
+            'pest-control',
+            'handyman',
+            'interior-design',
+            'tiling',
+            'waterproofing',
+            'masonry',
+            'glass-aluminum',
+            'renovation',
+          ],
+          description: 'Service category that best matches the project type',
+        },
+        emirate: {
+          type: 'string',
+          enum: ['dubai', 'abu-dhabi', 'sharjah', 'ajman', 'rak', 'fujairah', 'uaq'],
+          description: 'Emirate where the work needs to be done',
+        },
+        budgetBracket: {
+          type: 'string',
+          enum: ['500-1k', '1k-5k', '5k-15k', '15k-50k', '50k-150k', '150k+'],
+          description: 'Budget range in AED for the project',
+        },
+        urgency: {
+          type: 'string',
+          enum: ['emergency', 'urgent', 'flexible', 'planning'],
+          description: 'How quickly the work needs to be done',
+        },
+        timeline: {
+          type: 'string',
+          description: 'Optional: When the user wants the project completed',
+        },
+      },
+      required: ['email', 'title', 'description', 'category', 'emirate', 'budgetBracket', 'urgency'],
+    },
+  },
+  {
+    name: 'search_professionals',
+    description: `Search for verified professionals on Homezy based on service category, location, and other criteria.
+    Use this when the user:
+    - Asks for professional recommendations
+    - Wants to know who can help with their project
+    - Asks about available contractors/plumbers/electricians/etc.
+
+    Returns a list of verified professionals with ratings, response times, and profiles.
+    After showing results, offer to help the user post a lead to get quotes.`,
+    input_schema: {
+      type: 'object',
+      properties: {
+        category: {
+          type: 'string',
+          enum: [
+            'plumbing',
+            'electrical',
+            'painting',
+            'carpentry',
+            'hvac',
+            'flooring',
+            'roofing',
+            'landscaping',
+            'home-cleaning',
+            'pest-control',
+            'handyman',
+            'interior-design',
+            'tiling',
+            'waterproofing',
+            'masonry',
+            'glass-aluminum',
+            'renovation',
+          ],
+          description: 'Service category to search for',
+        },
+        emirate: {
+          type: 'string',
+          enum: ['dubai', 'abu-dhabi', 'sharjah', 'ajman', 'rak', 'fujairah', 'uaq'],
+          description: 'Emirate where the professional should operate',
+        },
+        minRating: {
+          type: 'number',
+          description: 'Minimum rating (1-5). Default is 4.0',
+        },
+        urgency: {
+          type: 'string',
+          enum: ['emergency', 'urgent', 'normal'],
+          description: 'For emergency/urgent, prioritize professionals with fast response times',
+        },
+        limit: {
+          type: 'number',
+          description: 'Maximum number of results to return. Default is 5',
+        },
+      },
+      required: ['category', 'emirate'],
+    },
+  },
 ];
 
 // Helper function to get tool by name
@@ -250,4 +393,25 @@ export type CreateLeadArgs = {
   budgetBracket: string;
   urgency: 'emergency' | 'urgent' | 'flexible' | 'planning';
   timeline?: string;
+};
+
+export type CreateGuestLeadArgs = {
+  email: string;
+  firstName?: string;
+  phone?: string;
+  title: string;
+  description: string;
+  category: string;
+  emirate: string;
+  budgetBracket: string;
+  urgency: 'emergency' | 'urgent' | 'flexible' | 'planning';
+  timeline?: string;
+};
+
+export type SearchProfessionalsArgs = {
+  category: string;
+  emirate: string;
+  minRating?: number;
+  urgency?: 'emergency' | 'urgent' | 'normal';
+  limit?: number;
 };

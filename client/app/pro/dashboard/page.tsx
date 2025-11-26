@@ -4,12 +4,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getProAnalytics, ProAnalytics } from '@/lib/services/analytics';
 import { getMyDirectLeads } from '@/lib/services/leads';
-import { useChatPanelStore } from '@/store/chatPanelStore';
-import { TrendingUp, TrendingDown, DollarSign, FileText, Star, Clock, Inbox, AlertCircle } from 'lucide-react';
+import { TrendingUp, DollarSign, FileText, Star, Clock, Inbox } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function ProDashboardPage() {
-  const { isOpen: isChatPanelOpen } = useChatPanelStore();
   const [analytics, setAnalytics] = useState<ProAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [directLeadsCount, setDirectLeadsCount] = useState(0);
@@ -103,7 +101,7 @@ export default function ProDashboardPage() {
   ];
 
   return (
-    <div className={`container-custom py-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+    <div className="container-custom py-8">
       {/* Direct Requests Alert Banner */}
       {directLeadsCount > 0 && (
         <Link
@@ -146,14 +144,14 @@ export default function ProDashboardPage() {
 
       {/* Stats Grid */}
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="animate-pulse bg-white rounded-lg shadow-sm border border-neutral-200 p-6 h-32"></div>
           ))}
         </div>
       ) : analytics ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
             {/* Claimed Leads */}
             <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
               <div className="flex items-center justify-between">

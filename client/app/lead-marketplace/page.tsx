@@ -84,7 +84,7 @@ const PublicLeadMarketplaceContent = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className={`container-custom py-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+      <div className={`container-custom py-8 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
         {/* Authentication Banner for Guests */}
         <div className="mb-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-6 text-white shadow-lg">
           <div className="flex items-center justify-between flex-wrap gap-4">
@@ -123,9 +123,9 @@ const PublicLeadMarketplaceContent = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="flex flex-col xl:flex-row gap-6">
           {/* Sidebar - Filters */}
-          <div className="lg:col-span-1">
+          <div className="xl:w-64 flex-shrink-0">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 sticky top-4">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
@@ -255,7 +255,7 @@ const PublicLeadMarketplaceContent = () => {
           </div>
 
           {/* Main Content - Lead Grid */}
-          <div className="lg:col-span-3">
+          <div className="flex-1">
             {/* Refresh Bar */}
             <div className="flex items-center justify-between mb-6">
               <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -279,11 +279,11 @@ const PublicLeadMarketplaceContent = () => {
 
             {/* Loading State */}
             {loading && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[1, 2, 3, 4].map((i) => (
+              <div className={`grid gap-4 ${isChatPanelOpen ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+                {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div
                     key={i}
-                    className="animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg h-64"
+                    className="animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg h-48"
                   ></div>
                 ))}
               </div>
@@ -313,7 +313,7 @@ const PublicLeadMarketplaceContent = () => {
             {/* Lead Grid */}
             {!loading && leads.length > 0 && (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className={`grid gap-4 ${isChatPanelOpen ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
                   {leads.map((lead) => (
                     <LeadCard
                       key={lead._id}

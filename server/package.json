@@ -46,6 +46,8 @@
     "sharp": "^0.34.5",
     "socket.io": "^4.6.0",
     "stripe": "^19.3.0",
+    "toml": "^3.0.0",
+    "weaviate-ts-client": "^2.2.0",
     "winston": "^3.11.0",
     "zod": "^3.22.4"
   },

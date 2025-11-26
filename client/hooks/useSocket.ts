@@ -37,7 +37,7 @@ export const useSocket = () => {
       const match = document.cookie.match(/guestId=([^;]+)/);
       if (match) return match[1];
 
-      const newGuestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const newGuestId = `guest_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
       // Set cookie
       document.cookie = `guestId=${newGuestId}; path=/; max-age=${24 * 60 * 60}`; // 24 hours
       return newGuestId;
@@ -172,6 +172,24 @@ export const useSocket = () => {
       toast.error('Not connected. Please wait...');
       return;
     }
+
+    // Add user message to the store immediately (for UI)
+    const messageId = `msg_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+    useChatStore.setState((state) => ({
+      messages: [
+        ...state.messages,
+        {
+          id: messageId,
+          conversationId,
+          role: 'user' as const,
+          content,
+          createdAt: new Date(),
+        },
+      ],
+      isStreaming: true,
+      streamingMessage: '',
+      error: null,
+    }));
 
     // Emit message to server
     socket.emit('chat:send_message', {

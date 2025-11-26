@@ -60,8 +60,42 @@ services:
       redis:
         condition: service_healthy
 
+  # Weaviate Vector Database (for Knowledge Base)
+  weaviate:
+    image: semitechnologies/weaviate:1.22.4
+    container_name: homezy-weaviate-dev
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'text2vec-transformers'
+      ENABLE_MODULES: 'text2vec-transformers'
+      TRANSFORMERS_INFERENCE_API: 'http://t2v-transformers:8080'
+    volumes:
+      - weaviate-data-dev:/var/lib/weaviate
+    depends_on:
+      - t2v-transformers
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/v1/.well-known/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Transformers for Weaviate vectorization
+  t2v-transformers:
+    image: semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
+    container_name: homezy-transformers-dev
+    restart: unless-stopped
+    environment:
+      ENABLE_CUDA: '0'
+
 volumes:
   mongodb-data-dev:
     driver: local
   redis-data-dev:
+    driver: local
+  weaviate-data-dev:
     driver: local

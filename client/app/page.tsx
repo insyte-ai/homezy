@@ -85,7 +85,7 @@ function HomeContent() {
           {/* Hero Section Container */}
           <div className="py-16">
             {/* Main Content - Full Width */}
-            <div className={`transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+            <div className={`transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
               {/* Hero Section */}
               <div className="text-center mb-12">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -112,7 +112,7 @@ function HomeContent() {
           </div>
 
           {/* Full Width Content Below Hero */}
-          <div className={`pb-16 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[450px]' : 'lg:pr-0'}`}>
+          <div className={`pb-16 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             {/* How It Works */}
             <div className="bg-gray-50 rounded-2xl p-10 mb-16">
               <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
