@@ -63,9 +63,13 @@ const envSchema = z.object({
   MAX_FILE_SIZE: z.string().transform(Number).default('5242880'),
 
   // Weaviate (optional - semantic search for knowledge base)
+  // For Railway/cloud: use WEAVIATE_URL (e.g., https://weaviate-xxx.up.railway.app)
+  // For local: use WEAVIATE_HOST, WEAVIATE_PORT, WEAVIATE_SCHEME
+  WEAVIATE_URL: z.string().optional(),
   WEAVIATE_HOST: z.string().default('localhost'),
   WEAVIATE_PORT: z.string().default('8080'),
   WEAVIATE_SCHEME: z.enum(['http', 'https']).default('http'),
+  WEAVIATE_API_KEY: z.string().optional(),
 });
 
 // Validate environment variables

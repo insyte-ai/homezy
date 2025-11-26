@@ -40,19 +40,41 @@ export class WeaviateService {
 
   /**
    * Initialize Weaviate client
+   * Supports both URL-based (Railway/cloud) and host:port (local) configurations
    */
   private initializeClient(): void {
     try {
-      const host = env.WEAVIATE_HOST || 'localhost';
-      const port = env.WEAVIATE_PORT || '8080';
-      const scheme = env.WEAVIATE_SCHEME || 'http';
+      let scheme: string;
+      let host: string;
 
-      this.client = weaviate.client({
+      // Check if WEAVIATE_URL is provided (Railway/cloud deployment)
+      if (env.WEAVIATE_URL) {
+        const url = new URL(env.WEAVIATE_URL);
+        scheme = url.protocol.replace(':', ''); // 'https:' -> 'https'
+        host = url.host; // includes port if specified
+        logger.info('Weaviate client configured from URL', { url: env.WEAVIATE_URL });
+      } else {
+        // Fall back to individual host/port/scheme (local development)
+        const weaviateHost = env.WEAVIATE_HOST || 'localhost';
+        const port = env.WEAVIATE_PORT || '8080';
+        scheme = env.WEAVIATE_SCHEME || 'http';
+        host = `${weaviateHost}:${port}`;
+        logger.info('Weaviate client configured', { host, scheme });
+      }
+
+      // Build client config
+      const clientConfig: { scheme: string; host: string; apiKey?: { apiKey: string } } = {
         scheme,
-        host: `${host}:${port}`,
-      });
+        host,
+      };
 
-      logger.info('Weaviate client configured', { host, port, scheme });
+      // Add API key if provided (required for Railway/cloud deployments)
+      if (env.WEAVIATE_API_KEY) {
+        clientConfig.apiKey = { apiKey: env.WEAVIATE_API_KEY };
+        logger.info('Weaviate API key authentication enabled');
+      }
+
+      this.client = weaviate.client(clientConfig);
     } catch (error) {
       logger.warn('Failed to configure Weaviate client', { error });
       this.client = null;
