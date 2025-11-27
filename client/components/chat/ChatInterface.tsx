@@ -116,7 +116,9 @@ export const ChatInterface = () => {
       )}
 
       {/* Welcome Section (shown if no messages) */}
-      {messages.length === 0 && !isStreaming && <WelcomeSection />}
+      {messages.length === 0 && !isStreaming && (
+        <WelcomeSection onSendMessage={handleSendMessage} />
+      )}
 
       {/* Message List */}
       {(messages.length > 0 || isStreaming) && (

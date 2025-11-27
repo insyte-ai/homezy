@@ -20,6 +20,7 @@ import {
   getNotificationPreferences,
   type NotificationPreferences,
 } from '@/lib/services/users';
+import { handleApiError } from '@/lib/utils/errorHandler';
 
 export default function SettingsPage() {
   const { user, fetchCurrentUser } = useAuthStore();
@@ -62,8 +63,8 @@ export default function SettingsPage() {
                                    prefs.email.reviewRequest || prefs.email.marketing;
           setEmailNotifications(anyEmailEnabled);
         }
-      } catch (error) {
-        console.error('Failed to load notification preferences:', error);
+      } catch (err) {
+        handleApiError(err, 'Failed to load notification preferences');
       } finally {
         setLoading(false);
       }
@@ -96,9 +97,8 @@ export default function SettingsPage() {
       await fetchCurrentUser();
 
       toast.success('Profile updated successfully');
-    } catch (error: any) {
-      console.error('Failed to update profile:', error);
-      toast.error(error.response?.data?.message || 'Failed to update profile');
+    } catch (err) {
+      handleApiError(err, 'Failed to update profile');
     } finally {
       setSaving(false);
     }
@@ -120,9 +120,8 @@ export default function SettingsPage() {
 
       await updateNotificationPreferences(preferences);
       toast.success('Notification preferences updated');
-    } catch (error: any) {
-      console.error('Failed to update preferences:', error);
-      toast.error(error.response?.data?.message || 'Failed to update preferences');
+    } catch (err) {
+      handleApiError(err, 'Failed to update notification preferences');
     } finally {
       setSaving(false);
     }
@@ -150,9 +149,8 @@ export default function SettingsPage() {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-    } catch (error: any) {
-      console.error('Failed to change password:', error);
-      toast.error(error.response?.data?.message || 'Failed to change password');
+    } catch (err) {
+      handleApiError(err, 'Failed to change password');
     } finally {
       setSaving(false);
     }

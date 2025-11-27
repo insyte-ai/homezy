@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { getLeadById, Lead } from '@/lib/services/leads';
 import { getQuotesForLead, acceptQuote, declineQuote, Quote, QuoteStatus } from '@/lib/services/quotes';
+import { sendMessage } from '@/lib/services/messages';
 import toast from 'react-hot-toast';
 
 export default function QuoteComparisonPage() {
@@ -34,6 +35,9 @@ export default function QuoteComparisonPage() {
   } | null>(null);
   const [actionNote, setActionNote] = useState('');
   const [processing, setProcessing] = useState(false);
+  const [messageModal, setMessageModal] = useState<{ quote: Quote } | null>(null);
+  const [messageContent, setMessageContent] = useState('');
+  const [sendingMessage, setSendingMessage] = useState(false);
 
   useEffect(() => {
     if (leadId) {
@@ -91,6 +95,27 @@ export default function QuoteComparisonPage() {
       toast.error(error.response?.data?.message || 'Failed to decline quote');
     } finally {
       setProcessing(false);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!messageModal || !messageContent.trim()) return;
+
+    try {
+      setSendingMessage(true);
+      await sendMessage({
+        recipientId: messageModal.quote.professionalId,
+        content: messageContent.trim(),
+        relatedLead: leadId,
+      });
+      toast.success('Message sent! View your conversation in Messages.');
+      setMessageModal(null);
+      setMessageContent('');
+    } catch (error: any) {
+      console.error('Failed to send message:', error);
+      toast.error(error.response?.data?.message || 'Failed to send message');
+    } finally {
+      setSendingMessage(false);
     }
   };
 
@@ -313,16 +338,30 @@ export default function QuoteComparisonPage() {
                           Accept
                         </button>
                         <button
+                          onClick={() => setMessageModal({ quote })}
+                          className="btn btn-outline text-sm w-full flex items-center justify-center gap-2"
+                        >
+                          <MessageSquare className="h-4 w-4" />
+                          Message
+                        </button>
+                        <button
                           onClick={() => setActionModal({ type: 'decline', quote })}
-                          className="btn btn-outline text-sm w-full"
+                          className="btn btn-outline text-sm w-full text-gray-600"
                         >
                           Decline
                         </button>
                       </div>
                     ) : quote.status === QuoteStatus.ACCEPTED ? (
-                      <div className="text-center">
-                        <CheckCircle className="h-6 w-6 text-green-600 mx-auto mb-1" />
+                      <div className="flex flex-col items-center gap-2">
+                        <CheckCircle className="h-6 w-6 text-green-600" />
                         <p className="text-sm font-medium text-green-700">Accepted</p>
+                        <button
+                          onClick={() => setMessageModal({ quote })}
+                          className="btn btn-outline text-sm w-full flex items-center justify-center gap-2"
+                        >
+                          <MessageSquare className="h-4 w-4" />
+                          Message
+                        </button>
                       </div>
                     ) : (
                       <div className="text-center">
@@ -404,13 +443,32 @@ export default function QuoteComparisonPage() {
                     className="flex-1 btn btn-primary flex items-center justify-center gap-2"
                   >
                     <CheckCircle className="h-5 w-5" />
-                    Accept This Quote
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => setMessageModal({ quote })}
+                    className="flex-1 btn btn-outline flex items-center justify-center gap-2"
+                  >
+                    <MessageSquare className="h-5 w-5" />
+                    Message
                   </button>
                   <button
                     onClick={() => setActionModal({ type: 'decline', quote })}
-                    className="flex-1 btn btn-outline"
+                    className="flex-1 btn btn-outline text-gray-600"
                   >
                     Decline
+                  </button>
+                </div>
+              )}
+
+              {quote.status === QuoteStatus.ACCEPTED && (
+                <div className="flex gap-3 pt-4 border-t border-gray-200">
+                  <button
+                    onClick={() => setMessageModal({ quote })}
+                    className="flex-1 btn btn-primary flex items-center justify-center gap-2"
+                  >
+                    <MessageSquare className="h-5 w-5" />
+                    Message Professional
                   </button>
                 </div>
               )}
@@ -468,6 +526,59 @@ export default function QuoteComparisonPage() {
                   : actionModal.type === 'accept'
                   ? 'Accept Quote'
                   : 'Decline Quote'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Message Modal */}
+      {messageModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              Message {messageModal.quote.professionalName}
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Send a quick message to ask questions or discuss the quote
+            </p>
+            <div className="mb-4">
+              <textarea
+                value={messageContent}
+                onChange={(e) => setMessageContent(e.target.value)}
+                rows={4}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                placeholder="Hi, I have a question about your quote..."
+                autoFocus
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                {messageContent.length}/500 characters
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setMessageModal(null);
+                  setMessageContent('');
+                }}
+                disabled={sendingMessage}
+                className="flex-1 btn btn-outline"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSendMessage}
+                disabled={sendingMessage || !messageContent.trim() || messageContent.length > 500}
+                className="flex-1 btn btn-primary flex items-center justify-center gap-2"
+              >
+                {sendingMessage ? (
+                  'Sending...'
+                ) : (
+                  <>
+                    <MessageSquare className="h-4 w-4" />
+                    Send Message
+                  </>
+                )}
               </button>
             </div>
           </div>

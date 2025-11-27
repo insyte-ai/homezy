@@ -24,6 +24,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { getPublicProfile } from '@/lib/services/professional';
+import { getProfessionalReviews, type Review } from '@/lib/services/reviews';
 import { VerificationBadges } from '@/components/pro/VerificationBadges';
 import { ProfileStats } from '@/components/pro/ProfileStats';
 import { MultiStepLeadForm } from '@/components/lead-form/MultiStepLeadForm';
@@ -38,12 +39,32 @@ export default function PublicProfilePage() {
 
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
   const [showLeadForm, setShowLeadForm] = useState(false);
 
   useEffect(() => {
     fetchProfile();
   }, [id]);
+
+  useEffect(() => {
+    if (activeSection === 'reviews' && reviews.length === 0 && !reviewsLoading) {
+      fetchReviews();
+    }
+  }, [activeSection]);
+
+  const fetchReviews = async () => {
+    try {
+      setReviewsLoading(true);
+      const data = await getProfessionalReviews(id);
+      setReviews(data.reviews);
+    } catch (error) {
+      console.error('Failed to load reviews:', error);
+    } finally {
+      setReviewsLoading(false);
+    }
+  };
 
   const fetchProfile = async () => {
     try {
@@ -236,7 +257,7 @@ export default function PublicProfilePage() {
   }
 
   const { proProfile } = profile;
-  const sections = ['about', 'services', 'portfolio', 'verification'];
+  const sections = ['about', 'services', 'reviews', 'portfolio', 'verification'];
 
   return (
     <>
@@ -561,6 +582,126 @@ export default function PublicProfilePage() {
                         {proProfile.minimumProjectSize.toLocaleString()}
                       </p>
                     )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Reviews Section */}
+            {activeSection === 'reviews' && (
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Customer Reviews
+                  {proProfile.reviewCount > 0 && (
+                    <span className="text-lg font-normal text-gray-500 ml-2">
+                      ({proProfile.reviewCount})
+                    </span>
+                  )}
+                </h2>
+
+                {reviewsLoading ? (
+                  <div className="space-y-4">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="animate-pulse border-b border-gray-100 pb-4">
+                        <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+                        <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+                        <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                      </div>
+                    ))}
+                  </div>
+                ) : reviews.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Star className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                    <p className="text-gray-500">No reviews yet</p>
+                    <p className="text-sm text-gray-400 mt-1">
+                      Be the first to leave a review after completing a project
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    {/* Average Rating Summary */}
+                    {proProfile.rating > 0 && (
+                      <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div className="flex items-center gap-4">
+                          <div className="text-center">
+                            <div className="text-4xl font-bold text-gray-900">
+                              {proProfile.rating.toFixed(1)}
+                            </div>
+                            <div className="flex items-center gap-1 mt-1">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <Star
+                                  key={star}
+                                  className={`h-4 w-4 ${
+                                    star <= Math.round(proProfile.rating)
+                                      ? 'text-yellow-400 fill-yellow-400'
+                                      : 'text-gray-300'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                            <div className="text-sm text-gray-500 mt-1">
+                              {proProfile.reviewCount} review{proProfile.reviewCount !== 1 ? 's' : ''}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Individual Reviews */}
+                    {reviews.map((review) => (
+                      <div key={review._id} className="border-b border-gray-100 pb-6 last:border-0">
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <div className="flex items-center gap-1">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <Star
+                                    key={star}
+                                    className={`h-4 w-4 ${
+                                      star <= review.overallRating
+                                        ? 'text-yellow-400 fill-yellow-400'
+                                        : 'text-gray-300'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                              <span className="font-medium text-gray-900">
+                                {review.overallRating}/5
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-500">
+                              {new Date(review.createdAt).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                              })}
+                            </p>
+                          </div>
+                          {review.wouldRecommend && (
+                            <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-50 text-green-700 text-xs font-medium rounded">
+                              <CheckCircle className="h-3 w-3" />
+                              Recommends
+                            </span>
+                          )}
+                        </div>
+
+                        <p className="text-gray-700 mb-4">{review.reviewText}</p>
+
+                        {/* Category Ratings */}
+                        {review.categoryRatings && (
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
+                            {Object.entries(review.categoryRatings).map(([category, rating]) => (
+                              <div key={category} className="flex items-center gap-2">
+                                <span className="text-gray-500 capitalize">
+                                  {category.replace(/([A-Z])/g, ' $1').trim()}:
+                                </span>
+                                <span className="font-medium text-gray-900">{rating}/5</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>

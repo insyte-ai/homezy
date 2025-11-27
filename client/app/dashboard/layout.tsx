@@ -15,11 +15,11 @@ import {
   Settings,
   Menu,
   X,
-  MessageCircle,
-  Search,
-  Mail
+  Mail,
+  ArrowLeft
 } from 'lucide-react';
 import UserProfileDropdown from '@/components/common/UserProfileDropdown';
+import { DashboardSearch } from '@/components/dashboard/DashboardSearch';
 import {
   getUnreadCount,
   connectMessagingSocket,
@@ -172,30 +172,13 @@ export default function DashboardLayout({
                 </h1>
               </Link>
 
-              {/* Search Bar - Placeholder for now */}
+              {/* Search Bar */}
               <div className="hidden md:flex flex-1 max-w-2xl mx-8">
-                <div className="w-full relative">
-                  <input
-                    type="text"
-                    placeholder="Search requests, quotes, or professionals..."
-                    className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
-                  />
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                </div>
+                <DashboardSearch />
               </div>
 
-              {/* Right Side - AI Chat, User Menu */}
+              {/* Right Side - User Menu */}
               <div className="flex items-center space-x-4">
-                {/* AI Chat Button */}
-                <Link
-                  href="/#chat"
-                  className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
-                  title="Chat with Home GPT"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  <span className="hidden lg:inline">AI Assistant</span>
-                </Link>
-
                 {/* User Menu */}
                 <div className="hidden md:block">
                   <UserProfileDropdown />
@@ -216,7 +199,18 @@ export default function DashboardLayout({
         {/* Bottom Level - Navigation Links */}
         <div className="hidden md:block">
           <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
-            <nav className="flex items-center justify-end space-x-1 h-12">
+            <nav className="flex items-center justify-between h-12">
+              {/* Continue Browsing Link */}
+              <Link
+                href="/"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Continue Browsing
+              </Link>
+
+              {/* Nav Items */}
+              <div className="flex items-center space-x-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const active = isActivePath(item.href);
@@ -241,6 +235,7 @@ export default function DashboardLayout({
                   </Link>
                 );
               })}
+              </div>
             </nav>
           </div>
         </div>
@@ -300,26 +295,26 @@ export default function DashboardLayout({
 
       {/* Welcome Banner for New Users with No Leads */}
       {showWelcomeBanner && isNewUser && !hasLeads && (
-        <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-black">
+        <div className="bg-gradient-to-r from-primary-600 to-primary-700">
           <div className={`container-custom py-4 transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <h3 className="font-semibold mb-1">
+                <h3 className="font-semibold text-white mb-1">
                   Welcome to Homezy, {user?.firstName}! 👋
                 </h3>
-                <p className="text-sm text-gray-800">
+                <p className="text-sm text-white/90">
                   Start your first home improvement project by requesting quotes. Get matched with up to 5 verified professionals and compare their offers.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
-                    href="/create-request"
-                    className="text-sm px-4 py-2 bg-white text-primary-600 font-medium rounded-lg hover:bg-gray-100 transition-colors"
+                    href="/dashboard/create-request"
+                    className="text-sm px-4 py-2 bg-white text-primary-700 font-medium rounded-lg hover:bg-gray-100 transition-colors"
                   >
                     Request Your First Quote
                   </Link>
                   <Link
                     href="/dashboard/professionals"
-                    className="text-sm px-4 py-2 bg-black/10 hover:bg-black/20 rounded-lg transition-colors"
+                    className="text-sm px-4 py-2 bg-white/20 text-white hover:bg-white/30 rounded-lg transition-colors"
                   >
                     Browse Professionals
                   </Link>
@@ -327,7 +322,7 @@ export default function DashboardLayout({
               </div>
               <button
                 onClick={() => setShowWelcomeBanner(false)}
-                className="text-black hover:text-gray-700 ml-4"
+                className="text-white/80 hover:text-white ml-4"
               >
                 <X className="w-5 h-5" />
               </button>

@@ -20,6 +20,9 @@ import uploadRoutes from './routes/upload.routes';
 import adminRoutes from './routes/admin.routes';
 import serviceRoutes from './routes/service.routes';
 import sitemapRoutes from './routes/sitemap.routes';
+import searchRoutes from './routes/search.routes';
+import reviewRoutes from './routes/review.routes';
+import projectRoutes from './routes/project.routes';
 
 /**
  * Create and configure Express application
@@ -108,6 +111,9 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/upload`, uploadRoutes);
   app.use(`/api/${env.API_VERSION}/admin`, adminRoutes);
   app.use(`/api/${env.API_VERSION}/services`, serviceRoutes);
+  app.use(`/api/${env.API_VERSION}/search`, searchRoutes);
+  app.use(`/api/${env.API_VERSION}/reviews`, reviewRoutes);
+  app.use(`/api/${env.API_VERSION}/projects`, projectRoutes);
 
   // Nested route: /leads/:leadId/quotes
   app.use(`/api/${env.API_VERSION}/leads/:leadId/quotes`, leadQuoteRouter);

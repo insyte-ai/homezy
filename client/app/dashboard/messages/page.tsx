@@ -13,6 +13,7 @@ import {
   type Conversation,
 } from '@/lib/services/messages';
 import { formatDistanceToNow } from 'date-fns';
+import { handleApiError } from '@/lib/utils/errorHandler';
 
 export default function MessagesPage() {
   const router = useRouter();
@@ -40,8 +41,8 @@ export default function MessagesPage() {
 
         setConversations(response.data.conversations);
         setTotalUnread(response.data.totalUnread);
-      } catch (error) {
-        console.error('Failed to load conversations:', error);
+      } catch (err) {
+        handleApiError(err, 'Failed to load messages');
       } finally {
         setLoading(false);
       }

@@ -106,7 +106,7 @@ export default function MyLeadsPage() {
             Manage your requests and view quotes from professionals
           </p>
         </div>
-        <Link href="/create-request" className="btn btn-primary flex items-center gap-2">
+        <Link href="/dashboard/create-request" className="btn btn-primary flex items-center gap-2">
           <Plus className="h-5 w-5" />
           Request Quotes
         </Link>
@@ -174,7 +174,7 @@ export default function MyLeadsPage() {
               : 'Request your first quote to get started with your home improvement project'}
           </p>
           {!searchQuery && (
-            <Link href="/create-request" className="btn btn-primary inline-flex items-center gap-2">
+            <Link href="/dashboard/create-request" className="btn btn-primary inline-flex items-center gap-2">
               <Plus className="h-4 w-4" />
               Request Your First Quote
             </Link>

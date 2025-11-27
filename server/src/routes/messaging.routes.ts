@@ -11,7 +11,6 @@ import {
   editMessageSchema,
   deleteMessageSchema,
   archiveConversationSchema,
-  getUnreadCountSchema,
 } from '../schemas/messaging.schema';
 
 const router = Router();
@@ -37,7 +36,7 @@ router.post(
  */
 router.get(
   '/conversations',
-  validate(getConversationsSchema),
+  validate(getConversationsSchema, 'query'),
   asyncHandler(messagingController.getConversations)
 );
 
@@ -103,7 +102,6 @@ router.patch(
  */
 router.get(
   '/unread-count',
-  validate(getUnreadCountSchema),
   asyncHandler(messagingController.getUnreadCount)
 );
 

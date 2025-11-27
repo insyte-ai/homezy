@@ -21,7 +21,10 @@ import {
 } from 'lucide-react';
 import { getLeadById, cancelLead, Lead, LeadStatus } from '@/lib/services/leads';
 import { getQuotesForLead, Quote, QuoteStatus } from '@/lib/services/quotes';
+import { getReviewForLead, type Review } from '@/lib/services/reviews';
+import { getProjectByLeadId, updateProjectStatus, type Project, type ProjectStatus, getProjectStatusInfo } from '@/lib/services/projects';
 import toast from 'react-hot-toast';
+import { Star, Play, CheckCircle2 } from 'lucide-react';
 
 export default function LeadDetailsPage() {
   const params = useParams();
@@ -30,10 +33,13 @@ export default function LeadDetailsPage() {
 
   const [lead, setLead] = useState<Lead | null>(null);
   const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [review, setReview] = useState<Review | null>(null);
+  const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
   const [cancelling, setCancelling] = useState(false);
+  const [updatingStatus, setUpdatingStatus] = useState(false);
 
   useEffect(() => {
     if (leadId) {
@@ -44,17 +50,36 @@ export default function LeadDetailsPage() {
   const loadLeadDetails = async () => {
     try {
       setLoading(true);
-      const [leadData, quotesData] = await Promise.all([
+      const [leadData, quotesData, reviewData, projectData] = await Promise.all([
         getLeadById(leadId),
-        getQuotesForLead(leadId).catch(() => ({ quotes: [], total: 0 }))
+        getQuotesForLead(leadId).catch(() => ({ quotes: [], total: 0 })),
+        getReviewForLead(leadId).catch(() => null),
+        getProjectByLeadId(leadId).catch(() => null)
       ]);
       setLead(leadData);
       setQuotes(quotesData.quotes);
+      setReview(reviewData);
+      setProject(projectData);
     } catch (error: any) {
       console.error('Failed to load lead details:', error);
       toast.error(error.response?.data?.message || 'Failed to load lead details');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUpdateProjectStatus = async (newStatus: ProjectStatus) => {
+    if (!project) return;
+
+    try {
+      setUpdatingStatus(true);
+      const updatedProject = await updateProjectStatus(project._id, newStatus);
+      setProject(updatedProject);
+      toast.success(`Project marked as ${newStatus.replace('-', ' ')}`);
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to update project status');
+    } finally {
+      setUpdatingStatus(false);
     }
   };
 
@@ -398,6 +423,108 @@ export default function LeadDetailsPage() {
               </div>
             </div>
           </div>
+
+          {/* Project Status Card - Only for accepted leads with a project */}
+          {lead.status === LeadStatus.ACCEPTED && project && (
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <CheckCircle className="h-5 w-5" />
+                Project Status
+              </h2>
+              <div className="space-y-4">
+                {/* Current Status */}
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Current Status</p>
+                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getProjectStatusInfo(project.status).bgColor} ${getProjectStatusInfo(project.status).color}`}>
+                    {getProjectStatusInfo(project.status).label}
+                  </span>
+                </div>
+
+                {/* Status Actions */}
+                {project.status === 'planning' && (
+                  <button
+                    onClick={() => handleUpdateProjectStatus('in-progress')}
+                    disabled={updatingStatus}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors text-sm font-medium disabled:opacity-50"
+                  >
+                    <Play className="h-4 w-4" />
+                    {updatingStatus ? 'Updating...' : 'Mark as In Progress'}
+                  </button>
+                )}
+
+                {project.status === 'in-progress' && (
+                  <button
+                    onClick={() => handleUpdateProjectStatus('completed')}
+                    disabled={updatingStatus}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium disabled:opacity-50"
+                  >
+                    <CheckCircle2 className="h-4 w-4" />
+                    {updatingStatus ? 'Updating...' : 'Mark as Completed'}
+                  </button>
+                )}
+
+                {project.status === 'completed' && project.completedAt && (
+                  <p className="text-sm text-gray-500">
+                    Completed on {new Date(project.completedAt).toLocaleDateString()}
+                  </p>
+                )}
+
+                {/* Budget Info */}
+                <div className="pt-3 border-t border-gray-200">
+                  <p className="text-sm text-gray-600">Estimated Budget</p>
+                  <p className="font-semibold text-gray-900">
+                    AED {project.budgetEstimated.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Review Card - Only for accepted leads */}
+          {lead.status === LeadStatus.ACCEPTED && (
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Star className="h-5 w-5" />
+                Review
+              </h2>
+              {review ? (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        className={`h-5 w-5 ${
+                          star <= review.overallRating
+                            ? 'text-yellow-400 fill-yellow-400'
+                            : 'text-gray-300'
+                        }`}
+                      />
+                    ))}
+                    <span className="ml-2 text-sm font-medium text-gray-700">
+                      {review.overallRating}/5
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 line-clamp-3">{review.reviewText}</p>
+                  <p className="text-xs text-gray-500">
+                    Reviewed on {new Date(review.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+              ) : (
+                <div className="text-center py-2">
+                  <p className="text-sm text-gray-600 mb-3">
+                    Share your experience with this professional
+                  </p>
+                  <Link
+                    href={`/dashboard/requests/${leadId}/review`}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+                  >
+                    <Star className="h-4 w-4" />
+                    Leave a Review
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

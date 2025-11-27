@@ -7,6 +7,7 @@ import { logger } from '../utils/logger';
 import mongoose from 'mongoose';
 import { nanoid } from 'nanoid';
 import type { SubmitQuoteInput, UpdateQuoteInput } from '../schemas/quote.schema';
+import { createProjectFromQuote } from './project.service';
 
 /**
  * Quote Service
@@ -365,6 +366,19 @@ export const acceptQuote = async (quoteId: string, homeownerId: string, notes?: 
     );
 
     await session.commitTransaction();
+
+    // Create a project from the accepted quote (outside transaction to not block acceptance)
+    try {
+      const project = await createProjectFromQuote(quote.leadId, quoteId, homeownerId);
+      logger.info('Project created from accepted quote', {
+        projectId: project._id,
+        quoteId,
+        leadId: quote.leadId,
+      });
+    } catch (projectError) {
+      // Log but don't fail the quote acceptance
+      logger.error('Failed to create project from quote', projectError, { quoteId, leadId: quote.leadId });
+    }
 
     logger.info('Quote accepted', {
       quoteId,

@@ -1,6 +1,10 @@
 'use client';
 
-export const WelcomeSection = () => {
+interface WelcomeSectionProps {
+  onSendMessage?: (content: string) => void;
+}
+
+export const WelcomeSection = ({ onSendMessage }: WelcomeSectionProps) => {
   const suggestedPrompts = [
     'Estimate budget for kitchen renovation',
     'How long does bathroom remodeling take?',
@@ -52,10 +56,7 @@ export const WelcomeSection = () => {
               <button
                 key={index}
                 className="text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors"
-                onClick={() => {
-                  // TODO: Pre-fill message input with this prompt
-                  console.log('Suggested prompt:', prompt);
-                }}
+                onClick={() => onSendMessage?.(prompt)}
               >
                 {prompt}
               </button>

@@ -7,15 +7,14 @@ import {
   MessageSquare,
   FolderKanban,
   Plus,
-  TrendingUp,
   Clock,
-  CheckCircle,
   Users,
-  ArrowRight,
-  MessageCircle
+  ArrowRight
 } from 'lucide-react';
 import { getMyLeads, Lead, LeadStatus } from '@/lib/services/leads';
 import { useAuthStore } from '@/store/authStore';
+import { handleApiError } from '@/lib/utils/errorHandler';
+import { ErrorState } from '@/components/common/ErrorState';
 
 export default function DashboardPage() {
   const { user } = useAuthStore();
@@ -26,6 +25,7 @@ export default function DashboardPage() {
     quotesReceived: 0,
     activeProjects: 0,
   });
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadDashboardData();
@@ -34,6 +34,7 @@ export default function DashboardPage() {
   const loadDashboardData = async () => {
     try {
       setLoading(true);
+      setError(null);
       const { leads: myLeads } = await getMyLeads({ limit: 10 });
       setLeads(myLeads);
 
@@ -49,8 +50,9 @@ export default function DashboardPage() {
         quotesReceived,
         activeProjects,
       });
-    } catch (error) {
-      console.error('Failed to load dashboard data:', error);
+    } catch (err) {
+      setError('Failed to load dashboard data');
+      handleApiError(err, 'Failed to load dashboard data');
     } finally {
       setLoading(false);
     }
@@ -79,6 +81,18 @@ export default function DashboardPage() {
     };
     return labels[status as keyof typeof labels] || status;
   };
+
+  // Show error state if loading failed
+  if (error && !loading) {
+    return (
+      <div className="py-12">
+        <ErrorState
+          message={error}
+          onRetry={loadDashboardData}
+        />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -153,57 +167,6 @@ export default function DashboardPage() {
         </Link>
       </div>
 
-      {/* Quick Actions */}
-      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl p-6 mb-8 text-white">
-        <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-        <div className="grid sm:grid-cols-3 gap-4">
-          <Link
-            href="/create-request"
-            className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg p-4 transition-colors group"
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-white/20 rounded-lg">
-                <Plus className="h-5 w-5" />
-              </div>
-              <span className="font-semibold">Request Quotes</span>
-            </div>
-            <p className="text-sm text-white/90">
-              Get quotes from professionals
-            </p>
-          </Link>
-
-          <Link
-            href="/dashboard/professionals"
-            className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg p-4 transition-colors group"
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-white/20 rounded-lg">
-                <Users className="h-5 w-5" />
-              </div>
-              <span className="font-semibold">Find Professionals</span>
-            </div>
-            <p className="text-sm text-white/90">
-              Browse verified pros
-            </p>
-          </Link>
-
-          <Link
-            href="/#chat"
-            className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg p-4 transition-colors group"
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-white/20 rounded-lg">
-                <MessageCircle className="h-5 w-5" />
-              </div>
-              <span className="font-semibold">AI Assistant</span>
-            </div>
-            <p className="text-sm text-white/90">
-              Get instant advice
-            </p>
-          </Link>
-        </div>
-      </div>
-
       {/* Recent Activity */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200">
@@ -242,7 +205,7 @@ export default function DashboardPage() {
               Start your first home improvement project by requesting quotes
             </p>
             <Link
-              href="/create-request"
+              href="/dashboard/create-request"
               className="btn btn-primary inline-flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />

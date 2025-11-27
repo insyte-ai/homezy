@@ -27,14 +27,12 @@ export const sendUserMessageSchema = z.object({
 });
 
 /**
- * Schema for getting conversations
+ * Schema for getting conversations (query params)
  */
 export const getConversationsSchema = z.object({
-  query: z.object({
-    status: z.enum(['active', 'archived', 'all']).optional().default('active'),
-    limit: z.string().transform(Number).pipe(z.number().min(1).max(100)).optional().default('20'),
-    offset: z.string().transform(Number).pipe(z.number().min(0)).optional().default('0'),
-  }),
+  status: z.enum(['active', 'archived', 'all']).optional().default('active'),
+  limit: z.string().transform(Number).pipe(z.number().min(1).max(100)).optional().default('20'),
+  offset: z.string().transform(Number).pipe(z.number().min(0)).optional().default('0'),
 });
 
 /**
@@ -90,11 +88,9 @@ export const archiveConversationSchema = z.object({
 });
 
 /**
- * Schema for getting unread count
+ * Schema for getting unread count (no params needed, just validates that request is valid)
  */
-export const getUnreadCountSchema = z.object({
-  query: z.object({}).optional(),
-});
+export const getUnreadCountSchema = z.object({}).optional();
 
 export type SendUserMessageInput = z.infer<typeof sendUserMessageSchema>;
 export type GetConversationsInput = z.infer<typeof getConversationsSchema>;
