@@ -4,6 +4,7 @@ import { api } from '@/lib/api';
 
 interface ChatState {
   conversationId: string | null;
+  guestId: string | null;
   messages: ChatMessage[];
   isStreaming: boolean;
   streamingMessage: string;
@@ -29,6 +30,7 @@ interface ChatState {
 
 export const useChatStore = create<ChatState>((set, get) => ({
   conversationId: null,
+  guestId: null,
   messages: [],
   isStreaming: false,
   streamingMessage: '',
@@ -45,6 +47,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
 
       set({
         conversationId: data.conversationId,
+        guestId: data.guestId || null,
         guestMessageCount: data.messageCount,
         isGuestLimitReached: data.messageCount >= 5,
         isInitialized: true,
@@ -177,6 +180,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
   reset: () => {
     set({
       conversationId: null,
+      guestId: null,
       messages: [],
       isStreaming: false,
       streamingMessage: '',

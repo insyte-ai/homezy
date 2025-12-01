@@ -7,12 +7,6 @@ import toast from 'react-hot-toast';
 let socketInstance: Socket | null = null;
 let currentGuestId: string | null = null;
 
-// Get guest ID from cookie (don't create a new one - let the server do that)
-const getGuestIdFromCookie = (): string | null => {
-  const match = document.cookie.match(/guestId=([^;]+)/);
-  return match ? match[1] : null;
-};
-
 export const useSocket = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -25,6 +19,7 @@ export const useSocket = () => {
     completeFunctionCall,
     completeStreaming,
     conversationId,
+    guestId,
     isInitialized,
     setError,
     incrementGuestCount,
@@ -38,12 +33,10 @@ export const useSocket = () => {
   }, []);
 
   useEffect(() => {
-    // Wait for conversation to be initialized (so guestId cookie is set by server)
+    // Wait for conversation to be initialized (so guestId is available from API response)
     if (!isInitialized) {
       return;
     }
-
-    const guestId = getGuestIdFromCookie();
 
     // Check if we need to reconnect due to guestId change
     if (socketInstance?.connected && currentGuestId === guestId) {
@@ -163,7 +156,7 @@ export const useSocket = () => {
       // Only disconnect when window closes or navigates away
       // newSocket.disconnect();
     };
-  }, [isInitialized, getAuthToken]);
+  }, [isInitialized, guestId, getAuthToken]);
 
   // Join conversation when ID changes
   useEffect(() => {
