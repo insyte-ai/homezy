@@ -1,10 +1,17 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useChatStore } from '@/store/chatStore';
 import { useAuthStore } from '@/store/authStore';
 import toast from 'react-hot-toast';
 
 let socketInstance: Socket | null = null;
+let currentGuestId: string | null = null;
+
+// Get guest ID from cookie (don't create a new one - let the server do that)
+const getGuestIdFromCookie = (): string | null => {
+  const match = document.cookie.match(/guestId=([^;]+)/);
+  return match ? match[1] : null;
+};
 
 export const useSocket = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -18,42 +25,47 @@ export const useSocket = () => {
     completeFunctionCall,
     completeStreaming,
     conversationId,
+    isInitialized,
     setError,
     incrementGuestCount,
   } = useChatStore();
 
   const { user } = useAuthStore();
 
+  // Get auth token
+  const getAuthToken = useCallback(() => {
+    return localStorage.getItem('accessToken');
+  }, []);
+
   useEffect(() => {
-    // Reuse existing socket instance if connected
-    if (socketInstance?.connected) {
+    // Wait for conversation to be initialized (so guestId cookie is set by server)
+    if (!isInitialized) {
+      return;
+    }
+
+    const guestId = getGuestIdFromCookie();
+
+    // Check if we need to reconnect due to guestId change
+    if (socketInstance?.connected && currentGuestId === guestId) {
       setSocket(socketInstance);
       setIsConnected(true);
       return;
     }
 
-    // Get guest ID from cookie or create new one
-    const getGuestId = () => {
-      const match = document.cookie.match(/guestId=([^;]+)/);
-      if (match) return match[1];
+    // Disconnect existing socket if guestId changed
+    if (socketInstance && currentGuestId !== guestId) {
+      socketInstance.disconnect();
+      socketInstance = null;
+    }
 
-      const newGuestId = `guest_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
-      // Set cookie
-      document.cookie = `guestId=${newGuestId}; path=/; max-age=${24 * 60 * 60}`; // 24 hours
-      return newGuestId;
-    };
-
-    // Get auth token
-    const getAuthToken = () => {
-      return localStorage.getItem('accessToken');
-    };
+    currentGuestId = guestId;
 
     // Create new socket connection
     const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5001';
     const newSocket = io(socketUrl, {
       auth: {
         token: getAuthToken(),
-        guestId: getGuestId(),
+        guestId: guestId,
       },
       transports: ['websocket', 'polling'],
       reconnection: true,
@@ -151,7 +163,7 @@ export const useSocket = () => {
       // Only disconnect when window closes or navigates away
       // newSocket.disconnect();
     };
-  }, []);
+  }, [isInitialized, getAuthToken]);
 
   // Join conversation when ID changes
   useEffect(() => {
