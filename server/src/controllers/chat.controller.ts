@@ -25,11 +25,11 @@ export class ChatController {
     if (!userId && !guestId) {
       guestId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-      // Set guest cookie - not httpOnly so client JS can read it for socket auth
+      // Set guest cookie for REST API requests
       res.cookie('guestId', guestId, {
-        httpOnly: false,
+        httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
-        sameSite: 'lax', // 'lax' allows the cookie to be sent on same-site navigations
+        sameSite: 'lax',
         secure: process.env.NODE_ENV === 'production',
       });
     }
