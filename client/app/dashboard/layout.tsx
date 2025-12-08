@@ -218,7 +218,6 @@ export default function DashboardLayout({
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const active = isActivePath(item.href);
-                const hasBadge = item.badge && item.badge > 0;
                 return (
                   <Link
                     key={item.name}
@@ -231,7 +230,7 @@ export default function DashboardLayout({
                   >
                     <Icon className="h-4 w-4" />
                     <span>{item.name}</span>
-                    {hasBadge && (
+                    {item.badge !== undefined && item.badge > 0 && (
                       <span className="bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[1.25rem] text-center">
                         {item.badge > 99 ? '99+' : item.badge}
                       </span>
@@ -251,7 +250,6 @@ export default function DashboardLayout({
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const active = isActivePath(item.href);
-                const hasBadge = item.badge && item.badge > 0;
                 return (
                   <Link
                     key={item.name}
@@ -267,7 +265,7 @@ export default function DashboardLayout({
                       <Icon className="h-5 w-5" />
                       <span>{item.name}</span>
                     </div>
-                    {hasBadge && (
+                    {item.badge !== undefined && item.badge > 0 && (
                       <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full min-w-[1.5rem] text-center">
                         {item.badge > 99 ? '99+' : item.badge}
                       </span>
