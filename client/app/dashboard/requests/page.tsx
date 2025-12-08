@@ -57,7 +57,7 @@ export default function MyLeadsPage() {
   const statusFilters = [
     { value: 'all', label: 'All Requests', count: leads.length },
     { value: LeadStatus.OPEN, label: 'Open', count: leads.filter((l) => l.status === LeadStatus.OPEN).length },
-    { value: LeadStatus.QUOTED, label: 'Quoted', count: leads.filter((l) => l.status === LeadStatus.QUOTED).length },
+    { value: LeadStatus.FULL, label: 'Full', count: leads.filter((l) => l.status === LeadStatus.FULL).length },
     { value: LeadStatus.ACCEPTED, label: 'Accepted', count: leads.filter((l) => l.status === LeadStatus.ACCEPTED).length },
     { value: LeadStatus.EXPIRED, label: 'Expired', count: leads.filter((l) => l.status === LeadStatus.EXPIRED).length },
   ];
@@ -65,9 +65,8 @@ export default function MyLeadsPage() {
   const getStatusBadge = (status: string) => {
     const badges = {
       open: { bg: 'bg-blue-100', text: 'text-blue-700', icon: Clock },
-      quoted: { bg: 'bg-purple-100', text: 'text-purple-700', icon: MessageSquare },
-      accepted: { bg: 'bg-green-100', text: 'text-green-700', icon: CheckCircle },
       full: { bg: 'bg-yellow-100', text: 'text-yellow-700', icon: Users },
+      accepted: { bg: 'bg-green-100', text: 'text-green-700', icon: CheckCircle },
       expired: { bg: 'bg-gray-100', text: 'text-gray-700', icon: XCircle },
       cancelled: { bg: 'bg-red-100', text: 'text-red-700', icon: XCircle },
     };
@@ -77,9 +76,8 @@ export default function MyLeadsPage() {
   const getStatusLabel = (status: string) => {
     const labels = {
       open: 'Open',
-      quoted: 'Quotes Received',
+      full: 'Full (5 claims)',
       accepted: 'Accepted',
-      full: 'Full',
       expired: 'Expired',
       cancelled: 'Cancelled',
     };
@@ -189,7 +187,7 @@ export default function MyLeadsPage() {
             return (
               <Link
                 key={lead._id}
-                href={`/dashboard/leads/${lead._id}`}
+                href={`/dashboard/requests/${lead._id}`}
                 className="block bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
               >
                 {/* Header */}
@@ -248,7 +246,7 @@ export default function MyLeadsPage() {
                 </div>
 
                 {/* Action Indicator */}
-                {lead.status === LeadStatus.QUOTED && lead.quotesCount && lead.quotesCount > 0 && (
+                {lead.quotesCount && lead.quotesCount > 0 && (lead.status === LeadStatus.OPEN || lead.status === LeadStatus.FULL) && (
                   <div className="mt-4 p-3 bg-purple-50 border border-purple-200 rounded-lg flex items-center gap-2 text-sm text-purple-700">
                     <MessageSquare className="h-4 w-4" />
                     <span className="font-medium">

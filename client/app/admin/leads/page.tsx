@@ -60,9 +60,8 @@ export default function LeadsPage() {
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
       open: 'bg-green-100 text-green-700',
-      quoted: 'bg-blue-100 text-blue-700',
-      in_progress: 'bg-yellow-100 text-yellow-700',
-      completed: 'bg-gray-100 text-gray-700',
+      full: 'bg-yellow-100 text-yellow-700',
+      accepted: 'bg-blue-100 text-blue-700',
       cancelled: 'bg-red-100 text-red-700',
       expired: 'bg-gray-100 text-gray-500',
     };
@@ -175,21 +174,21 @@ export default function LeadsPage() {
           </div>
         </div>
         <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="text-sm text-gray-600">Quoted</div>
-          <div className="text-2xl font-bold text-blue-600">
-            {leads.filter((l) => l.status === 'quoted').length}
-          </div>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="text-sm text-gray-600">In Progress</div>
+          <div className="text-sm text-gray-600">Full</div>
           <div className="text-2xl font-bold text-yellow-600">
-            {leads.filter((l) => l.status === 'in_progress').length}
+            {leads.filter((l) => l.status === 'full').length}
           </div>
         </div>
         <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="text-sm text-gray-600">Completed</div>
+          <div className="text-sm text-gray-600">Accepted</div>
+          <div className="text-2xl font-bold text-blue-600">
+            {leads.filter((l) => l.status === 'accepted').length}
+          </div>
+        </div>
+        <div className="bg-white rounded-lg border border-gray-200 p-4">
+          <div className="text-sm text-gray-600">Expired</div>
           <div className="text-2xl font-bold text-gray-600">
-            {leads.filter((l) => l.status === 'completed').length}
+            {leads.filter((l) => l.status === 'expired').length}
           </div>
         </div>
       </div>
@@ -219,11 +218,10 @@ export default function LeadsPage() {
           >
             <option value="">All Status</option>
             <option value="open">Open</option>
-            <option value="quoted">Quoted</option>
-            <option value="in_progress">In Progress</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="full">Full</option>
+            <option value="accepted">Accepted</option>
             <option value="expired">Expired</option>
+            <option value="cancelled">Cancelled</option>
           </select>
         </div>
       </div>

@@ -4,7 +4,6 @@ import { api } from '../api';
 export enum LeadStatus {
   OPEN = 'open',
   FULL = 'full',
-  QUOTED = 'quoted',
   ACCEPTED = 'accepted',
   EXPIRED = 'expired',
   CANCELLED = 'cancelled'
@@ -81,6 +80,7 @@ export interface Lead {
   updatedAt: string;
   matchScore?: number;
   claim?: LeadClaim;
+  hasClaimed?: boolean; // Whether the current pro has claimed this lead (marketplace only)
   // Direct lead fields
   leadType?: 'direct' | 'indirect';
   targetProfessionalId?: string;
@@ -94,7 +94,9 @@ export interface LeadClaim {
   professional: string;
   professionalName: string;
   creditsSpent: number;
+  creditsCost?: number; // Alternative name used in some API responses
   claimedAt: string;
+  quoteSubmitted?: boolean;
   refunded: boolean;
   refundedAt?: string;
   refundReason?: string;

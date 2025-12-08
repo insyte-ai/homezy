@@ -94,7 +94,7 @@ export const searchAll = async (
     leadId: q.leadId,
     leadTitle: leadIdToTitle.get(q.leadId) || 'Unknown Request',
     professionalName: proIdToName.get(q.professionalId) || 'Unknown Professional',
-    total: q.total,
+    total: q.pricing?.total || 0,
     status: q.status,
     createdAt: q.createdAt,
   }));

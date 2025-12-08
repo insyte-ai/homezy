@@ -15,8 +15,6 @@ import type { CreateGuestLeadInput } from '../schemas/lead.schema';
 /**
  * Create a lead for a guest (unauthenticated) user
  * Creates or finds user, creates lead, sends magic link email
- * Note: Does not use transactions for compatibility with standalone MongoDB
- * (MongoDB Atlas in production supports transactions as it runs as a replica set)
  */
 export const createGuestLead = async (data: CreateGuestLeadInput) => {
   const { email, firstName, phone, targetProfessionalId, photos, ...leadData } = data;

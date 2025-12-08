@@ -158,6 +158,14 @@ router.get('/sitemap-pros.xml', async (_req: Request, res: Response) => {
     let xml = '<?xml version="1.0" encoding="UTF-8"?>';
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
+    // Always include the main pros listing page
+    xml += `
+      <url>
+        <loc>${BASE_URL}/pros</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+      </url>`;
+
     professionals.forEach((pro: any) => {
       const lastmod = pro.updatedAt ? new Date(pro.updatedAt).toISOString() : new Date().toISOString();
       xml += `
@@ -193,6 +201,14 @@ router.get('/sitemap-leads.xml', async (_req: Request, res: Response) => {
 
     let xml = '<?xml version="1.0" encoding="UTF-8"?>';
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+    // Always include the main lead marketplace page
+    xml += `
+      <url>
+        <loc>${BASE_URL}/lead-marketplace</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+      </url>`;
 
     leads.forEach((lead: any) => {
       const lastmod = lead.updatedAt

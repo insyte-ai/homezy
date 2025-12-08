@@ -79,11 +79,11 @@ export default function MyClaimedLeads() {
 
   // Calculate statistics
   const stats = {
-    active: (leads || []).filter((l) => l.status === 'open' || l.status === 'quoted').length,
+    active: (leads || []).filter((l) => l.status === 'open' || l.status === 'full').length,
     accepted: (leads || []).filter((l) => l.status === 'accepted').length,
     totalClaimed: (leads || []).length,
     totalValue: (leads || [])
-      .filter((l) => l.status === 'open' || l.status === 'quoted')
+      .filter((l) => l.status === 'open' || l.status === 'full')
       .reduce((sum, lead) => {
         // Estimate value from budget bracket
         const budgetMap: { [key: string]: number } = {
@@ -103,8 +103,8 @@ export default function MyClaimedLeads() {
     switch (status.toLowerCase()) {
       case 'open':
         return 'bg-green-100 text-green-800';
-      case 'quoted':
-        return 'bg-primary-100 text-neutral-900';
+      case 'full':
+        return 'bg-yellow-100 text-yellow-800';
       case 'accepted':
         return 'bg-purple-100 text-purple-800';
       case 'expired':
@@ -270,7 +270,7 @@ export default function MyClaimedLeads() {
             >
               <option value="all">All Status</option>
               <option value="open">Open</option>
-              <option value="quoted">Quoted</option>
+              <option value="full">Full</option>
               <option value="accepted">Accepted</option>
               <option value="expired">Expired</option>
             </select>
@@ -420,25 +420,25 @@ export default function MyClaimedLeads() {
                       )}
 
                       {/* Actions */}
-                      <div className="flex gap-3">
+                      <div className="flex gap-3 justify-end">
                         <button
                           onClick={() => router.push(`/pro/dashboard/leads/${lead._id}`)}
-                          className="flex-1 py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition"
+                          className="py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition"
                         >
                           {lead.status === 'accepted' ? 'View Award Details' : 'View Details'}
                         </button>
-                        {lead.status === 'open' && (
+                        {(lead.status === 'open' || lead.status === 'full') && !lead.claim?.quoteSubmitted && (
                           <button
                             onClick={() =>
-                              router.push(`/pro/dashboard/leads/${lead._id}/submit-quote`)
+                              router.push(`/pro/dashboard/leads/${lead._id}`)
                             }
-                            className="flex-1 py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg transition"
+                            className="py-2 px-4 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition"
                           >
                             Submit Quote
                           </button>
                         )}
-                        {lead.quotesCount && lead.quotesCount > 0 && (
-                          <span className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg font-medium flex items-center gap-2">
+                        {lead.claim?.quoteSubmitted && (
+                          <span className="px-3 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg text-sm font-medium flex items-center gap-2">
                             <TrendingUp className="h-4 w-4" />
                             Quote Submitted
                           </span>

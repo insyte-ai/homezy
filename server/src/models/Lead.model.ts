@@ -152,7 +152,7 @@ const LeadSchema = new Schema<ILead>(
     },
     status: {
       type: String,
-      enum: ['open', 'full', 'quoted', 'accepted', 'expired', 'cancelled'],
+      enum: ['open', 'full', 'accepted', 'expired', 'cancelled'],
       default: 'open',
       index: true,
     },

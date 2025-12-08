@@ -54,8 +54,6 @@ export const LeadCard = ({
         return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
       case 'full':
         return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400';
-      case 'quoted':
-        return 'bg-primary-100 text-neutral-900 dark:bg-primary-900/30 dark:text-primary-400';
       case 'accepted':
         return 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400';
       case 'expired':
@@ -127,13 +125,19 @@ export const LeadCard = ({
 
         {/* Status and Urgency Badges */}
         <div className="flex flex-wrap gap-2 mt-3">
+          {isClaimed && variant === 'marketplace' && (
+            <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 flex items-center gap-1">
+              <CheckCircle className="h-3 w-3" />
+              You&apos;ve Claimed
+            </span>
+          )}
           <span className={`px-2 py-1 rounded text-xs font-medium capitalize ${getStatusColor(lead.status)}`}>
             {lead.status}
           </span>
           <span className={`px-2 py-1 rounded text-xs font-medium ${getUrgencyColor(lead.urgency)}`}>
             {formatUrgencyLabel(lead.urgency)}
           </span>
-          {lead.claimsCount > 0 && (
+          {lead.claimsCount > 0 && !isClaimed && (
             <span className="px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
               {lead.claimsCount}/{lead.maxClaimsAllowed || 5} Claimed
             </span>
@@ -262,9 +266,13 @@ export const LeadCard = ({
         {(variant !== 'marketplace' || isClaimed) && onViewDetails && (
           <button
             onClick={() => onViewDetails(lead._id)}
-            className="w-full py-2 px-4 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-medium rounded-lg transition"
+            className={`w-full py-2 px-4 font-medium rounded-lg transition ${
+              isClaimed && variant === 'marketplace'
+                ? 'bg-green-600 hover:bg-green-700 text-white'
+                : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600'
+            }`}
           >
-            View Details
+            {isClaimed && variant === 'marketplace' ? 'View & Submit Quote' : 'View Details'}
           </button>
         )}
       </div>

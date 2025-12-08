@@ -103,9 +103,8 @@ export default function LeadDetailsPage() {
   const getStatusBadge = (status: string) => {
     const badges = {
       open: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Open' },
-      quoted: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'Quotes Received' },
-      accepted: { bg: 'bg-green-100', text: 'text-green-700', label: 'Accepted' },
       full: { bg: 'bg-yellow-100', text: 'text-yellow-700', label: 'Full (5/5)' },
+      accepted: { bg: 'bg-green-100', text: 'text-green-700', label: 'Accepted' },
       expired: { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Expired' },
       cancelled: { bg: 'bg-red-100', text: 'text-red-700', label: 'Cancelled' },
     };
@@ -154,7 +153,7 @@ export default function LeadDetailsPage() {
   }
 
   const statusConfig = getStatusBadge(lead.status);
-  const canCancel = lead.status === LeadStatus.OPEN || lead.status === LeadStatus.QUOTED;
+  const canCancel = lead.status === LeadStatus.OPEN || lead.status === LeadStatus.FULL;
   const pendingQuotes = quotes.filter(q => q.status === QuoteStatus.PENDING);
 
   return (
@@ -202,7 +201,7 @@ export default function LeadDetailsPage() {
               Compare quotes and accept the best professional for your project
             </p>
             <Link
-              href={`/dashboard/leads/${lead._id}/quotes`}
+              href={`/dashboard/requests/${lead._id}/quotes`}
               className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium"
             >
               Compare Quotes
@@ -257,7 +256,7 @@ export default function LeadDetailsPage() {
               </h2>
               {quotes.length > 1 && (
                 <Link
-                  href={`/dashboard/leads/${lead._id}/quotes`}
+                  href={`/dashboard/requests/${lead._id}/quotes`}
                   className="text-sm text-primary-600 hover:text-primary-700 font-medium"
                 >
                   Compare All
@@ -325,7 +324,7 @@ export default function LeadDetailsPage() {
                       </div>
 
                       <Link
-                        href={`/dashboard/leads/${lead._id}/quotes`}
+                        href={`/dashboard/requests/${lead._id}/quotes`}
                         className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
                       >
                         View Full Quote

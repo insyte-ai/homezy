@@ -111,6 +111,10 @@ const ProLeadMarketplaceContent = () => {
     setShowClaimDialog(true);
   };
 
+  const handleViewDetails = (leadId: string) => {
+    router.push(`/pro/dashboard/leads/${leadId}`);
+  };
+
   const handleConfirmClaim = async () => {
     if (!selectedLead) return;
 
@@ -408,7 +412,8 @@ const ProLeadMarketplaceContent = () => {
                         lead={lead}
                         variant="marketplace"
                         onClaim={handleClaimClick}
-                        isClaimed={false}
+                        onViewDetails={handleViewDetails}
+                        isClaimed={!!lead.hasClaimed}
                         claiming={claiming === lead._id}
                         verificationStatus={(user as any)?.proProfile?.verificationStatus}
                       />

@@ -64,6 +64,20 @@ until docker exec homezy-mongodb-dev mongosh --eval "db.adminCommand('ping')" > 
 done
 echo ""
 
+# Wait for MongoDB replica set to be initialized
+echo -e "${YELLOW}⏳ Waiting for MongoDB replica set to initialize...${NC}"
+counter=0
+until docker exec homezy-mongodb-dev mongosh --eval "rs.status().ok" --quiet 2>/dev/null | grep -q "1"; do
+    counter=$((counter+1))
+    if [ $counter -gt 30 ]; then
+        echo -e "${RED}❌ MongoDB replica set failed to initialize within 30 seconds${NC}"
+        exit 1
+    fi
+    printf '.'
+    sleep 1
+done
+echo ""
+
 # Wait for Redis to be ready
 echo -e "${YELLOW}⏳ Waiting for Redis to be ready...${NC}"
 counter=0

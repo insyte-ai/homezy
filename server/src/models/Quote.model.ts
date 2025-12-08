@@ -1,16 +1,39 @@
 // @ts-nocheck - Temporary: disable type checking for Railway deployment
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import type {
-  Quote as QuoteType,
   QuoteItem,
   Attachment,
 } from '@homezy/shared';
 
-export interface IQuote extends Omit<QuoteType, 'id' | 'createdAt' | 'updatedAt' | 'estimatedStartDate' | 'estimatedCompletionDate'>, Document {
-  estimatedStartDate: Date;
-  estimatedCompletionDate: Date;
+export interface IQuotePricing {
+  items: QuoteItem[];
+  subtotal: number;
+  vat: number;
+  total: number;
+}
+
+export interface IQuoteTimeline {
+  startDate: Date;
+  completionDate: Date;
+  estimatedDuration: number;
+}
+
+export interface IQuote extends Document {
+  leadId: string;
+  professionalId: string;
+  status: 'pending' | 'accepted' | 'declined' | 'expired';
+  pricing: IQuotePricing;
+  timeline: IQuoteTimeline;
+  approach: string;
+  warranty?: string;
+  attachments?: Attachment[];
+  questions?: string;
   acceptedAt?: Date;
   declinedAt?: Date;
+  declineReason?: string;
+  expiredAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const QuoteItemSchema = new Schema<QuoteItem>({
@@ -19,7 +42,7 @@ const QuoteItemSchema = new Schema<QuoteItem>({
   category: {
     type: String,
     enum: ['labor', 'materials', 'permits', 'equipment', 'other'],
-    required: true,
+    default: 'other',
   },
   quantity: { type: Number, required: true, min: 0 },
   unitPrice: { type: Number, required: true, min: 0 },
@@ -55,51 +78,55 @@ const QuoteSchema = new Schema<IQuote>(
     },
     status: {
       type: String,
-      enum: ['pending', 'accepted', 'declined'],
+      enum: ['pending', 'accepted', 'declined', 'expired'],
       default: 'pending',
       index: true,
     },
 
-    // Timeline
-    estimatedStartDate: {
-      type: Date,
-      required: true,
-    },
-    estimatedCompletionDate: {
-      type: Date,
-      required: true,
-    },
-    estimatedDurationDays: {
-      type: Number,
-      required: true,
-      min: 1,
-    },
-
-    // Budget
-    items: {
-      type: [QuoteItemSchema],
-      required: true,
-      validate: {
-        validator: function (items: QuoteItem[]) {
-          return items.length > 0;
+    // Pricing (nested)
+    pricing: {
+      items: {
+        type: [QuoteItemSchema],
+        required: true,
+        validate: {
+          validator: function (items: QuoteItem[]) {
+            return items.length > 0;
+          },
+          message: 'Quote must have at least one item',
         },
-        message: 'Quote must have at least one item',
+      },
+      subtotal: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
+      vat: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
+      total: {
+        type: Number,
+        required: true,
+        min: 0,
       },
     },
-    subtotal: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    vat: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    total: {
-      type: Number,
-      required: true,
-      min: 0,
+
+    // Timeline (nested)
+    timeline: {
+      startDate: {
+        type: Date,
+        required: true,
+      },
+      completionDate: {
+        type: Date,
+        required: true,
+      },
+      estimatedDuration: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
     },
 
     // Details
@@ -115,6 +142,7 @@ const QuoteSchema = new Schema<IQuote>(
     acceptedAt: Date,
     declinedAt: Date,
     declineReason: String,
+    expiredAt: Date,
   },
   {
     timestamps: true,
@@ -129,20 +157,21 @@ QuoteSchema.index({ status: 1, createdAt: -1 });
 
 // Virtual for total breakdown
 QuoteSchema.virtual('breakdown').get(function () {
+  const items = this.pricing?.items || [];
   return {
-    labor: this.items
+    labor: items
       .filter(item => item.category === 'labor')
       .reduce((sum, item) => sum + item.total, 0),
-    materials: this.items
+    materials: items
       .filter(item => item.category === 'materials')
       .reduce((sum, item) => sum + item.total, 0),
-    permits: this.items
+    permits: items
       .filter(item => item.category === 'permits')
       .reduce((sum, item) => sum + item.total, 0),
-    equipment: this.items
+    equipment: items
       .filter(item => item.category === 'equipment')
       .reduce((sum, item) => sum + item.total, 0),
-    other: this.items
+    other: items
       .filter(item => item.category === 'other')
       .reduce((sum, item) => sum + item.total, 0),
   };
@@ -151,15 +180,15 @@ QuoteSchema.virtual('breakdown').get(function () {
 // Pre-save validation
 QuoteSchema.pre('save', function (next) {
   // Validate that total matches items sum + VAT
-  const itemsTotal = this.items.reduce((sum, item) => sum + item.total, 0);
-  const calculatedTotal = itemsTotal + this.vat;
+  const itemsTotal = this.pricing.items.reduce((sum, item) => sum + item.total, 0);
+  const calculatedTotal = itemsTotal + this.pricing.vat;
 
-  if (Math.abs(calculatedTotal - this.total) > 0.01) {
+  if (Math.abs(calculatedTotal - this.pricing.total) > 0.01) {
     return next(new Error('Quote total does not match items sum + VAT'));
   }
 
   // Validate that each item total matches quantity * unitPrice
-  for (const item of this.items) {
+  for (const item of this.pricing.items) {
     const expectedTotal = item.quantity * item.unitPrice;
     if (Math.abs(expectedTotal - item.total) > 0.01) {
       return next(new Error(`Item "${item.description}" total does not match quantity * unitPrice`));
@@ -167,7 +196,7 @@ QuoteSchema.pre('save', function (next) {
   }
 
   // Validate timeline
-  if (this.estimatedCompletionDate <= this.estimatedStartDate) {
+  if (this.timeline.completionDate <= this.timeline.startDate) {
     return next(new Error('Completion date must be after start date'));
   }
 

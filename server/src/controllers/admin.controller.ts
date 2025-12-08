@@ -31,7 +31,7 @@ export const getDashboardStats = async (_req: Request, res: Response): Promise<v
       User.countDocuments({ role: 'pro', 'proProfile.verificationStatus': 'pending' }),
       User.countDocuments({ role: 'homeowner' }),
       Lead.countDocuments(),
-      Lead.countDocuments({ status: { $in: ['open', 'quoted'] } }),
+      Lead.countDocuments({ status: { $in: ['open', 'full'] } }),
       CreditTransaction.aggregate([{ $group: { _id: null, total: { $sum: '$amount' } } }]).then(result => result[0]?.total || 0),
       CreditTransaction.countDocuments({ type: 'spend' }),
     ]);
@@ -432,7 +432,7 @@ export const getHomeowners = async (req: Request, res: Response): Promise<void> 
           totalLeads: { $sum: 1 },
           activeLeads: {
             $sum: {
-              $cond: [{ $in: ['$status', ['open', 'quoted']] }, 1, 0],
+              $cond: [{ $in: ['$status', ['open', 'full']] }, 1, 0],
             },
           },
         },

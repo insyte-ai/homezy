@@ -13,7 +13,7 @@ export const urgencyEnum = z.enum(urgencyLevelIds as [string, ...string[]]);
 export const emirateEnum = z.enum(emirateIds as [string, ...string[]]);
 // Category validation is done against database in controller
 export const categorySchema = z.string().min(1, 'Category is required');
-export const leadStatusEnum = z.enum(['open', 'full', 'quoted', 'accepted', 'expired', 'cancelled']);
+export const leadStatusEnum = z.enum(['open', 'full', 'accepted', 'expired', 'cancelled']);
 
 /**
  * Location schema

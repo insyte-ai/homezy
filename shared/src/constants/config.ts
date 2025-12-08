@@ -58,14 +58,13 @@ export const PRO_VERIFICATION_STATUS = {
 
 export type ProVerificationStatus = typeof PRO_VERIFICATION_STATUS[keyof typeof PRO_VERIFICATION_STATUS];
 
-// Lead status
+// Lead status (tracks claiming capacity, not quote progress)
 export const LEAD_STATUS = {
-  OPEN: 'open',
-  FULL: 'full',
-  QUOTED: 'quoted',
-  ACCEPTED: 'accepted',
-  EXPIRED: 'expired',
-  CANCELLED: 'cancelled',
+  OPEN: 'open',        // Available for claiming (< 5 pros)
+  FULL: 'full',        // Max claims reached (5 pros)
+  ACCEPTED: 'accepted', // Homeowner accepted a quote
+  EXPIRED: 'expired',   // Past expiry date
+  CANCELLED: 'cancelled', // Homeowner cancelled
 } as const;
 
 export type LeadStatus = typeof LEAD_STATUS[keyof typeof LEAD_STATUS];
@@ -80,11 +79,12 @@ export const PROJECT_STATUS = {
 
 export type ProjectStatus = typeof PROJECT_STATUS[keyof typeof PROJECT_STATUS];
 
-// Quote status
+// Quote status (independent lifecycle from lead)
 export const QUOTE_STATUS = {
-  PENDING: 'pending',
-  ACCEPTED: 'accepted',
-  DECLINED: 'declined',
+  PENDING: 'pending',   // Awaiting homeowner decision
+  ACCEPTED: 'accepted', // Homeowner accepted this quote
+  DECLINED: 'declined', // Homeowner rejected this quote
+  EXPIRED: 'expired',   // Quote expired without decision
 } as const;
 
 export type QuoteStatus = typeof QUOTE_STATUS[keyof typeof QUOTE_STATUS];

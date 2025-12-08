@@ -29,7 +29,7 @@ export const submitQuote = async (
     quoteId: quote._id,
     leadId,
     professionalId,
-    total: quote.total,
+    total: quote.pricing.total,
   });
 
   res.status(201).json({

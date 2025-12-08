@@ -494,8 +494,8 @@ export const claimLead = async (leadId: string, professionalId: string) => {
       throw new NotFoundError('Lead not found');
     }
 
-    // Verify lead is claimable
-    if (lead.status !== 'open' && lead.status !== 'full') {
+    // Verify lead is claimable (only open status allows claiming)
+    if (lead.status !== 'open') {
       throw new BadRequestError(`Cannot claim lead with status: ${lead.status}`);
     }
 
@@ -645,7 +645,7 @@ export const expireOldLeads = async () => {
   const result = await Lead.updateMany(
     {
       expiresAt: { $lte: now },
-      status: { $in: ['open', 'full', 'quoted'] },
+      status: { $in: ['open', 'full'] },
     },
     {
       $set: { status: 'expired' },

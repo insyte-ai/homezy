@@ -40,7 +40,7 @@ export default function DashboardPage() {
 
       // Calculate stats
       const activeLeads = myLeads.filter(
-        (l) => l.status === LeadStatus.OPEN || l.status === LeadStatus.QUOTED
+        (l) => l.status === LeadStatus.OPEN || l.status === LeadStatus.FULL
       ).length;
       const quotesReceived = myLeads.reduce((sum, l) => sum + (l.quotesCount || 0), 0);
       const activeProjects = myLeads.filter((l) => l.status === LeadStatus.ACCEPTED).length;
@@ -61,9 +61,8 @@ export default function DashboardPage() {
   const getStatusBadge = (status: string) => {
     const badges = {
       open: 'bg-blue-100 text-blue-700',
-      quoted: 'bg-purple-100 text-purple-700',
-      accepted: 'bg-green-100 text-green-700',
       full: 'bg-yellow-100 text-yellow-700',
+      accepted: 'bg-green-100 text-green-700',
       expired: 'bg-gray-100 text-gray-700',
       cancelled: 'bg-red-100 text-red-700',
     };
@@ -73,9 +72,8 @@ export default function DashboardPage() {
   const getStatusLabel = (status: string) => {
     const labels = {
       open: 'Open',
-      quoted: 'Quotes Received',
-      accepted: 'Accepted',
       full: 'Full (5 claims)',
+      accepted: 'Accepted',
       expired: 'Expired',
       cancelled: 'Cancelled',
     };
@@ -217,7 +215,7 @@ export default function DashboardPage() {
             {leads.slice(0, 5).map((lead) => (
               <Link
                 key={lead._id}
-                href={`/dashboard/leads/${lead._id}`}
+                href={`/dashboard/requests/${lead._id}`}
                 className="p-6 hover:bg-gray-50 transition-colors block"
               >
                 <div className="flex items-start justify-between mb-2">

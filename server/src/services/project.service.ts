@@ -192,8 +192,8 @@ export async function createProjectFromQuote(
     title: lead.title,
     description: lead.description,
     category: lead.category,
-    budgetEstimated: quote.total,
-    startDate: quote.estimatedStartDate,
-    endDate: quote.estimatedCompletionDate,
+    budgetEstimated: quote.pricing.total,
+    startDate: quote.timeline.startDate,
+    endDate: quote.timeline.completionDate,
   });
 }

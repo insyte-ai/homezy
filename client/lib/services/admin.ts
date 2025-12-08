@@ -115,7 +115,7 @@ export interface AdminLead {
   category: string;
   budgetBracket: string;
   urgency: string;
-  status: 'open' | 'quoted' | 'in_progress' | 'completed' | 'cancelled' | 'expired';
+  status: 'open' | 'full' | 'accepted' | 'expired' | 'cancelled';
   homeowner: {
     _id: string;
     firstName: string;

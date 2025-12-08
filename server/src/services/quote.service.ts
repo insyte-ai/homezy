@@ -1,4 +1,4 @@
-import { Quote, IQuote } from '../models/Quote.model';
+import { Quote } from '../models/Quote.model';
 import { Lead } from '../models/Lead.model';
 import { LeadClaim } from '../models/Lead.model';
 import { User } from '../models/User.model';
@@ -60,7 +60,7 @@ export const submitQuote = async (leadId: string, professionalId: string, data: 
     }
 
     // Generate IDs for items if not provided
-    const itemsWithIds = data.items.map(item => ({
+    const itemsWithIds = data.pricing.items.map(item => ({
       ...item,
       id: item.id || nanoid(10),
     }));
@@ -72,13 +72,17 @@ export const submitQuote = async (leadId: string, professionalId: string, data: 
           leadId,
           professionalId,
           status: 'pending',
-          estimatedStartDate: data.estimatedStartDate,
-          estimatedCompletionDate: data.estimatedCompletionDate,
-          estimatedDurationDays: data.estimatedDurationDays,
-          items: itemsWithIds,
-          subtotal: data.subtotal,
-          vat: data.vat,
-          total: data.total,
+          pricing: {
+            items: itemsWithIds,
+            subtotal: data.pricing.subtotal,
+            vat: data.pricing.vat,
+            total: data.pricing.total,
+          },
+          timeline: {
+            startDate: data.timeline.startDate,
+            completionDate: data.timeline.completionDate,
+            estimatedDuration: data.timeline.estimatedDuration,
+          },
           approach: data.approach,
           warranty: data.warranty,
           attachments: data.attachments || [],
@@ -93,11 +97,9 @@ export const submitQuote = async (leadId: string, professionalId: string, data: 
     claim.quoteSubmittedAt = new Date();
     await claim.save({ session });
 
-    // Update lead status to 'quoted' if not already
-    if (lead.status !== 'quoted' && lead.status !== 'accepted') {
-      lead.status = 'quoted';
-      await lead.save({ session });
-    }
+    // Note: Lead status is NOT changed when quote is submitted
+    // Lead status only tracks claiming capacity (open/full) and final state (accepted/expired/cancelled)
+    // Quote progress is tracked independently via quote statuses
 
     await session.commitTransaction();
 
@@ -105,7 +107,7 @@ export const submitQuote = async (leadId: string, professionalId: string, data: 
       quoteId: quote[0]._id,
       leadId,
       professionalId,
-      total: data.total,
+      total: data.pricing.total,
     });
 
     return quote[0];
@@ -136,8 +138,32 @@ export const updateQuote = async (quoteId: string, professionalId: string, data:
     throw new BadRequestError('Cannot update quote after it has been accepted or declined');
   }
 
-  // Update quote
-  Object.assign(quote, data);
+  // Update quote fields
+  if (data.pricing) {
+    quote.pricing = {
+      items: data.pricing.items.map(item => ({
+        ...item,
+        id: item.id || nanoid(10),
+      })) as any,
+      subtotal: data.pricing.subtotal,
+      vat: data.pricing.vat,
+      total: data.pricing.total,
+    };
+  }
+
+  if (data.timeline) {
+    quote.timeline = {
+      startDate: data.timeline.startDate,
+      completionDate: data.timeline.completionDate,
+      estimatedDuration: data.timeline.estimatedDuration || quote.timeline.estimatedDuration,
+    };
+  }
+
+  if (data.approach !== undefined) quote.approach = data.approach;
+  if (data.warranty !== undefined) quote.warranty = data.warranty;
+  if (data.attachments !== undefined) quote.attachments = data.attachments as any;
+  if (data.questions !== undefined) quote.questions = data.questions;
+
   await quote.save();
 
   logger.info('Quote updated', {
@@ -313,7 +339,7 @@ export const getMyQuotes = async (professionalId: string, options?: { status?: s
 /**
  * Accept quote (homeowner only)
  */
-export const acceptQuote = async (quoteId: string, homeownerId: string, notes?: string) => {
+export const acceptQuote = async (quoteId: string, homeownerId: string, _notes?: string) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -385,7 +411,7 @@ export const acceptQuote = async (quoteId: string, homeownerId: string, notes?: 
       leadId: quote.leadId,
       professionalId: quote.professionalId,
       homeownerId,
-      total: quote.total,
+      total: quote.pricing.total,
     });
 
     return quote;

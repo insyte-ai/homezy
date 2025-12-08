@@ -8,7 +8,7 @@ const quoteItemSchema = z.object({
   description: z.string()
     .min(3, 'Item description must be at least 3 characters')
     .max(200, 'Item description must be at most 200 characters'),
-  category: z.enum(['labor', 'materials', 'permits', 'equipment', 'other']),
+  category: z.enum(['labor', 'materials', 'permits', 'equipment', 'other']).optional().default('other'),
   quantity: z.number()
     .min(0, 'Quantity cannot be negative')
     .finite('Quantity must be a finite number'),
@@ -35,34 +35,49 @@ const attachmentSchema = z.object({
 });
 
 /**
+ * Helper to parse date strings (supports both ISO datetime and date-only formats)
+ */
+const dateStringSchema = z.string()
+  .transform((val) => {
+    // Handle date-only format (YYYY-MM-DD) by treating as start of day
+    if (/^\d{4}-\d{2}-\d{2}$/.test(val)) {
+      return new Date(val + 'T00:00:00.000Z');
+    }
+    return new Date(val);
+  })
+  .refine((date) => !isNaN(date.getTime()), { message: 'Invalid date' });
+
+/**
  * Submit quote schema
+ * Accepts nested structure from frontend: { pricing: {...}, timeline: {...}, ... }
  */
 export const submitQuoteSchema = z.object({
-  // Timeline
-  estimatedStartDate: z.string().datetime()
-    .or(z.date())
-    .transform((val) => typeof val === 'string' ? new Date(val) : val),
-  estimatedCompletionDate: z.string().datetime()
-    .or(z.date())
-    .transform((val) => typeof val === 'string' ? new Date(val) : val),
-  estimatedDurationDays: z.number()
-    .int('Duration must be a whole number of days')
-    .min(1, 'Duration must be at least 1 day')
-    .max(365, 'Duration cannot exceed 365 days'),
+  // Pricing (nested structure)
+  pricing: z.object({
+    items: z.array(quoteItemSchema)
+      .min(1, 'Quote must have at least one item')
+      .max(50, 'Quote cannot have more than 50 items'),
+    subtotal: z.number()
+      .min(0, 'Subtotal cannot be negative')
+      .finite('Subtotal must be a finite number'),
+    vat: z.number()
+      .min(0, 'VAT cannot be negative')
+      .finite('VAT must be a finite number'),
+    total: z.number()
+      .min(0, 'Total cannot be negative')
+      .finite('Total must be a finite number'),
+  }),
 
-  // Budget
-  items: z.array(quoteItemSchema)
-    .min(1, 'Quote must have at least one item')
-    .max(50, 'Quote cannot have more than 50 items'),
-  subtotal: z.number()
-    .min(0, 'Subtotal cannot be negative')
-    .finite('Subtotal must be a finite number'),
-  vat: z.number()
-    .min(0, 'VAT cannot be negative')
-    .finite('VAT must be a finite number'),
-  total: z.number()
-    .min(0, 'Total cannot be negative')
-    .finite('Total must be a finite number'),
+  // Timeline (nested structure)
+  timeline: z.object({
+    startDate: dateStringSchema,
+    completionDate: dateStringSchema,
+    estimatedDuration: z.number()
+      .int('Duration must be a whole number of days')
+      .min(1, 'Duration must be at least 1 day')
+      .max(365, 'Duration cannot exceed 365 days')
+      .optional(),
+  }),
 
   // Details
   approach: z.string()
@@ -71,34 +86,48 @@ export const submitQuoteSchema = z.object({
   warranty: z.string().max(500).optional(),
   attachments: z.array(attachmentSchema).max(10, 'Maximum 10 attachments allowed').default([]),
   questions: z.string().max(1000).optional(),
+}).transform((data) => {
+  // Calculate duration if not provided
+  const startDate = data.timeline.startDate;
+  const completionDate = data.timeline.completionDate;
+  const durationMs = completionDate.getTime() - startDate.getTime();
+  const estimatedDuration = data.timeline.estimatedDuration || Math.ceil(durationMs / (1000 * 60 * 60 * 24));
+
+  return {
+    ...data,
+    timeline: {
+      ...data.timeline,
+      estimatedDuration,
+    },
+  };
 }).refine(
   (data) => {
-    // Validate that estimatedCompletionDate is after estimatedStartDate
-    return data.estimatedCompletionDate > data.estimatedStartDate;
+    // Validate that completionDate is after startDate
+    return data.timeline.completionDate > data.timeline.startDate;
   },
   {
     message: 'Completion date must be after start date',
-    path: ['estimatedCompletionDate'],
+    path: ['timeline', 'completionDate'],
   }
 ).refine(
   (data) => {
     // Validate that total = subtotal + VAT (with 0.01 tolerance for rounding)
-    const expectedTotal = data.subtotal + data.vat;
-    return Math.abs(data.total - expectedTotal) < 0.01;
+    const expectedTotal = data.pricing.subtotal + data.pricing.vat;
+    return Math.abs(data.pricing.total - expectedTotal) < 0.01;
   },
   {
     message: 'Total must equal subtotal + VAT',
-    path: ['total'],
+    path: ['pricing', 'total'],
   }
 ).refine(
   (data) => {
     // Validate that subtotal matches sum of all item totals
-    const itemsTotal = data.items.reduce((sum, item) => sum + item.total, 0);
-    return Math.abs(data.subtotal - itemsTotal) < 0.01;
+    const itemsTotal = data.pricing.items.reduce((sum, item) => sum + item.total, 0);
+    return Math.abs(data.pricing.subtotal - itemsTotal) < 0.01;
   },
   {
     message: 'Subtotal must equal sum of all item totals',
-    path: ['subtotal'],
+    path: ['pricing', 'subtotal'],
   }
 );
 
@@ -106,41 +135,35 @@ export type SubmitQuoteInput = z.infer<typeof submitQuoteSchema>;
 
 /**
  * Update quote schema (before submission)
- * Cannot use .partial() on schema with refinements, so we define it separately
+ * Accepts nested structure from frontend: { pricing: {...}, timeline: {...}, ... }
  */
 export const updateQuoteSchema = z.object({
-  // Timeline
-  estimatedStartDate: z.string().datetime()
-    .or(z.date())
-    .transform((val) => typeof val === 'string' ? new Date(val) : val)
-    .optional(),
-  estimatedCompletionDate: z.string().datetime()
-    .or(z.date())
-    .transform((val) => typeof val === 'string' ? new Date(val) : val)
-    .optional(),
-  estimatedDurationDays: z.number()
-    .int('Duration must be a whole number of days')
-    .min(1, 'Duration must be at least 1 day')
-    .max(365, 'Duration cannot exceed 365 days')
-    .optional(),
+  // Pricing (nested structure, optional for updates)
+  pricing: z.object({
+    items: z.array(quoteItemSchema)
+      .min(1, 'Quote must have at least one item')
+      .max(50, 'Quote cannot have more than 50 items'),
+    subtotal: z.number()
+      .min(0, 'Subtotal cannot be negative')
+      .finite('Subtotal must be a finite number'),
+    vat: z.number()
+      .min(0, 'VAT cannot be negative')
+      .finite('VAT must be a finite number'),
+    total: z.number()
+      .min(0, 'Total cannot be negative')
+      .finite('Total must be a finite number'),
+  }).optional(),
 
-  // Budget
-  items: z.array(quoteItemSchema)
-    .min(1, 'Quote must have at least one item')
-    .max(50, 'Quote cannot have more than 50 items')
-    .optional(),
-  subtotal: z.number()
-    .min(0, 'Subtotal cannot be negative')
-    .finite('Subtotal must be a finite number')
-    .optional(),
-  vat: z.number()
-    .min(0, 'VAT cannot be negative')
-    .finite('VAT must be a finite number')
-    .optional(),
-  total: z.number()
-    .min(0, 'Total cannot be negative')
-    .finite('Total must be a finite number')
-    .optional(),
+  // Timeline (nested structure, optional for updates)
+  timeline: z.object({
+    startDate: dateStringSchema,
+    completionDate: dateStringSchema,
+    estimatedDuration: z.number()
+      .int('Duration must be a whole number of days')
+      .min(1, 'Duration must be at least 1 day')
+      .max(365, 'Duration cannot exceed 365 days')
+      .optional(),
+  }).optional(),
 
   // Details
   approach: z.string()
@@ -180,7 +203,7 @@ export type DeclineQuoteInput = z.infer<typeof declineQuoteSchema>;
  * Get quotes for a lead schema (query params)
  */
 export const getQuotesForLeadSchema = z.object({
-  status: z.enum(['pending', 'accepted', 'declined']).optional(),
+  status: z.enum(['pending', 'accepted', 'declined', 'expired']).optional(),
   sortBy: z.enum(['newest', 'price-low', 'price-high', 'rating']).default('newest'),
 });
 
@@ -190,7 +213,7 @@ export type GetQuotesForLeadInput = z.infer<typeof getQuotesForLeadSchema>;
  * Get my quotes schema (professional view)
  */
 export const getMyQuotesSchema = z.object({
-  status: z.enum(['pending', 'accepted', 'declined']).optional(),
+  status: z.enum(['pending', 'accepted', 'declined', 'expired']).optional(),
   limit: z.string()
     .optional()
     .transform((val) => val ? parseInt(val) : 20)
