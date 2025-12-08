@@ -35,9 +35,23 @@ export const createApp = (): Application => {
     contentSecurityPolicy: isDevelopment ? false : undefined,
   }));
 
-  // CORS configuration
+  // CORS configuration - support multiple origins (www and non-www)
+  const allowedOrigins = [
+    env.CORS_ORIGIN,
+    env.CORS_ORIGIN.replace('https://', 'https://www.'),
+  ];
+
   app.use(cors({
-    origin: env.CORS_ORIGIN,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, origin);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     optionsSuccessStatus: 200,
   }));
@@ -70,8 +84,11 @@ export const createApp = (): Application => {
 
   // Serve static files from uploads directory (for development)
   // Add CORS headers for uploaded files
-  app.use('/uploads', (_req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', env.CORS_ORIGIN);
+  app.use('/uploads', (req, res, next) => {
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
     next();
