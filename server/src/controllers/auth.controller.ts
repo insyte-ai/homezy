@@ -43,7 +43,7 @@ export const register = async (req: Request<{}, {}, RegisterInput>, res: Respons
         categories: [],
         serviceAreas: [],
         languages: [],
-        verificationStatus: 'unverified',
+        verificationStatus: 'pending',
         verificationDocuments: [],
         portfolio: [],
         featuredProjects: [],

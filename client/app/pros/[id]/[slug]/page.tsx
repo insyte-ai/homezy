@@ -274,7 +274,7 @@ export default function PublicProfilePage() {
           {/* Robots Meta */}
           <meta
             name="robots"
-            content={proProfile.verificationStatus !== 'unverified' ? 'index, follow' : 'noindex, nofollow'}
+            content={proProfile.verificationStatus === 'approved' ? 'index, follow' : 'noindex, nofollow'}
           />
 
           {/* Open Graph / Facebook */}

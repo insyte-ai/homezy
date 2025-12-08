@@ -159,8 +159,8 @@ const ProProfileSchema = new Schema<ProProfile>({
     type: String,
     enum: ['sole-proprietor', 'llc', 'corporation'],
     required: function(this: any) {
-      // Only required when verification status is not unverified
-      return this.verificationStatus && this.verificationStatus !== 'unverified';
+      // Only required when verification status is approved or rejected (has gone through verification)
+      return this.verificationStatus && this.verificationStatus !== 'pending';
     },
   },
   tradeLicenseNumber: String,
