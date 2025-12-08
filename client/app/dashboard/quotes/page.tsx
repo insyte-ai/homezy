@@ -38,7 +38,7 @@ export default function QuotesPage() {
       const leadsWithQuotesData = await Promise.all(
         leads.map(async (lead) => {
           try {
-            const { quotes } = await getQuotesForLead(lead._id);
+            const { quotes } = await getQuotesForLead(lead.id);
             return { lead, quotes };
           } catch {
             return { lead, quotes: [] };
@@ -170,7 +170,7 @@ export default function QuotesPage() {
 
             return (
               <div
-                key={quote._id}
+                key={quote.id}
                 className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
               >
                 {/* Lead Info */}
@@ -178,7 +178,7 @@ export default function QuotesPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       <Link
-                        href={`/dashboard/requests/${(quote as any).leadInfo._id}`}
+                        href={`/dashboard/requests/${(quote as any).leadInfo.id}`}
                         className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
                       >
                         For: {(quote as any).leadInfo.title}
@@ -251,7 +251,7 @@ export default function QuotesPage() {
                 {/* Actions */}
                 <div className="pt-4 border-t border-gray-200">
                   <Link
-                    href={`/dashboard/requests/${(quote as any).leadInfo._id}/quotes`}
+                    href={`/dashboard/requests/${(quote as any).leadInfo.id}/quotes`}
                     className="btn btn-primary text-sm inline-flex items-center gap-2"
                   >
                     View Full Quote

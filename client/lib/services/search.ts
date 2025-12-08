@@ -2,14 +2,14 @@ import { api } from '../api';
 
 export interface SearchResult {
   requests: Array<{
-    _id: string;
+    id: string;
     title: string;
     category: string;
     status: string;
     createdAt: string;
   }>;
   quotes: Array<{
-    _id: string;
+    id: string;
     leadId: string;
     leadTitle: string;
     professionalName: string;
@@ -18,7 +18,7 @@ export interface SearchResult {
     createdAt: string;
   }>;
   professionals: Array<{
-    _id: string;
+    id: string;
     businessName: string;
     services: string[];
     rating: number;

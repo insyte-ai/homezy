@@ -129,7 +129,7 @@ export const getLeadById = async (leadId: string, userId?: string) => {
     const homeowner = await User.findById(lead.homeownerId).select('firstName lastName email phone');
     if (homeowner) {
       leadData.homeownerId = {
-        id: homeowner._id.toString(),
+        _id: homeowner._id.toString(),
         name: `${homeowner.firstName} ${homeowner.lastName}`.trim(),
         email: homeowner.email,
         phone: homeowner.phone,

@@ -291,8 +291,10 @@ const UserSchema = new Schema<IUser>(
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: (_doc, ret) => {
-        // Remove sensitive fields - keep _id (no id transform)
+        ret.id = ret._id.toString();
+        delete ret._id;
         delete ret.__v;
         delete ret.password;
         delete ret.refreshTokenVersion;

@@ -9,7 +9,7 @@ export interface CategoryRatings {
 }
 
 export interface Review {
-  _id: string;
+  id: string;
   professionalId: string;
   homeownerId: string;
   projectId: string;
@@ -40,12 +40,12 @@ export interface CanReviewResponse {
   canReview: boolean;
   reason?: string;
   lead?: {
-    _id: string;
+    id: string;
     title: string;
     category: string;
   };
   professional?: {
-    _id: string;
+    id: string;
     businessName: string;
     profilePhoto?: string;
   };

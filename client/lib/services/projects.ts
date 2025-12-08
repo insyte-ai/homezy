@@ -3,7 +3,6 @@ import { api } from '../api';
 export type ProjectStatus = 'planning' | 'in-progress' | 'completed' | 'cancelled';
 
 export interface Project {
-  _id: string;
   id: string;
   homeownerId: string;
   professionalId: string;

@@ -12,7 +12,7 @@ import { api } from '@/lib/api';
 import toast from 'react-hot-toast';
 
 interface Professional {
-  _id: string;
+  id: string;
   businessName: string;
   firstName: string;
   lastName: string;
@@ -193,10 +193,10 @@ export function LeadSuccessWithPros({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {topThreePros.map((pro) => (
               <ProCard
-                key={pro._id}
+                key={pro.id}
                 pro={pro}
-                isSelected={selectedPros.has(pro._id)}
-                onToggle={() => toggleProSelection(pro._id)}
+                isSelected={selectedPros.has(pro.id)}
+                onToggle={() => toggleProSelection(pro.id)}
                 featured
               />
             ))}
@@ -244,10 +244,10 @@ export function LeadSuccessWithPros({
           <div className="space-y-3">
             {otherPros.map((pro) => (
               <ProCard
-                key={pro._id}
+                key={pro.id}
                 pro={pro}
-                isSelected={selectedPros.has(pro._id)}
-                onToggle={() => toggleProSelection(pro._id)}
+                isSelected={selectedPros.has(pro.id)}
+                onToggle={() => toggleProSelection(pro.id)}
               />
             ))}
           </div>

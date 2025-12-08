@@ -106,7 +106,7 @@ export default function HomeownersPage() {
       header: 'Actions',
       render: (item) => (
         <button
-          onClick={() => router.push(`/admin/homeowners/${item._id}`)}
+          onClick={() => router.push(`/admin/homeowners/${item.id}`)}
           className="text-primary-600 hover:text-primary-700 font-medium"
         >
           View Details

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { DirectRequestsPanel } from '@/components/professional/DirectRequestsPanel';
+import { StartConversationButton } from '@/components/common/StartConversationButton';
 
 type TabType = 'claimed' | 'direct';
 
@@ -317,7 +318,7 @@ export default function MyClaimedLeads() {
 
                 return (
                   <div
-                    key={lead._id}
+                    key={lead.id}
                     className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-md transition"
                   >
                     {/* Award Banner (if accepted) */}
@@ -397,9 +398,19 @@ export default function MyClaimedLeads() {
                       {/* Homeowner Contact (if available) */}
                       {homeownerInfo && (
                         <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4 mb-4">
-                          <h5 className="font-semibold text-primary-900 dark:text-primary-200 mb-2">
-                            Homeowner Contact
-                          </h5>
+                          <div className="flex items-start justify-between mb-2">
+                            <h5 className="font-semibold text-primary-900 dark:text-primary-200">
+                              Homeowner Contact
+                            </h5>
+                            <StartConversationButton
+                              recipientId={homeownerInfo.id}
+                              recipientName={homeownerInfo.name}
+                              relatedLeadId={lead.id}
+                              relatedLeadTitle={lead.title}
+                              variant="primary"
+                              size="sm"
+                            />
+                          </div>
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
                             <div>
                               <span className="text-primary-700 dark:text-primary-300">Name:</span>{' '}
@@ -422,7 +433,7 @@ export default function MyClaimedLeads() {
                       {/* Actions */}
                       <div className="flex gap-3 justify-end">
                         <button
-                          onClick={() => router.push(`/pro/dashboard/leads/${lead._id}`)}
+                          onClick={() => router.push(`/pro/dashboard/leads/${lead.id}`)}
                           className="py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition"
                         >
                           {lead.status === 'accepted' ? 'View Award Details' : 'View Details'}
@@ -430,7 +441,7 @@ export default function MyClaimedLeads() {
                         {(lead.status === 'open' || lead.status === 'full') && !lead.claim?.quoteSubmitted && (
                           <button
                             onClick={() =>
-                              router.push(`/pro/dashboard/leads/${lead._id}`)
+                              router.push(`/pro/dashboard/leads/${lead.id}`)
                             }
                             className="py-2 px-4 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition"
                           >

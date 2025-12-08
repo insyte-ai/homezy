@@ -68,7 +68,7 @@ export default function ProDashboardPage() {
 
   const recentLeads = [
     {
-      _id: '1',
+      id: '1',
       title: 'Kitchen Remodeling in Dubai Marina',
       category: 'Kitchen Remodeling',
       budget: 'AED 15K-50K',
@@ -78,7 +78,7 @@ export default function ProDashboardPage() {
       maxClaims: 5,
     },
     {
-      _id: '2',
+      id: '2',
       title: 'Emergency Plumbing Repair',
       category: 'Plumbing',
       budget: 'AED 500-1K',
@@ -89,7 +89,7 @@ export default function ProDashboardPage() {
       urgent: true,
     },
     {
-      _id: '3',
+      id: '3',
       title: 'AC Installation for Villa',
       category: 'HVAC',
       budget: 'AED 5K-15K',
@@ -367,7 +367,7 @@ export default function ProDashboardPage() {
             <div className="space-y-4">
               {recentLeads.map((lead) => (
                 <div
-                  key={lead._id}
+                  key={lead.id}
                   className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-start justify-between mb-2">

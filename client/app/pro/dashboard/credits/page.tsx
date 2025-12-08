@@ -365,7 +365,7 @@ const CreditsPage = () => {
                   </div>
                 ) : (
                   transactions.map((txn) => (
-                    <div key={txn._id} className="p-4 hover:bg-gray-50 transition">
+                    <div key={txn.id} className="p-4 hover:bg-gray-50 transition">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <div className="font-medium text-gray-900 capitalize">

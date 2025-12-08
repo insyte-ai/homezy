@@ -124,7 +124,7 @@ export default function ReviewPage() {
       {/* Review Form */}
       <ReviewForm
         leadId={leadId}
-        professionalId={reviewData.professional?._id || ''}
+        professionalId={reviewData.professional?.id || ''}
         professionalName={reviewData.professional?.businessName || 'Professional'}
         onSubmit={handleSubmit}
         onCancel={handleCancel}

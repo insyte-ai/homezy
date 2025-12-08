@@ -214,8 +214,8 @@ export default function DashboardPage() {
           <div className="divide-y divide-gray-200">
             {leads.slice(0, 5).map((lead) => (
               <Link
-                key={lead._id}
-                href={`/dashboard/requests/${lead._id}`}
+                key={lead.id}
+                href={`/dashboard/requests/${lead.id}`}
                 className="p-6 hover:bg-gray-50 transition-colors block"
               >
                 <div className="flex items-start justify-between mb-2">

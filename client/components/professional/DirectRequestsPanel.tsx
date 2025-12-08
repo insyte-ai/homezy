@@ -59,7 +59,7 @@ export function DirectRequestsPanel() {
       );
 
       // Remove from list
-      setLeads((prev) => prev.filter((l) => l._id !== leadId));
+      setLeads((prev) => prev.filter((l) => l.id !== leadId));
 
       // Redirect to lead details to submit quote
       router.push(`/pro/dashboard/leads/${leadId}`);
@@ -84,7 +84,7 @@ export function DirectRequestsPanel() {
       toast.success('Request declined. It has been moved to the public marketplace.');
 
       // Remove from list
-      setLeads((prev) => prev.filter((l) => l._id !== leadId));
+      setLeads((prev) => prev.filter((l) => l.id !== leadId));
     } catch (error) {
       console.error('Failed to decline request:', error);
       const message = error instanceof Error && 'response' in error
@@ -179,11 +179,11 @@ export function DirectRequestsPanel() {
         // Use directLeadExpiresAt for direct leads, fallback to expiresAt
         const expiryDate = lead.directLeadExpiresAt || lead.expiresAt;
         const timeRemaining = getTimeRemaining(expiryDate);
-        const isProcessing = processingLeadId === lead._id;
+        const isProcessing = processingLeadId === lead.id;
 
         return (
           <div
-            key={lead._id}
+            key={lead.id}
             className="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow overflow-hidden"
           >
             <div className="p-6">
@@ -246,7 +246,7 @@ export function DirectRequestsPanel() {
               {/* Action Buttons */}
               <div className="flex gap-3 pt-4 border-t border-gray-200">
                 <button
-                  onClick={() => handleAccept(lead._id)}
+                  onClick={() => handleAccept(lead.id)}
                   disabled={isProcessing || timeRemaining.expired}
                   className="flex-1 btn btn-primary flex items-center justify-center gap-2"
                 >
@@ -254,7 +254,7 @@ export function DirectRequestsPanel() {
                   {isProcessing ? 'Accepting...' : 'Accept & Quote'}
                 </button>
                 <button
-                  onClick={() => handleDecline(lead._id)}
+                  onClick={() => handleDecline(lead.id)}
                   disabled={isProcessing || timeRemaining.expired}
                   className="flex-1 px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >

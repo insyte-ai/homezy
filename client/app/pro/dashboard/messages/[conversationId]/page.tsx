@@ -32,24 +32,13 @@ import {
 } from '@/lib/services/messages';
 import { format, isSameDay } from 'date-fns';
 
-// Extended type for participants with businessName
-type ParticipantWithBusiness = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-  profilePhoto?: string;
-  businessName?: string;
-};
-
 interface PageProps {
   params: Promise<{
     conversationId: string;
   }>;
 }
 
-export default function ConversationPage({ params }: PageProps) {
+export default function ProConversationPage({ params }: PageProps) {
   const resolvedParams = use(params);
   const conversationId = resolvedParams.conversationId;
 
@@ -71,14 +60,10 @@ export default function ConversationPage({ params }: PageProps) {
     return typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
   };
 
-  // Get other participant from conversation
-  const getOtherParticipant = (): ParticipantWithBusiness | null => {
+  // Get other participant from conversation - for pros, it's the homeowner
+  const getOtherParticipant = () => {
     if (!conversation || !user) return null;
-
-    if (user.role === 'homeowner') {
-      return conversation.participants.professionalId as ParticipantWithBusiness;
-    }
-    return conversation.participants.homeownerId as ParticipantWithBusiness;
+    return conversation.participants.homeownerId;
   };
 
   // Get recipient ID for sending messages
@@ -105,7 +90,7 @@ export default function ConversationPage({ params }: PageProps) {
           setConversation(conv);
         } else {
           console.error('Conversation not found');
-          router.push('/dashboard/messages');
+          router.push('/pro/dashboard/messages');
         }
       } catch (error) {
         console.error('Failed to load conversation:', error);
@@ -291,7 +276,7 @@ export default function ConversationPage({ params }: PageProps) {
 
     try {
       await archiveConversation(conversationId);
-      router.push('/dashboard/messages');
+      router.push('/pro/dashboard/messages');
     } catch (error) {
       console.error('Failed to archive conversation:', error);
     }
@@ -300,8 +285,7 @@ export default function ConversationPage({ params }: PageProps) {
   // Get display name for other participant
   const otherParticipant = getOtherParticipant();
   const participantName = otherParticipant
-    ? otherParticipant.businessName ||
-      `${otherParticipant.firstName} ${otherParticipant.lastName}`
+    ? `${otherParticipant.firstName} ${otherParticipant.lastName}`
     : '';
 
   // Group messages by date
@@ -317,12 +301,12 @@ export default function ConversationPage({ params }: PageProps) {
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] max-w-5xl mx-auto">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
-              onClick={() => router.push('/dashboard/messages')}
-              className="text-gray-600 hover:text-gray-900"
+              onClick={() => router.push('/pro/dashboard/messages')}
+              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             >
               <ArrowLeft className="w-6 h-6" />
             </button>
@@ -343,8 +327,13 @@ export default function ConversationPage({ params }: PageProps) {
                   </div>
                 )}
                 <div>
-                  <h2 className="font-semibold text-gray-900">{participantName}</h2>
-                  {isTyping && <p className="text-sm text-gray-500">typing...</p>}
+                  <h2 className="font-semibold text-gray-900 dark:text-white">{participantName}</h2>
+                  {conversation?.relatedLead && (
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Re: {conversation.relatedLead.title}
+                    </p>
+                  )}
+                  {isTyping && <p className="text-sm text-gray-500 dark:text-gray-400">typing...</p>}
                 </div>
               </div>
             )}
@@ -352,7 +341,7 @@ export default function ConversationPage({ params }: PageProps) {
 
           <button
             onClick={handleArchive}
-            className="text-gray-600 hover:text-gray-900 p-2 rounded-lg hover:bg-gray-100"
+            className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <Archive className="w-5 h-5" />
           </button>
@@ -360,13 +349,13 @@ export default function ConversationPage({ params }: PageProps) {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
+      <div className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900">
         {loading ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
           </div>
         ) : messages.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-gray-500">
+          <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">
             <p>No messages yet. Start the conversation!</p>
           </div>
         ) : (
@@ -375,7 +364,7 @@ export default function ConversationPage({ params }: PageProps) {
               <div key={date}>
                 {/* Date divider */}
                 <div className="flex items-center justify-center mb-4">
-                  <span className="bg-white px-3 py-1 rounded-full text-xs text-gray-500 shadow-sm">
+                  <span className="bg-white dark:bg-gray-800 px-3 py-1 rounded-full text-xs text-gray-500 dark:text-gray-400 shadow-sm">
                     {isSameDay(new Date(date), new Date())
                       ? 'Today'
                       : format(new Date(date), 'MMMM d, yyyy')}
@@ -394,12 +383,12 @@ export default function ConversationPage({ params }: PageProps) {
                       >
                         <div className={`max-w-[70%] ${isSender ? 'items-end' : 'items-start'}`}>
                           {editingMessageId === message.id ? (
-                            <div className="bg-white p-3 rounded-lg shadow-sm">
+                            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm">
                               <input
                                 type="text"
                                 value={editContent}
                                 onChange={(e) => setEditContent(e.target.value)}
-                                className="w-full border border-gray-300 rounded px-2 py-1 mb-2"
+                                className="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1 mb-2 dark:bg-gray-700 dark:text-white"
                                 autoFocus
                               />
                               <div className="flex gap-2">
@@ -414,7 +403,7 @@ export default function ConversationPage({ params }: PageProps) {
                                     setEditingMessageId(null);
                                     setEditContent('');
                                   }}
-                                  className="text-sm text-gray-600 hover:text-gray-700"
+                                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-700"
                                 >
                                   Cancel
                                 </button>
@@ -425,14 +414,14 @@ export default function ConversationPage({ params }: PageProps) {
                               className={`group relative px-4 py-2 rounded-lg ${
                                 isSender
                                   ? 'bg-blue-600 text-white'
-                                  : 'bg-white text-gray-900 shadow-sm'
+                                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm'
                               }`}
                             >
                               <p className="whitespace-pre-wrap break-words">{message.content}</p>
 
                               <div
                                 className={`flex items-center gap-2 mt-1 text-xs ${
-                                  isSender ? 'text-blue-100' : 'text-gray-500'
+                                  isSender ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'
                                 }`}
                               >
                                 <span>{format(new Date(message.createdAt), 'h:mm a')}</span>
@@ -456,17 +445,17 @@ export default function ConversationPage({ params }: PageProps) {
                                       setEditingMessageId(message.id);
                                       setEditContent(message.content);
                                     }}
-                                    className="p-1 hover:bg-gray-100 rounded"
+                                    className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                                     title="Edit"
                                   >
-                                    <Edit2 className="w-4 h-4 text-gray-600" />
+                                    <Edit2 className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                                   </button>
                                   <button
                                     onClick={() => handleDeleteMessage(message.id)}
-                                    className="p-1 hover:bg-gray-100 rounded"
+                                    className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                                     title="Delete"
                                   >
-                                    <Trash2 className="w-4 h-4 text-gray-600" />
+                                    <Trash2 className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                                   </button>
                                 </div>
                               )}
@@ -485,9 +474,9 @@ export default function ConversationPage({ params }: PageProps) {
       </div>
 
       {/* Input */}
-      <div className="bg-white border-t border-gray-200 px-6 py-4">
+      <div className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 px-6 py-4">
         <div className="flex items-end gap-3">
-          <button className="text-gray-600 hover:text-gray-900 p-2 rounded-lg hover:bg-gray-100">
+          <button className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
             <Paperclip className="w-5 h-5" />
           </button>
 
@@ -506,7 +495,7 @@ export default function ConversationPage({ params }: PageProps) {
               }}
               placeholder="Type a message..."
               rows={1}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-gray-700 dark:text-white"
               style={{ minHeight: '42px', maxHeight: '120px' }}
             />
           </div>

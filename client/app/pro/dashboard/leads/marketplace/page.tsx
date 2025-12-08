@@ -45,7 +45,7 @@ const ProLeadMarketplaceContent = () => {
   // Scroll to highlighted lead when loaded
   useEffect(() => {
     if (highlightedLeadId && leads.length > 0 && !loading) {
-      const leadExists = leads.some(lead => lead._id === highlightedLeadId);
+      const leadExists = leads.some(lead => lead.id === highlightedLeadId);
       if (leadExists) {
         setTimeout(() => {
           const element = leadRefs.current[highlightedLeadId];
@@ -98,7 +98,7 @@ const ProLeadMarketplaceContent = () => {
   };
 
   const handleClaimClick = (leadId: string) => {
-    const lead = leads.find((l) => l._id === leadId);
+    const lead = leads.find((l) => l.id === leadId);
     if (!lead) return;
 
     if (!balance || balance.totalCredits < (lead.creditsRequired || 0)) {
@@ -119,9 +119,9 @@ const ProLeadMarketplaceContent = () => {
     if (!selectedLead) return;
 
     try {
-      setClaiming(selectedLead._id);
+      setClaiming(selectedLead.id);
       setShowClaimDialog(false);
-      await claimLead(selectedLead._id);
+      await claimLead(selectedLead.id);
       toast.success('Lead claimed successfully! Redirecting to your claimed leads...');
 
       // Redirect to claimed leads page
@@ -398,12 +398,12 @@ const ProLeadMarketplaceContent = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   {leads.map((lead) => (
                     <div
-                      key={lead._id}
+                      key={lead.id}
                       ref={(el) => {
-                        leadRefs.current[lead._id] = el;
+                        leadRefs.current[lead.id] = el;
                       }}
                       className={`transition-all ${
-                        highlightedLeadId === lead._id
+                        highlightedLeadId === lead.id
                           ? 'ring-4 ring-primary-500 ring-opacity-50 rounded-lg'
                           : ''
                       }`}
@@ -414,7 +414,7 @@ const ProLeadMarketplaceContent = () => {
                         onClaim={handleClaimClick}
                         onViewDetails={handleViewDetails}
                         isClaimed={!!lead.hasClaimed}
-                        claiming={claiming === lead._id}
+                        claiming={claiming === lead.id}
                         verificationStatus={(user as any)?.proProfile?.verificationStatus}
                       />
                     </div>

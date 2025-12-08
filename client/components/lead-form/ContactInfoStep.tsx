@@ -107,16 +107,16 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
         let lead;
         if (isDirectLead) {
           lead = await createDirectLead(targetProfessionalId!, leadInput);
-          console.log('[ContactInfoStep] Direct lead created:', lead._id);
+          console.log('[ContactInfoStep] Direct lead created:', lead.id);
           toast.success('Direct request sent successfully!');
         } else {
           lead = await createLead(leadInput);
-          console.log('[ContactInfoStep] Indirect lead created:', lead._id);
+          console.log('[ContactInfoStep] Indirect lead created:', lead.id);
           toast.success('Request created successfully!');
         }
 
         setCreatedLead({
-          leadId: lead._id,
+          leadId: lead.id,
           serviceCategory: selectedServiceId!,
           emirate,
           wasGuest: false,

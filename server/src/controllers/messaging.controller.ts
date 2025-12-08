@@ -4,6 +4,13 @@ import { UserMessage } from '../models/UserMessage.model';
 import { User } from '../models/User.model';
 import { logger } from '../utils/logger';
 import { BadRequestError, NotFoundError, ForbiddenError } from '../middleware/errorHandler.middleware';
+import {
+  getUserRole,
+  verifyConversationParticipant,
+  getPopulatedMessage,
+  broadcastMessage,
+  broadcastReadReceipt,
+} from '../utils/messaging.utils';
 
 /**
  * @desc    Send a message
@@ -67,13 +74,18 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
   await conversation.updateLastMessage(content, senderId!);
 
   // Increment unread count for recipient
-  const recipientRole = recipient.role === 'homeowner' ? 'homeowner' : 'professional';
+  const recipientRole = getUserRole(recipient);
   await conversation.incrementUnread(recipientRole);
 
-  // Populate sender info
-  const populatedMessage = await UserMessage.findById(message._id)
-    .populate('senderId', 'firstName lastName email role profilePhoto')
-    .populate('recipientId', 'firstName lastName email role profilePhoto');
+  // Get populated message for response and broadcast
+  const populatedMessage = await getPopulatedMessage(message._id.toString());
+
+  // Broadcast to socket rooms for real-time delivery
+  const io = req.app.get('io');
+  if (io && populatedMessage) {
+    broadcastMessage(io, conversation._id.toString(), recipientId, populatedMessage);
+    logger.info('Message broadcasted via socket', { conversationId: conversation._id });
+  }
 
   logger.info('Message sent successfully', { messageId: message._id });
 
@@ -164,18 +176,7 @@ export const getMessages = async (req: Request, res: Response): Promise<void> =>
   logger.info('Getting messages', { userId, conversationId });
 
   // Verify conversation exists and user is a participant
-  const conversation = await UserConversation.findById(conversationId);
-  if (!conversation) {
-    throw new NotFoundError('Conversation not found');
-  }
-
-  const isParticipant =
-    conversation.participants.homeownerId.toString() === userId ||
-    conversation.participants.professionalId.toString() === userId;
-
-  if (!isParticipant) {
-    throw new ForbiddenError('You are not a participant in this conversation');
-  }
+  await verifyConversationParticipant(conversationId, userId!);
 
   // Build query
   const query: any = {
@@ -229,23 +230,15 @@ export const markAsRead = async (req: Request, res: Response): Promise<void> => 
 
   logger.info('Marking messages as read', { userId, conversationId });
 
-  // Verify conversation
-  const conversation = await UserConversation.findById(conversationId);
-  if (!conversation) {
-    throw new NotFoundError('Conversation not found');
-  }
-
-  const isParticipant =
-    conversation.participants.homeownerId.toString() === userId ||
-    conversation.participants.professionalId.toString() === userId;
-
-  if (!isParticipant) {
-    throw new ForbiddenError('You are not a participant in this conversation');
-  }
+  // Verify conversation and get it
+  const { conversation } = await verifyConversationParticipant(conversationId, userId!);
 
   // Get user to determine role
   const user = await User.findById(userId);
-  const userRole = user?.role === 'homeowner' ? 'homeowner' : 'professional';
+  if (!user) {
+    throw new NotFoundError('User not found');
+  }
+  const userRole = getUserRole(user);
 
   // Mark all unread messages as read
   await UserMessage.updateMany(
@@ -264,6 +257,18 @@ export const markAsRead = async (req: Request, res: Response): Promise<void> => 
 
   // Reset unread count in conversation
   await conversation.markAsRead(userRole);
+
+  // Get the other participant ID to broadcast read receipt
+  const otherParticipantId =
+    conversation.participants.homeownerId.toString() === userId
+      ? conversation.participants.professionalId.toString()
+      : conversation.participants.homeownerId.toString();
+
+  // Broadcast read receipt via socket
+  const io = req.app.get('io');
+  if (io) {
+    broadcastReadReceipt(io, conversationId, otherParticipantId, userId!);
+  }
 
   logger.info('Messages marked as read', { conversationId });
 
@@ -352,18 +357,7 @@ export const archiveConversation = async (req: Request, res: Response): Promise<
 
   logger.info('Archiving conversation', { userId, conversationId });
 
-  const conversation = await UserConversation.findById(conversationId);
-  if (!conversation) {
-    throw new NotFoundError('Conversation not found');
-  }
-
-  const isParticipant =
-    conversation.participants.homeownerId.toString() === userId ||
-    conversation.participants.professionalId.toString() === userId;
-
-  if (!isParticipant) {
-    throw new ForbiddenError('You are not a participant in this conversation');
-  }
+  const { conversation } = await verifyConversationParticipant(conversationId, userId!);
 
   conversation.status = 'archived';
   await conversation.save();

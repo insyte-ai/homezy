@@ -62,6 +62,15 @@ const ServiceGroupSchema = new Schema<IServiceGroup>(
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: (_doc, ret) => {
+        // This model uses custom 'id' field, just clean up _id and __v
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
   }
 );
 

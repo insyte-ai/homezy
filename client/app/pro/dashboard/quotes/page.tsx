@@ -233,12 +233,12 @@ export default function QuotesPage() {
           <div className="space-y-4">
             {filteredQuotes.map((quote) => {
               const leadTitle = typeof quote.lead === 'string' ? 'Lead' : quote.lead.title;
-              const leadId = typeof quote.lead === 'string' ? quote.lead : quote.lead._id;
+              const leadId = typeof quote.lead === 'string' ? quote.lead : quote.lead.id;
               const respondedAt = quote.acceptedAt || quote.declinedAt;
 
               return (
                 <div
-                  key={quote._id}
+                  key={quote.id}
                   className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition"
                 >
                   {/* Acceptance Banner */}
@@ -307,7 +307,7 @@ export default function QuotesPage() {
 
                     <div className="flex gap-3">
                       <button
-                        onClick={() => router.push(`/pro/dashboard/quotes/${quote._id}`)}
+                        onClick={() => router.push(`/pro/dashboard/quotes/${quote.id}`)}
                         className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition"
                       >
                         <Eye className="h-4 w-4" />
@@ -318,7 +318,7 @@ export default function QuotesPage() {
                         <>
                           <button
                             onClick={() =>
-                              router.push(`/pro/dashboard/quotes/${quote._id}/edit`)
+                              router.push(`/pro/dashboard/quotes/${quote.id}/edit`)
                             }
                             className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
                           >
@@ -326,7 +326,7 @@ export default function QuotesPage() {
                             Edit Quote
                           </button>
                           <button
-                            onClick={() => handleDeleteQuote(quote._id)}
+                            onClick={() => handleDeleteQuote(quote.id)}
                             className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition"
                           >
                             <Trash2 className="h-4 w-4" />

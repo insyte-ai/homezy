@@ -258,7 +258,7 @@ export default function ProfessionalsPage() {
         searchPlaceholder="Search by name, email, or business..."
         onSearch={handleSearch}
         onRowClick={(professional) =>
-          router.push(`/admin/professionals/${professional._id}`)
+          router.push(`/admin/professionals/${professional.id}`)
         }
         pagination={pagination}
         onPageChange={handlePageChange}

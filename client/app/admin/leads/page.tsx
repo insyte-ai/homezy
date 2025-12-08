@@ -142,7 +142,7 @@ export default function LeadsPage() {
       header: 'Actions',
       render: (item) => (
         <button
-          onClick={() => router.push(`/admin/leads/${item._id}`)}
+          onClick={() => router.push(`/admin/leads/${item.id}`)}
           className="text-primary-600 hover:text-primary-700 font-medium"
         >
           View Details

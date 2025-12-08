@@ -67,7 +67,7 @@ const ProfessionalDetailPage: React.FC = () => {
     if (!professional) return;
 
     try {
-      await approveProfessional(professional._id, {
+      await approveProfessional(professional.id, {
         notes: adminNotes,
       });
       toast.success('Professional approved successfully');
@@ -87,7 +87,7 @@ const ProfessionalDetailPage: React.FC = () => {
     }
 
     try {
-      await rejectProfessional(professional._id, {
+      await rejectProfessional(professional.id, {
         reason: rejectionReason,
         notes: adminNotes,
       });
@@ -432,7 +432,7 @@ const ProfessionalDetailPage: React.FC = () => {
                         <h4 className="text-lg font-medium text-neutral-900 mb-4">Recent Leads</h4>
                         <div className="space-y-3">
                           {professional.leads.slice(0, 5).map((lead) => (
-                            <div key={lead._id} className="border border-neutral-200 rounded-lg p-4 hover:bg-neutral-50">
+                            <div key={lead.id} className="border border-neutral-200 rounded-lg p-4 hover:bg-neutral-50">
                               <div className="flex items-center justify-between">
                                 <div>
                                   <span className="text-sm font-medium text-neutral-900">{lead.title}</span>

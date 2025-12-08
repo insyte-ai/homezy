@@ -316,7 +316,7 @@ const PublicLeadMarketplaceContent = () => {
                 <div className={`grid gap-4 ${isChatPanelOpen ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
                   {leads.map((lead) => (
                     <LeadCard
-                      key={lead._id}
+                      key={lead.id}
                       lead={lead}
                       variant="marketplace"
                       onViewDetails={(id) => router.push(`/lead-marketplace/${id}`)}

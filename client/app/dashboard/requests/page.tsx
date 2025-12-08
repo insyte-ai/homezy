@@ -186,8 +186,8 @@ export default function MyLeadsPage() {
 
             return (
               <Link
-                key={lead._id}
-                href={`/dashboard/requests/${lead._id}`}
+                key={lead.id}
+                href={`/dashboard/requests/${lead.id}`}
                 className="block bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
               >
                 {/* Header */}

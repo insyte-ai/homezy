@@ -67,13 +67,13 @@ export function DashboardSearch() {
     const items: Array<{ type: string; item: unknown; href: string }> = [];
 
     results.requests.forEach((r) => {
-      items.push({ type: 'request', item: r, href: `/dashboard/requests/${r._id}` });
+      items.push({ type: 'request', item: r, href: `/dashboard/requests/${r.id}` });
     });
     results.quotes.forEach((q) => {
       items.push({ type: 'quote', item: q, href: `/dashboard/requests/${q.leadId}/quotes` });
     });
     results.professionals.forEach((p) => {
-      items.push({ type: 'professional', item: p, href: `/pro/${p._id}` });
+      items.push({ type: 'professional', item: p, href: `/pro/${p.id}` });
     });
 
     return items;
@@ -186,8 +186,8 @@ export function DashboardSearch() {
                     const isSelected = selectedIndex === currentIndex;
                     return (
                       <button
-                        key={request._id}
-                        onClick={() => handleResultClick(`/dashboard/requests/${request._id}`)}
+                        key={request.id}
+                        onClick={() => handleResultClick(`/dashboard/requests/${request.id}`)}
                         className={`w-full px-3 py-2 flex items-center gap-3 text-left hover:bg-gray-50 ${
                           isSelected ? 'bg-primary-50' : ''
                         }`}
@@ -218,7 +218,7 @@ export function DashboardSearch() {
                     const isSelected = selectedIndex === currentIndex;
                     return (
                       <button
-                        key={quote._id}
+                        key={quote.id}
                         onClick={() => handleResultClick(`/dashboard/requests/${quote.leadId}/quotes`)}
                         className={`w-full px-3 py-2 flex items-center gap-3 text-left hover:bg-gray-50 ${
                           isSelected ? 'bg-primary-50' : ''
@@ -250,8 +250,8 @@ export function DashboardSearch() {
                     const isSelected = selectedIndex === currentIndex;
                     return (
                       <button
-                        key={pro._id}
-                        onClick={() => handleResultClick(`/pro/${pro._id}`)}
+                        key={pro.id}
+                        onClick={() => handleResultClick(`/pro/${pro.id}`)}
                         className={`w-full px-3 py-2 flex items-center gap-3 text-left hover:bg-gray-50 ${
                           isSelected ? 'bg-primary-50' : ''
                         }`}

@@ -37,7 +37,7 @@ export default function ProjectsPage() {
       const projectsData = await Promise.all(
         leads.map(async (lead) => {
           try {
-            const { quotes } = await getQuotesForLead(lead._id);
+            const { quotes } = await getQuotesForLead(lead.id);
             const acceptedQuote = quotes.find(q => q.status === QuoteStatus.ACCEPTED);
             if (acceptedQuote) {
               return { lead, acceptedQuote };
@@ -143,7 +143,7 @@ export default function ProjectsPage() {
 
                   return (
                     <div
-                      key={lead._id}
+                      key={lead.id}
                       className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
                     >
                       <div className="flex items-start justify-between mb-4">
@@ -194,7 +194,7 @@ export default function ProjectsPage() {
 
                       <div className="pt-4 border-t border-gray-200">
                         <Link
-                          href={`/dashboard/requests/${lead._id}`}
+                          href={`/dashboard/requests/${lead.id}`}
                           className="btn btn-outline text-sm inline-flex items-center gap-2"
                         >
                           View Project Details
@@ -223,7 +223,7 @@ export default function ProjectsPage() {
 
                   return (
                     <div
-                      key={lead._id}
+                      key={lead.id}
                       className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 opacity-75 hover:opacity-100 transition-opacity"
                     >
                       <div className="flex items-start justify-between mb-4">
@@ -260,7 +260,7 @@ export default function ProjectsPage() {
 
                       <div className="pt-4 border-t border-gray-200 flex gap-3">
                         <Link
-                          href={`/dashboard/requests/${lead._id}`}
+                          href={`/dashboard/requests/${lead.id}`}
                           className="btn btn-outline text-sm inline-flex items-center gap-2"
                         >
                           View Details

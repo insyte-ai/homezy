@@ -181,7 +181,7 @@ function HomeContent() {
                 <div className="grid md:grid-cols-2 gap-4">
                   {latestLeads.map((lead) => (
                     <div
-                      key={lead._id}
+                      key={lead.id}
                       className="bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow"
                     >
                       <div className="flex items-start justify-between mb-3">

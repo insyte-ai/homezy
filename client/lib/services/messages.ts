@@ -3,7 +3,13 @@ import { io, Socket } from 'socket.io-client';
 
 /**
  * Message Service
- * Handles user-to-user messaging API calls and Socket.io real-time communication
+ *
+ * Handles user-to-user messaging:
+ * - HTTP API for sending messages, getting conversations, etc. (reliable persistence)
+ * - Socket.io for real-time features (typing indicators, presence, room management)
+ *
+ * Note: Message sending uses HTTP API, which then broadcasts via socket for real-time delivery.
+ * This ensures messages are always persisted while still enabling real-time updates.
  */
 
 // Types
@@ -16,10 +22,10 @@ export interface Attachment {
 }
 
 export interface Message {
-  _id: string;
+  id: string;
   conversationId: string;
   senderId: {
-    _id: string;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -28,7 +34,7 @@ export interface Message {
     businessName?: string;
   };
   recipientId: {
-    _id: string;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -46,17 +52,17 @@ export interface Message {
 }
 
 export interface Conversation {
-  _id: string;
+  id: string;
   participants: {
     homeownerId: {
-      _id: string;
+      id: string;
       firstName: string;
       lastName: string;
       email: string;
       profilePhoto?: string;
     };
     professionalId: {
-      _id: string;
+      id: string;
       firstName: string;
       lastName: string;
       email: string;
@@ -65,7 +71,7 @@ export interface Conversation {
     };
   };
   relatedLead?: {
-    _id: string;
+    id: string;
     title: string;
     category: string;
     status: string;
@@ -91,12 +97,22 @@ export interface SendMessageData {
   relatedLead?: string;
 }
 
-// API functions
+// ============================================================================
+// HTTP API Functions
+// ============================================================================
+
+/**
+ * Send a message via HTTP API
+ * Server will save to DB and broadcast via socket for real-time delivery
+ */
 export const sendMessage = async (data: SendMessageData) => {
   const response = await api.post('/messages/send', data);
   return response.data;
 };
 
+/**
+ * Get user's conversations
+ */
 export const getConversations = async (params?: {
   status?: 'active' | 'archived' | 'all';
   limit?: number;
@@ -106,6 +122,9 @@ export const getConversations = async (params?: {
   return response.data;
 };
 
+/**
+ * Get messages in a conversation
+ */
 export const getMessages = async (
   conversationId: string,
   params?: {
@@ -120,6 +139,10 @@ export const getMessages = async (
   return response.data;
 };
 
+/**
+ * Mark conversation messages as read
+ * Server will also broadcast read receipt via socket
+ */
 export const markAsRead = async (conversationId: string) => {
   const response = await api.patch(
     `/messages/conversations/${conversationId}/read`
@@ -127,16 +150,25 @@ export const markAsRead = async (conversationId: string) => {
   return response.data;
 };
 
+/**
+ * Edit a message
+ */
 export const editMessage = async (messageId: string, content: string) => {
   const response = await api.patch(`/messages/${messageId}`, { content });
   return response.data;
 };
 
+/**
+ * Delete a message (soft delete)
+ */
 export const deleteMessage = async (messageId: string) => {
   const response = await api.delete(`/messages/${messageId}`);
   return response.data;
 };
 
+/**
+ * Archive a conversation
+ */
 export const archiveConversation = async (conversationId: string) => {
   const response = await api.patch(
     `/messages/conversations/${conversationId}/archive`
@@ -144,20 +176,37 @@ export const archiveConversation = async (conversationId: string) => {
   return response.data;
 };
 
+/**
+ * Get total unread message count
+ */
 export const getUnreadCount = async () => {
   const response = await api.get('/messages/unread-count');
   return response.data;
 };
 
-// Socket.io connection management
+// ============================================================================
+// Socket.io Connection Management
+// ============================================================================
+
 let messagingSocket: Socket | null = null;
 
-export const connectMessagingSocket = (token: string) => {
+/**
+ * Connect to messaging socket namespace
+ * Returns the socket instance for direct event handling
+ */
+export const connectMessagingSocket = (token: string): Socket => {
+  // Return existing connected socket
   if (messagingSocket?.connected) {
     return messagingSocket;
   }
 
-  const serverUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  // Reconnect if socket exists but disconnected
+  if (messagingSocket && !messagingSocket.connected) {
+    messagingSocket.connect();
+    return messagingSocket;
+  }
+
+  const serverUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000';
 
   messagingSocket = io(`${serverUrl}/messaging`, {
     auth: { token },
@@ -171,17 +220,20 @@ export const connectMessagingSocket = (token: string) => {
     console.log('Messaging socket connected');
   });
 
-  messagingSocket.on('disconnect', () => {
-    console.log('Messaging socket disconnected');
+  messagingSocket.on('disconnect', (reason) => {
+    console.log('Messaging socket disconnected:', reason);
   });
 
-  messagingSocket.on('error', (error) => {
-    console.error('Messaging socket error:', error);
+  messagingSocket.on('connect_error', (error) => {
+    console.error('Messaging socket connection error:', error.message);
   });
 
   return messagingSocket;
 };
 
+/**
+ * Disconnect from messaging socket
+ */
 export const disconnectMessagingSocket = () => {
   if (messagingSocket) {
     messagingSocket.disconnect();
@@ -189,93 +241,46 @@ export const disconnectMessagingSocket = () => {
   }
 };
 
+/**
+ * Get the current messaging socket instance
+ */
 export const getMessagingSocket = () => messagingSocket;
 
-// Socket.io event helpers
+// ============================================================================
+// Socket.io Event Emitters
+// ============================================================================
+
+/**
+ * Join a conversation room to receive real-time messages
+ */
 export const joinConversation = (conversationId: string) => {
   messagingSocket?.emit('conversation:join', { conversationId });
 };
 
+/**
+ * Leave a conversation room
+ */
 export const leaveConversation = (conversationId: string) => {
   messagingSocket?.emit('conversation:leave', { conversationId });
 };
 
-export const sendMessageViaSocket = (data: {
-  conversationId: string;
-  recipientId: string;
-  content: string;
-  attachments?: Attachment[];
-}) => {
-  messagingSocket?.emit('message:send', data);
-};
-
+/**
+ * Emit typing started indicator
+ */
 export const startTyping = (conversationId: string, recipientId: string) => {
   messagingSocket?.emit('typing:start', { conversationId, recipientId });
 };
 
+/**
+ * Emit typing stopped indicator
+ */
 export const stopTyping = (conversationId: string, recipientId: string) => {
   messagingSocket?.emit('typing:stop', { conversationId, recipientId });
 };
 
-export const markMessagesReadViaSocket = (conversationId: string) => {
-  messagingSocket?.emit('messages:mark_read', { conversationId });
-};
-
+/**
+ * Emit online presence status
+ */
 export const setOnline = () => {
   messagingSocket?.emit('presence:online');
-};
-
-// Socket.io event listeners
-export const onNewMessage = (callback: (message: Message) => void) => {
-  messagingSocket?.on('message:new', callback);
-  return () => messagingSocket?.off('message:new', callback);
-};
-
-export const onMessageNotification = (
-  callback: (data: { conversationId: string; message: Message }) => void
-) => {
-  messagingSocket?.on('message:notification', callback);
-  return () => messagingSocket?.off('message:notification', callback);
-};
-
-export const onUserTyping = (
-  callback: (data: { conversationId: string; userId: string }) => void
-) => {
-  messagingSocket?.on('typing:user_typing', callback);
-  return () => messagingSocket?.off('typing:user_typing', callback);
-};
-
-export const onUserStoppedTyping = (
-  callback: (data: { conversationId: string; userId: string }) => void
-) => {
-  messagingSocket?.on('typing:user_stopped', callback);
-  return () => messagingSocket?.off('typing:user_stopped', callback);
-};
-
-export const onMessagesRead = (
-  callback: (data: {
-    conversationId: string;
-    readBy: string;
-    readAt: Date;
-  }) => void
-) => {
-  messagingSocket?.on('messages:read', callback);
-  return () => messagingSocket?.off('messages:read', callback);
-};
-
-export const onUserOnline = (callback: (data: { userId: string }) => void) => {
-  messagingSocket?.on('presence:user_online', callback);
-  return () => messagingSocket?.off('presence:user_online', callback);
-};
-
-export const onUserOffline = (callback: (data: { userId: string }) => void) => {
-  messagingSocket?.on('presence:user_offline', callback);
-  return () => messagingSocket?.off('presence:user_offline', callback);
-};
-
-export const onConversationJoined = (
-  callback: (data: { conversationId: string }) => void
-) => {
-  messagingSocket?.on('conversation:joined', callback);
-  return () => messagingSocket?.off('conversation:joined', callback);
 };

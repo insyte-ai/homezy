@@ -11,7 +11,7 @@ export interface CreditBalance {
 }
 
 export interface CreditTransaction {
-  _id: string;
+  id: string;
   type: 'purchase' | 'lead_claim' | 'refund' | 'admin_addition' | 'admin_deduction';
   amount: number;
   balance: number;
@@ -21,7 +21,7 @@ export interface CreditTransaction {
 }
 
 export interface CreditPurchase {
-  _id: string;
+  id: string;
   packageId: string;
   packageName: string;
   creditsAmount: number;

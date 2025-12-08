@@ -32,7 +32,7 @@ interface AdminTableProps<T> {
   actions?: React.ReactNode;
 }
 
-export function AdminTable<T extends { _id: string }>({
+export function AdminTable<T extends { id: string }>({
   columns,
   data,
   loading = false,
@@ -131,7 +131,7 @@ export function AdminTable<T extends { _id: string }>({
               // Data rows
               data.map((item) => (
                 <tr
-                  key={item._id}
+                  key={item.id}
                   onClick={() => onRowClick?.(item)}
                   className={`${
                     onRowClick

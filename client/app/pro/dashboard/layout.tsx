@@ -7,6 +7,11 @@ import Image from "next/image";
 import { useAuthStore } from "@/store/authStore";
 import { Search, Menu, X } from "lucide-react";
 import UserProfileDropdown from "@/components/common/UserProfileDropdown";
+import {
+  getUnreadCount,
+  connectMessagingSocket,
+  disconnectMessagingSocket,
+} from "@/lib/services/messages";
 
 export default function ProDashboardLayout({
   children,
@@ -18,6 +23,7 @@ export default function ProDashboardLayout({
   const { user, isAuthenticated, logout, isInitialized, initialize } = useAuthStore();
   const [showProgressBanner, setShowProgressBanner] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   // Initialize auth state on mount
   useEffect(() => {
@@ -32,7 +38,7 @@ export default function ProDashboardLayout({
     { name: "My Leads", href: "/pro/dashboard/leads" },
     { name: "Quotes", href: "/pro/dashboard/quotes" },
     { name: "Credits", href: "/pro/dashboard/credits" },
-    { name: "Messages", href: "/pro/dashboard/messages" },
+    { name: "Messages", href: "/pro/dashboard/messages", badge: unreadCount > 0 ? unreadCount : undefined },
     { name: "Profile", href: "/pro/dashboard/profile" },
   ];
 
@@ -49,6 +55,46 @@ export default function ProDashboardLayout({
     }
     return pathname?.startsWith(href);
   };
+
+  // Load unread message count
+  useEffect(() => {
+    const loadUnreadCount = async () => {
+      try {
+        const response = await getUnreadCount();
+        setUnreadCount(response.data.unreadCount);
+      } catch (error) {
+        console.error("Failed to load unread count:", error);
+      }
+    };
+
+    if (isAuthenticated && user) {
+      loadUnreadCount();
+    }
+  }, [isAuthenticated, user]);
+
+  // Setup Socket.io to listen for new message notifications
+  useEffect(() => {
+    const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+    if (!accessToken || !isAuthenticated) return;
+
+    const socket = connectMessagingSocket(accessToken);
+
+    // Listen for new message notifications to update badge
+    const handleUnreadUpdate = () => {
+      getUnreadCount().then((response) => {
+        setUnreadCount(response.data.unreadCount);
+      });
+    };
+
+    socket.on("message:notification", handleUnreadUpdate);
+    socket.on("unread:updated", handleUnreadUpdate);
+
+    return () => {
+      socket.off("message:notification", handleUnreadUpdate);
+      socket.off("unread:updated", handleUnreadUpdate);
+      disconnectMessagingSocket();
+    };
+  }, [isAuthenticated]);
 
   // Check if user is pro and if onboarding is complete
   useEffect(() => {
@@ -195,13 +241,18 @@ export default function ProDashboardLayout({
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`px-4 py-2 font-medium text-sm transition-colors rounded-md ${
+                    className={`px-4 py-2 font-medium text-sm transition-colors rounded-md flex items-center gap-2 ${
                       active
                         ? "text-neutral-900 bg-primary-50 border-b-2 border-primary-600"
                         : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50"
                     }`}
                   >
                     {item.name}
+                    {item.badge !== undefined && item.badge > 0 && (
+                      <span className="bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[1.25rem] text-center">
+                        {item.badge > 99 ? "99+" : item.badge}
+                      </span>
+                    )}
                   </Link>
                 );
               })}
@@ -220,13 +271,18 @@ export default function ProDashboardLayout({
                     key={item.name}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-3 py-2 rounded-lg font-medium transition-colors ${
+                    className={`flex items-center justify-between px-3 py-2 rounded-lg font-medium transition-colors ${
                       active
                         ? "bg-primary-50 text-neutral-900 border-l-4 border-primary-600"
                         : "text-neutral-700 hover:bg-neutral-100"
                     }`}
                   >
-                    {item.name}
+                    <span>{item.name}</span>
+                    {item.badge !== undefined && item.badge > 0 && (
+                      <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full min-w-[1.5rem] text-center">
+                        {item.badge > 99 ? "99+" : item.badge}
+                      </span>
+                    )}
                   </Link>
                 );
               })}
@@ -244,8 +300,8 @@ export default function ProDashboardLayout({
         )}
       </header>
 
-      {/* Profile Completion Banner */}
-      {showProgressBanner && completionPercentage < 100 && (
+      {/* Profile Completion Banner - Only show on main dashboard page */}
+      {showProgressBanner && completionPercentage < 100 && pathname === '/pro/dashboard' && (
         <div className="bg-primary-50 border-b border-primary-200">
           <div className="container-custom py-4">
             <div className="flex items-center justify-between">

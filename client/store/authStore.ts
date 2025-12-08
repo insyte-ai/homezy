@@ -4,7 +4,7 @@ import { logger } from '@/lib/logger';
 import toast from 'react-hot-toast';
 
 interface User {
-  _id: string;
+  id: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -54,7 +54,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     try {
       const user = await authService.getCurrentUser();
-      logger.authEvent('token_refresh', { userId: user._id, role: user.role });
+      logger.authEvent('token_refresh', { userId: user.id, role: user.role });
       set({
         user,
         isAuthenticated: true,
@@ -89,7 +89,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         localStorage.setItem('accessToken', accessToken);
       }
 
-      logger.authEvent('login', { userId: user._id, email: user.email, role: user.role });
+      logger.authEvent('login', { userId: user.id, email: user.email, role: user.role });
       set({
         user,
         isAuthenticated: true,
@@ -133,7 +133,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         localStorage.setItem('accessToken', accessToken);
       }
 
-      logger.authEvent('register', { userId: user._id, email: user.email, role: user.role });
+      logger.authEvent('register', { userId: user.id, email: user.email, role: user.role });
       set({
         user,
         isAuthenticated: true,
@@ -179,7 +179,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         localStorage.setItem('accessToken', accessToken);
       }
 
-      logger.authEvent('login', { userId: user._id, email: user.email, role: user.role, method: 'google' });
+      logger.authEvent('login', { userId: user.id, email: user.email, role: user.role, method: 'google' });
       set({
         user,
         isAuthenticated: true,

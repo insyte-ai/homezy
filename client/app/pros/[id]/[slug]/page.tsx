@@ -649,7 +649,7 @@ export default function PublicProfilePage() {
 
                     {/* Individual Reviews */}
                     {reviews.map((review) => (
-                      <div key={review._id} className="border-b border-gray-100 pb-6 last:border-0">
+                      <div key={review.id} className="border-b border-gray-100 pb-6 last:border-0">
                         <div className="flex items-start justify-between mb-3">
                           <div>
                             <div className="flex items-center gap-2 mb-1">

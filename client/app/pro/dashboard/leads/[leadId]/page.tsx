@@ -20,6 +20,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { StartConversationButton } from '@/components/common/StartConversationButton';
 
 export default function LeadDetailPage() {
   const router = useRouter();
@@ -471,6 +472,19 @@ export default function LeadDetailPage() {
                           {lead.homeownerId.email}
                         </a>
                       </div>
+                    </div>
+
+                    {/* Message Button */}
+                    <div className="pt-3 mt-3 border-t border-gray-200">
+                      <StartConversationButton
+                        recipientId={lead.homeownerId.id}
+                        recipientName={lead.homeownerId.name}
+                        relatedLeadId={lead.id}
+                        relatedLeadTitle={lead.title}
+                        variant="primary"
+                        size="md"
+                        className="w-full justify-center"
+                      />
                     </div>
                   </>
                 ) : (

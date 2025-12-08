@@ -67,7 +67,7 @@ export default function QuoteComparisonPage() {
 
     try {
       setProcessing(true);
-      await acceptQuote(actionModal.quote._id, actionNote);
+      await acceptQuote(actionModal.quote.id, actionNote);
       toast.success('Quote accepted! The professional has been notified.');
       setActionModal(null);
       setActionNote('');
@@ -85,7 +85,7 @@ export default function QuoteComparisonPage() {
 
     try {
       setProcessing(true);
-      await declineQuote(actionModal.quote._id, actionNote);
+      await declineQuote(actionModal.quote.id, actionNote);
       toast.success('Quote declined');
       setActionModal(null);
       setActionNote('');
@@ -206,7 +206,7 @@ export default function QuoteComparisonPage() {
                   const statusConfig = getQuoteStatusBadge(quote.status);
 
                   return (
-                    <th key={quote._id} className="px-6 py-4 text-center min-w-[250px]">
+                    <th key={quote.id} className="px-6 py-4 text-center min-w-[250px]">
                       <div className="flex flex-col items-center gap-2">
                         <div className="font-semibold text-gray-900">{quote.professionalName}</div>
                         {professional && professional.rating && (
@@ -238,7 +238,7 @@ export default function QuoteComparisonPage() {
                   Total Price
                 </td>
                 {sortedQuotes.map((quote) => (
-                  <td key={quote._id} className="px-6 py-4 text-center">
+                  <td key={quote.id} className="px-6 py-4 text-center">
                     <div className="flex flex-col items-center">
                       <div className="text-2xl font-bold text-gray-900">
                         AED {quote.pricing.total.toLocaleString()}
@@ -258,7 +258,7 @@ export default function QuoteComparisonPage() {
                   Subtotal
                 </td>
                 {sortedQuotes.map((quote) => (
-                  <td key={quote._id} className="px-6 py-4 text-center text-sm text-gray-700">
+                  <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
                     AED {quote.pricing.subtotal.toLocaleString()}
                   </td>
                 ))}
@@ -269,7 +269,7 @@ export default function QuoteComparisonPage() {
                   VAT (5%)
                 </td>
                 {sortedQuotes.map((quote) => (
-                  <td key={quote._id} className="px-6 py-4 text-center text-sm text-gray-700">
+                  <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
                     AED {quote.pricing.vat.toLocaleString()}
                   </td>
                 ))}
@@ -281,7 +281,7 @@ export default function QuoteComparisonPage() {
                   Start Date
                 </td>
                 {sortedQuotes.map((quote) => (
-                  <td key={quote._id} className="px-6 py-4 text-center text-sm text-gray-700">
+                  <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
                     {new Date(quote.timeline.startDate).toLocaleDateString()}
                   </td>
                 ))}
@@ -292,7 +292,7 @@ export default function QuoteComparisonPage() {
                   Completion Date
                 </td>
                 {sortedQuotes.map((quote) => (
-                  <td key={quote._id} className="px-6 py-4 text-center text-sm text-gray-700">
+                  <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
                     {new Date(quote.timeline.completionDate).toLocaleDateString()}
                   </td>
                 ))}
@@ -303,7 +303,7 @@ export default function QuoteComparisonPage() {
                   Duration
                 </td>
                 {sortedQuotes.map((quote) => (
-                  <td key={quote._id} className="px-6 py-4 text-center text-sm text-gray-700">
+                  <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
                     {quote.timeline.estimatedDuration} days
                   </td>
                 ))}
@@ -315,7 +315,7 @@ export default function QuoteComparisonPage() {
                   Warranty
                 </td>
                 {sortedQuotes.map((quote) => (
-                  <td key={quote._id} className="px-6 py-4 text-center text-sm text-gray-700">
+                  <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
                     {quote.warranty || 'Not specified'}
                   </td>
                 ))}
@@ -327,7 +327,7 @@ export default function QuoteComparisonPage() {
                   Actions
                 </td>
                 {sortedQuotes.map((quote) => (
-                  <td key={quote._id} className="px-6 py-4">
+                  <td key={quote.id} className="px-6 py-4">
                     {quote.status === QuoteStatus.PENDING ? (
                       <div className="flex flex-col gap-2">
                         <button
@@ -384,7 +384,7 @@ export default function QuoteComparisonPage() {
           const statusConfig = getQuoteStatusBadge(quote.status);
 
           return (
-            <div key={quote._id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div key={quote.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-1">

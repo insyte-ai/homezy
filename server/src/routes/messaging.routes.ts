@@ -1,16 +1,15 @@
 import { Router } from 'express';
 import * as messagingController from '../controllers/messaging.controller';
-import { validate } from '../middleware/validation.middleware';
+import { validate, validateMultiple } from '../middleware/validation.middleware';
 import { authenticate } from '../middleware/auth.middleware';
 import { asyncHandler } from '../middleware/errorHandler.middleware';
 import {
   sendUserMessageSchema,
   getConversationsSchema,
-  getMessagesSchema,
-  markAsReadSchema,
-  editMessageSchema,
-  deleteMessageSchema,
-  archiveConversationSchema,
+  conversationIdParamsSchema,
+  messageIdParamsSchema,
+  getMessagesQuerySchema,
+  editMessageBodySchema,
 } from '../schemas/messaging.schema';
 
 const router = Router();
@@ -47,7 +46,7 @@ router.get(
  */
 router.get(
   '/conversations/:conversationId/messages',
-  validate(getMessagesSchema),
+  validateMultiple({ params: conversationIdParamsSchema, query: getMessagesQuerySchema }),
   asyncHandler(messagingController.getMessages)
 );
 
@@ -58,7 +57,7 @@ router.get(
  */
 router.patch(
   '/conversations/:conversationId/read',
-  validate(markAsReadSchema),
+  validate(conversationIdParamsSchema, 'params'),
   asyncHandler(messagingController.markAsRead)
 );
 
@@ -69,7 +68,7 @@ router.patch(
  */
 router.patch(
   '/:messageId',
-  validate(editMessageSchema),
+  validateMultiple({ params: messageIdParamsSchema, body: editMessageBodySchema }),
   asyncHandler(messagingController.editMessage)
 );
 
@@ -80,7 +79,7 @@ router.patch(
  */
 router.delete(
   '/:messageId',
-  validate(deleteMessageSchema),
+  validate(messageIdParamsSchema, 'params'),
   asyncHandler(messagingController.deleteMessage)
 );
 
@@ -91,7 +90,7 @@ router.delete(
  */
 router.patch(
   '/conversations/:conversationId/archive',
-  validate(archiveConversationSchema),
+  validate(conversationIdParamsSchema, 'params'),
   asyncHandler(messagingController.archiveConversation)
 );
 

@@ -152,7 +152,7 @@ export function PhotoUploadStep({ onAutoSubmit }: PhotoUploadStepProps) {
 
         // Store lead info to show matching professionals
         setCreatedLead({
-          leadId: lead._id,
+          leadId: lead.id,
           serviceCategory: selectedServiceId!,
           emirate,
         });

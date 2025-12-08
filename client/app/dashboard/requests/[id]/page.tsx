@@ -19,12 +19,13 @@ import {
   Image as ImageIcon,
   ExternalLink
 } from 'lucide-react';
-import { getLeadById, cancelLead, Lead, LeadStatus } from '@/lib/services/leads';
+import { getLeadById, cancelLead, Lead, LeadStatus, getLeadClaims, LeadClaimWithProfessional } from '@/lib/services/leads';
 import { getQuotesForLead, Quote, QuoteStatus } from '@/lib/services/quotes';
 import { getReviewForLead, type Review } from '@/lib/services/reviews';
 import { getProjectByLeadId, updateProjectStatus, type Project, type ProjectStatus, getProjectStatusInfo } from '@/lib/services/projects';
 import toast from 'react-hot-toast';
-import { Star, Play, CheckCircle2 } from 'lucide-react';
+import { Star, Play, CheckCircle2, Shield } from 'lucide-react';
+import { StartConversationButton } from '@/components/common/StartConversationButton';
 
 export default function LeadDetailsPage() {
   const params = useParams();
@@ -33,6 +34,7 @@ export default function LeadDetailsPage() {
 
   const [lead, setLead] = useState<Lead | null>(null);
   const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [claims, setClaims] = useState<LeadClaimWithProfessional[]>([]);
   const [review, setReview] = useState<Review | null>(null);
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
@@ -50,14 +52,16 @@ export default function LeadDetailsPage() {
   const loadLeadDetails = async () => {
     try {
       setLoading(true);
-      const [leadData, quotesData, reviewData, projectData] = await Promise.all([
+      const [leadData, quotesData, claimsData, reviewData, projectData] = await Promise.all([
         getLeadById(leadId),
         getQuotesForLead(leadId).catch(() => ({ quotes: [], total: 0 })),
+        getLeadClaims(leadId).catch(() => []),
         getReviewForLead(leadId).catch(() => null),
         getProjectByLeadId(leadId).catch(() => null)
       ]);
       setLead(leadData);
       setQuotes(quotesData.quotes);
+      setClaims(claimsData);
       setReview(reviewData);
       setProject(projectData);
     } catch (error: any) {
@@ -73,7 +77,7 @@ export default function LeadDetailsPage() {
 
     try {
       setUpdatingStatus(true);
-      const updatedProject = await updateProjectStatus(project._id, newStatus);
+      const updatedProject = await updateProjectStatus(project.id, newStatus);
       setProject(updatedProject);
       toast.success(`Project marked as ${newStatus.replace('-', ' ')}`);
     } catch (error: any) {
@@ -88,7 +92,7 @@ export default function LeadDetailsPage() {
 
     try {
       setCancelling(true);
-      await cancelLead(lead._id, cancelReason);
+      await cancelLead(lead.id, cancelReason);
       toast.success('Lead cancelled successfully');
       setCancelModalOpen(false);
       router.push('/dashboard/leads');
@@ -201,7 +205,7 @@ export default function LeadDetailsPage() {
               Compare quotes and accept the best professional for your project
             </p>
             <Link
-              href={`/dashboard/requests/${lead._id}/quotes`}
+              href={`/dashboard/requests/${lead.id}/quotes`}
               className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium"
             >
               Compare Quotes
@@ -247,6 +251,98 @@ export default function LeadDetailsPage() {
             </div>
           )}
 
+          {/* Interested Professionals Section */}
+          {claims.length > 0 && (
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Users className="h-5 w-5" />
+                Interested Professionals ({claims.length})
+              </h2>
+              <p className="text-sm text-gray-600 mb-4">
+                These professionals have expressed interest in your project. You can message them directly.
+              </p>
+              <div className="space-y-4">
+                {claims.map((claim) => {
+                  const profile = claim.professional?.professionalProfile;
+                  const proName = profile?.businessName ||
+                    (profile?.firstName && profile?.lastName
+                      ? `${profile.firstName} ${profile.lastName}`
+                      : claim.professionalName || 'Professional');
+
+                  return (
+                    <div
+                      key={claim.id}
+                      className="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition-colors"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start gap-3">
+                          {/* Avatar */}
+                          <div className="flex-shrink-0">
+                            {profile?.profilePhoto ? (
+                              <img
+                                src={profile.profilePhoto}
+                                alt={proName}
+                                className="w-12 h-12 rounded-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-semibold">
+                                {proName.charAt(0).toUpperCase()}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Info */}
+                          <div>
+                            <h3 className="font-semibold text-gray-900">{proName}</h3>
+                            <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
+                              {profile?.rating && (
+                                <span className="flex items-center gap-1">
+                                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                  {profile.rating.toFixed(1)}
+                                </span>
+                              )}
+                              {profile?.reviewCount !== undefined && (
+                                <span>({profile.reviewCount} reviews)</span>
+                              )}
+                              {profile?.verificationStatus === 'approved' && (
+                                <span className="flex items-center gap-1 text-green-600">
+                                  <Shield className="h-3 w-3" />
+                                  Verified
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-gray-500 mt-1">
+                              Claimed {new Date(claim.claimedAt).toLocaleDateString()}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Message Button */}
+                        <StartConversationButton
+                          recipientId={claim.professionalId}
+                          recipientName={proName}
+                          relatedLeadId={lead.id}
+                          relatedLeadTitle={lead.title}
+                          variant="outline"
+                          size="sm"
+                        />
+                      </div>
+
+                      {claim.quoteSubmitted && (
+                        <div className="mt-3 pt-3 border-t border-gray-100">
+                          <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
+                            <CheckCircle className="h-3 w-3" />
+                            Quote submitted
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Quotes Section */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-4">
@@ -256,7 +352,7 @@ export default function LeadDetailsPage() {
               </h2>
               {quotes.length > 1 && (
                 <Link
-                  href={`/dashboard/requests/${lead._id}/quotes`}
+                  href={`/dashboard/requests/${lead.id}/quotes`}
                   className="text-sm text-primary-600 hover:text-primary-700 font-medium"
                 >
                   Compare All
@@ -279,7 +375,7 @@ export default function LeadDetailsPage() {
                   const professional = typeof quote.professional === 'object' ? quote.professional : null;
 
                   return (
-                    <div key={quote._id} className="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition-colors">
+                    <div key={quote.id} className="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition-colors">
                       <div className="flex items-start justify-between mb-3">
                         <div>
                           <h3 className="font-semibold text-gray-900">{quote.professionalName}</h3>
@@ -324,7 +420,7 @@ export default function LeadDetailsPage() {
                       </div>
 
                       <Link
-                        href={`/dashboard/requests/${lead._id}/quotes`}
+                        href={`/dashboard/requests/${lead.id}/quotes`}
                         className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
                       >
                         View Full Quote

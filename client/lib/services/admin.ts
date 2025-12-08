@@ -15,18 +15,18 @@ export interface DashboardStats {
 }
 
 export interface RecentActivity {
-  _id: string;
+  id: string;
   type: 'lead_created' | 'professional_registered' | 'lead_claimed' | 'credit_purchased';
   description: string;
   timestamp: string;
   user?: {
-    _id: string;
+    id: string;
     name: string;
   };
 }
 
 export interface ProfessionalListItem {
-  _id: string;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -73,7 +73,7 @@ export interface ProfessionalDetails extends ProfessionalListItem {
     paidCredits: number;
   };
   leads: Array<{
-    _id: string;
+    id: string;
     title: string;
     claimedAt: string;
     status: string;
@@ -81,7 +81,7 @@ export interface ProfessionalDetails extends ProfessionalListItem {
 }
 
 export interface HomeownerListItem {
-  _id: string;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -99,7 +99,7 @@ export interface HomeownerDetails extends HomeownerListItem {
     country: string;
   };
   leads: Array<{
-    _id: string;
+    id: string;
     title: string;
     category: string;
     status: string;
@@ -109,7 +109,7 @@ export interface HomeownerDetails extends HomeownerListItem {
 }
 
 export interface AdminLead {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   category: string;
@@ -117,7 +117,7 @@ export interface AdminLead {
   urgency: string;
   status: 'open' | 'full' | 'accepted' | 'expired' | 'cancelled';
   homeowner: {
-    _id: string;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -133,9 +133,9 @@ export interface AdminLead {
   createdAt: string;
   expiresAt: string;
   claims: Array<{
-    _id: string;
+    id: string;
     professional: {
-      _id: string;
+      id: string;
       firstName: string;
       lastName: string;
       businessName?: string;
@@ -146,9 +146,9 @@ export interface AdminLead {
 }
 
 export interface CreditTransaction {
-  _id: string;
+  id: string;
   user: {
-    _id: string;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;

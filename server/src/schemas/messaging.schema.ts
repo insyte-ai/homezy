@@ -5,25 +5,23 @@ import { z } from 'zod';
  */
 
 /**
- * Schema for sending a message
+ * Schema for sending a message (body)
  */
 export const sendUserMessageSchema = z.object({
-  body: z.object({
-    recipientId: z.string().min(1, 'Recipient ID is required'),
-    content: z.string().min(1, 'Message content is required').max(5000, 'Message too long'),
-    attachments: z
-      .array(
-        z.object({
-          type: z.enum(['image', 'document', 'pdf']),
-          url: z.string().url('Invalid URL'),
-          filename: z.string(),
-          size: z.number().max(10 * 1024 * 1024, 'File too large (max 10MB)'),
-          publicId: z.string().optional(),
-        })
-      )
-      .optional(),
-    relatedLead: z.string().optional(),
-  }),
+  recipientId: z.string().min(1, 'Recipient ID is required'),
+  content: z.string().min(1, 'Message content is required').max(5000, 'Message too long'),
+  attachments: z
+    .array(
+      z.object({
+        type: z.enum(['image', 'document', 'pdf']),
+        url: z.string().url('Invalid URL'),
+        filename: z.string(),
+        size: z.number().max(10 * 1024 * 1024, 'File too large (max 10MB)'),
+        publicId: z.string().optional(),
+      })
+    )
+    .optional(),
+  relatedLead: z.string().optional(),
 });
 
 /**
@@ -36,55 +34,55 @@ export const getConversationsSchema = z.object({
 });
 
 /**
- * Schema for getting messages in a conversation
+ * Schema for conversation ID in params
  */
+export const conversationIdParamsSchema = z.object({
+  conversationId: z.string().min(1, 'Conversation ID is required'),
+});
+
+/**
+ * Schema for message ID in params
+ */
+export const messageIdParamsSchema = z.object({
+  messageId: z.string().min(1, 'Message ID is required'),
+});
+
+/**
+ * Schema for getting messages query params
+ */
+export const getMessagesQuerySchema = z.object({
+  limit: z.string().transform(Number).pipe(z.number().min(1).max(100)).optional().default('50'),
+  before: z.string().optional(), // Message ID for pagination
+});
+
+/**
+ * Schema for editing a message (body)
+ */
+export const editMessageBodySchema = z.object({
+  content: z.string().min(1, 'Content is required').max(5000, 'Message too long'),
+});
+
+// Legacy exports for backwards compatibility (if any controllers use the old types)
 export const getMessagesSchema = z.object({
-  params: z.object({
-    conversationId: z.string().min(1, 'Conversation ID is required'),
-  }),
-  query: z.object({
-    limit: z.string().transform(Number).pipe(z.number().min(1).max(100)).optional().default('50'),
-    before: z.string().optional(), // Message ID for pagination
-  }),
+  params: conversationIdParamsSchema,
+  query: getMessagesQuerySchema,
 });
 
-/**
- * Schema for marking messages as read
- */
 export const markAsReadSchema = z.object({
-  params: z.object({
-    conversationId: z.string().min(1, 'Conversation ID is required'),
-  }),
+  params: conversationIdParamsSchema,
 });
 
-/**
- * Schema for editing a message
- */
 export const editMessageSchema = z.object({
-  params: z.object({
-    messageId: z.string().min(1, 'Message ID is required'),
-  }),
-  body: z.object({
-    content: z.string().min(1, 'Content is required').max(5000, 'Message too long'),
-  }),
+  params: messageIdParamsSchema,
+  body: editMessageBodySchema,
 });
 
-/**
- * Schema for deleting a message
- */
 export const deleteMessageSchema = z.object({
-  params: z.object({
-    messageId: z.string().min(1, 'Message ID is required'),
-  }),
+  params: messageIdParamsSchema,
 });
 
-/**
- * Schema for archiving a conversation
- */
 export const archiveConversationSchema = z.object({
-  params: z.object({
-    conversationId: z.string().min(1, 'Conversation ID is required'),
-  }),
+  params: conversationIdParamsSchema,
 });
 
 /**

@@ -37,7 +37,7 @@ export interface ProAnalytics {
   };
   recentActivity: {
     transactions: Array<{
-      _id: string;
+      id: string;
       type: 'purchase' | 'spend' | 'refund' | 'bonus';
       amount: number;
       creditType: 'free' | 'paid';

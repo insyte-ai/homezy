@@ -24,7 +24,7 @@ import {
   getUnreadCount,
   connectMessagingSocket,
   disconnectMessagingSocket,
-  onMessageNotification,
+  getMessagingSocket,
 } from '@/lib/services/messages';
 import { getMyLeads } from '@/lib/services/leads';
 
@@ -119,17 +119,21 @@ export default function DashboardLayout({
     const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
     if (!accessToken || !isAuthenticated) return;
 
-    connectMessagingSocket(accessToken);
+    const socket = connectMessagingSocket(accessToken);
 
     // Listen for new message notifications to update badge
-    const unsubscribe = onMessageNotification(() => {
+    const handleUnreadUpdate = () => {
       getUnreadCount().then((response) => {
         setUnreadCount(response.data.unreadCount);
       });
-    });
+    };
+
+    socket.on('message:notification', handleUnreadUpdate);
+    socket.on('unread:updated', handleUnreadUpdate);
 
     return () => {
-      unsubscribe();
+      socket.off('message:notification', handleUnreadUpdate);
+      socket.off('unread:updated', handleUnreadUpdate);
       disconnectMessagingSocket();
     };
   }, [isAuthenticated]);
@@ -138,7 +142,7 @@ export default function DashboardLayout({
     { name: 'Dashboard', href: '/dashboard', icon: Home },
     { name: 'My Requests', href: '/dashboard/requests', icon: FileText },
     { name: 'Quotes', href: '/dashboard/quotes', icon: MessageSquare },
-    { name: 'Messages', href: '/dashboard/messages', icon: Mail, badge: unreadCount },
+    { name: 'Messages', href: '/dashboard/messages', icon: Mail, badge: unreadCount > 0 ? unreadCount : undefined },
     { name: 'Projects', href: '/dashboard/projects', icon: FolderKanban },
     { name: 'Professionals', href: '/dashboard/professionals', icon: Users },
   ];

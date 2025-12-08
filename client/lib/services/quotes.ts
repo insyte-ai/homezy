@@ -17,15 +17,15 @@ export interface QuoteItem {
 }
 
 export interface Quote {
-  _id: string;
+  id: string;
   lead: string | {
-    _id: string;
+    id: string;
     title: string;
     category: string;
     budgetBracket: string;
   };
   professional: string | {
-    _id: string;
+    id: string;
     businessName: string;
     rating?: number;
     reviewCount?: number;

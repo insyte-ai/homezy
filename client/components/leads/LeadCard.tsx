@@ -231,7 +231,7 @@ export const LeadCard = ({
         {variant === 'marketplace' && !isClaimed && onClaim && (
           <>
             <button
-              onClick={() => onClaim(lead._id)}
+              onClick={() => onClaim(lead.id)}
               disabled={
                 claiming ||
                 lead.claimsCount >= (lead.maxClaimsAllowed || 5) ||
@@ -265,7 +265,7 @@ export const LeadCard = ({
 
         {(variant !== 'marketplace' || isClaimed) && onViewDetails && (
           <button
-            onClick={() => onViewDetails(lead._id)}
+            onClick={() => onViewDetails(lead.id)}
             className={`w-full py-2 px-4 font-medium rounded-lg transition ${
               isClaimed && variant === 'marketplace'
                 ? 'bg-green-600 hover:bg-green-700 text-white'

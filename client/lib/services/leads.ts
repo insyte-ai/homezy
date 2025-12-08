@@ -51,9 +51,9 @@ export interface CreateLeadInput {
 }
 
 export interface Lead {
-  _id: string;
+  id: string;
   homeownerId: string | {
-    _id: string;
+    id: string;
     name: string;
     email: string;
     phone?: string;
@@ -89,7 +89,7 @@ export interface Lead {
 }
 
 export interface LeadClaim {
-  _id: string;
+  id: string;
   lead: string | Lead;
   professional: string;
   professionalName: string;
@@ -102,6 +102,24 @@ export interface LeadClaim {
   refundReason?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface LeadClaimWithProfessional extends Omit<LeadClaim, 'professional'> {
+  professionalId: string;
+  professional?: {
+    id: string;
+    email: string;
+    professionalProfile?: {
+      businessName?: string;
+      firstName?: string;
+      lastName?: string;
+      phone?: string;
+      rating?: number;
+      reviewCount?: number;
+      verificationStatus?: string;
+      profilePhoto?: string;
+    };
+  };
 }
 
 export interface LeadResponse {
@@ -321,6 +339,18 @@ export const declineDirectLead = async (
   return response.data.data.lead;
 };
 
+/**
+ * Get claims for a lead (homeowner view)
+ * Returns list of professionals who have claimed the lead
+ */
+export const getLeadClaims = async (leadId: string): Promise<LeadClaimWithProfessional[]> => {
+  const response = await api.get<{
+    success: boolean;
+    data: { claims: LeadClaimWithProfessional[] };
+  }>(`/leads/${leadId}/claims`);
+  return response.data.data.claims;
+};
+
 export default {
   createLead,
   createDirectLead,
@@ -334,4 +364,5 @@ export default {
   getMyDirectLeads,
   acceptDirectLead,
   declineDirectLead,
+  getLeadClaims,
 };
