@@ -101,18 +101,6 @@ export default function HomeownersPage() {
         </span>
       ),
     },
-    {
-      key: 'actions',
-      header: 'Actions',
-      render: (item) => (
-        <button
-          onClick={() => router.push(`/admin/homeowners/${item.id}`)}
-          className="text-primary-600 hover:text-primary-700 font-medium"
-        >
-          View Details
-        </button>
-      ),
-    },
   ];
 
   return (
@@ -164,6 +152,7 @@ export default function HomeownersPage() {
         columns={columns}
         data={homeowners}
         loading={loading}
+        onRowClick={(homeowner) => router.push(`/admin/homeowners/${homeowner.id}`)}
         pagination={pagination}
         onPageChange={(page) => setPagination((prev) => ({ ...prev, page }))}
       />

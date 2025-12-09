@@ -197,6 +197,20 @@ const ProfessionalDetailPage: React.FC = () => {
             </div>
           </div>
           <div className="flex gap-2">
+            {/* Onboarding Status Badge */}
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+              professional.onboardingCompleted
+                ? 'bg-green-100 text-green-800'
+                : 'bg-red-100 text-red-800'
+            }`}>
+              {professional.onboardingCompleted ? (
+                <CheckCircleIcon className="h-4 w-4 mr-1" />
+              ) : (
+                <XCircleIcon className="h-4 w-4 mr-1" />
+              )}
+              Onboarding: {professional.onboardingCompleted ? 'Complete' : 'Incomplete'}
+            </span>
+            {/* Verification Status Badge */}
             {professional.verificationStatus && (
               <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(professional.verificationStatus)}`}>
                 {getStatusIcon(professional.verificationStatus)}
@@ -219,22 +233,43 @@ const ProfessionalDetailPage: React.FC = () => {
 
               {/* Approval Actions */}
               {(!professional.verificationStatus || professional.verificationStatus === 'pending') && (
-                <div className="flex items-center space-x-3 mb-4 pb-4 border-b border-neutral-200">
-                  <button
-                    onClick={() => setShowApprovalDialog(true)}
-                    className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 font-medium"
-                  >
-                    <CheckCircleIcon className="h-5 w-5 mr-2" />
-                    Approve Professional
-                  </button>
-                  <button
-                    onClick={() => setShowRejectionDialog(true)}
-                    className="flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 font-medium"
-                  >
-                    <XCircleIcon className="h-5 w-5 mr-2" />
-                    Reject Application
-                  </button>
-                </div>
+                <>
+                  {/* Onboarding Incomplete Warning */}
+                  {!professional.onboardingCompleted && (
+                    <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                      <div className="flex">
+                        <ExclamationTriangleIcon className="h-5 w-5 text-yellow-600 flex-shrink-0" />
+                        <div className="ml-3">
+                          <h3 className="text-sm font-medium text-yellow-800">Onboarding Incomplete</h3>
+                          <p className="mt-1 text-sm text-yellow-700">
+                            This professional has not completed their onboarding. They must complete onboarding before they can be approved.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex items-center space-x-3 mb-4 pb-4 border-b border-neutral-200">
+                    <button
+                      onClick={() => setShowApprovalDialog(true)}
+                      disabled={!professional.onboardingCompleted}
+                      className={`flex items-center px-4 py-2 rounded-md font-medium ${
+                        professional.onboardingCompleted
+                          ? 'bg-green-600 text-white hover:bg-green-700'
+                          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      }`}
+                    >
+                      <CheckCircleIcon className="h-5 w-5 mr-2" />
+                      Approve Professional
+                    </button>
+                    <button
+                      onClick={() => setShowRejectionDialog(true)}
+                      className="flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 font-medium"
+                    >
+                      <XCircleIcon className="h-5 w-5 mr-2" />
+                      Reject Application
+                    </button>
+                  </div>
+                </>
               )}
 
               <div className="grid grid-cols-2 gap-4">

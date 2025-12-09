@@ -8,7 +8,9 @@ import {
   approveProfessional,
   rejectProfessional,
   getHomeowners,
+  getHomeownerById,
   getLeads,
+  getLeadById,
   getCreditTransactions,
   reloadKnowledgeBase,
   getKnowledgeBaseStats,
@@ -32,9 +34,11 @@ router.post('/professionals/:id/reject', rejectProfessional);
 
 // Homeowner management routes
 router.get('/homeowners', getHomeowners);
+router.get('/homeowners/:id', getHomeownerById);
 
 // Lead management routes
 router.get('/leads', getLeads);
+router.get('/leads/:id', getLeadById);
 
 // Credit management routes
 router.get('/credits', getCreditTransactions);

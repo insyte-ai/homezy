@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User.model';
-import { Lead } from '../models/Lead.model';
+import { Lead, LeadClaim } from '../models/Lead.model';
 import { CreditTransaction } from '../models/Credit.model';
 import { Quote } from '../models/Quote.model';
 import { logger } from '../utils/logger';
@@ -143,7 +143,7 @@ export const getProfessionals = async (req: Request, res: Response): Promise<voi
 
     const [professionals, total] = await Promise.all([
       User.find(query)
-        .select('firstName lastName email phone proProfile createdAt')
+        .select('firstName lastName email phone proProfile proOnboardingCompleted createdAt')
         .sort({ createdAt: -1 })
         .skip((page - 1) * limit)
         .limit(limit)
@@ -153,7 +153,7 @@ export const getProfessionals = async (req: Request, res: Response): Promise<voi
 
     // Transform to flatten proProfile fields
     const transformedProfessionals = professionals.map((pro: any) => ({
-      _id: pro._id.toString(),
+      id: pro._id.toString(),
       firstName: pro.firstName,
       lastName: pro.lastName,
       email: pro.email,
@@ -161,6 +161,7 @@ export const getProfessionals = async (req: Request, res: Response): Promise<voi
       businessName: pro.proProfile?.businessName,
       serviceCategories: pro.proProfile?.serviceCategories || [],
       verificationStatus: pro.proProfile?.verificationStatus || 'pending',
+      onboardingCompleted: pro.proOnboardingCompleted || false,
       createdAt: pro.createdAt,
       totalLeadsClaimed: 0, // TODO: Calculate from leads
       totalJobsCompleted: 0, // TODO: Calculate from completed quotes
@@ -215,7 +216,7 @@ export const getProfessionalById = async (req: Request, res: Response): Promise<
 
     // Build response matching frontend interface
     const responseData = {
-      _id: (user as any)._id.toString(),
+      id: (user as any)._id.toString(),
       firstName: (user as any).firstName,
       lastName: (user as any).lastName,
       email: (user as any).email,
@@ -229,6 +230,7 @@ export const getProfessionalById = async (req: Request, res: Response): Promise<
       teamSize: proProfile.teamSize,
       languages: proProfile.languages || [],
       verificationStatus: proProfile.verificationStatus || 'pending',
+      onboardingCompleted: (user as any).proOnboardingCompleted || false,
       tradeLicense: {
         number: proProfile.tradeLicenseNumber,
         documentUrl: tradeLicenseDoc?.url,
@@ -293,28 +295,52 @@ export const approveProfessional = async (req: Request, res: Response): Promise<
       throw new BadRequestError('User is not a professional');
     }
 
-    // Update verification status to approved
-    professional.proProfile.verificationStatus = 'approved';
-
-    // Update verification documents status
-    if (professional.proProfile.verificationDocuments) {
-      professional.proProfile.verificationDocuments.forEach((doc) => {
-        if (doc.status === 'pending') {
-          doc.status = 'approved';
-          doc.reviewedAt = new Date();
-          doc.reviewNotes = notes || 'Approved by admin';
-        }
-      });
+    // Check if onboarding is completed
+    if (!professional.proOnboardingCompleted) {
+      throw new BadRequestError('Cannot approve professional. Onboarding is not complete.');
     }
 
-    await professional.save();
+    // Build update object for verification status and documents
+    const updateData: Record<string, unknown> = {
+      'proProfile.verificationStatus': 'approved',
+    };
+
+    // Update verification documents status
+    if (professional.proProfile.verificationDocuments?.length) {
+      const updatedDocs = professional.proProfile.verificationDocuments.map((doc) => {
+        const docObj = {
+          type: doc.type,
+          url: doc.url,
+          status: doc.status,
+          uploadedAt: doc.uploadedAt,
+          reviewedAt: doc.reviewedAt,
+          reviewNotes: doc.reviewNotes,
+        };
+        if (doc.status === 'pending') {
+          return {
+            ...docObj,
+            status: 'approved',
+            reviewedAt: new Date(),
+            reviewNotes: notes || 'Approved by admin',
+          };
+        }
+        return docObj;
+      });
+      updateData['proProfile.verificationDocuments'] = updatedDocs;
+    }
+
+    // Use updateOne to update only verification fields
+    await User.updateOne({ _id: id }, { $set: updateData });
 
     logger.info(`Professional ${id} approved`);
+
+    // Fetch updated professional for response
+    const updatedProfessional = await User.findById(id);
 
     res.json({
       success: true,
       message: 'Professional approved successfully',
-      data: professional,
+      data: updatedProfessional,
     });
   } catch (error) {
     logger.error('Error approving professional:', error);
@@ -354,28 +380,47 @@ export const rejectProfessional = async (req: Request, res: Response): Promise<v
       throw new BadRequestError('User is not a professional');
     }
 
-    // Update verification status
-    professional.proProfile.verificationStatus = 'rejected';
+    // Build update object for verification status and documents
+    const updateData: Record<string, unknown> = {
+      'proProfile.verificationStatus': 'rejected',
+    };
 
     // Update verification documents status
-    if (professional.proProfile.verificationDocuments) {
-      professional.proProfile.verificationDocuments.forEach((doc) => {
+    if (professional.proProfile.verificationDocuments?.length) {
+      const updatedDocs = professional.proProfile.verificationDocuments.map((doc) => {
+        const docObj = {
+          type: doc.type,
+          url: doc.url,
+          status: doc.status,
+          uploadedAt: doc.uploadedAt,
+          reviewedAt: doc.reviewedAt,
+          reviewNotes: doc.reviewNotes,
+        };
         if (doc.status === 'pending') {
-          doc.status = 'rejected';
-          doc.reviewedAt = new Date();
-          doc.reviewNotes = reason;
+          return {
+            ...docObj,
+            status: 'rejected',
+            reviewedAt: new Date(),
+            reviewNotes: reason,
+          };
         }
+        return docObj;
       });
+      updateData['proProfile.verificationDocuments'] = updatedDocs;
     }
 
-    await professional.save();
+    // Use updateOne to update only verification fields
+    await User.updateOne({ _id: id }, { $set: updateData });
 
     logger.info(`Professional ${id} rejected: ${reason}`);
+
+    // Fetch updated professional for response
+    const updatedProfessional = await User.findById(id);
 
     res.json({
       success: true,
       message: 'Professional verification rejected',
-      data: professional,
+      data: updatedProfessional,
     });
   } catch (error) {
     logger.error('Error rejecting professional:', error);
@@ -445,7 +490,7 @@ export const getHomeowners = async (req: Request, res: Response): Promise<void> 
     const transformedHomeowners = homeowners.map((homeowner: any) => {
       const stats = statsMap.get(homeowner._id.toString()) || { totalLeads: 0, activeLeads: 0 };
       return {
-        _id: homeowner._id.toString(),
+        id: homeowner._id.toString(),
         firstName: homeowner.firstName,
         lastName: homeowner.lastName,
         email: homeowner.email,
@@ -474,6 +519,72 @@ export const getHomeowners = async (req: Request, res: Response): Promise<void> 
       success: false,
       error: 'Failed to fetch homeowners',
     });
+  }
+};
+
+/**
+ * Get single homeowner details
+ */
+export const getHomeownerById = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findOne({ _id: id, role: 'homeowner' }).lean();
+
+    if (!user) {
+      throw new NotFoundError('Homeowner not found');
+    }
+
+    // Get leads submitted by this homeowner
+    const leads = await Lead.find({ homeownerId: id })
+      .select('title category status createdAt claims')
+      .sort({ createdAt: -1 })
+      .lean();
+
+    // Calculate stats
+    const totalLeadsSubmitted = leads.length;
+    const activeLeads = leads.filter((l: any) => ['open', 'full'].includes(l.status)).length;
+
+    // Transform leads
+    const transformedLeads = leads.map((lead: any) => ({
+      id: lead._id.toString(),
+      title: lead.title,
+      category: lead.category,
+      status: lead.status,
+      createdAt: lead.createdAt,
+      claimsCount: lead.claims?.length || 0,
+    }));
+
+    const responseData = {
+      id: (user as any)._id.toString(),
+      firstName: (user as any).firstName,
+      lastName: (user as any).lastName,
+      email: (user as any).email,
+      phoneNumber: (user as any).phone,
+      createdAt: (user as any).createdAt,
+      totalLeadsSubmitted,
+      activeLeads,
+      address: (user as any).homeownerProfile?.address,
+      leads: transformedLeads,
+    };
+
+    res.json({
+      success: true,
+      data: responseData,
+    });
+  } catch (error) {
+    logger.error('Error fetching homeowner:', error);
+    if (error instanceof NotFoundError) {
+      res.status(404).json({
+        success: false,
+        error: error.message,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to fetch homeowner',
+      });
+    }
   }
 };
 
@@ -512,7 +623,7 @@ export const getLeads = async (req: Request, res: Response): Promise<void> => {
 
     // Transform leads to match frontend interface
     const transformedLeads = leads.map((lead: any) => ({
-      _id: lead._id.toString(),
+      id: lead._id.toString(),
       title: lead.title,
       description: lead.description,
       category: lead.category,
@@ -520,7 +631,7 @@ export const getLeads = async (req: Request, res: Response): Promise<void> => {
       urgency: lead.urgency,
       status: lead.status,
       homeowner: {
-        _id: lead.homeownerId?._id?.toString(),
+        id: lead.homeownerId?._id?.toString(),
         firstName: lead.homeownerId?.firstName || 'Unknown',
         lastName: lead.homeownerId?.lastName || '',
         email: lead.homeownerId?.email || '',
@@ -536,9 +647,9 @@ export const getLeads = async (req: Request, res: Response): Promise<void> => {
       createdAt: lead.createdAt,
       expiresAt: lead.expiresAt,
       claims: (lead.claims || []).map((claim: any) => ({
-        _id: claim._id?.toString(),
+        id: claim._id?.toString(),
         professional: {
-          _id: claim.professional?._id?.toString(),
+          id: claim.professional?._id?.toString(),
           firstName: claim.professional?.firstName,
           lastName: claim.professional?.lastName,
           businessName: claim.professional?.businessName,
@@ -570,6 +681,98 @@ export const getLeads = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
+ * Get single lead details
+ */
+export const getLeadById = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+
+    // Get lead and homeowner info
+    const lead = await Lead.findById(id).lean();
+
+    if (!lead) {
+      throw new NotFoundError('Lead not found');
+    }
+
+    // Get homeowner details
+    const homeowner = await User.findById((lead as any).homeownerId)
+      .select('firstName lastName email phone')
+      .lean();
+
+    // Get claims from LeadClaim collection
+    const claims = await LeadClaim.find({ leadId: id }).lean();
+
+    // Get professional details for each claim
+    const professionalIds = claims.map((c: any) => c.professionalId);
+    const professionals = await User.find({ _id: { $in: professionalIds } })
+      .select('firstName lastName proProfile.businessName')
+      .lean();
+
+    const professionalsMap = new Map(
+      professionals.map((p: any) => [p._id.toString(), p])
+    );
+
+    const responseData = {
+      id: (lead as any)._id.toString(),
+      title: (lead as any).title,
+      description: (lead as any).description,
+      category: (lead as any).category,
+      budgetBracket: (lead as any).budgetBracket || 'Not specified',
+      urgency: (lead as any).urgency,
+      status: (lead as any).status,
+      homeowner: {
+        id: (homeowner as any)?._id?.toString(),
+        firstName: (homeowner as any)?.firstName || 'Unknown',
+        lastName: (homeowner as any)?.lastName || '',
+        email: (homeowner as any)?.email || '',
+        phoneNumber: (homeowner as any)?.phone,
+      },
+      location: {
+        emirate: (lead as any).location?.emirate || 'Not specified',
+        city: (lead as any).location?.neighborhood || (lead as any).location?.emirate || 'Not specified',
+      },
+      claimsCount: (lead as any).claimCount || 0,
+      maxClaimsAllowed: (lead as any).maxClaims || 5,
+      creditsRequired: 1, // Default credit cost
+      createdAt: (lead as any).createdAt,
+      expiresAt: (lead as any).expiresAt,
+      claims: claims.map((claim: any) => {
+        const pro = professionalsMap.get(claim.professionalId);
+        return {
+          id: claim._id?.toString(),
+          professional: {
+            id: claim.professionalId,
+            firstName: (pro as any)?.firstName || 'Unknown',
+            lastName: (pro as any)?.lastName || '',
+            businessName: (pro as any)?.proProfile?.businessName,
+          },
+          claimedAt: claim.claimedAt,
+          creditsUsed: claim.creditsCost || 1,
+        };
+      }),
+    };
+
+    res.json({
+      success: true,
+      data: responseData,
+    });
+  } catch (error) {
+    logger.error('Error fetching lead:', error);
+    if (error instanceof NotFoundError) {
+      res.status(404).json({
+        success: false,
+        error: error.message,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to fetch lead',
+      });
+    }
+  }
+};
+
+/**
  * Get all credit transactions with pagination
  */
 export const getCreditTransactions = async (req: Request, res: Response): Promise<void> => {
@@ -596,9 +799,9 @@ export const getCreditTransactions = async (req: Request, res: Response): Promis
 
     // Transform transactions to match frontend interface
     const transformedTransactions = transactions.map((txn: any) => ({
-      _id: txn._id.toString(),
+      id: txn._id.toString(),
       user: {
-        _id: (txn.professionalId?._id || txn.professionalId)?.toString(),
+        id: (txn.professionalId?._id || txn.professionalId)?.toString(),
         firstName: txn.professionalId?.firstName || 'Unknown',
         lastName: txn.professionalId?.lastName || '',
         email: txn.professionalId?.email || '',

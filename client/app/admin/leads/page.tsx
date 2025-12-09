@@ -137,18 +137,6 @@ export default function LeadsPage() {
         </span>
       ),
     },
-    {
-      key: 'actions',
-      header: 'Actions',
-      render: (item) => (
-        <button
-          onClick={() => router.push(`/admin/leads/${item.id}`)}
-          className="text-primary-600 hover:text-primary-700 font-medium"
-        >
-          View Details
-        </button>
-      ),
-    },
   ];
 
   return (
@@ -231,6 +219,7 @@ export default function LeadsPage() {
         columns={columns}
         data={leads}
         loading={loading}
+        onRowClick={(lead) => router.push(`/admin/leads/${lead.id}`)}
         pagination={pagination}
         onPageChange={(page) => setPagination((prev) => ({ ...prev, page }))}
       />

@@ -34,6 +34,7 @@ export interface ProfessionalListItem {
   businessName?: string;
   serviceCategories: string[];
   verificationStatus: 'pending' | 'approved' | 'rejected';
+  onboardingCompleted: boolean;
   createdAt: string;
   totalLeadsClaimed: number;
   totalJobsCompleted: number;
