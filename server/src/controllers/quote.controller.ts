@@ -100,13 +100,13 @@ export const getQuotesForLead = async (
   const homeownerId = (req.user!._id as any).toString();
   const options = req.query;
 
-  const quotes = await quoteService.getQuotesForLead(leadId, homeownerId, options);
+  const result = await quoteService.getQuotesForLead(leadId, homeownerId, options);
 
   res.status(200).json({
     success: true,
     data: {
-      quotes,
-      count: quotes.length,
+      quotes: result.quotes,
+      count: result.quotes.length,
     },
   });
 };

@@ -4,6 +4,7 @@ import { LeadClaim } from '../models/Lead.model';
 import { User } from '../models/User.model';
 import { BadRequestError, NotFoundError, ForbiddenError } from '../middleware/errorHandler.middleware';
 import { logger } from '../utils/logger';
+import { transformLeanDoc, transformLeanDocWith } from '../utils/mongoose.utils';
 import mongoose from 'mongoose';
 import { nanoid } from 'nanoid';
 import type { SubmitQuoteInput, UpdateQuoteInput } from '../schemas/quote.schema';
@@ -204,13 +205,12 @@ export const getQuoteById = async (quoteId: string, userId: string) => {
       .select('_id email professionalProfile')
       .lean();
 
-    return {
-      ...quote,
-      professional,
-    };
+    return transformLeanDocWith(quote, {
+      professional: professional ? transformLeanDoc(professional) : undefined,
+    });
   }
 
-  return quote;
+  return transformLeanDoc(quote);
 };
 
 /**
@@ -262,12 +262,14 @@ export const getQuotesForLead = async (leadId: string, homeownerId: string, opti
 
   const professionalMap = new Map(professionals.map(p => [p._id.toString(), p]));
 
-  const quotesWithProfessionals = quotes.map(quote => ({
-    ...quote,
-    professional: professionalMap.get(quote.professionalId),
-  }));
+  const quotesWithProfessionals = quotes.map(quote => {
+    const professional = professionalMap.get(quote.professionalId);
+    return transformLeanDocWith(quote, {
+      professional: professional ? transformLeanDoc(professional) : undefined,
+    });
+  });
 
-  return quotesWithProfessionals;
+  return { quotes: quotesWithProfessionals };
 };
 
 /**
@@ -293,7 +295,7 @@ export const getMyQuoteForLead = async (leadId: string, professionalId: string) 
   // Get the professional's quote for this lead
   const quote = await Quote.findOne({ leadId, professionalId }).lean();
 
-  return quote;
+  return quote ? transformLeanDoc(quote) : null;
 };
 
 /**
@@ -323,10 +325,12 @@ export const getMyQuotes = async (professionalId: string, options?: { status?: s
 
   const leadMap = new Map(leads.map(l => [l._id.toString(), l]));
 
-  const quotesWithLeads = quotes.map(quote => ({
-    ...quote,
-    lead: leadMap.get(quote.leadId),
-  }));
+  const quotesWithLeads = quotes.map(quote => {
+    const lead = leadMap.get(quote.leadId);
+    return transformLeanDocWith(quote, {
+      lead: lead ? transformLeanDoc(lead) : undefined,
+    });
+  });
 
   return {
     quotes: quotesWithLeads,

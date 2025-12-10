@@ -3,6 +3,7 @@ import Lead from '../models/Lead.model';
 import User from '../models/User.model';
 import Quote from '../models/Quote.model';
 import { AppError } from '../middleware/errorHandler.middleware';
+import { transformLeanDocs } from '../utils/mongoose.utils';
 import type { SubmitReviewInput } from '../schemas/review.schema';
 
 /**
@@ -178,7 +179,7 @@ export const getProfessionalReviews = async (
   }
 
   return {
-    reviews,
+    reviews: transformLeanDocs(reviews),
     total,
     page,
     totalPages: Math.ceil(total / limit),

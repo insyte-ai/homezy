@@ -2,6 +2,7 @@ import { Lead, LeadClaim, ILead } from '../models/Lead.model';
 import { User } from '../models/User.model';
 import { BadRequestError, NotFoundError, ForbiddenError } from '../middleware/errorHandler.middleware';
 import { logger } from '../utils/logger';
+import { transformLeanDoc, transformLeanDocs, transformLeanDocWith } from '../utils/mongoose.utils';
 import mongoose from 'mongoose';
 import * as creditService from './credit.service';
 import type { CreateLeadInput, UpdateLeadInput, GetLeadsInput } from '../schemas/lead.schema';
@@ -360,31 +361,26 @@ export const browseLeads = async (filters: GetLeadsInput, professionalId?: strin
 
     leadsWithClaimStatus = leads.map((lead) => {
       // Hide full address unless claimed
-      const leadData = { ...lead };
       const hasClaimed = claimMap.has(lead._id.toString());
-
-      if (!hasClaimed && leadData.location?.fullAddress) {
-        delete leadData.location.fullAddress;
+      if (!hasClaimed && lead.location?.fullAddress) {
+        delete (lead as any).location.fullAddress;
       }
 
-      return {
-        ...leadData,
+      return transformLeanDocWith(lead, {
         hasClaimed,
         creditsRequired: calculateLeadCreditCost(lead),
-      };
+      });
     });
   } else {
     // Hide full address for non-authenticated users
     leadsWithClaimStatus = leads.map((lead) => {
-      const leadData = { ...lead };
-      if (leadData.location?.fullAddress) {
-        delete leadData.location.fullAddress;
+      if (lead.location?.fullAddress) {
+        delete (lead as any).location.fullAddress;
       }
-      return {
-        ...leadData,
+      return transformLeanDocWith(lead, {
         hasClaimed: false,
         creditsRequired: calculateLeadCreditCost(lead),
-      };
+      });
     });
   }
 
@@ -416,7 +412,7 @@ export const getMyLeads = async (homeownerId: string, options?: { status?: strin
   ]);
 
   return {
-    leads,
+    leads: transformLeanDocs(leads),
     total,
     limit: options?.limit || 20,
     offset: options?.offset || 0,
@@ -456,15 +452,14 @@ export const getMyClaimedLeads = async (professionalId: string, options?: { quot
   const leads = claims.map(claim => {
     const lead = leadMap.get(claim.leadId);
     if (!lead) return null;
-    return {
-      ...lead,
+    return transformLeanDocWith(lead, {
       claim: {
-        _id: claim._id,
+        id: claim._id.toString(),
         claimedAt: claim.claimedAt,
         creditsCost: claim.creditsCost,
         quoteSubmitted: claim.quoteSubmitted,
       },
-    };
+    });
   }).filter(Boolean);
 
   return {
@@ -628,10 +623,12 @@ export const getClaimsForLead = async (leadId: string, homeownerId: string) => {
 
   const professionalMap = new Map(professionals.map(p => [p._id.toString(), p]));
 
-  const claimsWithProfessionals = claims.map(claim => ({
-    ...claim,
-    professional: professionalMap.get(claim.professionalId),
-  }));
+  const claimsWithProfessionals = claims.map(claim => {
+    const professional = professionalMap.get(claim.professionalId);
+    return transformLeanDocWith(claim, {
+      professional: professional ? transformLeanDoc(professional) : undefined,
+    });
+  });
 
   return claimsWithProfessionals;
 };

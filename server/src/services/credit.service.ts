@@ -1,6 +1,7 @@
 import { CreditBalance, CreditTransaction, CreditPurchase } from '../models/Credit.model';
 import { BadRequestError, NotFoundError } from '../middleware/errorHandler.middleware';
 import { logger } from '../utils/logger';
+import { transformLeanDocs } from '../utils/mongoose.utils';
 import mongoose from 'mongoose';
 
 /**
@@ -427,7 +428,7 @@ export const getTransactions = async (
   ]);
 
   return {
-    transactions,
+    transactions: transformLeanDocs(transactions),
     total,
     limit,
     offset,

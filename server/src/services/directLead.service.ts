@@ -2,6 +2,7 @@ import { Lead, LeadClaim, ILead } from '../models/Lead.model';
 import { User } from '../models/User.model';
 import { BadRequestError, NotFoundError, ForbiddenError } from '../middleware/errorHandler.middleware';
 import { logger } from '../utils/logger';
+import { transformLeanDocWith } from '../utils/mongoose.utils';
 import { PLATFORM_CONFIG } from '@homezy/shared';
 import type { CreateLeadInput } from '../schemas/lead.schema';
 import { emailService } from './email.service';
@@ -381,9 +382,8 @@ export const getMyDirectLeads = async (professionalId: string, status?: string) 
 
   const leads = await Lead.find(query).sort({ createdAt: -1 }).lean();
 
-  // Add creditsRequired to each lead
-  const leadsWithCredits = leads.map(lead => ({
-    ...lead,
+  // Add creditsRequired to each lead and transform _id to id
+  const leadsWithCredits = leads.map(lead => transformLeanDocWith(lead, {
     creditsRequired: calculateDisplayCreditCost(lead),
   }));
 

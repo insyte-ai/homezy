@@ -233,7 +233,6 @@ export default function QuotesPage() {
           <div className="space-y-4">
             {filteredQuotes.map((quote) => {
               const leadTitle = typeof quote.lead === 'string' ? 'Lead' : quote.lead.title;
-              const leadId = typeof quote.lead === 'string' ? quote.lead : quote.lead.id;
               const respondedAt = quote.acceptedAt || quote.declinedAt;
 
               return (
@@ -335,16 +334,6 @@ export default function QuotesPage() {
                         </>
                       )}
 
-                      {quote.status === 'accepted' && (
-                        <button
-                          onClick={() =>
-                            router.push(`/pro/dashboard/projects/${leadId}`)
-                          }
-                          className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-                        >
-                          View Project
-                        </button>
-                      )}
                     </div>
                   </div>
                 </div>
