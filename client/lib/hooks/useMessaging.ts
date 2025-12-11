@@ -28,6 +28,13 @@ interface UseMessagingOptions {
   userRole: UserRole;
 }
 
+// Pending new conversation state (when starting conversation from query params)
+interface PendingConversation {
+  recipientId: string;
+  recipientName: string;
+  leadId?: string;
+}
+
 interface UseMessagingReturn {
   // State
   conversations: Conversation[];
@@ -44,6 +51,7 @@ interface UseMessagingReturn {
   editingMessageId: string | null;
   editContent: string;
   showMobileChat: boolean;
+  pendingConversation: PendingConversation | null;
 
   // Setters
   setSearchQuery: (query: string) => void;
@@ -60,6 +68,7 @@ interface UseMessagingReturn {
   handleEditMessage: (messageId: string) => Promise<void>;
   handleDeleteMessage: (messageId: string) => Promise<void>;
   handleArchiveConversation: () => Promise<void>;
+  clearPendingConversation: () => void;
 
   // Helpers
   getOtherParticipant: (conversation: Conversation) => any;
@@ -92,6 +101,7 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editContent, setEditContent] = useState('');
   const [showMobileChat, setShowMobileChat] = useState(false);
+  const [pendingConversation, setPendingConversation] = useState<PendingConversation | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -148,8 +158,37 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
         setConversations(response.data.conversations);
         setTotalUnread(response.data.totalUnread);
 
-        // Auto-select first conversation if on desktop and none selected
-        if (response.data.conversations.length > 0 && !selectedConversation && window.innerWidth >= 768) {
+        // Check for query params to start/open a conversation
+        const recipientId = searchParams.get('recipientId');
+        const recipientName = searchParams.get('recipientName');
+        const leadId = searchParams.get('leadId');
+
+        if (recipientId && recipientName) {
+          // Look for existing conversation with this recipient
+          const existingConv = response.data.conversations.find((c: Conversation) => {
+            const otherParticipant = userRole === 'homeowner'
+              ? c.participants.professionalId
+              : c.participants.homeownerId;
+            return otherParticipant?.id === recipientId;
+          });
+
+          if (existingConv) {
+            // Select existing conversation
+            handleSelectConversation(existingConv);
+            setPendingConversation(null);
+          } else {
+            // Set up pending conversation for new message
+            setPendingConversation({
+              recipientId,
+              recipientName,
+              leadId: leadId || undefined,
+            });
+            setSelectedConversation(null);
+            setMessages([]);
+            setShowMobileChat(true);
+          }
+        } else if (response.data.conversations.length > 0 && !selectedConversation && window.innerWidth >= 768) {
+          // Auto-select first conversation if on desktop and none selected
           const convId = searchParams.get('id');
           const targetConv = convId
             ? response.data.conversations.find((c: Conversation) => c.id === convId)
@@ -326,7 +365,77 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
 
   // Send message
   const handleSendMessage = useCallback(async () => {
-    if (!newMessage.trim() || sending || !selectedConversation) return;
+    if (!newMessage.trim() || sending) return;
+
+    // Handle pending conversation (new conversation from query params)
+    if (pendingConversation && !selectedConversation) {
+      const messageContent = newMessage.trim();
+      const tempId = `temp-${crypto.randomUUID()}`;
+
+      try {
+        setSending(true);
+
+        // Optimistically add message
+        const optimisticMessage: Message = {
+          id: tempId,
+          conversationId: 'pending',
+          senderId: {
+            id: user?.id || '',
+            firstName: user?.firstName || '',
+            lastName: user?.lastName || '',
+            email: user?.email || '',
+            role: user?.role || userRole,
+          },
+          recipientId: {
+            id: pendingConversation.recipientId,
+            firstName: pendingConversation.recipientName.split(' ')[0] || '',
+            lastName: pendingConversation.recipientName.split(' ').slice(1).join(' ') || '',
+            email: '',
+            role: userRole === 'homeowner' ? 'pro' : 'homeowner',
+          },
+          content: messageContent,
+          isRead: false,
+          isEdited: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+
+        setMessages([optimisticMessage]);
+        setNewMessage('');
+        scrollToBottom();
+
+        // Send via HTTP API - this will create the conversation
+        const response = await sendMessage({
+          recipientId: pendingConversation.recipientId,
+          content: messageContent,
+          relatedLead: pendingConversation.leadId,
+        });
+
+        // Get the created conversation and select it
+        if (response.data?.message?.conversationId) {
+          const conversationsResponse = await getConversations({ status: 'active', limit: 50 });
+          setConversations(conversationsResponse.data.conversations);
+          setTotalUnread(conversationsResponse.data.totalUnread);
+
+          const newConv = conversationsResponse.data.conversations.find(
+            (c: Conversation) => c.id === response.data.message.conversationId
+          );
+          if (newConv) {
+            setPendingConversation(null);
+            handleSelectConversation(newConv);
+          }
+        }
+      } catch (error) {
+        setMessages([]);
+        handleApiError(error, 'Failed to send message');
+      } finally {
+        setSending(false);
+      }
+      return;
+    }
+
+    // Regular message to existing conversation
+    if (!selectedConversation) return;
 
     const otherParticipant = getOtherParticipant(selectedConversation);
     if (!otherParticipant?.id) return;
@@ -392,7 +501,7 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
     } finally {
       setSending(false);
     }
-  }, [newMessage, sending, selectedConversation, user, userRole, getOtherParticipant, scrollToBottom]);
+  }, [newMessage, sending, selectedConversation, pendingConversation, user, userRole, getOtherParticipant, scrollToBottom]);
 
   // Edit message
   const handleEditMessage = useCallback(async (messageId: string) => {
@@ -440,6 +549,13 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
     }
   }, [selectedConversation]);
 
+  // Clear pending conversation (e.g., when user clicks back)
+  const clearPendingConversation = useCallback(() => {
+    setPendingConversation(null);
+    setShowMobileChat(false);
+    setMessages([]);
+  }, []);
+
   return {
     // State
     conversations,
@@ -456,6 +572,7 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
     editingMessageId,
     editContent,
     showMobileChat,
+    pendingConversation,
 
     // Setters
     setSearchQuery,
@@ -472,6 +589,7 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
     handleEditMessage,
     handleDeleteMessage,
     handleArchiveConversation,
+    clearPendingConversation,
 
     // Helpers
     getOtherParticipant,

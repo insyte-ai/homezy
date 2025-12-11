@@ -12,6 +12,8 @@ import type {
   RefreshTokenInput,
   GuestSignupInput,
   GoogleAuthInput,
+  ForgotPasswordInput,
+  ResetPasswordInput,
 } from '../schemas/auth.schema';
 
 /**
@@ -510,6 +512,75 @@ export const googleAuth = async (req: Request<{}, {}, GoogleAuthInput>, res: Res
   });
 };
 
+/**
+ * Forgot password - sends reset link via email
+ */
+export const forgotPassword = async (req: Request<{}, {}, ForgotPasswordInput>, res: Response): Promise<void> => {
+  const { email } = req.body;
+
+  // Find user by email
+  const user = await User.findOne({ email: email.toLowerCase() });
+
+  // Always return success to prevent email enumeration
+  if (!user) {
+    logger.info('Forgot password attempt for non-existent email', { email });
+    res.status(200).json({
+      success: true,
+      message: 'If an account with that email exists, we have sent a password reset link.',
+    });
+    return;
+  }
+
+  // Generate magic link token for password reset
+  const token = await user.generateMagicLinkToken();
+
+  // Send password reset email
+  emailService.sendPasswordReset(user.email, token).catch((error: Error) => {
+    logger.error('Failed to send password reset email', { userId: user._id, error });
+  });
+
+  logger.info('Password reset email sent', { userId: user._id, email: user.email });
+
+  res.status(200).json({
+    success: true,
+    message: 'If an account with that email exists, we have sent a password reset link.',
+  });
+};
+
+/**
+ * Reset password using token from email
+ */
+export const resetPassword = async (req: Request<{}, {}, ResetPasswordInput>, res: Response): Promise<void> => {
+  const { token, password } = req.body;
+
+  // Hash the token to compare with stored hash
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+  // Find user with matching token
+  const user = await User.findOne({
+    magicLinkToken: hashedToken,
+    magicLinkExpiry: { $gt: new Date() },
+  }).select('+password');
+
+  if (!user) {
+    throw new UnauthorizedError('Invalid or expired reset link. Please request a new one.');
+  }
+
+  // Set the new password
+  user.password = password; // Will be hashed by pre-save hook
+  user.hasSetPassword = true;
+  await user.clearMagicLinkToken();
+
+  await user.save();
+
+  logger.info('Password reset successful', { userId: user._id, email: user.email });
+
+  res.status(200).json({
+    success: true,
+    message: 'Password reset successfully. You can now log in with your new password.',
+  });
+};
+
 export default {
   register,
   login,
@@ -520,4 +591,6 @@ export default {
   verifyMagicLink,
   setPasswordWithMagicLink,
   googleAuth,
+  forgotPassword,
+  resetPassword,
 };

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getProAnalytics, ProAnalytics } from '@/lib/services/analytics';
-import { getMyDirectLeads } from '@/lib/services/leads';
+import { getMyDirectLeads, getMarketplace, Lead } from '@/lib/services/leads';
 import { TrendingUp, DollarSign, FileText, Star, Clock, Inbox } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -11,10 +11,13 @@ export default function ProDashboardPage() {
   const [analytics, setAnalytics] = useState<ProAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [directLeadsCount, setDirectLeadsCount] = useState(0);
+  const [recentLeads, setRecentLeads] = useState<Lead[]>([]);
+  const [leadsLoading, setLeadsLoading] = useState(true);
 
   useEffect(() => {
     loadAnalytics();
     loadDirectLeadsCount();
+    loadRecentLeads();
   }, []);
 
   const loadAnalytics = async () => {
@@ -37,6 +40,31 @@ export default function ProDashboardPage() {
     } catch (error) {
       console.error('Failed to load direct leads count:', error);
     }
+  };
+
+  const loadRecentLeads = async () => {
+    try {
+      setLeadsLoading(true);
+      const data = await getMarketplace({ limit: 3 });
+      setRecentLeads(data.leads || []);
+    } catch (error) {
+      console.error('Failed to load recent leads:', error);
+    } finally {
+      setLeadsLoading(false);
+    }
+  };
+
+  const formatTimeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffHours < 1) return 'Just now';
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+    return date.toLocaleDateString();
   };
 
   const nextSteps = [
@@ -66,39 +94,6 @@ export default function ProDashboardPage() {
     },
   ];
 
-  const recentLeads = [
-    {
-      id: '1',
-      title: 'Kitchen Remodeling in Dubai Marina',
-      category: 'Kitchen Remodeling',
-      budget: 'AED 15K-50K',
-      location: 'Dubai Marina',
-      posted: '2 hours ago',
-      claims: 2,
-      maxClaims: 5,
-    },
-    {
-      id: '2',
-      title: 'Emergency Plumbing Repair',
-      category: 'Plumbing',
-      budget: 'AED 500-1K',
-      location: 'Downtown Dubai',
-      posted: '5 hours ago',
-      claims: 4,
-      maxClaims: 5,
-      urgent: true,
-    },
-    {
-      id: '3',
-      title: 'AC Installation for Villa',
-      category: 'HVAC',
-      budget: 'AED 5K-15K',
-      location: 'Arabian Ranches',
-      posted: '1 day ago',
-      claims: 1,
-      maxClaims: 5,
-    },
-  ];
 
   return (
     <div className="container-custom py-8">
@@ -360,48 +355,67 @@ export default function ProDashboardPage() {
               <h2 className="text-xl font-bold text-neutral-900">
                 Recent Leads in Your Area
               </h2>
-              <Link href="/pro/dashboard/leads" className="text-sm text-primary-600 hover:text-primary-700 font-medium">
+              <Link href="/pro/dashboard/leads/marketplace" className="text-sm text-primary-600 hover:text-primary-700 font-medium">
                 View all →
               </Link>
             </div>
-            <div className="space-y-4">
-              {recentLeads.map((lead) => (
-                <div
-                  key={lead.id}
-                  className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <h3 className="font-semibold text-neutral-900">{lead.title}</h3>
-                        {lead.urgent && (
-                          <span className="bg-red-100 text-red-700 text-xs font-medium px-2 py-0.5 rounded">
-                            URGENT
-                          </span>
+            {leadsLoading ? (
+              <div className="space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="animate-pulse border border-neutral-200 rounded-lg p-4">
+                    <div className="h-5 bg-neutral-200 rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-neutral-200 rounded w-1/2"></div>
+                  </div>
+                ))}
+              </div>
+            ) : recentLeads.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-neutral-500">No leads available in your area yet.</p>
+                <p className="text-sm text-neutral-400 mt-1">Check back soon for new opportunities!</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {recentLeads.map((lead) => (
+                  <div
+                    key={lead.id}
+                    className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <h3 className="font-semibold text-neutral-900">{lead.title}</h3>
+                          {lead.urgency === 'urgent' && (
+                            <span className="bg-red-100 text-red-700 text-xs font-medium px-2 py-0.5 rounded">
+                              URGENT
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-neutral-600">
+                          {lead.category} • {lead.location?.emirate || 'UAE'} • {lead.budgetBracket || 'Budget TBD'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between mt-3">
+                      <div className="flex items-center space-x-4 text-sm text-neutral-600">
+                        <span>Posted {formatTimeAgo(lead.createdAt)}</span>
+                        {lead.claimsCount !== undefined && (
+                          <>
+                            <span>•</span>
+                            <span>{lead.claimsCount}/5 claimed</span>
+                          </>
                         )}
                       </div>
-                      <p className="text-sm text-neutral-600">
-                        {lead.category} • {lead.location} • {lead.budget}
-                      </p>
+                      <Link
+                        href={`/pro/dashboard/leads/${lead.id}`}
+                        className="btn btn-outline text-sm"
+                      >
+                        View Details
+                      </Link>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between mt-3">
-                    <div className="flex items-center space-x-4 text-sm text-neutral-600">
-                      <span>Posted {lead.posted}</span>
-                      <span>•</span>
-                      <span>{lead.claims}/{lead.maxClaims} claimed</span>
-                    </div>
-                    <button
-                      disabled
-                      className="btn btn-outline text-sm opacity-50 cursor-not-allowed"
-                      title="Complete verification to claim leads"
-                    >
-                      View Details
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

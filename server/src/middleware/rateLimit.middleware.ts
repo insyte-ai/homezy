@@ -16,14 +16,14 @@ const apiLimiter = new RateLimiterRedis({
 });
 
 /**
- * Strict rate limiter for authentication endpoints
+ * Rate limiter for authentication endpoints
  */
 const authLimiter = new RateLimiterRedis({
   storeClient: rateLimitRedis,
   keyPrefix: 'rl:auth',
-  points: 5, // 5 attempts
+  points: 30, // 30 attempts
   duration: 900, // Per 15 minutes
-  blockDuration: 900, // Block for 15 minutes
+  blockDuration: 60, // Block for 1 minute if exceeded
 });
 
 /**

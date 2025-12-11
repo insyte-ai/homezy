@@ -406,7 +406,6 @@ export default function MyClaimedLeads() {
                               recipientId={homeownerInfo.id}
                               recipientName={homeownerInfo.name}
                               relatedLeadId={lead.id}
-                              relatedLeadTitle={lead.title}
                               variant="primary"
                               size="sm"
                             />

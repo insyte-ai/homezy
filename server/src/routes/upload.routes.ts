@@ -33,4 +33,18 @@ router.post(
   asyncHandler(uploadController.uploadVerificationDoc)
 );
 
+/**
+ * @route   POST /api/v1/upload/quote-document
+ * @desc    Upload a quote document (PDF or image)
+ * @access  Private (Pro only, rate limited)
+ */
+router.post(
+  '/quote-document',
+  authenticate,
+  authorize('pro'),
+  rateLimitUpload,
+  uploadDocument.single('document'),
+  asyncHandler(uploadController.uploadQuoteDocument)
+);
+
 export default router;

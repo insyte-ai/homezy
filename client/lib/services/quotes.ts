@@ -16,6 +16,15 @@ export interface QuoteItem {
   total: number;
 }
 
+export interface QuoteAttachment {
+  id: string;
+  type: 'image' | 'document';
+  url: string;
+  filename: string;
+  size: number;
+  thumbnail?: string;
+}
+
 export interface Quote {
   id: string;
   lead: string | {
@@ -46,7 +55,7 @@ export interface Quote {
   };
   approach: string;
   warranty?: string;
-  attachments?: string[];
+  attachments?: QuoteAttachment[];
   status: QuoteStatus;
   submittedAt: string;
   acceptedAt?: string;
@@ -88,7 +97,7 @@ export interface SubmitQuoteInput {
   };
   approach: string;
   warranty?: string;
-  attachments?: string[];
+  attachments?: QuoteAttachment[];
 }
 
 export interface UpdateQuoteInput {
@@ -104,7 +113,7 @@ export interface UpdateQuoteInput {
   };
   approach?: string;
   warranty?: string;
-  attachments?: string[];
+  attachments?: QuoteAttachment[];
 }
 
 /**
@@ -188,6 +197,25 @@ export const declineQuote = async (quoteId: string, reason?: string): Promise<Qu
   return response.data.data.quote;
 };
 
+/**
+ * Upload a quote document (PDF or image)
+ */
+export const uploadQuoteDocument = async (file: File): Promise<{ url: string; filename: string; size: number }> => {
+  const formData = new FormData();
+  formData.append('document', file);
+
+  const response = await api.post<{
+    success: boolean;
+    data: { url: string; filename: string; size: number };
+  }>('/upload/quote-document', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data.data;
+};
+
 export default {
   submitQuote,
   getQuotesForLead,
@@ -198,4 +226,5 @@ export default {
   deleteQuote,
   acceptQuote,
   declineQuote,
+  uploadQuoteDocument,
 };

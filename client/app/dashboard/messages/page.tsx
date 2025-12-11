@@ -38,6 +38,7 @@ function MessagesContent() {
       showMobileChat={messaging.showMobileChat}
       groupedMessages={messaging.groupedMessages}
       currentUserId={user?.id}
+      pendingConversation={messaging.pendingConversation}
 
       // Setters
       setSearchQuery={messaging.setSearchQuery}
@@ -54,6 +55,7 @@ function MessagesContent() {
       onEditMessage={messaging.handleEditMessage}
       onDeleteMessage={messaging.handleDeleteMessage}
       onArchiveConversation={messaging.handleArchiveConversation}
+      onClearPendingConversation={messaging.clearPendingConversation}
 
       // Helpers
       getOtherParticipant={messaging.getOtherParticipant}

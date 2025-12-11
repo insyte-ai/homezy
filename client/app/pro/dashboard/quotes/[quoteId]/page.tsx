@@ -20,6 +20,9 @@ import {
   CheckCircle,
   XCircle,
   Loader2,
+  Paperclip,
+  Download,
+  ExternalLink,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { StartConversationButton } from '@/components/common/StartConversationButton';
@@ -290,6 +293,67 @@ export default function QuoteDetailPage() {
               </div>
             )}
 
+            {/* Attachments */}
+            {quote.attachments && quote.attachments.length > 0 && (
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <Paperclip className="h-5 w-5 text-primary-600" />
+                  Attached Documents
+                </h2>
+                <div className="space-y-3">
+                  {quote.attachments.map((attachment, index) => (
+                    <div
+                      key={attachment.id || index}
+                      className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-primary-100 dark:bg-primary-900 rounded-lg">
+                          {attachment.type === 'image' ? (
+                            <FileText className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                          ) : (
+                            <FileText className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900 dark:text-white">
+                            {attachment.filename || `Document ${index + 1}`}
+                          </p>
+                          {attachment.size && (
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                              {attachment.size < 1024
+                                ? `${attachment.size} B`
+                                : attachment.size < 1024 * 1024
+                                ? `${(attachment.size / 1024).toFixed(1)} KB`
+                                : `${(attachment.size / (1024 * 1024)).toFixed(1)} MB`}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={attachment.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition"
+                          title="Open in new tab"
+                        >
+                          <ExternalLink className="h-5 w-5" />
+                        </a>
+                        <a
+                          href={attachment.url}
+                          download={attachment.filename}
+                          className="p-2 text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition"
+                          title="Download"
+                        >
+                          <Download className="h-5 w-5" />
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Decline Reason */}
             {quote.status === 'declined' && quote.declineReason && (
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
@@ -412,7 +476,6 @@ export default function QuoteDetailPage() {
                       recipientId={lead.homeownerId.id}
                       recipientName={lead.homeownerId.name}
                       relatedLeadId={lead.id}
-                      relatedLeadTitle={lead.title}
                       variant="primary"
                       size="md"
                       className="w-full justify-center"

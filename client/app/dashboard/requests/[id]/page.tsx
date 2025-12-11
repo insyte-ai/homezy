@@ -322,7 +322,6 @@ export default function LeadDetailsPage() {
                           recipientId={claim.professionalId}
                           recipientName={proName}
                           relatedLeadId={lead.id}
-                          relatedLeadTitle={lead.title}
                           variant="outline"
                           size="sm"
                         />

@@ -12,6 +12,8 @@ import {
   verifyMagicLinkSchema,
   setPasswordWithMagicLinkSchema,
   googleAuthSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
 } from '../schemas/auth.schema';
 
 const router = Router();
@@ -119,6 +121,30 @@ router.post(
   rateLimitAuth,
   validate(googleAuthSchema),
   asyncHandler(authController.googleAuth)
+);
+
+/**
+ * @route   POST /api/v1/auth/forgot-password
+ * @desc    Request password reset email
+ * @access  Public
+ */
+router.post(
+  '/forgot-password',
+  rateLimitAuth,
+  validate(forgotPasswordSchema),
+  asyncHandler(authController.forgotPassword)
+);
+
+/**
+ * @route   POST /api/v1/auth/reset-password
+ * @desc    Reset password using token from email
+ * @access  Public
+ */
+router.post(
+  '/reset-password',
+  rateLimitAuth,
+  validate(resetPasswordSchema),
+  asyncHandler(authController.resetPassword)
 );
 
 export default router;

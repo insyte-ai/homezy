@@ -229,11 +229,11 @@ function LoginForm() {
           </div>
         </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-3">
-          <Link href="/auth/register" className="btn btn-outline w-full text-center">
+        <div className="mt-6 flex flex-col gap-3">
+          <Link href="/auth/register" className="btn btn-outline w-full text-center block">
             Sign up as Homeowner
           </Link>
-          <Link href="/become-a-pro" className="btn btn-outline w-full text-center">
+          <Link href="/auth/pro/register" className="btn btn-outline w-full text-center block">
             Sign up as Pro
           </Link>
         </div>

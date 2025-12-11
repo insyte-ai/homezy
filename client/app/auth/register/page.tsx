@@ -269,16 +269,25 @@ export default function RegisterPage() {
         />
       </form>
 
-      <p className="text-center mt-6 text-sm text-gray-600">
-        Already have an account?{' '}
-        <Link href="/auth/login" className="text-black font-medium hover:underline">
-          Sign in
-        </Link>
-        {' · '}
-        <Link href="/become-a-pro" className="text-black font-medium hover:underline">
-          Sign up as Pro
-        </Link>
-      </p>
+      <div className="mt-6">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-gray-500">Already have an account?</span>
+          </div>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-3">
+          <Link href="/auth/login" className="btn btn-outline w-full text-center block">
+            Sign in
+          </Link>
+          <Link href="/auth/pro/register" className="btn btn-outline w-full text-center block">
+            Sign up as Pro
+          </Link>
+        </div>
+      </div>
 
       <p className="text-center mt-4 text-xs text-gray-500">
         By signing up, you agree to our{' '}

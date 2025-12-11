@@ -93,7 +93,54 @@ export const uploadVerificationDoc = async (
   }
 };
 
+/**
+ * Upload quote document (PDF or image) to Cloudinary or local storage
+ */
+export const uploadQuoteDocument = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    if (!req.file) {
+      res.status(400).json({
+        success: false,
+        message: 'No file uploaded',
+      });
+      return;
+    }
+
+    const url = await uploadDocument(
+      req.file.buffer,
+      'quote-documents',
+      req.file.mimetype
+    );
+
+    logger.info('Quote document uploaded successfully', {
+      url,
+      userId: req.user?.id,
+      filename: req.file.originalname,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Quote document uploaded successfully',
+      data: {
+        url,
+        filename: req.file.originalname,
+        size: req.file.size,
+      },
+    });
+  } catch (error: any) {
+    logger.error('Error uploading quote document:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to upload quote document',
+    });
+  }
+};
+
 export default {
   uploadLeadImage,
   uploadVerificationDoc,
+  uploadQuoteDocument,
 };

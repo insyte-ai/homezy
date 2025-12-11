@@ -18,6 +18,13 @@ import type { Conversation, Message } from '@/lib/services/messages';
 
 export type ColorScheme = 'primary' | 'blue';
 
+// Pending new conversation state (when starting conversation from query params)
+interface PendingConversation {
+  recipientId: string;
+  recipientName: string;
+  leadId?: string;
+}
+
 interface MessagesLayoutProps {
   // State
   conversations: Conversation[];
@@ -36,6 +43,7 @@ interface MessagesLayoutProps {
   showMobileChat: boolean;
   groupedMessages: Record<string, Message[]>;
   currentUserId?: string;
+  pendingConversation?: PendingConversation | null;
 
   // Setters
   setSearchQuery: (query: string) => void;
@@ -52,6 +60,7 @@ interface MessagesLayoutProps {
   onEditMessage: (messageId: string) => void;
   onDeleteMessage: (messageId: string) => void;
   onArchiveConversation: () => void;
+  onClearPendingConversation?: () => void;
 
   // Helpers
   getOtherParticipant: (conversation: Conversation) => any;
@@ -107,6 +116,7 @@ export function MessagesLayout({
   showMobileChat,
   groupedMessages,
   currentUserId,
+  pendingConversation,
   setSearchQuery,
   setStatusFilter,
   setNewMessage,
@@ -119,6 +129,7 @@ export function MessagesLayout({
   onEditMessage,
   onDeleteMessage,
   onArchiveConversation,
+  onClearPendingConversation,
   getOtherParticipant,
   getUnreadCount,
   getParticipantName,
@@ -284,20 +295,36 @@ export function MessagesLayout({
 
       {/* Chat Area */}
       <div className={`flex-1 flex flex-col bg-gray-50 dark:bg-gray-900 ${!showMobileChat ? 'hidden md:flex' : 'flex'}`}>
-        {selectedConversation ? (
+        {selectedConversation || pendingConversation ? (
           <>
             {/* Chat Header */}
             <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <button
-                    onClick={() => setShowMobileChat(false)}
+                    onClick={() => {
+                      setShowMobileChat(false);
+                      if (pendingConversation && onClearPendingConversation) {
+                        onClearPendingConversation();
+                      }
+                    }}
                     className="md:hidden text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                   >
                     <ArrowLeft className="w-6 h-6" />
                   </button>
 
-                  {selectedParticipant && (
+                  {/* Show pending conversation header or selected conversation header */}
+                  {pendingConversation && !selectedConversation ? (
+                    <>
+                      <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${colors.gradient} flex items-center justify-center text-white font-semibold`}>
+                        {pendingConversation.recipientName.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <h2 className="font-semibold text-gray-900 dark:text-white">{pendingConversation.recipientName}</h2>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">New conversation</p>
+                      </div>
+                    </>
+                  ) : selectedParticipant && (
                     <>
                       {selectedParticipant.profilePhoto ? (
                         <Image
@@ -316,7 +343,7 @@ export function MessagesLayout({
                         <h2 className="font-semibold text-gray-900 dark:text-white">{selectedParticipantName}</h2>
                         {isTyping ? (
                           <p className="text-xs text-green-600 dark:text-green-400">typing...</p>
-                        ) : selectedConversation.relatedLead && (
+                        ) : selectedConversation?.relatedLead && (
                           <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
                             {selectedConversation.relatedLead.title}
                           </p>
@@ -326,13 +353,15 @@ export function MessagesLayout({
                   )}
                 </div>
 
-                <button
-                  onClick={onArchiveConversation}
-                  className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-                  title="Archive conversation"
-                >
-                  <Archive className="w-5 h-5" />
-                </button>
+                {selectedConversation && (
+                  <button
+                    onClick={onArchiveConversation}
+                    className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                    title="Archive conversation"
+                  >
+                    <Archive className="w-5 h-5" />
+                  </button>
+                )}
               </div>
             </div>
 

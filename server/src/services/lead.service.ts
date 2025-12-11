@@ -127,10 +127,10 @@ export const getLeadById = async (leadId: string, userId?: string) => {
 
   // Populate homeowner info if claimed or owner
   if (hasClaimed || isOwner) {
-    const homeowner = await User.findById(lead.homeownerId).select('firstName lastName email phone');
+    const homeowner = await User.findById(lead.homeownerId).select('firstName lastName email phone').lean();
     if (homeowner) {
       leadData.homeownerId = {
-        _id: homeowner._id.toString(),
+        id: homeowner._id.toString(),
         name: `${homeowner.firstName} ${homeowner.lastName}`.trim(),
         email: homeowner.email,
         phone: homeowner.phone,
