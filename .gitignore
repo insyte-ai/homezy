@@ -63,6 +63,7 @@ dump.rdb
 # MongoDB
 data/
 !server/src/data/
+!shared/src/data/
 
 # Uploads
 uploads/
