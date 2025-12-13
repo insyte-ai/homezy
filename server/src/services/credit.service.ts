@@ -10,7 +10,7 @@ import mongoose from 'mongoose';
  */
 
 interface CreditCostParams {
-  budgetBracket: 'under-5k' | '5k-20k' | '20k-50k' | '50k-100k' | 'over-100k';
+  budgetBracket: 'under-3k' | '3k-5k' | '5k-20k' | '20k-50k' | '50k-100k' | '100k-250k' | 'over-250k';
   urgency: 'flexible' | 'within-month' | 'within-week' | 'emergency';
   verificationStatus: 'pending' | 'approved' | 'rejected';
 }
@@ -47,11 +47,13 @@ interface SpendCreditsParams {
  * Base costs by budget bracket, multiplied by urgency, adjusted by verification discount
  */
 const CREDIT_COST_MATRIX = {
-  'under-5k': 2,
-  '5k-20k': 4,
+  'under-3k': 3,
+  '3k-5k': 4,
+  '5k-20k': 6,
   '20k-50k': 8,
-  '50k-100k': 15,
-  'over-100k': 25,
+  '50k-100k': 12,
+  '100k-250k': 16,
+  'over-250k': 20,
 } as const;
 
 const URGENCY_MULTIPLIERS = {
@@ -96,15 +98,15 @@ export const calculateCreditCost = (params: CreditCostParams): number => {
 
 /**
  * Get credit balance for a professional
- * Creates balance record if it doesn't exist (with 100 free credits welcome bonus)
+ * Creates balance record if it doesn't exist (with 20 free credits welcome bonus)
  */
 export const getBalance = async (professionalId: string) => {
   let balance = await CreditBalance.findOne({ professionalId });
 
   if (!balance) {
-    const INITIAL_FREE_CREDITS = 100;
+    const INITIAL_FREE_CREDITS = 20;
 
-    // Create initial balance record with 100 free credits
+    // Create initial balance record with 20 free credits
     balance = await CreditBalance.create({
       professionalId,
       totalBalance: INITIAL_FREE_CREDITS,
@@ -123,7 +125,7 @@ export const getBalance = async (professionalId: string) => {
       creditType: 'free',
       balanceBefore: 0,
       balanceAfter: INITIAL_FREE_CREDITS,
-      description: 'Welcome bonus - 100 free credits',
+      description: 'Welcome bonus - 20 free credits',
       remainingAmount: INITIAL_FREE_CREDITS,
       metadata: {},
     });
@@ -599,10 +601,10 @@ export const expireOldCredits = async () => {
 
 /**
  * Reset monthly free credits for a professional
- * Sets free credits to 100 every month (on 1st of month)
+ * Sets free credits to 20 every month (on 1st of month)
  */
 export const resetMonthlyCredits = async (professionalId: string) => {
-  const MONTHLY_FREE_CREDITS = 100;
+  const MONTHLY_FREE_CREDITS = 20;
 
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -615,7 +617,7 @@ export const resetMonthlyCredits = async (professionalId: string) => {
     const creditAdjustment = MONTHLY_FREE_CREDITS - previousFreeCredits;
     const balanceBefore = balance.totalBalance;
 
-    // Set free credits to 100
+    // Set free credits to 20
     balance.freeCredits = MONTHLY_FREE_CREDITS;
     balance.totalBalance = balance.freeCredits + balance.paidCredits;
     balance.lastResetDate = new Date();

@@ -47,4 +47,18 @@ router.post(
   asyncHandler(uploadController.uploadQuoteDocument)
 );
 
+/**
+ * @route   POST /api/v1/upload/portfolio-images
+ * @desc    Upload portfolio images (multiple)
+ * @access  Private (Pro only, rate limited)
+ */
+router.post(
+  '/portfolio-images',
+  authenticate,
+  authorize('pro'),
+  rateLimitUpload,
+  uploadImage.array('images', 10), // Max 10 images at once
+  asyncHandler(uploadController.uploadPortfolioImages)
+);
+
 export default router;

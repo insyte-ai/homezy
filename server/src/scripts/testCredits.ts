@@ -67,12 +67,12 @@ async function testCreditSystem() {
     });
 
     // Test 3: Spend some credits
-    console.log('\n3️⃣  Testing credit spending (claim a lead for 5 credits)...');
+    console.log('\n3️⃣  Testing credit spending (claim a lead for 3 credits)...');
     const spendResult = await creditService.spendCredits({
       professionalId,
-      amount: 5,
+      amount: 3,
       description: 'Test lead claim',
-      metadata: { leadId: 'test-lead-123', budgetBracket: 'under-5k' },
+      metadata: { leadId: 'test-lead-123', budgetBracket: 'under-3k' },
     });
     console.log('✅ Credits spent successfully:');
     console.log(`   - New balance: ${spendResult.balance.totalBalance} credits`);

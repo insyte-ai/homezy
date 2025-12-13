@@ -68,12 +68,13 @@ export const LeadCard = ({
   // Helper to format budget bracket
   const formatBudgetBracket = (bracket: string) => {
     const budgetMap: { [key: string]: string } = {
-      '500-1k': 'AED 500 - 1,000',
-      '1k-5k': 'AED 1,000 - 5,000',
-      '5k-15k': 'AED 5,000 - 15,000',
-      '15k-50k': 'AED 15,000 - 50,000',
-      '50k-150k': 'AED 50,000 - 150,000',
-      '150k+': 'AED 150,000+'
+      'under-3k': 'Under AED 3,000',
+      '3k-5k': 'AED 3,000 - 5,000',
+      '5k-20k': 'AED 5,000 - 20,000',
+      '20k-50k': 'AED 20,000 - 50,000',
+      '50k-100k': 'AED 50,000 - 100,000',
+      '100k-250k': 'AED 100,000 - 250,000',
+      'over-250k': 'Over AED 250,000'
     };
     return budgetMap[bracket] || bracket;
   };

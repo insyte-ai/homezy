@@ -92,7 +92,7 @@ const LeadSchema = new Schema<ILead>(
     budgetBracket: {
       type: String,
       required: true,
-      enum: ['500-1k', '1k-5k', '5k-15k', '15k-50k', '50k-150k', '150k+'],
+      enum: ['under-3k', '3k-5k', '5k-20k', '20k-50k', '50k-100k', '100k-250k', 'over-250k'],
       index: true,
     },
     urgency: {

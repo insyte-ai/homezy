@@ -363,33 +363,109 @@ export default function ProfilePreviewPage() {
             {/* Portfolio Section */}
             {activeSection === 'portfolio' && (
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Portfolio</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Portfolio</h2>
                 {proProfile.portfolio && proProfile.portfolio.length > 0 ? (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <div className="space-y-8">
                     {proProfile.portfolio.map((item: any, index: number) => (
                       <div
                         key={item.id || index}
-                        className="aspect-square rounded-lg overflow-hidden border border-gray-200 cursor-pointer hover:shadow-md transition group"
+                        className="border border-gray-200 rounded-lg overflow-hidden"
                       >
-                        {item.images && item.images[0] ? (
-                          <div className="relative w-full h-full">
-                            <Image
-                              src={item.images[0]}
-                              alt={item.title}
-                              fill
-                              className="object-cover group-hover:scale-105 transition"
-                            />
-                            {item.isFeatured && (
-                              <div className="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded text-xs font-semibold">
-                                Featured
+                        {/* Project Header */}
+                        <div className="p-4 border-b border-gray-100 bg-gray-50">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                                {item.title}
+                                {item.isFeatured && (
+                                  <span className="bg-yellow-500 text-white px-2 py-0.5 rounded text-xs font-medium">
+                                    Featured
+                                  </span>
+                                )}
+                              </h3>
+                              <p className="text-sm text-gray-500 mt-1">
+                                {item.category} • Completed {new Date(item.completionDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                              </p>
+                            </div>
+                          </div>
+                          {item.description && (
+                            <p className="text-gray-700 mt-3">{item.description}</p>
+                          )}
+                        </div>
+
+                        {/* Project Images */}
+                        <div className="p-4 space-y-4">
+                          {/* Main Images */}
+                          {item.images && item.images.length > 0 && (
+                            <div>
+                              <h4 className="text-sm font-medium text-gray-700 mb-2">Project Photos</h4>
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                {item.images.map((img: string, imgIndex: number) => (
+                                  <div key={imgIndex} className="aspect-square rounded-lg overflow-hidden border border-gray-200">
+                                    <div className="relative w-full h-full">
+                                      <Image
+                                        src={img}
+                                        alt={`${item.title} - Photo ${imgIndex + 1}`}
+                                        fill
+                                        className="object-cover"
+                                        unoptimized={img.includes('localhost')}
+                                      />
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
-                            )}
-                          </div>
-                        ) : (
-                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                            <span className="text-gray-400">No image</span>
-                          </div>
-                        )}
+                            </div>
+                          )}
+
+                          {/* Before/After Images */}
+                          {((item.beforeImages && item.beforeImages.length > 0) || (item.afterImages && item.afterImages.length > 0)) && (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              {/* Before Images */}
+                              {item.beforeImages && item.beforeImages.length > 0 && (
+                                <div>
+                                  <h4 className="text-sm font-medium text-gray-700 mb-2">Before</h4>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {item.beforeImages.map((img: string, imgIndex: number) => (
+                                      <div key={imgIndex} className="aspect-square rounded-lg overflow-hidden border border-gray-200">
+                                        <div className="relative w-full h-full">
+                                          <Image
+                                            src={img}
+                                            alt={`${item.title} - Before ${imgIndex + 1}`}
+                                            fill
+                                            className="object-cover"
+                                            unoptimized={img.includes('localhost')}
+                                          />
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* After Images */}
+                              {item.afterImages && item.afterImages.length > 0 && (
+                                <div>
+                                  <h4 className="text-sm font-medium text-gray-700 mb-2">After</h4>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {item.afterImages.map((img: string, imgIndex: number) => (
+                                      <div key={imgIndex} className="aspect-square rounded-lg overflow-hidden border border-gray-200">
+                                        <div className="relative w-full h-full">
+                                          <Image
+                                            src={img}
+                                            alt={`${item.title} - After ${imgIndex + 1}`}
+                                            fill
+                                            className="object-cover"
+                                            unoptimized={img.includes('localhost')}
+                                          />
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>

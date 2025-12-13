@@ -49,7 +49,7 @@ export type StripeWebhookInput = z.infer<typeof stripeWebhookSchema>;
  * Calculate credit cost schema (for testing/preview)
  */
 export const calculateCreditCostSchema = z.object({
-  budgetBracket: z.enum(['under-5k', '5k-20k', '20k-50k', '50k-100k', 'over-100k']),
+  budgetBracket: z.enum(['under-3k', '3k-5k', '5k-20k', '20k-50k', '50k-100k', '100k-250k', 'over-250k']),
   urgency: z.enum(['flexible', 'within-month', 'within-week', 'emergency']),
   verificationStatus: z.enum(['pending', 'approved', 'rejected']).optional(),
 });

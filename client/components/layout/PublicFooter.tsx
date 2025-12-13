@@ -42,16 +42,13 @@ export function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/lead-marketplace"
-                  className="hover:text-gray-900"
-                >
-                  View Jobs
+                <Link href="/how-it-works" className="hover:text-gray-900">
+                  How It Works
                 </Link>
               </li>
               <li>
-                <Link href="/how-it-works" className="hover:text-gray-900">
-                  How It Works
+                <Link href="/resources" className="hover:text-gray-900">
+                  Home Resource Center
                 </Link>
               </li>
             </ul>

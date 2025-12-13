@@ -194,14 +194,21 @@ const CreditsPage = () => {
                     <TrendingUp className="h-5 w-5 text-primary-600" />
                     Lead Cost by Budget
                   </h3>
+                  <p className="text-sm text-gray-500 mb-4">
+                    1 credit = AED 5
+                  </p>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="text-sm text-gray-600">Under AED 5K</span>
-                      <span className="font-semibold text-gray-900">2 credits</span>
+                      <span className="text-sm text-gray-600">Under AED 3K</span>
+                      <span className="font-semibold text-gray-900">3 credits</span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-sm text-gray-600">AED 3K - 5K</span>
+                      <span className="font-semibold text-gray-900">4 credits</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                       <span className="text-sm text-gray-600">AED 5K - 20K</span>
-                      <span className="font-semibold text-gray-900">4 credits</span>
+                      <span className="font-semibold text-gray-900">6 credits</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                       <span className="text-sm text-gray-600">AED 20K - 50K</span>
@@ -209,11 +216,15 @@ const CreditsPage = () => {
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                       <span className="text-sm text-gray-600">AED 50K - 100K</span>
-                      <span className="font-semibold text-gray-900">15 credits</span>
+                      <span className="font-semibold text-gray-900">12 credits</span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-sm text-gray-600">AED 100K - 250K</span>
+                      <span className="font-semibold text-gray-900">16 credits</span>
                     </div>
                     <div className="flex justify-between items-center py-2">
-                      <span className="text-sm text-gray-600">Over AED 100K</span>
-                      <span className="font-semibold text-gray-900">25 credits</span>
+                      <span className="text-sm text-gray-600">Over AED 250K</span>
+                      <span className="font-semibold text-gray-900">20 credits</span>
                     </div>
                   </div>
                   <div className="mt-4 p-3 bg-blue-50 rounded-lg">

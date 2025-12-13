@@ -12,6 +12,7 @@ export interface ISubService {
   name: string;
   slug: string;
   icon?: string;
+  keywords?: string[];
   serviceTypes?: IServiceType[];
 }
 
@@ -43,6 +44,7 @@ const SubServiceSchema = new Schema<ISubService>({
   name: { type: String, required: true },
   slug: { type: String, required: true },
   icon: { type: String },
+  keywords: [{ type: String }],
   serviceTypes: [ServiceTypeSchema],
 });
 

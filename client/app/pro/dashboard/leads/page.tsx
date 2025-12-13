@@ -88,12 +88,13 @@ export default function MyClaimedLeads() {
       .reduce((sum, lead) => {
         // Estimate value from budget bracket
         const budgetMap: { [key: string]: number } = {
-          '500-1k': 750,
-          '1k-5k': 3000,
-          '5k-15k': 10000,
-          '15k-50k': 32500,
-          '50k-150k': 100000,
-          '150k+': 200000,
+          'under-3k': 1500,
+          '3k-5k': 4000,
+          '5k-20k': 12500,
+          '20k-50k': 35000,
+          '50k-100k': 75000,
+          '100k-250k': 175000,
+          'over-250k': 300000,
         };
         return sum + (budgetMap[lead.budgetBracket] || 0);
       }, 0),

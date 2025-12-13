@@ -8,20 +8,13 @@ import type { CreateLeadInput } from '../schemas/lead.schema';
 import { emailService } from './email.service';
 import * as creditService from './credit.service';
 
-type BudgetBracketForCredits = 'under-5k' | '5k-20k' | '20k-50k' | '50k-100k' | 'over-100k';
+type BudgetBracketForCredits = 'under-3k' | '3k-5k' | '5k-20k' | '20k-50k' | '50k-100k' | '100k-250k' | 'over-250k';
 type UrgencyForCredits = 'flexible' | 'within-month' | 'within-week' | 'emergency';
 
 // Map budget brackets to credit service format
 const mapBudgetBracketForCredits = (bracket: string): BudgetBracketForCredits => {
-  const mapping: Record<string, BudgetBracketForCredits> = {
-    '500-1k': 'under-5k',
-    '1k-5k': 'under-5k',
-    '5k-15k': '5k-20k',
-    '15k-50k': '20k-50k',
-    '50k-150k': '50k-100k',
-    '150k+': 'over-100k',
-  };
-  return mapping[bracket] || 'under-5k';
+  const validBrackets = ['under-3k', '3k-5k', '5k-20k', '20k-50k', '50k-100k', '100k-250k', 'over-250k'];
+  return validBrackets.includes(bracket) ? bracket as BudgetBracketForCredits : 'under-3k';
 };
 
 // Map urgency to credit service format
@@ -408,15 +401,16 @@ export const getMyCreatedDirectLeads = async (homeownerId: string) => {
  */
 function calculateLeadCreditCost(lead: ILead, professional: any) {
   const BUDGET_BRACKETS: Record<string, number> = {
-    '500-1k': 5,
-    '1k-5k': 15,
-    '5k-15k': 30,
-    '15k-50k': 60,
-    '50k-150k': 100,
-    '150k+': 125,
+    'under-3k': 3,
+    '3k-5k': 4,
+    '5k-20k': 6,
+    '20k-50k': 8,
+    '50k-100k': 12,
+    '100k-250k': 16,
+    'over-250k': 20,
   };
 
-  let baseCost = BUDGET_BRACKETS[lead.budgetBracket] || 15;
+  let baseCost = BUDGET_BRACKETS[lead.budgetBracket] || 6;
 
   // Apply urgency multiplier
   if (lead.urgency === 'emergency') {

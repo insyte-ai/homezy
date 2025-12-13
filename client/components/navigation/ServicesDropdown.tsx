@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronRight, LayoutGrid } from 'lucide-react';
-import { serviceStructure, ServiceCategory } from '@/data/serviceStructure';
+import { serviceStructure, ServiceCategory } from '@homezy/shared';
 
 // Flatten all categories from all groups for the navigation
 const allCategories: ServiceCategory[] = serviceStructure.flatMap(group => group.categories);

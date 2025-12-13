@@ -17,12 +17,13 @@ export enum UrgencyLevel {
 }
 
 export enum BudgetBracket {
-  BELOW_1K = '500-1k', // AED 500-1K - 5 credits
-  BRACKET_1K_5K = '1k-5k', // AED 1K-5K - 10 credits
-  BRACKET_5K_15K = '5k-15k', // AED 5K-15K - 20 credits
-  BRACKET_15K_50K = '15k-50k', // AED 15K-50K - 40 credits
-  BRACKET_50K_150K = '50k-150k', // AED 50K-150K - 75 credits
-  ABOVE_150K = '150k+' // AED 150K+ - 125 credits
+  UNDER_3K = 'under-3k', // Under AED 3K - 3 credits
+  BRACKET_3K_5K = '3k-5k', // AED 3K-5K - 4 credits
+  BRACKET_5K_20K = '5k-20k', // AED 5K-20K - 6 credits
+  BRACKET_20K_50K = '20k-50k', // AED 20K-50K - 8 credits
+  BRACKET_50K_100K = '50k-100k', // AED 50K-100K - 12 credits
+  BRACKET_100K_250K = '100k-250k', // AED 100K-250K - 16 credits
+  OVER_250K = 'over-250k' // Over AED 250K - 20 credits
 }
 
 // Interfaces

@@ -40,6 +40,7 @@ export const getAllSubservices = async (req: Request, res: Response) => {
             category: category.name,
             group: group.name,
             icon: subservice.icon || category.icon,
+            keywords: subservice.keywords || [],
           });
         });
       });
@@ -94,21 +95,27 @@ export const searchServices = async (req: Request, res: Response) => {
         $or: [
           { 'categories.subservices.name': { $regex: query, $options: 'i' } },
           { 'categories.subservices.serviceTypes.name': { $regex: query, $options: 'i' } },
+          { 'categories.subservices.keywords': { $regex: query, $options: 'i' } },
         ]
       }).limit(20);
     }
 
     // Flatten and filter matching subservices
     const matches: any[] = [];
+    const queryLower = query.toLowerCase();
+
     results.forEach(group => {
       group.categories.forEach(category => {
         category.subservices.forEach(subservice => {
-          const nameMatch = subservice.name.toLowerCase().includes(query.toLowerCase());
-          const typeMatch = subservice.serviceTypes?.some(type =>
-            type.name.toLowerCase().includes(query.toLowerCase())
+          const nameMatch = subservice.name.toLowerCase().includes(queryLower);
+          const matchedType = subservice.serviceTypes?.find(type =>
+            type.name.toLowerCase().includes(queryLower)
+          );
+          const matchedKeyword = subservice.keywords?.find((keyword: string) =>
+            keyword.toLowerCase().includes(queryLower)
           );
 
-          if (nameMatch || typeMatch) {
+          if (nameMatch || matchedType || matchedKeyword) {
             matches.push({
               id: subservice.id,
               name: subservice.name,
@@ -116,7 +123,10 @@ export const searchServices = async (req: Request, res: Response) => {
               category: category.name,
               group: group.name,
               icon: subservice.icon || category.icon,
+              keywords: subservice.keywords || [],
               serviceTypes: subservice.serviceTypes,
+              matchedKeyword: matchedKeyword || null,
+              matchedType: matchedType?.name || null,
             });
           }
         });

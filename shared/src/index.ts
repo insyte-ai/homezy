@@ -10,6 +10,9 @@ export * from './api';
 // Utils
 export * from './utils';
 
+// Data
+export * from './data';
+
 // Hooks (will be added later)
 // export * from './hooks';
 

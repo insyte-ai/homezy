@@ -4,6 +4,11 @@ import { useState, useRef, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { searchServices, getAllSubservices, type SubService } from '@/lib/services/serviceData';
 
+// Convert string to title case (e.g., "leak repair" -> "Leak Repair")
+const toTitleCase = (str: string): string => {
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 interface SearchBarProps {
   onSelectService: (serviceId: string) => void;
 }
@@ -47,13 +52,28 @@ export function SearchBar({ onSelectService }: SearchBarProps) {
       setIsLoading(true);
       try {
         // First try local filtering for instant results
-        const localResults = allServices.filter((service) => {
-          const query = searchQuery.toLowerCase();
-          return (
-            service.name.toLowerCase().includes(query) ||
-            service.category?.toLowerCase().includes(query)
-          );
-        });
+        const query = searchQuery.toLowerCase();
+        const localResults = allServices
+          .map((service) => {
+            const nameMatch = service.name.toLowerCase().includes(query);
+            const categoryMatch = service.category?.toLowerCase().includes(query);
+            const matchedKeyword = service.keywords?.find(keyword =>
+              keyword.toLowerCase().includes(query)
+            );
+            const matchedType = service.serviceTypes?.find(type =>
+              type.name.toLowerCase().includes(query)
+            );
+
+            if (nameMatch || categoryMatch || matchedKeyword || matchedType) {
+              return {
+                ...service,
+                matchedKeyword: matchedKeyword || null,
+                matchedType: matchedType?.name || null,
+              };
+            }
+            return null;
+          })
+          .filter((service): service is NonNullable<typeof service> => service !== null);
 
         if (localResults.length > 0) {
           setFilteredServices(localResults.slice(0, 10));
@@ -170,6 +190,11 @@ export function SearchBar({ onSelectService }: SearchBarProps) {
                   <div className="text-sm text-gray-500 line-clamp-1">
                     {service.category && `${service.category} • `}
                     {service.group || 'Home Service'}
+                    {(service.matchedKeyword || service.matchedType) && (
+                      <span className="text-primary-600 font-medium">
+                        {' • '}{toTitleCase(service.matchedKeyword || service.matchedType || '')}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

@@ -17,12 +17,13 @@ export type EmirateId = typeof EMIRATES[number]['id'];
 
 // Budget brackets for leads (in AED)
 export const BUDGET_BRACKETS = [
-  { id: '500-1k', min: 500, max: 1000, label: 'AED 500 - 1,000', credits: 5 },
-  { id: '1k-5k', min: 1000, max: 5000, label: 'AED 1,000 - 5,000', credits: 10 },
-  { id: '5k-15k', min: 5000, max: 15000, label: 'AED 5,000 - 15,000', credits: 20 },
-  { id: '15k-50k', min: 15000, max: 50000, label: 'AED 15,000 - 50,000', credits: 40 },
-  { id: '50k-150k', min: 50000, max: 150000, label: 'AED 50,000 - 150,000', credits: 75 },
-  { id: '150k+', min: 150000, max: null, label: 'AED 150,000+', credits: 125 },
+  { id: 'under-3k', min: 0, max: 3000, label: 'Under AED 3,000', credits: 3 },
+  { id: '3k-5k', min: 3000, max: 5000, label: 'AED 3,000 - 5,000', credits: 4 },
+  { id: '5k-20k', min: 5000, max: 20000, label: 'AED 5,000 - 20,000', credits: 6 },
+  { id: '20k-50k', min: 20000, max: 50000, label: 'AED 20,000 - 50,000', credits: 8 },
+  { id: '50k-100k', min: 50000, max: 100000, label: 'AED 50,000 - 100,000', credits: 12 },
+  { id: '100k-250k', min: 100000, max: 250000, label: 'AED 100,000 - 250,000', credits: 16 },
+  { id: 'over-250k', min: 250000, max: null, label: 'Over AED 250,000', credits: 20 },
 ] as const;
 
 export type BudgetBracketId = typeof BUDGET_BRACKETS[number]['id'];

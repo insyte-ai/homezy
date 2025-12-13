@@ -1,5 +1,6 @@
 import { Lead, LeadClaim, ILead } from '../models/Lead.model';
 import { User } from '../models/User.model';
+import Quote from '../models/Quote.model';
 import { BadRequestError, NotFoundError, ForbiddenError } from '../middleware/errorHandler.middleware';
 import { logger } from '../utils/logger';
 import { transformLeanDoc, transformLeanDocs, transformLeanDocWith } from '../utils/mongoose.utils';
@@ -14,16 +15,9 @@ import { PLATFORM_CONFIG, BUDGET_BRACKETS } from '@homezy/shared';
  */
 
 // Map lead budget brackets to credit cost brackets
-const mapBudgetBracketForCredits = (bracket: string): 'under-5k' | '5k-20k' | '20k-50k' | '50k-100k' | 'over-100k' => {
-  const mapping: Record<string, 'under-5k' | '5k-20k' | '20k-50k' | '50k-100k' | 'over-100k'> = {
-    '500-1k': 'under-5k',
-    '1k-5k': 'under-5k',
-    '5k-15k': '5k-20k',
-    '15k-50k': '20k-50k',
-    '50k-150k': '50k-100k',
-    '150k+': 'over-100k',
-  };
-  return mapping[bracket] || 'under-5k';
+const mapBudgetBracketForCredits = (bracket: string): 'under-3k' | '3k-5k' | '5k-20k' | '20k-50k' | '50k-100k' | '100k-250k' | 'over-250k' => {
+  const validBrackets = ['under-3k', '3k-5k', '5k-20k', '20k-50k', '50k-100k', '100k-250k', 'over-250k'];
+  return validBrackets.includes(bracket) ? bracket as any : 'under-3k';
 };
 
 // Map lead urgency to credit urgency
@@ -411,8 +405,27 @@ export const getMyLeads = async (homeownerId: string, options?: { status?: strin
     Lead.countDocuments(query),
   ]);
 
+  // Get quote counts for all leads
+  const leadIds = leads.map(l => l._id.toString());
+  const quoteCounts = await Quote.aggregate([
+    { $match: { leadId: { $in: leadIds } } },
+    { $group: { _id: '$leadId', count: { $sum: 1 } } }
+  ]);
+  const quoteCountMap = new Map(quoteCounts.map(q => [q._id, q.count]));
+
+  // Transform leads with proper field names for client
+  const transformedLeads = leads.map(lead => {
+    const transformed = transformLeanDoc(lead);
+    return {
+      ...transformed,
+      claimsCount: lead.claimCount || 0,
+      quotesCount: quoteCountMap.get(lead._id.toString()) || 0,
+      maxClaimsAllowed: lead.maxClaims || 5,
+    };
+  });
+
   return {
-    leads: transformLeanDocs(leads),
+    leads: transformedLeads,
     total,
     limit: options?.limit || 20,
     offset: options?.offset || 0,

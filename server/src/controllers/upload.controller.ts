@@ -139,8 +139,52 @@ export const uploadQuoteDocument = async (
   }
 };
 
+/**
+ * Upload portfolio images (multiple) to Cloudinary or local storage
+ */
+export const uploadPortfolioImages = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const files = req.files as Express.Multer.File[];
+
+    if (!files || files.length === 0) {
+      res.status(400).json({
+        success: false,
+        message: 'No files uploaded',
+      });
+      return;
+    }
+
+    // Upload all images in parallel
+    const uploadPromises = files.map(file => uploadImage(file.buffer, 'portfolio'));
+    const urls = await Promise.all(uploadPromises);
+
+    logger.info('Portfolio images uploaded successfully', {
+      count: urls.length,
+      userId: req.user?.id,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `${urls.length} image(s) uploaded successfully`,
+      data: {
+        urls,
+      },
+    });
+  } catch (error: any) {
+    logger.error('Error uploading portfolio images:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to upload portfolio images',
+    });
+  }
+};
+
 export default {
   uploadLeadImage,
   uploadVerificationDoc,
   uploadQuoteDocument,
+  uploadPortfolioImages,
 };

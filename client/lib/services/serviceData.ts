@@ -12,7 +12,10 @@ export interface SubService {
   category?: string;
   group?: string;
   icon?: string;
+  keywords?: string[];
   serviceTypes?: ServiceType[];
+  matchedKeyword?: string | null;
+  matchedType?: string | null;
 }
 
 export interface ServiceCategory {
