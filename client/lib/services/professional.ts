@@ -41,6 +41,29 @@ export interface MyProfileResponse {
   };
 }
 
+interface DaySchedule {
+  isAvailable: boolean;
+  startTime: string;
+  endTime: string;
+}
+
+interface WeeklySchedule {
+  monday?: DaySchedule;
+  tuesday?: DaySchedule;
+  wednesday?: DaySchedule;
+  thursday?: DaySchedule;
+  friday?: DaySchedule;
+  saturday?: DaySchedule;
+  sunday?: DaySchedule;
+}
+
+interface Availability {
+  schedule: WeeklySchedule;
+  unavailableDates?: Date[];
+  maxAppointmentsPerDay?: number;
+  bufferTimeMinutes?: number;
+}
+
 export interface UpdateProfileInput {
   businessName?: string;
   tagline?: string;
@@ -60,6 +83,7 @@ export interface UpdateProfileInput {
   hourlyRateMax?: number;
   minimumProjectSize?: number;
   businessType?: 'sole-establishment' | 'llc' | 'general-partnership' | 'limited-partnership' | 'civil-company' | 'foreign-branch' | 'free-zone';
+  availability?: Availability;
 }
 
 export interface UpdateProfileResponse {
