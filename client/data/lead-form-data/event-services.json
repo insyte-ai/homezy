@@ -1,0 +1,108 @@
+[
+  {
+    "questionText": "What type of event service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Photography/videography", "value": "photo_video" },
+      { "optionText": "Party planning", "value": "party_planning" },
+      { "optionText": "DJ services", "value": "dj" },
+      { "optionText": "Audio/video specialists", "value": "av" },
+      { "optionText": "Bartending", "value": "bartending" },
+      { "optionText": "Cake decoration", "value": "cake" },
+      { "optionText": "Floral arrangements", "value": "floral" },
+      { "optionText": "Transportation (party bus/limo)", "value": "transportation" },
+      { "optionText": "Catering", "value": "catering" },
+      { "optionText": "Hair and makeup", "value": "hair_makeup" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of event are you planning?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Birthday party", "value": "birthday" },
+      { "optionText": "Wedding", "value": "wedding" },
+      { "optionText": "Corporate event", "value": "corporate" },
+      { "optionText": "Anniversary celebration", "value": "anniversary" },
+      { "optionText": "Graduation party", "value": "graduation" },
+      { "optionText": "Holiday party", "value": "holiday" },
+      { "optionText": "Baby shower", "value": "baby_shower" },
+      { "optionText": "Other celebration", "value": "other" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "How many guests are you expecting?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small gathering (under 20 people)", "value": "small" },
+      { "optionText": "Medium event (20-50 people)", "value": "medium" },
+      { "optionText": "Large event (50-100 people)", "value": "large" },
+      { "optionText": "Very large event (over 100 people)", "value": "very_large" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Where will the event be held?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Private home", "value": "home" },
+      { "optionText": "Outdoor venue", "value": "outdoor" },
+      { "optionText": "Restaurant", "value": "restaurant" },
+      { "optionText": "Hotel/banquet hall", "value": "hotel" },
+      { "optionText": "Specialized event venue", "value": "venue" },
+      { "optionText": "Corporate space", "value": "corporate" },
+      { "optionText": "Not decided yet", "value": "undecided" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "For photography/videography: What style are you looking for?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Traditional/formal", "value": "traditional" },
+      { "optionText": "Candid/documentary", "value": "candid" },
+      { "optionText": "Artistic/creative", "value": "artistic" },
+      { "optionText": "Modern/editorial", "value": "modern" },
+      { "optionText": "Cinematic video", "value": "cinematic" },
+      { "optionText": "Drone photography/video", "value": "drone" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "For catering: What type of food service are you interested in?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Buffet style", "value": "buffet" },
+      { "optionText": "Plated/sit-down service", "value": "plated" },
+      { "optionText": "Family style", "value": "family" },
+      { "optionText": "Food stations", "value": "stations" },
+      { "optionText": "Cocktail/hors d'oeuvres", "value": "cocktail" },
+      { "optionText": "Dessert only", "value": "dessert" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  },
+  {
+    "questionText": "What is your event theme or style?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Formal/elegant", "value": "formal" },
+      { "optionText": "Casual/relaxed", "value": "casual" },
+      { "optionText": "Rustic", "value": "rustic" },
+      { "optionText": "Modern/minimalist", "value": "modern" },
+      { "optionText": "Vintage/retro", "value": "vintage" },
+      { "optionText": "Themed (specific concept)", "value": "themed" },
+      { "optionText": "Not decided yet", "value": "undecided" }
+    ],
+    "isRequired": false,
+    "displayOrder": 9
+  }
+]

@@ -1,0 +1,236 @@
+{
+  "serviceId": "junk-removal",
+  "serviceName": "Junk Removal",
+  "description": "Professional junk removal services",
+  "questions": [
+    {
+      "id": "type_items_removal",
+      "question": "What type of items need removal?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your junk removal needs",
+      "options": [
+        {
+          "value": "furniture",
+          "label": "Furniture (sofas, beds, tables)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "appliances",
+          "label": "Appliances (fridge, washer, etc.)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "electronics",
+          "label": "Electronics (TVs, computers)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "mattresses",
+          "label": "Mattresses",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "construction",
+          "label": "Construction debris",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "yard_waste",
+          "label": "Yard waste",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "general",
+          "label": "General household junk",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "office",
+          "label": "Office furniture/equipment",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "much_junk_needs",
+      "question": "How much junk needs to be removed?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your junk removal needs",
+      "options": [
+        {
+          "value": "small",
+          "label": "A few items (fits in car)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "partial",
+          "label": "Partial truck load",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "full",
+          "label": "Full truck load",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "multiple",
+          "label": "Multiple truck loads",
+          "icon": "📍",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "cleanout",
+          "label": "Entire property cleanout",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "junk_located",
+      "question": "Where is the junk located?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your junk removal needs",
+      "options": [
+        {
+          "value": "ground_floor",
+          "label": "Inside home (ground floor)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "upper_floors",
+          "label": "Inside home (upper floors)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "garage",
+          "label": "Garage",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "basement",
+          "label": "Basement/storage",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "outdoor",
+          "label": "Yard/outdoor",
+          "icon": "🏡",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "multiple",
+          "label": "Multiple locations",
+          "icon": "📍",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "items_donated_possible",
+      "question": "Do you need items donated if possible?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your junk removal needs",
+      "options": [
+        {
+          "value": "donate",
+          "label": "Yes, donate usable items",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "recycle",
+          "label": "Yes, recycle what's possible",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "dispose",
+          "label": "No, just dispose of everything",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "no_preference",
+          "label": "I don't mind either way",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "junk-removal.json"
+  }
+}

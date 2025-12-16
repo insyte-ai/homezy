@@ -1,0 +1,69 @@
+[
+  {
+    "questionText": "What type of painting service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Interior wall painting", "value": "interior_walls" },
+      { "optionText": "Exterior house painting", "value": "exterior" },
+      { "optionText": "Cabinet painting/refinishing", "value": "cabinets" },
+      { "optionText": "Ceiling painting", "value": "ceiling" },
+      { "optionText": "Decorative/accent wall", "value": "decorative" },
+      { "optionText": "Wallpaper installation/removal", "value": "wallpaper" },
+      { "optionText": "Full interior and exterior", "value": "full" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "How many rooms or what area needs painting?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "1 room", "value": "1_room" },
+      { "optionText": "2-3 rooms", "value": "2_3_rooms" },
+      { "optionText": "4-5 rooms", "value": "4_5_rooms" },
+      { "optionText": "Entire home/apartment", "value": "entire_home" },
+      { "optionText": "Villa/large property", "value": "villa" },
+      { "optionText": "Commercial space", "value": "commercial" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the current wall condition?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Good condition, just needs repainting", "value": "good" },
+      { "optionText": "Minor repairs needed (nail holes, small cracks)", "value": "minor_repairs" },
+      { "optionText": "Significant repairs needed (large cracks, peeling)", "value": "major_repairs" },
+      { "optionText": "New construction/bare walls", "value": "new" },
+      { "optionText": "Has wallpaper that needs removal", "value": "wallpaper" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you have colors selected?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I know the exact colors", "value": "colors_selected" },
+      { "optionText": "I have a general idea", "value": "general_idea" },
+      { "optionText": "I need color consultation", "value": "need_consultation" },
+      { "optionText": "Same colors as current", "value": "same_colors" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "What paint quality are you looking for?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Premium/luxury brands", "value": "premium" },
+      { "optionText": "Mid-range quality", "value": "mid_range" },
+      { "optionText": "Budget-friendly", "value": "budget" },
+      { "optionText": "Eco-friendly/low VOC", "value": "eco_friendly" },
+      { "optionText": "Let the professional recommend", "value": "recommend" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

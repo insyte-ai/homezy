@@ -1,0 +1,56 @@
+[
+  {
+    "questionText": "What area needs waterproofing?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Roof/terrace", "value": "roof" },
+      { "optionText": "Bathroom", "value": "bathroom" },
+      { "optionText": "Kitchen", "value": "kitchen" },
+      { "optionText": "Basement", "value": "basement" },
+      { "optionText": "Balcony", "value": "balcony" },
+      { "optionText": "Swimming pool", "value": "pool" },
+      { "optionText": "Foundation/exterior walls", "value": "foundation" },
+      { "optionText": "Water tank", "value": "tank" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the reason for waterproofing?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Existing leak/water damage", "value": "leak" },
+      { "optionText": "Preventive measure (new construction)", "value": "preventive_new" },
+      { "optionText": "Preventive measure (existing building)", "value": "preventive_existing" },
+      { "optionText": "Failed previous waterproofing", "value": "failed" },
+      { "optionText": "Renovation/remodeling", "value": "renovation" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the approximate area size?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (under 100 sq ft)", "value": "small" },
+      { "optionText": "Medium (100-500 sq ft)", "value": "medium" },
+      { "optionText": "Large (500-1000 sq ft)", "value": "large" },
+      { "optionText": "Very large (1000+ sq ft)", "value": "very_large" },
+      { "optionText": "Not sure", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you have any existing waterproofing?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, but it's failing", "value": "yes_failing" },
+      { "optionText": "Yes, need to add another layer", "value": "yes_add_layer" },
+      { "optionText": "No existing waterproofing", "value": "no" },
+      { "optionText": "Not sure", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

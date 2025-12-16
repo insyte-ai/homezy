@@ -14,30 +14,22 @@ import { PLATFORM_CONFIG, BUDGET_BRACKETS } from '@homezy/shared';
  * Handles all lead-related business logic
  */
 
-// Map lead budget brackets to credit cost brackets
-const mapBudgetBracketForCredits = (bracket: string): 'under-3k' | '3k-5k' | '5k-20k' | '20k-50k' | '50k-100k' | '100k-250k' | 'over-250k' => {
-  const validBrackets = ['under-3k', '3k-5k', '5k-20k', '20k-50k', '50k-100k', '100k-250k', 'over-250k'];
-  return validBrackets.includes(bracket) ? bracket as any : 'under-3k';
-};
-
-// Map lead urgency to credit urgency
-const mapUrgencyForCredits = (urgency: string): 'flexible' | 'within-month' | 'within-week' | 'emergency' => {
-  const mapping: Record<string, 'flexible' | 'within-month' | 'within-week' | 'emergency'> = {
-    'planning': 'flexible',
-    'flexible': 'within-month',
-    'urgent': 'within-week',
-    'emergency': 'emergency',
-  };
-  return mapping[urgency] || 'flexible';
-};
-
-// Calculate credit cost for a lead (without verification discount for display)
+// Calculate credit cost for a lead
+// Uses BUDGET_BRACKETS credits with only emergency urgency multiplier
 const calculateLeadCreditCost = (lead: { budgetBracket: string; urgency: string }): number => {
-  return creditService.calculateCreditCost({
-    budgetBracket: mapBudgetBracketForCredits(lead.budgetBracket),
-    urgency: mapUrgencyForCredits(lead.urgency),
-    verificationStatus: 'pending', // Base cost without discount
-  });
+  const budgetBracket = BUDGET_BRACKETS.find(b => b.id === lead.budgetBracket);
+  if (!budgetBracket) {
+    return 3; // Default to lowest bracket
+  }
+
+  let creditsCost: number = budgetBracket.credits;
+
+  // Apply urgency multiplier only for emergency
+  if (lead.urgency === 'emergency') {
+    creditsCost = Math.ceil(creditsCost * 1.5);
+  }
+
+  return creditsCost;
 };
 
 /**
@@ -537,18 +529,8 @@ export const claimLead = async (leadId: string, professionalId: string) => {
       throw new ForbiddenError('Your account must be approved by admin before claiming leads. Please complete your profile and wait for admin approval.');
     }
 
-    // Calculate credit cost
-    const budgetBracket = BUDGET_BRACKETS.find(b => b.id === lead.budgetBracket);
-    if (!budgetBracket) {
-      throw new BadRequestError('Invalid budget bracket');
-    }
-
-    let creditsCost: number = budgetBracket.credits;
-
-    // Apply urgency multiplier
-    if (lead.urgency === 'emergency') {
-      creditsCost = Math.ceil(creditsCost * 1.5);
-    }
+    // Calculate credit cost (same calculation as displayed in marketplace)
+    const creditsCost = calculateLeadCreditCost(lead);
 
     // Spend credits
     try {
@@ -632,7 +614,7 @@ export const getClaimsForLead = async (leadId: string, homeownerId: string) => {
   const professionals = await User.find({
     _id: { $in: professionalIds },
     role: 'pro',
-  }).select('_id email professionalProfile').lean();
+  }).select('_id email firstName lastName profilePhoto proProfile').lean();
 
   const professionalMap = new Map(professionals.map(p => [p._id.toString(), p]));
 

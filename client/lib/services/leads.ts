@@ -110,15 +110,16 @@ export interface LeadClaimWithProfessional extends Omit<LeadClaim, 'professional
   professional?: {
     id: string;
     email: string;
-    professionalProfile?: {
+    firstName?: string;
+    lastName?: string;
+    profilePhoto?: string;
+    proProfile?: {
       businessName?: string;
-      firstName?: string;
-      lastName?: string;
+      slug?: string;
       phone?: string;
       rating?: number;
       reviewCount?: number;
       verificationStatus?: string;
-      profilePhoto?: string;
     };
   };
 }

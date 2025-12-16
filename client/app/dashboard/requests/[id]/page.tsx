@@ -22,9 +22,8 @@ import {
 import { getLeadById, cancelLead, Lead, LeadStatus, getLeadClaims, LeadClaimWithProfessional } from '@/lib/services/leads';
 import { getQuotesForLead, Quote, QuoteStatus } from '@/lib/services/quotes';
 import { getReviewForLead, type Review } from '@/lib/services/reviews';
-import { getProjectByLeadId, updateProjectStatus, type Project, type ProjectStatus, getProjectStatusInfo } from '@/lib/services/projects';
 import toast from 'react-hot-toast';
-import { Star, Play, CheckCircle2, Shield } from 'lucide-react';
+import { Star, Shield } from 'lucide-react';
 import { StartConversationButton } from '@/components/common/StartConversationButton';
 
 export default function LeadDetailsPage() {
@@ -36,12 +35,10 @@ export default function LeadDetailsPage() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [claims, setClaims] = useState<LeadClaimWithProfessional[]>([]);
   const [review, setReview] = useState<Review | null>(null);
-  const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
   const [cancelling, setCancelling] = useState(false);
-  const [updatingStatus, setUpdatingStatus] = useState(false);
 
   useEffect(() => {
     if (leadId) {
@@ -52,38 +49,21 @@ export default function LeadDetailsPage() {
   const loadLeadDetails = async () => {
     try {
       setLoading(true);
-      const [leadData, quotesData, claimsData, reviewData, projectData] = await Promise.all([
+      const [leadData, quotesData, claimsData, reviewData] = await Promise.all([
         getLeadById(leadId),
         getQuotesForLead(leadId).catch(() => ({ quotes: [], total: 0 })),
         getLeadClaims(leadId).catch(() => []),
         getReviewForLead(leadId).catch(() => null),
-        getProjectByLeadId(leadId).catch(() => null)
       ]);
       setLead(leadData);
       setQuotes(quotesData.quotes);
       setClaims(claimsData);
       setReview(reviewData);
-      setProject(projectData);
     } catch (error: any) {
       console.error('Failed to load lead details:', error);
       toast.error(error.response?.data?.message || 'Failed to load lead details');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleUpdateProjectStatus = async (newStatus: ProjectStatus) => {
-    if (!project) return;
-
-    try {
-      setUpdatingStatus(true);
-      const updatedProject = await updateProjectStatus(project.id, newStatus);
-      setProject(updatedProject);
-      toast.success(`Project marked as ${newStatus.replace('-', ' ')}`);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to update project status');
-    } finally {
-      setUpdatingStatus(false);
     }
   };
 
@@ -184,9 +164,9 @@ export default function LeadDetailsPage() {
           {canCancel && (
             <button
               onClick={() => setCancelModalOpen(true)}
-              className="btn btn-outline text-red-600 border-red-600 hover:bg-red-50"
+              className="inline-flex items-center gap-2 px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-50 transition-colors font-medium"
             >
-              <XCircle className="h-4 w-4 mr-2" />
+              <XCircle className="h-4 w-4" />
               Cancel Request
             </button>
           )}
@@ -263,11 +243,15 @@ export default function LeadDetailsPage() {
               </p>
               <div className="space-y-4">
                 {claims.map((claim) => {
-                  const profile = claim.professional?.professionalProfile;
+                  const pro = claim.professional;
+                  const profile = pro?.proProfile;
                   const proName = profile?.businessName ||
-                    (profile?.firstName && profile?.lastName
-                      ? `${profile.firstName} ${profile.lastName}`
+                    (pro?.firstName && pro?.lastName
+                      ? `${pro.firstName} ${pro.lastName}`
                       : claim.professionalName || 'Professional');
+                  const profilePhoto = pro?.profilePhoto;
+                  const proSlug = profile?.slug;
+                  const proProfileUrl = proSlug ? `/pros/${claim.professionalId}/${proSlug}` : null;
 
                   return (
                     <div
@@ -275,47 +259,93 @@ export default function LeadDetailsPage() {
                       className="border border-gray-200 rounded-lg p-4 hover:border-primary-300 transition-colors"
                     >
                       <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-3">
-                          {/* Avatar */}
-                          <div className="flex-shrink-0">
-                            {profile?.profilePhoto ? (
-                              <img
-                                src={profile.profilePhoto}
-                                alt={proName}
-                                className="w-12 h-12 rounded-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-semibold">
-                                {proName.charAt(0).toUpperCase()}
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Info */}
-                          <div>
-                            <h3 className="font-semibold text-gray-900">{proName}</h3>
-                            <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
-                              {profile?.rating && (
-                                <span className="flex items-center gap-1">
-                                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                  {profile.rating.toFixed(1)}
-                                </span>
-                              )}
-                              {profile?.reviewCount !== undefined && (
-                                <span>({profile.reviewCount} reviews)</span>
-                              )}
-                              {profile?.verificationStatus === 'approved' && (
-                                <span className="flex items-center gap-1 text-green-600">
-                                  <Shield className="h-3 w-3" />
-                                  Verified
-                                </span>
+                        {proProfileUrl ? (
+                          <Link href={proProfileUrl} className="flex items-start gap-3 flex-1 group">
+                            {/* Avatar */}
+                            <div className="flex-shrink-0">
+                              {profilePhoto ? (
+                                <img
+                                  src={profilePhoto}
+                                  alt={proName}
+                                  className="w-12 h-12 rounded-full object-cover group-hover:ring-2 group-hover:ring-primary-300 transition-all"
+                                />
+                              ) : (
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-semibold group-hover:ring-2 group-hover:ring-primary-300 transition-all">
+                                  {proName.charAt(0).toUpperCase()}
+                                </div>
                               )}
                             </div>
-                            <p className="text-xs text-gray-500 mt-1">
-                              Claimed {new Date(claim.claimedAt).toLocaleDateString()}
-                            </p>
+
+                            {/* Info */}
+                            <div>
+                              <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+                                {proName}
+                              </h3>
+                              <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
+                                {profile?.rating && (
+                                  <span className="flex items-center gap-1">
+                                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                    {profile.rating.toFixed(1)}
+                                  </span>
+                                )}
+                                {profile?.reviewCount !== undefined && (
+                                  <span>({profile.reviewCount} reviews)</span>
+                                )}
+                                {profile?.verificationStatus === 'approved' && (
+                                  <span className="flex items-center gap-1 text-green-600">
+                                    <Shield className="h-3 w-3" />
+                                    Verified
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-gray-500 mt-1">
+                                Claimed {new Date(claim.claimedAt).toLocaleDateString()}
+                              </p>
+                            </div>
+                          </Link>
+                        ) : (
+                          <div className="flex items-start gap-3 flex-1">
+                            {/* Avatar */}
+                            <div className="flex-shrink-0">
+                              {profilePhoto ? (
+                                <img
+                                  src={profilePhoto}
+                                  alt={proName}
+                                  className="w-12 h-12 rounded-full object-cover"
+                                />
+                              ) : (
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-semibold">
+                                  {proName.charAt(0).toUpperCase()}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Info */}
+                            <div>
+                              <h3 className="font-semibold text-gray-900">{proName}</h3>
+                              <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
+                                {profile?.rating && (
+                                  <span className="flex items-center gap-1">
+                                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                    {profile.rating.toFixed(1)}
+                                  </span>
+                                )}
+                                {profile?.reviewCount !== undefined && (
+                                  <span>({profile.reviewCount} reviews)</span>
+                                )}
+                                {profile?.verificationStatus === 'approved' && (
+                                  <span className="flex items-center gap-1 text-green-600">
+                                    <Shield className="h-3 w-3" />
+                                    Verified
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-gray-500 mt-1">
+                                Claimed {new Date(claim.claimedAt).toLocaleDateString()}
+                              </p>
+                            </div>
                           </div>
-                        </div>
+                        )}
 
                         {/* Message Button */}
                         <StartConversationButton
@@ -496,7 +526,7 @@ export default function LeadDetailsPage() {
                   Claims
                 </span>
                 <span className="font-semibold text-gray-900">
-                  {lead.claimsCount} / {lead.maxClaimsAllowed || 5}
+                  {lead.claimsCount ?? 0} / {lead.maxClaimsAllowed || 5}
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -517,62 +547,6 @@ export default function LeadDetailsPage() {
               </div>
             </div>
           </div>
-
-          {/* Project Status Card - Only for accepted leads with a project */}
-          {lead.status === LeadStatus.ACCEPTED && project && (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5" />
-                Project Status
-              </h2>
-              <div className="space-y-4">
-                {/* Current Status */}
-                <div>
-                  <p className="text-sm text-gray-600 mb-2">Current Status</p>
-                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getProjectStatusInfo(project.status).bgColor} ${getProjectStatusInfo(project.status).color}`}>
-                    {getProjectStatusInfo(project.status).label}
-                  </span>
-                </div>
-
-                {/* Status Actions */}
-                {project.status === 'planning' && (
-                  <button
-                    onClick={() => handleUpdateProjectStatus('in-progress')}
-                    disabled={updatingStatus}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors text-sm font-medium disabled:opacity-50"
-                  >
-                    <Play className="h-4 w-4" />
-                    {updatingStatus ? 'Updating...' : 'Mark as In Progress'}
-                  </button>
-                )}
-
-                {project.status === 'in-progress' && (
-                  <button
-                    onClick={() => handleUpdateProjectStatus('completed')}
-                    disabled={updatingStatus}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium disabled:opacity-50"
-                  >
-                    <CheckCircle2 className="h-4 w-4" />
-                    {updatingStatus ? 'Updating...' : 'Mark as Completed'}
-                  </button>
-                )}
-
-                {project.status === 'completed' && project.completedAt && (
-                  <p className="text-sm text-gray-500">
-                    Completed on {new Date(project.completedAt).toLocaleDateString()}
-                  </p>
-                )}
-
-                {/* Budget Info */}
-                <div className="pt-3 border-t border-gray-200">
-                  <p className="text-sm text-gray-600">Estimated Budget</p>
-                  <p className="font-semibold text-gray-900">
-                    AED {project.budgetEstimated.toLocaleString()}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Review Card - Only for accepted leads */}
           {lead.status === LeadStatus.ACCEPTED && (

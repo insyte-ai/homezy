@@ -1,0 +1,59 @@
+[
+  {
+    "questionText": "What smart home services are you interested in?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Smart lighting", "value": "lighting" },
+      { "optionText": "Smart thermostats", "value": "thermostats" },
+      { "optionText": "Smart locks", "value": "locks" },
+      { "optionText": "Security cameras", "value": "cameras" },
+      { "optionText": "Video doorbell", "value": "doorbell" },
+      { "optionText": "Smart speakers", "value": "speakers" },
+      { "optionText": "Home automation hub", "value": "hub" },
+      { "optionText": "Whole home automation", "value": "whole_home" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "Do you have preferred smart home brands?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Amazon Alexa", "value": "alexa" },
+      { "optionText": "Google Home", "value": "google" },
+      { "optionText": "Apple HomeKit", "value": "apple" },
+      { "optionText": "Samsung SmartThings", "value": "samsung" },
+      { "optionText": "Ring", "value": "ring" },
+      { "optionText": "Nest", "value": "nest" },
+      { "optionText": "Philips Hue", "value": "philips" },
+      { "optionText": "Arlo", "value": "arlo" },
+      { "optionText": "No preference", "value": "no_preference" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "Do you already have any smart home devices installed?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I need to integrate with existing devices", "value": "yes_integrate" },
+      { "optionText": "Yes, but I want to replace them", "value": "yes_replace" },
+      { "optionText": "No, this is my first smart home setup", "value": "no" }
+    ],
+    "isRequired": true,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What is your main reason for installing smart home technology?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Convenience", "value": "convenience" },
+      { "optionText": "Energy savings", "value": "energy" },
+      { "optionText": "Security", "value": "security" },
+      { "optionText": "Entertainment", "value": "entertainment" },
+      { "optionText": "Accessibility", "value": "accessibility" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

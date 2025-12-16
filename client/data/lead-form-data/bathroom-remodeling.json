@@ -1,0 +1,73 @@
+[
+  {
+    "questionText": "What type of bathroom project do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Full bathroom remodel", "value": "full_remodel" },
+      { "optionText": "Shower/tub replacement", "value": "shower_tub" },
+      { "optionText": "Vanity/sink replacement", "value": "vanity" },
+      { "optionText": "Toilet replacement", "value": "toilet" },
+      { "optionText": "Tile work only", "value": "tile" },
+      { "optionText": "Fixtures update", "value": "fixtures" },
+      { "optionText": "Convert tub to walk-in shower", "value": "tub_to_shower" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of bathroom is this?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Master bathroom", "value": "master" },
+      { "optionText": "Guest/hall bathroom", "value": "guest" },
+      { "optionText": "Half bath/powder room", "value": "half_bath" },
+      { "optionText": "En-suite bathroom", "value": "ensuite" },
+      { "optionText": "Multiple bathrooms", "value": "multiple" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What shower/tub configuration do you want?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Walk-in shower with glass door", "value": "walkin_glass" },
+      { "optionText": "Walk-in shower with curtain", "value": "walkin_curtain" },
+      { "optionText": "Bathtub with shower", "value": "tub_shower" },
+      { "optionText": "Freestanding bathtub", "value": "freestanding" },
+      { "optionText": "Jacuzzi/soaking tub", "value": "jacuzzi" },
+      { "optionText": "Keep existing", "value": "keep_existing" },
+      { "optionText": "Need design advice", "value": "need_advice" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What tile work do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Floor tiles", "value": "floor" },
+      { "optionText": "Shower wall tiles", "value": "shower_wall" },
+      { "optionText": "Full wall tiles", "value": "full_wall" },
+      { "optionText": "Accent/feature wall", "value": "accent" },
+      { "optionText": "No tile work needed", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Do you need any additional features?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Heated flooring", "value": "heated_floor" },
+      { "optionText": "Bidet/smart toilet", "value": "bidet" },
+      { "optionText": "Rain showerhead", "value": "rain_shower" },
+      { "optionText": "New ventilation/exhaust fan", "value": "ventilation" },
+      { "optionText": "New lighting", "value": "lighting" },
+      { "optionText": "Storage solutions", "value": "storage" },
+      { "optionText": "No additional features", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

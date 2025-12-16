@@ -130,7 +130,7 @@ export const CreditBalance = () => {
           <h4 className="font-medium text-gray-900 dark:text-white">Monthly Free Credits</h4>
         </div>
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          You receive 100 free credits every month on the 1st. Purchased credits expire 6 months after purchase.
+          You receive 20 free credits every month on the 1st. Purchased credits expire 6 months after purchase.
         </p>
         {balance.lastResetDate && (
           <p className="text-xs text-gray-500 mt-2">

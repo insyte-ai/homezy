@@ -1,0 +1,344 @@
+{
+  "serviceId": "villa-renovation",
+  "serviceName": "Villa Renovation",
+  "description": "Professional villa renovation services",
+  "questions": [
+    {
+      "id": "type_villa_renovation",
+      "question": "What type of villa renovation do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your villa renovation needs",
+      "options": [
+        {
+          "value": "full_renovation",
+          "label": "Full villa renovation",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "partial",
+          "label": "Partial renovation (specific areas)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "extension",
+          "label": "Villa extension/addition",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "modernization",
+          "label": "Modernization/upgrade",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "structural",
+          "label": "Structural modifications",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "restoration",
+          "label": "Villa restoration (heritage)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "areas_villa_work",
+      "question": "What areas of the villa need work?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your villa renovation needs",
+      "options": [
+        {
+          "value": "kitchen",
+          "label": "Kitchen",
+          "icon": "🍳",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "bathrooms",
+          "label": "Bathrooms",
+          "icon": "🚿",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "living",
+          "label": "Living/dining areas",
+          "icon": "🛋️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "bedrooms",
+          "label": "Bedrooms",
+          "icon": "🛏️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "outdoor",
+          "label": "Outdoor/garden",
+          "icon": "🏡",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "pool",
+          "label": "Swimming pool area",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "garage",
+          "label": "Garage/parking",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "entire",
+          "label": "Entire villa",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "size_villa",
+      "question": "What is the size of your villa?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your villa renovation needs",
+      "options": [
+        {
+          "value": "2_3_bed",
+          "label": "2-3 bedrooms",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "4_5_bed",
+          "label": "4-5 bedrooms",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "6_plus_bed",
+          "label": "6+ bedrooms",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "townhouse",
+          "label": "Townhouse",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "type_work_involved",
+      "question": "What type of work is involved?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your villa renovation needs",
+      "options": [
+        {
+          "value": "demolition",
+          "label": "Demolition/removal",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "structural",
+          "label": "Structural changes",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "plumbing",
+          "label": "Plumbing overhaul",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "electrical",
+          "label": "Electrical rewiring",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "hvac",
+          "label": "HVAC upgrade",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "flooring",
+          "label": "Flooring",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "painting",
+          "label": "Painting",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "fixtures",
+          "label": "New fixtures/fittings",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "design_services",
+      "question": "Do you need design services?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your villa renovation needs",
+      "options": [
+        {
+          "value": "full_design",
+          "label": "Yes, I need full design services",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "consultation",
+          "label": "Yes, just consultation",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "have_plans",
+          "label": "No, I have plans ready",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "execution_only",
+          "label": "No, just execution",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "will_property_occupied",
+      "question": "Will the property be occupied during renovation?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your villa renovation needs",
+      "options": [
+        {
+          "value": "vacant",
+          "label": "No, it will be vacant",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "occupied",
+          "label": "Yes, we will live there",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "partial",
+          "label": "Partially occupied",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure yet",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "villa-renovation.json"
+  }
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "questionText": "What type of business service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Business setup/registration", "value": "setup" },
+      { "optionText": "Website development", "value": "website" },
+      { "optionText": "Digital marketing", "value": "marketing" },
+      { "optionText": "Accounting services", "value": "accounting" },
+      { "optionText": "Business consulting", "value": "consulting" },
+      { "optionText": "Legal services", "value": "legal" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the current stage of your business?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Idea/concept stage", "value": "idea" },
+      { "optionText": "Planning to launch", "value": "pre_launch" },
+      { "optionText": "Recently launched (less than 1 year)", "value": "new" },
+      { "optionText": "Established (1-5 years)", "value": "established" },
+      { "optionText": "Mature business (5+ years)", "value": "mature" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the size of your business?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Sole proprietor/freelancer", "value": "sole" },
+      { "optionText": "Small business (2-10 employees)", "value": "small" },
+      { "optionText": "Medium business (11-50 employees)", "value": "medium" },
+      { "optionText": "Large business (50+ employees)", "value": "large" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "For business setup: What type of business structure are you interested in?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Sole proprietorship", "value": "sole" },
+      { "optionText": "Partnership", "value": "partnership" },
+      { "optionText": "Limited Liability Company (LLC)", "value": "llc" },
+      { "optionText": "Corporation", "value": "corporation" },
+      { "optionText": "Free zone company", "value": "free_zone" },
+      { "optionText": "Not sure, need guidance", "value": "need_guidance" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "For website development: What type of website do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Basic informational website", "value": "basic" },
+      { "optionText": "Business website with contact forms", "value": "business" },
+      { "optionText": "E-commerce website", "value": "ecommerce" },
+      { "optionText": "Custom web application", "value": "custom" },
+      { "optionText": "Website redesign/update", "value": "redesign" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "For digital marketing: What services are you interested in?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Search Engine Optimization (SEO)", "value": "seo" },
+      { "optionText": "Social media marketing", "value": "social" },
+      { "optionText": "Pay-per-click advertising", "value": "ppc" },
+      { "optionText": "Email marketing", "value": "email" },
+      { "optionText": "Content marketing", "value": "content" },
+      { "optionText": "Comprehensive digital strategy", "value": "strategy" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  },
+  {
+    "questionText": "For accounting services: What specific services do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Bookkeeping", "value": "bookkeeping" },
+      { "optionText": "Tax preparation/filing", "value": "tax" },
+      { "optionText": "Financial statement preparation", "value": "financial_statements" },
+      { "optionText": "Payroll processing", "value": "payroll" },
+      { "optionText": "Business tax planning", "value": "tax_planning" },
+      { "optionText": "Audit support", "value": "audit" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 9
+  },
+  {
+    "questionText": "What is your timeline for this service?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Urgent (within days)", "value": "urgent" },
+      { "optionText": "Short-term (within weeks)", "value": "short" },
+      { "optionText": "Medium-term (within months)", "value": "medium" },
+      { "optionText": "Long-term (ongoing relationship)", "value": "long" }
+    ],
+    "isRequired": false,
+    "displayOrder": 10
+  }
+]

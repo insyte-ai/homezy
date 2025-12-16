@@ -1,0 +1,80 @@
+[
+  {
+    "questionText": "What type of remodeling project are you planning?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Full home renovation", "value": "full_home" },
+      { "optionText": "Kitchen remodeling", "value": "kitchen" },
+      { "optionText": "Bathroom remodeling", "value": "bathroom" },
+      { "optionText": "Basement finishing", "value": "basement" },
+      { "optionText": "Room addition", "value": "addition" },
+      { "optionText": "Outdoor living space", "value": "outdoor" },
+      { "optionText": "Interior design update", "value": "interior_design" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the approximate size of the area to be remodeled?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (under 100 sq ft)", "value": "small" },
+      { "optionText": "Medium (100-500 sq ft)", "value": "medium" },
+      { "optionText": "Large (500-1000 sq ft)", "value": "large" },
+      { "optionText": "Very large (over 1000 sq ft)", "value": "very_large" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "Do you have architectural plans or designs already?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I have complete plans ready", "value": "complete_plans" },
+      { "optionText": "I have rough sketches or ideas", "value": "rough_sketches" },
+      { "optionText": "No, I need design assistance", "value": "need_design" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What is your preferred style?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Modern", "value": "modern" },
+      { "optionText": "Traditional", "value": "traditional" },
+      { "optionText": "Contemporary", "value": "contemporary" },
+      { "optionText": "Minimalist", "value": "minimalist" },
+      { "optionText": "Industrial", "value": "industrial" },
+      { "optionText": "Farmhouse", "value": "farmhouse" },
+      { "optionText": "Rustic", "value": "rustic" },
+      { "optionText": "Mediterranean", "value": "mediterranean" },
+      { "optionText": "Not sure yet", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Are you interested in eco-friendly or sustainable materials?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, sustainability is a top priority", "value": "high_priority" },
+      { "optionText": "Yes, if it fits within my budget", "value": "budget_dependent" },
+      { "optionText": "No, I'm more concerned with other factors", "value": "not_priority" },
+      { "optionText": "Not sure, I need more information", "value": "need_info" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "Will you need to live in the home during the remodel?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I need to stay in the home", "value": "stay_in_home" },
+      { "optionText": "No, I can relocate during construction", "value": "can_relocate" },
+      { "optionText": "Depends on the timeline and extent of work", "value": "depends" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  }
+]

@@ -1,0 +1,39 @@
+[
+  {
+    "questionText": "When do you need this service?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "As soon as possible", "value": "asap" },
+      { "optionText": "Within a week", "value": "within_week" },
+      { "optionText": "Within a month", "value": "within_month" },
+      { "optionText": "Flexible", "value": "flexible" }
+    ],
+    "isRequired": true,
+    "displayOrder": 0
+  },
+  {
+    "questionText": "What type of property do you have?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Apartment", "value": "apartment" },
+      { "optionText": "Villa", "value": "villa" },
+      { "optionText": "Office", "value": "office" },
+      { "optionText": "Commercial space", "value": "commercial" },
+      { "optionText": "Other", "value": "other" }
+    ],
+    "isRequired": true,
+    "displayOrder": 1
+  },
+  {
+    "questionText": "What is your budget range?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Under $500", "value": "under_500" },
+      { "optionText": "$500 - $1,000", "value": "500_1000" },
+      { "optionText": "$1,000 - $5,000", "value": "1000_5000" },
+      { "optionText": "Over $5,000", "value": "over_5000" }
+    ],
+    "isRequired": true,
+    "displayOrder": 2
+  }
+]

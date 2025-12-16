@@ -1,0 +1,111 @@
+[
+  {
+    "questionText": "What type of pet service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Dog walking", "value": "dog_walking" },
+      { "optionText": "Pet sitting", "value": "pet_sitting" },
+      { "optionText": "Dog training", "value": "dog_training" },
+      { "optionText": "Overnight pet care", "value": "overnight" },
+      { "optionText": "Pet grooming", "value": "grooming" },
+      { "optionText": "Pet transportation", "value": "transportation" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of pet do you have?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Dog", "value": "dog" },
+      { "optionText": "Cat", "value": "cat" },
+      { "optionText": "Bird", "value": "bird" },
+      { "optionText": "Fish", "value": "fish" },
+      { "optionText": "Small mammal (hamster, guinea pig, etc.)", "value": "small_mammal" },
+      { "optionText": "Reptile", "value": "reptile" },
+      { "optionText": "Other", "value": "other" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "How many pets need care?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "1 pet", "value": "one" },
+      { "optionText": "2 pets", "value": "two" },
+      { "optionText": "3 pets", "value": "three" },
+      { "optionText": "4 or more pets", "value": "four_plus" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "For dogs: What is the size of your dog?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Small (under 20 lbs/9 kg)", "value": "small" },
+      { "optionText": "Medium (20-50 lbs/9-23 kg)", "value": "medium" },
+      { "optionText": "Large (50-90 lbs/23-41 kg)", "value": "large" },
+      { "optionText": "Extra large (over 90 lbs/41 kg)", "value": "xl" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "How frequently do you need this service?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "One-time service", "value": "one_time" },
+      { "optionText": "Daily", "value": "daily" },
+      { "optionText": "Several times per week", "value": "several_weekly" },
+      { "optionText": "Weekly", "value": "weekly" },
+      { "optionText": "Monthly", "value": "monthly" },
+      { "optionText": "As needed", "value": "as_needed" }
+    ],
+    "isRequired": true,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "For dog walking: How long should each walk be?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "15-minute quick walk", "value": "15min" },
+      { "optionText": "30-minute standard walk", "value": "30min" },
+      { "optionText": "45-minute extended walk", "value": "45min" },
+      { "optionText": "60-minute long walk", "value": "60min" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  },
+  {
+    "questionText": "For dog training: What type of training do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Basic obedience", "value": "basic" },
+      { "optionText": "Puppy training", "value": "puppy" },
+      { "optionText": "Behavior modification", "value": "behavior" },
+      { "optionText": "Advanced commands", "value": "advanced" },
+      { "optionText": "Specialized training (service, therapy, etc.)", "value": "specialized" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 9
+  },
+  {
+    "questionText": "Does your pet have any special needs or requirements?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Medication administration", "value": "medication" },
+      { "optionText": "Dietary restrictions", "value": "diet" },
+      { "optionText": "Senior pet care", "value": "senior" },
+      { "optionText": "Medical condition management", "value": "medical" },
+      { "optionText": "Behavioral issues", "value": "behavioral" },
+      { "optionText": "No special needs", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 10
+  }
+]

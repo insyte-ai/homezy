@@ -1,0 +1,105 @@
+[
+  {
+    "questionText": "What type of home maintenance service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Landscape maintenance", "value": "landscape" },
+      { "optionText": "Home cleaning", "value": "cleaning" },
+      { "optionText": "Swimming pool maintenance", "value": "pool" },
+      { "optionText": "Junk removal", "value": "junk" },
+      { "optionText": "Pest control", "value": "pest" },
+      { "optionText": "Moving services", "value": "moving" },
+      { "optionText": "Annual maintenance contract", "value": "amc" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "How frequently do you need this service?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "One-time service", "value": "one_time" },
+      { "optionText": "Weekly", "value": "weekly" },
+      { "optionText": "Bi-weekly", "value": "biweekly" },
+      { "optionText": "Monthly", "value": "monthly" },
+      { "optionText": "Quarterly", "value": "quarterly" },
+      { "optionText": "Annually", "value": "annually" },
+      { "optionText": "As needed", "value": "as_needed" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "For cleaning: What type of cleaning do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Regular house cleaning", "value": "regular" },
+      { "optionText": "Deep cleaning", "value": "deep" },
+      { "optionText": "Move-in/move-out cleaning", "value": "move" },
+      { "optionText": "Post-construction cleaning", "value": "construction" },
+      { "optionText": "Specialized cleaning (windows, carpets, etc.)", "value": "specialized" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "For pest control: What type of pests are you dealing with?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Ants", "value": "ants" },
+      { "optionText": "Roaches", "value": "roaches" },
+      { "optionText": "Termites", "value": "termites" },
+      { "optionText": "Bed bugs", "value": "bed_bugs" },
+      { "optionText": "Rodents", "value": "rodents" },
+      { "optionText": "Mosquitoes", "value": "mosquitoes" },
+      { "optionText": "Other pests", "value": "other" },
+      { "optionText": "Preventative treatment", "value": "preventative" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "For pool maintenance: What services do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Regular cleaning", "value": "cleaning" },
+      { "optionText": "Chemical balancing", "value": "chemicals" },
+      { "optionText": "Equipment inspection", "value": "inspection" },
+      { "optionText": "Filter cleaning/replacement", "value": "filter" },
+      { "optionText": "Opening/closing seasonal pool", "value": "seasonal" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "For moving services: What type of move do you need help with?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Local move (same city)", "value": "local" },
+      { "optionText": "Long-distance move", "value": "long_distance" },
+      { "optionText": "International move", "value": "international" },
+      { "optionText": "Office/commercial move", "value": "commercial" },
+      { "optionText": "Partial move (few items only)", "value": "partial" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  },
+  {
+    "questionText": "Do you have any specific requirements for the service provider?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Eco-friendly products/methods", "value": "eco_friendly" },
+      { "optionText": "Pet-friendly service", "value": "pet_friendly" },
+      { "optionText": "Child-safe products", "value": "child_safe" },
+      { "optionText": "Allergy considerations", "value": "allergy" },
+      { "optionText": "Weekend/evening availability", "value": "flexible_hours" },
+      { "optionText": "Insurance coverage", "value": "insurance" }
+    ],
+    "isRequired": false,
+    "displayOrder": 9
+  }
+]

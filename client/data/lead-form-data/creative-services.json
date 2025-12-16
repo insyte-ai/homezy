@@ -1,0 +1,75 @@
+[
+  {
+    "questionText": "What creative service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Website design/development", "value": "web_design" },
+      { "optionText": "Graphic design", "value": "graphic_design" },
+      { "optionText": "Logo design", "value": "logo" },
+      { "optionText": "Photography", "value": "photography" },
+      { "optionText": "Videography", "value": "videography" },
+      { "optionText": "Social media design", "value": "social_media" },
+      { "optionText": "Branding/identity", "value": "branding" },
+      { "optionText": "Print design (flyers, brochures)", "value": "print" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the purpose of this project?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Personal use", "value": "personal" },
+      { "optionText": "Small business/startup", "value": "small_business" },
+      { "optionText": "Corporate/enterprise", "value": "corporate" },
+      { "optionText": "Event (wedding, party, etc.)", "value": "event" },
+      { "optionText": "Real estate listing", "value": "real_estate" },
+      { "optionText": "E-commerce/product", "value": "ecommerce" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "For web design: What type of website?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Simple landing page", "value": "landing" },
+      { "optionText": "Business/portfolio website", "value": "business" },
+      { "optionText": "E-commerce store", "value": "ecommerce" },
+      { "optionText": "Blog/content site", "value": "blog" },
+      { "optionText": "Web application", "value": "webapp" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "For photography/video: What type of shoot?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Portrait/headshot", "value": "portrait" },
+      { "optionText": "Product photography", "value": "product" },
+      { "optionText": "Real estate/interior", "value": "real_estate" },
+      { "optionText": "Event coverage", "value": "event" },
+      { "optionText": "Corporate/commercial", "value": "corporate" },
+      { "optionText": "Drone/aerial", "value": "drone" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Do you have specific requirements?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "I have a clear vision/brief", "value": "have_brief" },
+      { "optionText": "Need creative direction", "value": "need_direction" },
+      { "optionText": "Have existing brand guidelines", "value": "brand_guidelines" },
+      { "optionText": "Need rush delivery", "value": "rush" },
+      { "optionText": "Need revisions/editing", "value": "revisions" },
+      { "optionText": "Need source files", "value": "source_files" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

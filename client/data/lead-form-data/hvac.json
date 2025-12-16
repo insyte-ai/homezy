@@ -1,0 +1,76 @@
+[
+  {
+    "questionText": "What type of HVAC service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "AC installation", "value": "ac_install" },
+      { "optionText": "AC repair", "value": "ac_repair" },
+      { "optionText": "AC maintenance", "value": "ac_maintenance" },
+      { "optionText": "Heating system installation", "value": "heating_install" },
+      { "optionText": "Heating system repair", "value": "heating_repair" },
+      { "optionText": "Ventilation system service", "value": "ventilation" },
+      { "optionText": "Thermostat installation/repair", "value": "thermostat" },
+      { "optionText": "Air quality assessment", "value": "air_quality" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of system do you currently have?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Central air conditioning", "value": "central_ac" },
+      { "optionText": "Split AC system", "value": "split_ac" },
+      { "optionText": "Window/portable AC units", "value": "window_ac" },
+      { "optionText": "Heat pump", "value": "heat_pump" },
+      { "optionText": "Furnace", "value": "furnace" },
+      { "optionText": "Ductless system", "value": "ductless" },
+      { "optionText": "Don't have one yet", "value": "none" },
+      { "optionText": "Not sure", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "How old is your current HVAC system?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Less than 5 years", "value": "under_5" },
+      { "optionText": "5-10 years", "value": "5_10" },
+      { "optionText": "10-15 years", "value": "10_15" },
+      { "optionText": "More than 15 years", "value": "over_15" },
+      { "optionText": "I don't currently have a system", "value": "none" },
+      { "optionText": "I'm not sure", "value": "unknown" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you have specific energy efficiency requirements?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I want high-efficiency equipment", "value": "high_efficiency" },
+      { "optionText": "Yes, I'm interested in energy-saving options", "value": "energy_saving" },
+      { "optionText": "No, standard efficiency is fine", "value": "standard" },
+      { "optionText": "I'm primarily concerned with cost", "value": "cost_focused" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "What issue are you experiencing with your current system?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Not cooling/heating properly", "value": "poor_performance" },
+      { "optionText": "Strange noises", "value": "noises" },
+      { "optionText": "Leaking water", "value": "leaking" },
+      { "optionText": "Uneven temperature in home", "value": "uneven_temp" },
+      { "optionText": "High energy bills", "value": "high_bills" },
+      { "optionText": "System won't turn on/off", "value": "operation_issue" },
+      { "optionText": "No issues, just maintenance", "value": "maintenance" },
+      { "optionText": "Not applicable", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

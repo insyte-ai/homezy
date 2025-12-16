@@ -1,0 +1,60 @@
+[
+  {
+    "questionText": "What roofing service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Roof repair", "value": "repair" },
+      { "optionText": "Full roof replacement", "value": "replacement" },
+      { "optionText": "New roof installation", "value": "new_install" },
+      { "optionText": "Roof inspection", "value": "inspection" },
+      { "optionText": "Roof coating/sealing", "value": "coating" },
+      { "optionText": "Gutter installation/repair", "value": "gutter" },
+      { "optionText": "Leak repair", "value": "leak" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of roof do you have?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Flat roof", "value": "flat" },
+      { "optionText": "Tile roof", "value": "tile" },
+      { "optionText": "Metal roof", "value": "metal" },
+      { "optionText": "Shingle roof", "value": "shingle" },
+      { "optionText": "Concrete roof", "value": "concrete" },
+      { "optionText": "Not sure", "value": "not_sure" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What issues are you experiencing?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Leaking/water damage", "value": "leaking" },
+      { "optionText": "Missing/damaged tiles or shingles", "value": "damaged" },
+      { "optionText": "Cracks/holes", "value": "cracks" },
+      { "optionText": "Sagging areas", "value": "sagging" },
+      { "optionText": "Gutter problems", "value": "gutter" },
+      { "optionText": "Storm damage", "value": "storm" },
+      { "optionText": "Age-related wear", "value": "age" },
+      { "optionText": "No issues, preventive maintenance", "value": "maintenance" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What is the approximate roof size?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (apartment/small home)", "value": "small" },
+      { "optionText": "Medium (standard villa)", "value": "medium" },
+      { "optionText": "Large (large villa)", "value": "large" },
+      { "optionText": "Commercial building", "value": "commercial" },
+      { "optionText": "Not sure", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

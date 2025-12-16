@@ -1,0 +1,53 @@
+[
+  {
+    "questionText": "What type of masonry work do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Brick work", "value": "brick" },
+      { "optionText": "Stone work", "value": "stone" },
+      { "optionText": "Concrete work", "value": "concrete" },
+      { "optionText": "Block work", "value": "block" },
+      { "optionText": "Paver installation", "value": "pavers" },
+      { "optionText": "Retaining wall", "value": "retaining_wall" },
+      { "optionText": "Boundary wall", "value": "boundary_wall" },
+      { "optionText": "Repair/restoration", "value": "repair" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the project type?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "New construction", "value": "new" },
+      { "optionText": "Repair/restoration", "value": "repair" },
+      { "optionText": "Extension/addition", "value": "extension" },
+      { "optionText": "Decorative/landscaping", "value": "decorative" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the approximate project size?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (under 50 sq ft)", "value": "small" },
+      { "optionText": "Medium (50-200 sq ft)", "value": "medium" },
+      { "optionText": "Large (200-500 sq ft)", "value": "large" },
+      { "optionText": "Very large (500+ sq ft)", "value": "very_large" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Is this project indoors or outdoors?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Outdoor", "value": "outdoor" },
+      { "optionText": "Indoor", "value": "indoor" },
+      { "optionText": "Both", "value": "both" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

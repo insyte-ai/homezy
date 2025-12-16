@@ -1,0 +1,44 @@
+[
+  {
+    "questionText": "What specific service requirements do you have?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Eco-friendly materials", "value": "eco_friendly" },
+      { "optionText": "Pet-friendly solutions", "value": "pet_friendly" },
+      { "optionText": "Child-safe products", "value": "child_safe" },
+      { "optionText": "Allergy considerations", "value": "allergy_friendly" },
+      { "optionText": "Premium quality materials", "value": "premium" },
+      { "optionText": "Budget-friendly options", "value": "budget" }
+    ],
+    "isRequired": false,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What features are most important to you?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Energy efficiency", "value": "energy_efficient" },
+      { "optionText": "Low maintenance", "value": "low_maintenance" },
+      { "optionText": "Durability", "value": "durable" },
+      { "optionText": "Aesthetics", "value": "aesthetic" },
+      { "optionText": "Cost-effectiveness", "value": "cost_effective" },
+      { "optionText": "Warranty coverage", "value": "warranty" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "Do you have any specific concerns about this service?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Timeline/completion date", "value": "timeline" },
+      { "optionText": "Budget constraints", "value": "budget" },
+      { "optionText": "Quality of materials", "value": "quality" },
+      { "optionText": "Past negative experiences", "value": "past_issues" },
+      { "optionText": "Specific technical requirements", "value": "technical" },
+      { "optionText": "No specific concerns", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  }
+]

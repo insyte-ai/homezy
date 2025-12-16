@@ -1,0 +1,308 @@
+{
+  "serviceId": "appliance-repair",
+  "serviceName": "Appliance Repair",
+  "description": "Professional appliance repair services",
+  "questions": [
+    {
+      "id": "appliance_needs_repair",
+      "question": "Which appliance needs repair?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your appliance repair needs",
+      "options": [
+        {
+          "value": "washing_machine",
+          "label": "Washing machine",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "dryer",
+          "label": "Dryer",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "refrigerator",
+          "label": "Refrigerator/Freezer",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "dishwasher",
+          "label": "Dishwasher",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "oven",
+          "label": "Oven/Stove/Cooktop",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "microwave",
+          "label": "Microwave",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "disposal",
+          "label": "Garbage disposal",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "ice_maker",
+          "label": "Ice maker",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "other",
+          "label": "Other appliance",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "issue_experiencing",
+      "question": "What issue are you experiencing?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your appliance repair needs",
+      "options": [
+        {
+          "value": "not_turning_on",
+          "label": "Not turning on",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "noises",
+          "label": "Making strange noises",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "leaking",
+          "label": "Leaking water",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "temp_issue",
+          "label": "Not heating/cooling properly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "error_codes",
+          "label": "Error codes/lights flashing",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "door_issue",
+          "label": "Door/lid not closing properly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "not_draining",
+          "label": "Not draining",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "vibration",
+          "label": "Vibrating excessively",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "other",
+          "label": "Other issue",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "brand_appliance",
+      "question": "What is the brand of the appliance?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your appliance repair needs",
+      "options": [
+        {
+          "value": "samsung",
+          "label": "Samsung",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "lg",
+          "label": "LG",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "bosch",
+          "label": "Bosch",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "siemens",
+          "label": "Siemens",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "whirlpool",
+          "label": "Whirlpool",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "electrolux",
+          "label": "Electrolux",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "miele",
+          "label": "Miele",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "other",
+          "label": "Other brand",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "appliance",
+      "question": "How old is the appliance?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your appliance repair needs",
+      "options": [
+        {
+          "value": "under_1",
+          "label": "Less than 1 year (under warranty)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "1_3",
+          "label": "1-3 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "3_5",
+          "label": "3-5 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "5_10",
+          "label": "5-10 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "over_10",
+          "label": "More than 10 years",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "unknown",
+          "label": "Not sure",
+          "icon": "❓",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "appliance-repair.json"
+  }
+}

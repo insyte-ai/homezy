@@ -1,0 +1,75 @@
+[
+  {
+    "questionText": "What type of kitchen project do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Full kitchen remodel", "value": "full_remodel" },
+      { "optionText": "Cabinet replacement/refacing", "value": "cabinets" },
+      { "optionText": "Countertop replacement", "value": "countertops" },
+      { "optionText": "Backsplash installation", "value": "backsplash" },
+      { "optionText": "Kitchen island addition", "value": "island" },
+      { "optionText": "Appliance installation", "value": "appliances" },
+      { "optionText": "Minor updates/refresh", "value": "minor_updates" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is your kitchen size?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (under 100 sq ft)", "value": "small" },
+      { "optionText": "Medium (100-200 sq ft)", "value": "medium" },
+      { "optionText": "Large (200-300 sq ft)", "value": "large" },
+      { "optionText": "Extra large (300+ sq ft)", "value": "xlarge" },
+      { "optionText": "Not sure", "value": "unknown" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What countertop material are you interested in?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Granite", "value": "granite" },
+      { "optionText": "Quartz", "value": "quartz" },
+      { "optionText": "Marble", "value": "marble" },
+      { "optionText": "Solid surface (Corian)", "value": "solid_surface" },
+      { "optionText": "Laminate", "value": "laminate" },
+      { "optionText": "Butcher block", "value": "butcher_block" },
+      { "optionText": "Not changing countertops", "value": "not_changing" },
+      { "optionText": "Need advice", "value": "need_advice" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What cabinet style are you interested in?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Modern/contemporary", "value": "modern" },
+      { "optionText": "Traditional/classic", "value": "traditional" },
+      { "optionText": "Shaker style", "value": "shaker" },
+      { "optionText": "Minimalist/handleless", "value": "minimalist" },
+      { "optionText": "Not changing cabinets", "value": "not_changing" },
+      { "optionText": "Need design advice", "value": "need_advice" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Do you need any plumbing or electrical work?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "New sink installation", "value": "sink" },
+      { "optionText": "Faucet replacement", "value": "faucet" },
+      { "optionText": "Dishwasher hookup", "value": "dishwasher" },
+      { "optionText": "Additional outlets", "value": "outlets" },
+      { "optionText": "Under-cabinet lighting", "value": "lighting" },
+      { "optionText": "Gas line for stove", "value": "gas_line" },
+      { "optionText": "No plumbing/electrical needed", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

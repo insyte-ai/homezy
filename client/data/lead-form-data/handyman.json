@@ -1,0 +1,57 @@
+[
+  {
+    "questionText": "What type of handyman service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Furniture assembly", "value": "furniture_assembly" },
+      { "optionText": "TV/monitor mounting", "value": "tv_mounting" },
+      { "optionText": "Shelf/cabinet installation", "value": "shelf_install" },
+      { "optionText": "Picture/mirror hanging", "value": "hanging" },
+      { "optionText": "Curtain rod/blind installation", "value": "curtain_blind" },
+      { "optionText": "Door repairs/adjustments", "value": "door_repairs" },
+      { "optionText": "Minor plumbing fixes", "value": "minor_plumbing" },
+      { "optionText": "Minor electrical fixes", "value": "minor_electrical" },
+      { "optionText": "Caulking/grouting", "value": "caulking" },
+      { "optionText": "General repairs", "value": "general_repairs" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "How many items or tasks do you need help with?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "1-2 items", "value": "1_2" },
+      { "optionText": "3-5 items", "value": "3_5" },
+      { "optionText": "6-10 items", "value": "6_10" },
+      { "optionText": "More than 10 items", "value": "more_10" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "Do you have the materials/hardware needed?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I have everything", "value": "have_all" },
+      { "optionText": "I have some items", "value": "have_some" },
+      { "optionText": "No, I need the handyman to bring materials", "value": "need_materials" },
+      { "optionText": "I'm not sure what's needed", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Are there any access considerations?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Work requires a ladder", "value": "ladder" },
+      { "optionText": "Work is in a tight space", "value": "tight_space" },
+      { "optionText": "Heavy items need moving", "value": "heavy_items" },
+      { "optionText": "Work is outdoors", "value": "outdoor" },
+      { "optionText": "No special considerations", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

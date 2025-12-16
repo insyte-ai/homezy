@@ -1,0 +1,95 @@
+[
+  {
+    "questionText": "What type of legal service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Rental and property disputes", "value": "rental_property" },
+      { "optionText": "Contract review/drafting", "value": "contract" },
+      { "optionText": "Business legal advice", "value": "business" },
+      { "optionText": "Real estate legal services", "value": "real_estate" },
+      { "optionText": "Employment law issues", "value": "employment" },
+      { "optionText": "Family law matters", "value": "family" },
+      { "optionText": "Immigration assistance", "value": "immigration" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the current status of your legal matter?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Preventative (seeking to avoid issues)", "value": "preventative" },
+      { "optionText": "Early stages (issue just arose)", "value": "early" },
+      { "optionText": "Ongoing (in process of resolution)", "value": "ongoing" },
+      { "optionText": "Critical (immediate attention needed)", "value": "critical" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "For rental disputes: What is the nature of your dispute?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Lease termination issues", "value": "lease_termination" },
+      { "optionText": "Security deposit disputes", "value": "deposit" },
+      { "optionText": "Rent increase disputes", "value": "rent_increase" },
+      { "optionText": "Property maintenance issues", "value": "maintenance" },
+      { "optionText": "Eviction proceedings", "value": "eviction" },
+      { "optionText": "Tenant rights violation", "value": "tenant_rights" },
+      { "optionText": "Landlord rights violation", "value": "landlord_rights" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Are you currently represented by another attorney for this matter?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, but seeking additional counsel", "value": "yes_additional" },
+      { "optionText": "Yes, but considering changing representation", "value": "yes_changing" },
+      { "optionText": "No, this would be my first legal representation", "value": "no_first" },
+      { "optionText": "No, but I've had representation in the past", "value": "no_previous" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "What is your preferred communication style with your legal representative?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Regular detailed updates", "value": "detailed" },
+      { "optionText": "Brief updates only when necessary", "value": "brief" },
+      { "optionText": "Phone calls", "value": "phone" },
+      { "optionText": "Email communication", "value": "email" },
+      { "optionText": "In-person meetings", "value": "in_person" },
+      { "optionText": "Video conferences", "value": "video" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "What is your timeline for resolving this legal matter?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Urgent (within days)", "value": "urgent" },
+      { "optionText": "Short-term (within weeks)", "value": "short" },
+      { "optionText": "Medium-term (within months)", "value": "medium" },
+      { "optionText": "Long-term (ongoing representation)", "value": "long" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  },
+  {
+    "questionText": "Have you attempted to resolve this matter without legal assistance?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, but was unsuccessful", "value": "yes_unsuccessful" },
+      { "optionText": "Yes, with partial success", "value": "yes_partial" },
+      { "optionText": "No, seeking legal help first", "value": "no" },
+      { "optionText": "Not applicable to my situation", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 9
+  }
+]

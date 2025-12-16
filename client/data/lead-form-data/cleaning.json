@@ -1,0 +1,86 @@
+[
+  {
+    "questionText": "What type of cleaning do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Regular house cleaning", "value": "regular" },
+      { "optionText": "Deep cleaning", "value": "deep" },
+      { "optionText": "Move-in/move-out cleaning", "value": "move" },
+      { "optionText": "Post-construction cleaning", "value": "construction" },
+      { "optionText": "Vacation rental turnover", "value": "vacation_rental" },
+      { "optionText": "Spring cleaning", "value": "spring" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What areas need cleaning?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Entire home", "value": "entire_home" },
+      { "optionText": "Kitchen", "value": "kitchen" },
+      { "optionText": "Bathrooms", "value": "bathrooms" },
+      { "optionText": "Bedrooms", "value": "bedrooms" },
+      { "optionText": "Living areas", "value": "living" },
+      { "optionText": "Windows", "value": "windows" },
+      { "optionText": "Balcony/terrace", "value": "balcony" },
+      { "optionText": "Garage", "value": "garage" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the size of your property?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Studio/1 bedroom", "value": "studio_1br" },
+      { "optionText": "2 bedrooms", "value": "2br" },
+      { "optionText": "3 bedrooms", "value": "3br" },
+      { "optionText": "4 bedrooms", "value": "4br" },
+      { "optionText": "5+ bedrooms/villa", "value": "5br_villa" }
+    ],
+    "isRequired": true,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "How often do you need cleaning?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "One-time service", "value": "one_time" },
+      { "optionText": "Weekly", "value": "weekly" },
+      { "optionText": "Bi-weekly", "value": "biweekly" },
+      { "optionText": "Monthly", "value": "monthly" },
+      { "optionText": "On-demand", "value": "on_demand" }
+    ],
+    "isRequired": true,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Do you need any specialized cleaning?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Carpet cleaning", "value": "carpet" },
+      { "optionText": "Sofa/upholstery cleaning", "value": "upholstery" },
+      { "optionText": "Mattress cleaning", "value": "mattress" },
+      { "optionText": "Curtain cleaning", "value": "curtain" },
+      { "optionText": "Oven/appliance cleaning", "value": "appliance" },
+      { "optionText": "Tile & grout cleaning", "value": "tile_grout" },
+      { "optionText": "No specialized cleaning needed", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "Any special requirements?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Eco-friendly products", "value": "eco_friendly" },
+      { "optionText": "Pet-safe products", "value": "pet_safe" },
+      { "optionText": "Allergy-friendly products", "value": "allergy_friendly" },
+      { "optionText": "Bring all supplies", "value": "bring_supplies" },
+      { "optionText": "No special requirements", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  }
+]

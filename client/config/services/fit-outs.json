@@ -1,0 +1,312 @@
+{
+  "serviceId": "fit-outs",
+  "serviceName": "Fit Outs",
+  "description": "Professional fit outs services",
+  "questions": [
+    {
+      "id": "type_fitout",
+      "question": "What type of fit-out do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your fit outs needs",
+      "options": [
+        {
+          "value": "office",
+          "label": "Office fit-out",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "retail",
+          "label": "Retail/shop fit-out",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "restaurant",
+          "label": "Restaurant/cafe fit-out",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "residential",
+          "label": "Residential fit-out",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "clinic",
+          "label": "Clinic/medical facility",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "salon",
+          "label": "Salon/spa",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "warehouse",
+          "label": "Warehouse/industrial",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "project_scope",
+      "question": "What is the project scope?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your fit outs needs",
+      "options": [
+        {
+          "value": "shell_core",
+          "label": "Shell and core (complete fit-out)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "renovation",
+          "label": "Renovation of existing space",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "partial",
+          "label": "Partial fit-out/upgrade",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "design_only",
+          "label": "Interior design only",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "design_build",
+          "label": "Design and build",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "approximate_size_space",
+      "question": "What is the approximate size of the space?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your fit outs needs",
+      "options": [
+        {
+          "value": "under_500",
+          "label": "Under 500 sq ft",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "500_1000",
+          "label": "500 - 1,000 sq ft",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "1000_2500",
+          "label": "1,000 - 2,500 sq ft",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "2500_5000",
+          "label": "2,500 - 5,000 sq ft",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "5000_10000",
+          "label": "5,000 - 10,000 sq ft",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "above_10000",
+          "label": "Above 10,000 sq ft",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "work_needed",
+      "question": "What work is needed?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your fit outs needs",
+      "options": [
+        {
+          "value": "partitioning",
+          "label": "Partitioning/walls",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "flooring",
+          "label": "Flooring",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "ceiling",
+          "label": "Ceiling work",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "electrical",
+          "label": "Electrical work",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "plumbing",
+          "label": "Plumbing",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "hvac",
+          "label": "HVAC/air conditioning",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "furniture",
+          "label": "Furniture/fixtures",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "signage",
+          "label": "Signage/branding",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "timeline",
+      "question": "What is your timeline?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your fit outs needs",
+      "options": [
+        {
+          "value": "urgent",
+          "label": "Urgent (within 1 month)",
+          "icon": "⏰",
+          "weight": 1,
+          "tags": [
+            "urgent"
+          ],
+          "matchType": "direct"
+        },
+        {
+          "value": "1_2_months",
+          "label": "1-2 months",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "2_3_months",
+          "label": "2-3 months",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "3_6_months",
+          "label": "3-6 months",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "flexible",
+          "label": "Flexible timeline",
+          "icon": "⏰",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "fit-outs.json"
+  }
+}

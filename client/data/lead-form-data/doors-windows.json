@@ -1,0 +1,62 @@
+[
+  {
+    "questionText": "What type of service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Door installation", "value": "door_install" },
+      { "optionText": "Door repair", "value": "door_repair" },
+      { "optionText": "Window installation", "value": "window_install" },
+      { "optionText": "Window repair", "value": "window_repair" },
+      { "optionText": "Glass replacement", "value": "glass_replace" },
+      { "optionText": "Lock/handle replacement", "value": "hardware" },
+      { "optionText": "Weatherstripping/sealing", "value": "sealing" },
+      { "optionText": "Screen repair/replacement", "value": "screen" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of door/window is it?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Interior door", "value": "interior_door" },
+      { "optionText": "Exterior/entry door", "value": "exterior_door" },
+      { "optionText": "Sliding door", "value": "sliding_door" },
+      { "optionText": "French door", "value": "french_door" },
+      { "optionText": "Garage door", "value": "garage_door" },
+      { "optionText": "Standard window", "value": "standard_window" },
+      { "optionText": "Sliding window", "value": "sliding_window" },
+      { "optionText": "Skylight", "value": "skylight" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "How many doors/windows need work?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "1", "value": "1" },
+      { "optionText": "2-3", "value": "2_3" },
+      { "optionText": "4-6", "value": "4_6" },
+      { "optionText": "7-10", "value": "7_10" },
+      { "optionText": "More than 10", "value": "more_10" }
+    ],
+    "isRequired": true,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What is the issue? (for repairs)",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Broken/cracked glass", "value": "broken_glass" },
+      { "optionText": "Won't open/close properly", "value": "stuck" },
+      { "optionText": "Damaged frame", "value": "frame_damage" },
+      { "optionText": "Lock not working", "value": "lock_issue" },
+      { "optionText": "Drafty/poor seal", "value": "seal_issue" },
+      { "optionText": "Foggy/condensation between panes", "value": "foggy" },
+      { "optionText": "New installation (no repair needed)", "value": "new_install" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

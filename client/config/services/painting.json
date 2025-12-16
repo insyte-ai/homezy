@@ -1,0 +1,282 @@
+{
+  "serviceId": "painting",
+  "serviceName": "Painting",
+  "description": "Professional painting services",
+  "questions": [
+    {
+      "id": "type_painting_service",
+      "question": "What type of painting service do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your painting needs",
+      "options": [
+        {
+          "value": "interior_walls",
+          "label": "Interior wall painting",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "exterior",
+          "label": "Exterior house painting",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "cabinets",
+          "label": "Cabinet painting/refinishing",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "ceiling",
+          "label": "Ceiling painting",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "decorative",
+          "label": "Decorative/accent wall",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "wallpaper",
+          "label": "Wallpaper installation/removal",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "full",
+          "label": "Full interior and exterior",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "many_rooms_area",
+      "question": "How many rooms or what area needs painting?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your painting needs",
+      "options": [
+        {
+          "value": "1_room",
+          "label": "1 room",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "2_3_rooms",
+          "label": "2-3 rooms",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "4_5_rooms",
+          "label": "4-5 rooms",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "entire_home",
+          "label": "Entire home/apartment",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "villa",
+          "label": "Villa/large property",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "commercial",
+          "label": "Commercial space",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "current_wall_condition",
+      "question": "What is the current wall condition?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your painting needs",
+      "options": [
+        {
+          "value": "good",
+          "label": "Good condition, just needs repainting",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "minor_repairs",
+          "label": "Minor repairs needed (nail holes, small cracks)",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "major_repairs",
+          "label": "Significant repairs needed (large cracks, peeling)",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [
+            "complex"
+          ],
+          "matchType": "partial"
+        },
+        {
+          "value": "new",
+          "label": "New construction/bare walls",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "wallpaper",
+          "label": "Has wallpaper that needs removal",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "colors_selected",
+      "question": "Do you have colors selected?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your painting needs",
+      "options": [
+        {
+          "value": "colors_selected",
+          "label": "Yes, I know the exact colors",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "general_idea",
+          "label": "I have a general idea",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_consultation",
+          "label": "I need color consultation",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "same_colors",
+          "label": "Same colors as current",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "paint_quality_looking",
+      "question": "What paint quality are you looking for?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your painting needs",
+      "options": [
+        {
+          "value": "premium",
+          "label": "Premium/luxury brands",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [
+            "high_value"
+          ],
+          "matchType": "partial"
+        },
+        {
+          "value": "mid_range",
+          "label": "Mid-range quality",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "budget",
+          "label": "Budget-friendly",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "eco_friendly",
+          "label": "Eco-friendly/low VOC",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "recommend",
+          "label": "Let the professional recommend",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "painting.json"
+  }
+}

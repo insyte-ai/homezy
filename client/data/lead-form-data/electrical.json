@@ -1,0 +1,59 @@
+[
+  {
+    "questionText": "What electrical services do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Outlet/switch installation or repair", "value": "outlet_switch" },
+      { "optionText": "Light fixture installation", "value": "light_fixture" },
+      { "optionText": "Ceiling fan installation", "value": "ceiling_fan" },
+      { "optionText": "Electrical panel upgrade", "value": "panel_upgrade" },
+      { "optionText": "Wiring repair or installation", "value": "wiring" },
+      { "optionText": "Circuit breaker service", "value": "circuit_breaker" },
+      { "optionText": "Generator installation/service", "value": "generator" },
+      { "optionText": "Electrical safety inspection", "value": "inspection" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of electrical issue are you experiencing?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Power outage", "value": "power_outage" },
+      { "optionText": "Circuit breaker keeps tripping", "value": "breaker_tripping" },
+      { "optionText": "Flickering lights", "value": "flickering_lights" },
+      { "optionText": "Outlet not working", "value": "outlet_not_working" },
+      { "optionText": "Burning smell from outlet or panel", "value": "burning_smell" },
+      { "optionText": "Need new installation", "value": "new_installation" },
+      { "optionText": "Not applicable", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "How old is your electrical system?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Less than 5 years", "value": "under_5" },
+      { "optionText": "5-15 years", "value": "5_15" },
+      { "optionText": "15-30 years", "value": "15_30" },
+      { "optionText": "Over 30 years", "value": "over_30" },
+      { "optionText": "I'm not sure", "value": "unknown" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you need additional circuits or increased power capacity?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, for new appliances", "value": "yes_appliances" },
+      { "optionText": "Yes, for home office equipment", "value": "yes_office" },
+      { "optionText": "Yes, for renovation/addition", "value": "yes_renovation" },
+      { "optionText": "No, just need repairs or replacements", "value": "no" },
+      { "optionText": "Not sure", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

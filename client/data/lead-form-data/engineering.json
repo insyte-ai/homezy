@@ -1,0 +1,85 @@
+[
+  {
+    "questionText": "What type of engineering service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Architectural engineering", "value": "architectural" },
+      { "optionText": "Structural engineering", "value": "structural" },
+      { "optionText": "Construction engineering", "value": "construction" },
+      { "optionText": "MEP engineering (Mechanical, Electrical, Plumbing)", "value": "mep" },
+      { "optionText": "Architect of Record (AOR) services", "value": "aor" },
+      { "optionText": "Engineering consultation", "value": "consultation" },
+      { "optionText": "Engineering inspection", "value": "inspection" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the purpose of your engineering project?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "New construction", "value": "new_construction" },
+      { "optionText": "Renovation/remodeling", "value": "renovation" },
+      { "optionText": "Addition to existing structure", "value": "addition" },
+      { "optionText": "Structural assessment", "value": "assessment" },
+      { "optionText": "Repair of existing issues", "value": "repair" },
+      { "optionText": "Permit/compliance documentation", "value": "permits" },
+      { "optionText": "Expert opinion/consultation", "value": "consultation" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the current stage of your project?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Initial planning/concept", "value": "planning" },
+      { "optionText": "Design development", "value": "design" },
+      { "optionText": "Ready for construction documents", "value": "construction_docs" },
+      { "optionText": "Under construction", "value": "construction" },
+      { "optionText": "Completed but needs assessment", "value": "assessment" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you have existing plans or drawings?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, complete professional drawings", "value": "complete" },
+      { "optionText": "Yes, but they need updating", "value": "need_update" },
+      { "optionText": "Only preliminary sketches", "value": "sketches" },
+      { "optionText": "No, need to start from scratch", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "What is the approximate size of your project?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small residential (under 2,000 sq ft)", "value": "small_residential" },
+      { "optionText": "Medium residential (2,000-5,000 sq ft)", "value": "medium_residential" },
+      { "optionText": "Large residential (over 5,000 sq ft)", "value": "large_residential" },
+      { "optionText": "Small commercial (under 5,000 sq ft)", "value": "small_commercial" },
+      { "optionText": "Medium commercial (5,000-20,000 sq ft)", "value": "medium_commercial" },
+      { "optionText": "Large commercial (over 20,000 sq ft)", "value": "large_commercial" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "Do you have specific code compliance or certification requirements?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Local building codes", "value": "local_codes" },
+      { "optionText": "LEED certification", "value": "leed" },
+      { "optionText": "Energy efficiency standards", "value": "energy" },
+      { "optionText": "Accessibility requirements", "value": "accessibility" },
+      { "optionText": "Historic preservation guidelines", "value": "historic" },
+      { "optionText": "Not sure, need guidance", "value": "need_guidance" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  }
+]

@@ -1,0 +1,69 @@
+[
+  {
+    "questionText": "What pest problem do you have?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Cockroaches", "value": "cockroaches" },
+      { "optionText": "Ants", "value": "ants" },
+      { "optionText": "Bed bugs", "value": "bed_bugs" },
+      { "optionText": "Termites", "value": "termites" },
+      { "optionText": "Rodents (rats/mice)", "value": "rodents" },
+      { "optionText": "Mosquitoes", "value": "mosquitoes" },
+      { "optionText": "Flies", "value": "flies" },
+      { "optionText": "Spiders", "value": "spiders" },
+      { "optionText": "Preventive treatment (no current problem)", "value": "preventive" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of property is it?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Apartment", "value": "apartment" },
+      { "optionText": "Villa/house", "value": "villa" },
+      { "optionText": "Office", "value": "office" },
+      { "optionText": "Restaurant/food establishment", "value": "restaurant" },
+      { "optionText": "Warehouse/storage", "value": "warehouse" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "How severe is the infestation?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Mild (occasional sightings)", "value": "mild" },
+      { "optionText": "Moderate (regular sightings)", "value": "moderate" },
+      { "optionText": "Severe (heavy infestation)", "value": "severe" },
+      { "optionText": "No current problem (preventive)", "value": "preventive" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you need ongoing pest control?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "One-time treatment", "value": "one_time" },
+      { "optionText": "Monthly service", "value": "monthly" },
+      { "optionText": "Quarterly service", "value": "quarterly" },
+      { "optionText": "Annual contract", "value": "annual" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Any special requirements?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Pet-safe products", "value": "pet_safe" },
+      { "optionText": "Child-safe products", "value": "child_safe" },
+      { "optionText": "Eco-friendly/organic", "value": "eco_friendly" },
+      { "optionText": "Odorless treatment", "value": "odorless" },
+      { "optionText": "No special requirements", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

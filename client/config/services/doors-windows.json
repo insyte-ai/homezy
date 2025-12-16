@@ -1,0 +1,278 @@
+{
+  "serviceId": "doors-windows",
+  "serviceName": "Doors Windows",
+  "description": "Professional doors windows services",
+  "questions": [
+    {
+      "id": "type_service",
+      "question": "What type of service do you need?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your doors windows needs",
+      "options": [
+        {
+          "value": "door_install",
+          "label": "Door installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "door_repair",
+          "label": "Door repair",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "window_install",
+          "label": "Window installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "window_repair",
+          "label": "Window repair",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "glass_replace",
+          "label": "Glass replacement",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "hardware",
+          "label": "Lock/handle replacement",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "sealing",
+          "label": "Weatherstripping/sealing",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "screen",
+          "label": "Screen repair/replacement",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "type_doorwindow",
+      "question": "What type of door/window is it?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your doors windows needs",
+      "options": [
+        {
+          "value": "interior_door",
+          "label": "Interior door",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "exterior_door",
+          "label": "Exterior/entry door",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "sliding_door",
+          "label": "Sliding door",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "french_door",
+          "label": "French door",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "garage_door",
+          "label": "Garage door",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "standard_window",
+          "label": "Standard window",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [
+            "common"
+          ],
+          "matchType": "direct"
+        },
+        {
+          "value": "sliding_window",
+          "label": "Sliding window",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "skylight",
+          "label": "Skylight",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "many_doorswindows_work",
+      "question": "How many doors/windows need work?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your doors windows needs",
+      "options": [
+        {
+          "value": "1",
+          "label": "1",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "2_3",
+          "label": "2-3",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "4_6",
+          "label": "4-6",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "7_10",
+          "label": "7-10",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "more_10",
+          "label": "More than 10",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "issue_repairs",
+      "question": "What is the issue? (for repairs)",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your doors windows needs",
+      "options": [
+        {
+          "value": "broken_glass",
+          "label": "Broken/cracked glass",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "stuck",
+          "label": "Won't open/close properly",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "frame_damage",
+          "label": "Damaged frame",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "lock_issue",
+          "label": "Lock not working",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "seal_issue",
+          "label": "Drafty/poor seal",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "foggy",
+          "label": "Foggy/condensation between panes",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "new_install",
+          "label": "New installation (no repair needed)",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "doors-windows.json"
+  }
+}

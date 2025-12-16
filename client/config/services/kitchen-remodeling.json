@@ -1,219 +1,326 @@
 {
   "serviceId": "kitchen-remodeling",
   "serviceName": "Kitchen Remodeling",
-  "description": "Complete kitchen renovation and remodeling services",
+  "description": "Professional kitchen remodeling services",
   "questions": [
     {
-      "id": "scope",
-      "question": "What's the scope of your kitchen remodel?",
+      "id": "type_kitchen_project",
+      "question": "What type of kitchen project do you need?",
       "type": "single-choice",
       "required": true,
-      "weight": 1.0,
-      "helpText": "This helps us understand the complexity and match you with the right contractor",
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your kitchen remodeling needs",
       "options": [
         {
           "value": "full_remodel",
           "label": "Full kitchen remodel",
-          "icon": "🏗️",
-          "weight": 1.0,
-          "tags": ["complex", "high_value", "installation"],
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
           "matchType": "direct"
         },
         {
           "value": "cabinets",
-          "label": "Cabinets only",
-          "icon": "🗄️",
+          "label": "Cabinet replacement/refacing",
+          "icon": "•",
           "weight": 0.7,
-          "tags": ["common", "installation"],
-          "matchType": "partial"
+          "tags": [],
+          "matchType": "direct"
         },
         {
           "value": "countertops",
-          "label": "Countertops only",
-          "icon": "⬜",
+          "label": "Countertop replacement",
+          "icon": "•",
           "weight": 0.7,
-          "tags": ["common", "installation"],
-          "matchType": "partial"
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "backsplash",
+          "label": "Backsplash installation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "island",
+          "label": "Kitchen island addition",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         },
         {
           "value": "appliances",
           "label": "Appliance installation",
-          "icon": "🍴",
-          "weight": 0.6,
-          "tags": ["simple", "installation"],
-          "matchType": "partial"
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         },
         {
-          "value": "backsplash",
-          "label": "Backsplash/Tile work",
-          "icon": "🧱",
-          "weight": 0.6,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "multiple",
-          "label": "Multiple elements",
-          "icon": "🔧",
-          "weight": 0.9,
-          "tags": ["complex", "high_value"],
-          "matchType": "partial"
+          "value": "minor_updates",
+          "label": "Minor updates/refresh",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         }
       ]
     },
     {
       "id": "kitchen_size",
-      "question": "What size is your kitchen?",
+      "question": "What is your kitchen size?",
       "type": "single-choice",
-      "required": true,
-      "weight": 0.8,
-      "helpText": "Size affects the timeline and cost of your project",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your kitchen remodeling needs",
       "options": [
         {
           "value": "small",
-          "label": "Small (< 70 sq ft)",
-          "icon": "📏",
-          "weight": 0.6,
-          "tags": ["simple"],
-          "matchType": "flexible"
+          "label": "Small (under 100 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
           "value": "medium",
-          "label": "Medium (70-150 sq ft)",
-          "icon": "📐",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "flexible"
+          "label": "Medium (100-200 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
           "value": "large",
-          "label": "Large (150-250 sq ft)",
-          "icon": "📊",
-          "weight": 0.9,
-          "tags": ["complex"],
-          "matchType": "flexible"
+          "label": "Large (200-300 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "extra_large",
-          "label": "Extra Large (> 250 sq ft)",
-          "icon": "🏛️",
-          "weight": 1.0,
-          "tags": ["complex", "high_value"],
-          "matchType": "flexible"
+          "value": "xlarge",
+          "label": "Extra large (300+ sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "not_sure",
+          "value": "unknown",
           "label": "Not sure",
           "icon": "❓",
-          "weight": 0.3,
+          "weight": 0.5,
           "tags": [],
-          "matchType": "flexible"
+          "matchType": "partial"
         }
       ]
     },
     {
-      "id": "design_plans",
-      "question": "Do you have design plans ready?",
+      "id": "countertop_material_interested",
+      "question": "What countertop material are you interested in?",
       "type": "single-choice",
-      "required": true,
+      "required": false,
       "weight": 0.6,
-      "helpText": "Some contractors offer design services, others prefer to work with existing plans",
+      "helpText": "This helps us match you with the right professional for your kitchen remodeling needs",
       "options": [
         {
-          "value": "complete_plans",
-          "label": "Yes, complete plans ready",
-          "icon": "📋",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "basic_idea",
-          "label": "Basic idea, need help finalizing",
-          "icon": "💡",
-          "weight": 0.7,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "need_designer",
-          "label": "No, need design services",
-          "icon": "🎨",
-          "weight": 0.9,
-          "tags": ["specialized", "high_value"],
-          "matchType": "direct"
-        },
-        {
-          "value": "not_sure",
-          "label": "Not sure yet",
-          "icon": "❓",
-          "weight": 0.4,
+          "value": "granite",
+          "label": "Granite",
+          "icon": "•",
+          "weight": 0.5,
           "tags": [],
-          "matchType": "flexible"
+          "matchType": "partial"
+        },
+        {
+          "value": "quartz",
+          "label": "Quartz",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "marble",
+          "label": "Marble",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "solid_surface",
+          "label": "Solid surface (Corian)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "laminate",
+          "label": "Laminate",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "butcher_block",
+          "label": "Butcher block",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_changing",
+          "label": "Not changing countertops",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_advice",
+          "label": "Need advice",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         }
       ]
     },
     {
-      "id": "specific_needs",
-      "question": "What specific work is needed?",
+      "id": "cabinet_style_interested",
+      "question": "What cabinet style are you interested in?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your kitchen remodeling needs",
+      "options": [
+        {
+          "value": "modern",
+          "label": "Modern/contemporary",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "traditional",
+          "label": "Traditional/classic",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "shaker",
+          "label": "Shaker style",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "minimalist",
+          "label": "Minimalist/handleless",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_changing",
+          "label": "Not changing cabinets",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_advice",
+          "label": "Need design advice",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "plumbing_electrical_work",
+      "question": "Do you need any plumbing or electrical work?",
       "type": "multiple-choice",
       "required": false,
-      "weight": 0.5,
-      "helpText": "Select all that apply - helps contractors understand your needs",
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your kitchen remodeling needs",
       "options": [
         {
-          "value": "plumbing",
-          "label": "Plumbing work",
+          "value": "sink",
+          "label": "New sink installation",
           "icon": "🚰",
-          "weight": 0.8,
-          "tags": ["specialized"],
-          "matchType": "direct"
-        },
-        {
-          "value": "electrical",
-          "label": "Electrical work",
-          "icon": "⚡",
-          "weight": 0.8,
-          "tags": ["specialized"],
-          "matchType": "direct"
-        },
-        {
-          "value": "flooring",
-          "label": "Flooring",
-          "icon": "🪵",
-          "weight": 0.7,
-          "tags": ["common"],
+          "weight": 0.5,
+          "tags": [],
           "matchType": "partial"
         },
         {
-          "value": "painting",
-          "label": "Painting",
-          "icon": "🎨",
-          "weight": 0.6,
-          "tags": ["common", "simple"],
+          "value": "faucet",
+          "label": "Faucet replacement",
+          "icon": "💧",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "dishwasher",
+          "label": "Dishwasher hookup",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "outlets",
+          "label": "Additional outlets",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
           "matchType": "partial"
         },
         {
           "value": "lighting",
-          "label": "Lighting fixtures",
-          "icon": "💡",
-          "weight": 0.6,
-          "tags": ["common"],
+          "label": "Under-cabinet lighting",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
           "matchType": "partial"
         },
         {
-          "value": "custom_cabinets",
-          "label": "Custom cabinetry",
-          "icon": "🗄️",
-          "weight": 0.9,
-          "tags": ["specialized", "high_value"],
-          "matchType": "direct"
+          "value": "gas_line",
+          "label": "Gas line for stove",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No plumbing/electrical needed",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         }
       ]
     }
   ],
   "metadata": {
-    "createdAt": "2025-01-12",
-    "createdBy": "system"
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "kitchen-remodeling.json"
   }
 }

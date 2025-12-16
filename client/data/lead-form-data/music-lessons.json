@@ -1,0 +1,68 @@
+[
+  {
+    "questionText": "What instrument do you want to learn?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Piano/keyboard", "value": "piano" },
+      { "optionText": "Guitar (acoustic)", "value": "guitar_acoustic" },
+      { "optionText": "Guitar (electric)", "value": "guitar_electric" },
+      { "optionText": "Drums/percussion", "value": "drums" },
+      { "optionText": "Singing/vocals", "value": "vocals" },
+      { "optionText": "Violin", "value": "violin" },
+      { "optionText": "Ukulele", "value": "ukulele" },
+      { "optionText": "Other instrument", "value": "other" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the student's skill level?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Complete beginner", "value": "beginner" },
+      { "optionText": "Some experience", "value": "some_experience" },
+      { "optionText": "Intermediate", "value": "intermediate" },
+      { "optionText": "Advanced", "value": "advanced" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "Who is the student?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Child (under 12)", "value": "child" },
+      { "optionText": "Teenager (12-17)", "value": "teenager" },
+      { "optionText": "Adult (18+)", "value": "adult" },
+      { "optionText": "Multiple students", "value": "multiple" }
+    ],
+    "isRequired": true,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What are your goals?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Learn for fun/hobby", "value": "hobby" },
+      { "optionText": "Prepare for exams/grades", "value": "exams" },
+      { "optionText": "Learn specific songs", "value": "songs" },
+      { "optionText": "Music theory", "value": "theory" },
+      { "optionText": "Performance preparation", "value": "performance" },
+      { "optionText": "Career in music", "value": "career" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "How often would you like lessons?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Once a week", "value": "weekly" },
+      { "optionText": "Twice a week", "value": "twice_weekly" },
+      { "optionText": "Every other week", "value": "biweekly" },
+      { "optionText": "Flexible schedule", "value": "flexible" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

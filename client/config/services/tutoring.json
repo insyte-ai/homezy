@@ -1,0 +1,306 @@
+{
+  "serviceId": "tutoring",
+  "serviceName": "Tutoring",
+  "description": "Professional tutoring services",
+  "questions": [
+    {
+      "id": "subject_tutoring",
+      "question": "What subject do you need tutoring for?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your tutoring needs",
+      "options": [
+        {
+          "value": "math",
+          "label": "Mathematics",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "physics",
+          "label": "Physics",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "chemistry",
+          "label": "Chemistry",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "biology",
+          "label": "Biology",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "english",
+          "label": "English",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "arabic",
+          "label": "Arabic",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "french",
+          "label": "French",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "computer_science",
+          "label": "Computer Science",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "other",
+          "label": "Other subject",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "students_grade_level",
+      "question": "What is the student's grade level?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your tutoring needs",
+      "options": [
+        {
+          "value": "elementary",
+          "label": "Elementary school (Grades 1-5)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "middle",
+          "label": "Middle school (Grades 6-8)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "high",
+          "label": "High school (Grades 9-12)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [
+            "high_value"
+          ],
+          "matchType": "direct"
+        },
+        {
+          "value": "university",
+          "label": "University/College",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "adult",
+          "label": "Adult learner",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "purpose_tutoring",
+      "question": "What is the purpose of tutoring?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your tutoring needs",
+      "options": [
+        {
+          "value": "homework",
+          "label": "Regular homework help",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "exam_prep",
+          "label": "Exam preparation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "catch_up",
+          "label": "Catch up on missed content",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "enrichment",
+          "label": "Advanced/enrichment learning",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "test_prep",
+          "label": "Standardized test prep (SAT, IELTS, etc.)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [
+            "common"
+          ],
+          "matchType": "direct"
+        },
+        {
+          "value": "learning_support",
+          "label": "Learning difficulties support",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "curriculum_does_student",
+      "question": "What curriculum does the student follow?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your tutoring needs",
+      "options": [
+        {
+          "value": "british",
+          "label": "British curriculum",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "american",
+          "label": "American curriculum",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "ib",
+          "label": "IB (International Baccalaureate)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "indian",
+          "label": "Indian curriculum (CBSE/ICSE)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "uae",
+          "label": "UAE Ministry curriculum",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "other",
+          "label": "Other/Not sure",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "often_tutoring",
+      "question": "How often do you need tutoring?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your tutoring needs",
+      "options": [
+        {
+          "value": "weekly",
+          "label": "Once a week",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "twice_weekly",
+          "label": "Twice a week",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "frequent",
+          "label": "3+ times a week",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "as_needed",
+          "label": "As needed",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "tutoring.json"
+  }
+}

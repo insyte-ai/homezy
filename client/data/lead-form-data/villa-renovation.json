@@ -1,0 +1,84 @@
+[
+  {
+    "questionText": "What type of villa renovation do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Full villa renovation", "value": "full_renovation" },
+      { "optionText": "Partial renovation (specific areas)", "value": "partial" },
+      { "optionText": "Villa extension/addition", "value": "extension" },
+      { "optionText": "Modernization/upgrade", "value": "modernization" },
+      { "optionText": "Structural modifications", "value": "structural" },
+      { "optionText": "Villa restoration (heritage)", "value": "restoration" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What areas of the villa need work?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Kitchen", "value": "kitchen" },
+      { "optionText": "Bathrooms", "value": "bathrooms" },
+      { "optionText": "Living/dining areas", "value": "living" },
+      { "optionText": "Bedrooms", "value": "bedrooms" },
+      { "optionText": "Outdoor/garden", "value": "outdoor" },
+      { "optionText": "Swimming pool area", "value": "pool" },
+      { "optionText": "Garage/parking", "value": "garage" },
+      { "optionText": "Entire villa", "value": "entire" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the size of your villa?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "2-3 bedrooms", "value": "2_3_bed" },
+      { "optionText": "4-5 bedrooms", "value": "4_5_bed" },
+      { "optionText": "6+ bedrooms", "value": "6_plus_bed" },
+      { "optionText": "Townhouse", "value": "townhouse" }
+    ],
+    "isRequired": true,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What type of work is involved?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Demolition/removal", "value": "demolition" },
+      { "optionText": "Structural changes", "value": "structural" },
+      { "optionText": "Plumbing overhaul", "value": "plumbing" },
+      { "optionText": "Electrical rewiring", "value": "electrical" },
+      { "optionText": "HVAC upgrade", "value": "hvac" },
+      { "optionText": "Flooring", "value": "flooring" },
+      { "optionText": "Painting", "value": "painting" },
+      { "optionText": "New fixtures/fittings", "value": "fixtures" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Do you need design services?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I need full design services", "value": "full_design" },
+      { "optionText": "Yes, just consultation", "value": "consultation" },
+      { "optionText": "No, I have plans ready", "value": "have_plans" },
+      { "optionText": "No, just execution", "value": "execution_only" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "Will the property be occupied during renovation?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "No, it will be vacant", "value": "vacant" },
+      { "optionText": "Yes, we will live there", "value": "occupied" },
+      { "optionText": "Partially occupied", "value": "partial" },
+      { "optionText": "Not sure yet", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  }
+]

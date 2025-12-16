@@ -1,0 +1,119 @@
+[
+  {
+    "questionText": "What type of personal training or education service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Dance lessons", "value": "dance" },
+      { "optionText": "Nutrition/diet consultation", "value": "nutrition" },
+      { "optionText": "Personal fitness training", "value": "fitness" },
+      { "optionText": "Yoga instruction", "value": "yoga" },
+      { "optionText": "Music lessons", "value": "music" },
+      { "optionText": "Language lessons", "value": "language" },
+      { "optionText": "Martial arts training", "value": "martial_arts" },
+      { "optionText": "Academic tutoring", "value": "tutoring" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "Who will be receiving the training/lessons?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Adult (individual)", "value": "adult_individual" },
+      { "optionText": "Adult (couple/group)", "value": "adult_group" },
+      { "optionText": "Child (age 5-12)", "value": "child_5_12" },
+      { "optionText": "Teen (age 13-17)", "value": "teen" },
+      { "optionText": "Mixed family group", "value": "family" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is your current skill/experience level?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Complete beginner", "value": "beginner" },
+      { "optionText": "Some basic knowledge", "value": "basic" },
+      { "optionText": "Intermediate", "value": "intermediate" },
+      { "optionText": "Advanced", "value": "advanced" },
+      { "optionText": "Mixed levels (for group)", "value": "mixed" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "How frequently would you like sessions?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Once per week", "value": "weekly" },
+      { "optionText": "Twice per week", "value": "twice_weekly" },
+      { "optionText": "Three or more times per week", "value": "three_plus" },
+      { "optionText": "Every other week", "value": "biweekly" },
+      { "optionText": "Monthly", "value": "monthly" },
+      { "optionText": "Flexible/as needed", "value": "flexible" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "What is your preferred session format?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "In-person at your home", "value": "home" },
+      { "optionText": "In-person at instructor's location", "value": "instructor_location" },
+      { "optionText": "Virtual/online", "value": "virtual" },
+      { "optionText": "Hybrid (mix of in-person and virtual)", "value": "hybrid" },
+      { "optionText": "Flexible", "value": "flexible" }
+    ],
+    "isRequired": true,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "For fitness/yoga: What are your primary goals?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Weight loss", "value": "weight_loss" },
+      { "optionText": "Muscle building/toning", "value": "muscle" },
+      { "optionText": "Flexibility/mobility", "value": "flexibility" },
+      { "optionText": "Stress reduction", "value": "stress" },
+      { "optionText": "Sports-specific training", "value": "sports" },
+      { "optionText": "General fitness/health", "value": "general" },
+      { "optionText": "Rehabilitation/injury recovery", "value": "rehab" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  },
+  {
+    "questionText": "For music/language/academic: What specific subject are you interested in?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Piano/keyboard", "value": "piano" },
+      { "optionText": "Guitar", "value": "guitar" },
+      { "optionText": "Vocals/singing", "value": "vocals" },
+      { "optionText": "Other musical instrument", "value": "other_music" },
+      { "optionText": "English language", "value": "english" },
+      { "optionText": "Arabic language", "value": "arabic" },
+      { "optionText": "Other language", "value": "other_language" },
+      { "optionText": "Math/science tutoring", "value": "math_science" },
+      { "optionText": "Humanities tutoring", "value": "humanities" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 9
+  },
+  {
+    "questionText": "Do you have any specific requirements for your instructor?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Certified/professionally qualified", "value": "certified" },
+      { "optionText": "Experience with beginners", "value": "beginner_experience" },
+      { "optionText": "Experience with children", "value": "child_experience" },
+      { "optionText": "Advanced/professional level instructor", "value": "advanced" },
+      { "optionText": "Specific teaching style/methodology", "value": "specific_style" },
+      { "optionText": "No specific requirements", "value": "no_requirements" }
+    ],
+    "isRequired": false,
+    "displayOrder": 10
+  }
+]

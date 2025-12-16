@@ -1,0 +1,72 @@
+[
+  {
+    "questionText": "What wellness service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Personal training", "value": "personal_training" },
+      { "optionText": "Yoga instruction", "value": "yoga" },
+      { "optionText": "Pilates instruction", "value": "pilates" },
+      { "optionText": "Massage therapy", "value": "massage" },
+      { "optionText": "Life coaching", "value": "life_coaching" },
+      { "optionText": "Nutrition consultation", "value": "nutrition" },
+      { "optionText": "Counseling/therapy", "value": "counseling" },
+      { "optionText": "Meditation instruction", "value": "meditation" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What are your goals?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Weight loss", "value": "weight_loss" },
+      { "optionText": "Build strength/muscle", "value": "strength" },
+      { "optionText": "Improve flexibility", "value": "flexibility" },
+      { "optionText": "Stress relief/relaxation", "value": "stress_relief" },
+      { "optionText": "Pain management", "value": "pain_management" },
+      { "optionText": "General fitness", "value": "general_fitness" },
+      { "optionText": "Mental health support", "value": "mental_health" },
+      { "optionText": "Healthy eating habits", "value": "nutrition" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is your experience level?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Complete beginner", "value": "beginner" },
+      { "optionText": "Some experience", "value": "some_experience" },
+      { "optionText": "Intermediate", "value": "intermediate" },
+      { "optionText": "Advanced", "value": "advanced" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "How often would you like sessions?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Once a week", "value": "weekly" },
+      { "optionText": "2-3 times a week", "value": "2_3_weekly" },
+      { "optionText": "Daily", "value": "daily" },
+      { "optionText": "One-time session", "value": "one_time" },
+      { "optionText": "Flexible schedule", "value": "flexible" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Where would you like sessions?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "At my home", "value": "home" },
+      { "optionText": "At a gym/studio", "value": "gym" },
+      { "optionText": "Outdoors (park, beach)", "value": "outdoor" },
+      { "optionText": "Online/virtual", "value": "online" },
+      { "optionText": "Flexible", "value": "flexible" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

@@ -1,0 +1,204 @@
+{
+  "serviceId": "masonry",
+  "serviceName": "Masonry",
+  "description": "Professional masonry services",
+  "questions": [
+    {
+      "id": "type_masonry_work",
+      "question": "What type of masonry work do you need?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your masonry needs",
+      "options": [
+        {
+          "value": "brick",
+          "label": "Brick work",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "stone",
+          "label": "Stone work",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "concrete",
+          "label": "Concrete work",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "block",
+          "label": "Block work",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "pavers",
+          "label": "Paver installation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "retaining_wall",
+          "label": "Retaining wall",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "boundary_wall",
+          "label": "Boundary wall",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "repair",
+          "label": "Repair/restoration",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "project_type",
+      "question": "What is the project type?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your masonry needs",
+      "options": [
+        {
+          "value": "new",
+          "label": "New construction",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "repair",
+          "label": "Repair/restoration",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "extension",
+          "label": "Extension/addition",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "decorative",
+          "label": "Decorative/landscaping",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "approximate_project_size",
+      "question": "What is the approximate project size?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your masonry needs",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (under 50 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (50-200 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "large",
+          "label": "Large (200-500 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "very_large",
+          "label": "Very large (500+ sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "project_indoors_outdoors",
+      "question": "Is this project indoors or outdoors?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your masonry needs",
+      "options": [
+        {
+          "value": "outdoor",
+          "label": "Outdoor",
+          "icon": "🏡",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "indoor",
+          "label": "Indoor",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "both",
+          "label": "Both",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "masonry.json"
+  }
+}

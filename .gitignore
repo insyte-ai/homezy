@@ -64,6 +64,9 @@ dump.rdb
 data/
 !server/src/data/
 !shared/src/data/
+!client/data/
+client/data/*
+!client/data/lead-form-data/
 
 # Uploads
 uploads/

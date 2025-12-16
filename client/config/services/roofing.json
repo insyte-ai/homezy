@@ -1,0 +1,262 @@
+{
+  "serviceId": "roofing",
+  "serviceName": "Roofing",
+  "description": "Professional roofing services",
+  "questions": [
+    {
+      "id": "roofing_service",
+      "question": "What roofing service do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your roofing needs",
+      "options": [
+        {
+          "value": "repair",
+          "label": "Roof repair",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "replacement",
+          "label": "Full roof replacement",
+          "icon": "🔄",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "new_install",
+          "label": "New roof installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "inspection",
+          "label": "Roof inspection",
+          "icon": "🔍",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "coating",
+          "label": "Roof coating/sealing",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "gutter",
+          "label": "Gutter installation/repair",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "leak",
+          "label": "Leak repair",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "type_roof",
+      "question": "What type of roof do you have?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your roofing needs",
+      "options": [
+        {
+          "value": "flat",
+          "label": "Flat roof",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "tile",
+          "label": "Tile roof",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "metal",
+          "label": "Metal roof",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "shingle",
+          "label": "Shingle roof",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "concrete",
+          "label": "Concrete roof",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "issues_experiencing",
+      "question": "What issues are you experiencing?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your roofing needs",
+      "options": [
+        {
+          "value": "leaking",
+          "label": "Leaking/water damage",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "damaged",
+          "label": "Missing/damaged tiles or shingles",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "cracks",
+          "label": "Cracks/holes",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "sagging",
+          "label": "Sagging areas",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "gutter",
+          "label": "Gutter problems",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "storm",
+          "label": "Storm damage",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "age",
+          "label": "Age-related wear",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "maintenance",
+          "label": "No issues, preventive maintenance",
+          "icon": "🛠️",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "approximate_roof_size",
+      "question": "What is the approximate roof size?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your roofing needs",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (apartment/small home)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (standard villa)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [
+            "common"
+          ],
+          "matchType": "partial"
+        },
+        {
+          "value": "large",
+          "label": "Large (large villa)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "commercial",
+          "label": "Commercial building",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "roofing.json"
+  }
+}

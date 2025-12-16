@@ -1,0 +1,57 @@
+[
+  {
+    "questionText": "What type of items need removal?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Furniture (sofas, beds, tables)", "value": "furniture" },
+      { "optionText": "Appliances (fridge, washer, etc.)", "value": "appliances" },
+      { "optionText": "Electronics (TVs, computers)", "value": "electronics" },
+      { "optionText": "Mattresses", "value": "mattresses" },
+      { "optionText": "Construction debris", "value": "construction" },
+      { "optionText": "Yard waste", "value": "yard_waste" },
+      { "optionText": "General household junk", "value": "general" },
+      { "optionText": "Office furniture/equipment", "value": "office" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "How much junk needs to be removed?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "A few items (fits in car)", "value": "small" },
+      { "optionText": "Partial truck load", "value": "partial" },
+      { "optionText": "Full truck load", "value": "full" },
+      { "optionText": "Multiple truck loads", "value": "multiple" },
+      { "optionText": "Entire property cleanout", "value": "cleanout" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "Where is the junk located?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Inside home (ground floor)", "value": "ground_floor" },
+      { "optionText": "Inside home (upper floors)", "value": "upper_floors" },
+      { "optionText": "Garage", "value": "garage" },
+      { "optionText": "Basement/storage", "value": "basement" },
+      { "optionText": "Yard/outdoor", "value": "outdoor" },
+      { "optionText": "Multiple locations", "value": "multiple" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you need items donated if possible?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, donate usable items", "value": "donate" },
+      { "optionText": "Yes, recycle what's possible", "value": "recycle" },
+      { "optionText": "No, just dispose of everything", "value": "dispose" },
+      { "optionText": "I don't mind either way", "value": "no_preference" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

@@ -1,0 +1,84 @@
+[
+  {
+    "questionText": "What type of project management service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "New construction project management", "value": "new_construction" },
+      { "optionText": "Renovation project management", "value": "renovation" },
+      { "optionText": "Rescue/recovery of troubled project", "value": "rescue" },
+      { "optionText": "Project planning and scheduling", "value": "planning" },
+      { "optionText": "Budget management", "value": "budget" },
+      { "optionText": "Contractor coordination", "value": "contractor" },
+      { "optionText": "Quality control oversight", "value": "quality_control" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the current status of your project?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Not yet started", "value": "not_started" },
+      { "optionText": "In planning phase", "value": "planning" },
+      { "optionText": "Recently started", "value": "just_started" },
+      { "optionText": "In progress but facing issues", "value": "issues" },
+      { "optionText": "Stalled/delayed", "value": "stalled" },
+      { "optionText": "Nearly complete", "value": "nearly_complete" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the approximate size/scope of your project?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (under $50,000)", "value": "small" },
+      { "optionText": "Medium ($50,000-$250,000)", "value": "medium" },
+      { "optionText": "Large ($250,000-$1,000,000)", "value": "large" },
+      { "optionText": "Very large (over $1,000,000)", "value": "very_large" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What is your expected timeline for project completion?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Less than 3 months", "value": "under_3_months" },
+      { "optionText": "3-6 months", "value": "3_6_months" },
+      { "optionText": "6-12 months", "value": "6_12_months" },
+      { "optionText": "Over 12 months", "value": "over_12_months" },
+      { "optionText": "Not sure, need guidance", "value": "need_guidance" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "What challenges are you currently facing with your project?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Budget overruns", "value": "budget" },
+      { "optionText": "Schedule delays", "value": "schedule" },
+      { "optionText": "Contractor issues", "value": "contractor" },
+      { "optionText": "Quality concerns", "value": "quality" },
+      { "optionText": "Permit/regulatory problems", "value": "permits" },
+      { "optionText": "Scope creep", "value": "scope" },
+      { "optionText": "Communication breakdowns", "value": "communication" },
+      { "optionText": "No current challenges", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "What level of involvement do you want from the project manager?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Full management (daily oversight)", "value": "full" },
+      { "optionText": "Moderate involvement (weekly oversight)", "value": "moderate" },
+      { "optionText": "Advisory role (guidance as needed)", "value": "advisory" },
+      { "optionText": "Crisis management only", "value": "crisis" }
+    ],
+    "isRequired": true,
+    "displayOrder": 8
+  }
+]

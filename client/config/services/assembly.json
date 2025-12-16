@@ -1,0 +1,236 @@
+{
+  "serviceId": "assembly",
+  "serviceName": "Assembly",
+  "description": "Professional assembly services",
+  "questions": [
+    {
+      "id": "assemblyinstallation_service",
+      "question": "What assembly/installation service do you need?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your assembly needs",
+      "options": [
+        {
+          "value": "tv_mounting",
+          "label": "TV/monitor mounting",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "furniture",
+          "label": "Furniture assembly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "ikea",
+          "label": "IKEA furniture assembly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "gym_equipment",
+          "label": "Gym equipment assembly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "office",
+          "label": "Office furniture setup",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "outdoor",
+          "label": "Outdoor furniture assembly",
+          "icon": "🏡",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "kids",
+          "label": "Kids furniture/toys",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "shelving",
+          "label": "Shelving/storage units",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "many_items_assembly",
+      "question": "How many items need assembly?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your assembly needs",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 item",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "2_3",
+          "label": "2-3 items",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "4_6",
+          "label": "4-6 items",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "7_10",
+          "label": "7-10 items",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "more_10",
+          "label": "More than 10 items",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "mounting_type_wall",
+      "question": "For TV mounting: What type of wall?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your assembly needs",
+      "options": [
+        {
+          "value": "concrete",
+          "label": "Concrete/brick wall",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "drywall",
+          "label": "Drywall/gypsum",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "fireplace",
+          "label": "Above fireplace",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "ceiling",
+          "label": "Ceiling mount",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_applicable",
+          "label": "Not applicable",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "mounting_brackethardware",
+      "question": "Do you have the mounting bracket/hardware?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your assembly needs",
+      "options": [
+        {
+          "value": "have_all",
+          "label": "Yes, I have everything",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_hardware",
+          "label": "I have the item, need bracket/hardware",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "bring_all",
+          "label": "Professional should bring everything",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "just_assembly",
+          "label": "Items are already purchased, just need assembly",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "assembly.json"
+  }
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "questionText": "What type of plumbing work do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Leak repair", "value": "leak_repair" },
+      { "optionText": "Drain cleaning", "value": "drain_cleaning" },
+      { "optionText": "Fixture installation", "value": "fixture_install" },
+      { "optionText": "Pipe replacement", "value": "pipe_replacement" },
+      { "optionText": "Water heater service", "value": "water_heater" },
+      { "optionText": "Sewer line service", "value": "sewer_line" },
+      { "optionText": "Bathroom plumbing", "value": "bathroom" },
+      { "optionText": "Kitchen plumbing", "value": "kitchen" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What plumbing problem are you experiencing?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Clogged drain", "value": "clogged_drain" },
+      { "optionText": "Leaking pipe", "value": "leaking_pipe" },
+      { "optionText": "Low water pressure", "value": "low_pressure" },
+      { "optionText": "No hot water", "value": "no_hot_water" },
+      { "optionText": "Running toilet", "value": "running_toilet" },
+      { "optionText": "Dripping faucet", "value": "dripping_faucet" },
+      { "optionText": "Sewer smell", "value": "sewer_smell" },
+      { "optionText": "Not applicable", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "How old is your plumbing system?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Less than 5 years", "value": "under_5" },
+      { "optionText": "5-15 years", "value": "5_15" },
+      { "optionText": "15-30 years", "value": "15_30" },
+      { "optionText": "Over 30 years", "value": "over_30" },
+      { "optionText": "I'm not sure", "value": "unknown" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Is this an emergency situation?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I need immediate assistance", "value": "emergency" },
+      { "optionText": "No, but I need service soon", "value": "urgent" },
+      { "optionText": "No, this is routine maintenance", "value": "routine" }
+    ],
+    "isRequired": true,
+    "displayOrder": 6
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "questionText": "Which appliance needs repair?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Washing machine", "value": "washing_machine" },
+      { "optionText": "Dryer", "value": "dryer" },
+      { "optionText": "Refrigerator/Freezer", "value": "refrigerator" },
+      { "optionText": "Dishwasher", "value": "dishwasher" },
+      { "optionText": "Oven/Stove/Cooktop", "value": "oven" },
+      { "optionText": "Microwave", "value": "microwave" },
+      { "optionText": "Garbage disposal", "value": "disposal" },
+      { "optionText": "Ice maker", "value": "ice_maker" },
+      { "optionText": "Other appliance", "value": "other" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What issue are you experiencing?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Not turning on", "value": "not_turning_on" },
+      { "optionText": "Making strange noises", "value": "noises" },
+      { "optionText": "Leaking water", "value": "leaking" },
+      { "optionText": "Not heating/cooling properly", "value": "temp_issue" },
+      { "optionText": "Error codes/lights flashing", "value": "error_codes" },
+      { "optionText": "Door/lid not closing properly", "value": "door_issue" },
+      { "optionText": "Not draining", "value": "not_draining" },
+      { "optionText": "Vibrating excessively", "value": "vibration" },
+      { "optionText": "Other issue", "value": "other" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the brand of the appliance?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Samsung", "value": "samsung" },
+      { "optionText": "LG", "value": "lg" },
+      { "optionText": "Bosch", "value": "bosch" },
+      { "optionText": "Siemens", "value": "siemens" },
+      { "optionText": "Whirlpool", "value": "whirlpool" },
+      { "optionText": "Electrolux", "value": "electrolux" },
+      { "optionText": "Miele", "value": "miele" },
+      { "optionText": "Other brand", "value": "other" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "How old is the appliance?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Less than 1 year (under warranty)", "value": "under_1" },
+      { "optionText": "1-3 years", "value": "1_3" },
+      { "optionText": "3-5 years", "value": "3_5" },
+      { "optionText": "5-10 years", "value": "5_10" },
+      { "optionText": "More than 10 years", "value": "over_10" },
+      { "optionText": "Not sure", "value": "unknown" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

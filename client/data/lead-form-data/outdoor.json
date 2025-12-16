@@ -1,0 +1,63 @@
+[
+  {
+    "questionText": "What outdoor service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Pergola installation", "value": "pergola" },
+      { "optionText": "Gazebo installation", "value": "gazebo" },
+      { "optionText": "Deck building", "value": "deck" },
+      { "optionText": "Patio construction", "value": "patio" },
+      { "optionText": "Awning/shade sail", "value": "awning" },
+      { "optionText": "Outdoor lighting", "value": "lighting" },
+      { "optionText": "Outdoor kitchen/BBQ area", "value": "outdoor_kitchen" },
+      { "optionText": "Fire pit/fireplace", "value": "fire_pit" },
+      { "optionText": "Exterior painting", "value": "painting" },
+      { "optionText": "Fence/railing", "value": "fence" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the approximate project size?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (under 100 sq ft)", "value": "small" },
+      { "optionText": "Medium (100-300 sq ft)", "value": "medium" },
+      { "optionText": "Large (300-500 sq ft)", "value": "large" },
+      { "optionText": "Very large (500+ sq ft)", "value": "very_large" },
+      { "optionText": "Not sure", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What material do you prefer?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Wood", "value": "wood" },
+      { "optionText": "Composite/WPC", "value": "composite" },
+      { "optionText": "Aluminum", "value": "aluminum" },
+      { "optionText": "Steel", "value": "steel" },
+      { "optionText": "Stone/concrete", "value": "stone" },
+      { "optionText": "Fabric (for shades)", "value": "fabric" },
+      { "optionText": "Need advice", "value": "need_advice" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "For outdoor lighting: What type do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Pathway/walkway lights", "value": "pathway" },
+      { "optionText": "Security/flood lights", "value": "security" },
+      { "optionText": "Decorative/ambient lighting", "value": "decorative" },
+      { "optionText": "Pool/water feature lighting", "value": "pool" },
+      { "optionText": "Garden/landscape lights", "value": "garden" },
+      { "optionText": "String lights/festoon", "value": "string" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

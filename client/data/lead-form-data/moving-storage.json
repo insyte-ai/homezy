@@ -1,0 +1,62 @@
+[
+  {
+    "questionText": "What moving service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Local move (same city)", "value": "local" },
+      { "optionText": "Long distance (different emirate)", "value": "long_distance" },
+      { "optionText": "International move", "value": "international" },
+      { "optionText": "Office/commercial move", "value": "office" },
+      { "optionText": "Packing services only", "value": "packing_only" },
+      { "optionText": "Storage only", "value": "storage_only" },
+      { "optionText": "Moving + storage", "value": "moving_storage" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the size of your move?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Studio/1 bedroom", "value": "studio_1br" },
+      { "optionText": "2 bedroom apartment", "value": "2br" },
+      { "optionText": "3 bedroom apartment", "value": "3br" },
+      { "optionText": "4+ bedroom apartment", "value": "4br_plus" },
+      { "optionText": "Villa/house", "value": "villa" },
+      { "optionText": "Office/commercial", "value": "office" },
+      { "optionText": "Just a few items", "value": "few_items" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What services do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Packing", "value": "packing" },
+      { "optionText": "Unpacking", "value": "unpacking" },
+      { "optionText": "Furniture disassembly", "value": "disassembly" },
+      { "optionText": "Furniture reassembly", "value": "reassembly" },
+      { "optionText": "Packing materials", "value": "materials" },
+      { "optionText": "Loading/unloading only", "value": "loading_only" },
+      { "optionText": "Storage", "value": "storage" }
+    ],
+    "isRequired": true,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you have any special items?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Piano", "value": "piano" },
+      { "optionText": "Pool table", "value": "pool_table" },
+      { "optionText": "Artwork/antiques", "value": "artwork" },
+      { "optionText": "Safe/heavy items", "value": "heavy" },
+      { "optionText": "Fragile items", "value": "fragile" },
+      { "optionText": "Plants", "value": "plants" },
+      { "optionText": "No special items", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

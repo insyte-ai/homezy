@@ -1,0 +1,228 @@
+{
+  "serviceId": "waterproofing",
+  "serviceName": "Waterproofing",
+  "description": "Professional waterproofing services",
+  "questions": [
+    {
+      "id": "area_needs_waterproofing",
+      "question": "What area needs waterproofing?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your waterproofing needs",
+      "options": [
+        {
+          "value": "roof",
+          "label": "Roof/terrace",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "bathroom",
+          "label": "Bathroom",
+          "icon": "🚿",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "kitchen",
+          "label": "Kitchen",
+          "icon": "🍳",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "basement",
+          "label": "Basement",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "balcony",
+          "label": "Balcony",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "pool",
+          "label": "Swimming pool",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "foundation",
+          "label": "Foundation/exterior walls",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "tank",
+          "label": "Water tank",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "reason_waterproofing",
+      "question": "What is the reason for waterproofing?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your waterproofing needs",
+      "options": [
+        {
+          "value": "leak",
+          "label": "Existing leak/water damage",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "preventive_new",
+          "label": "Preventive measure (new construction)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "preventive_existing",
+          "label": "Preventive measure (existing building)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "failed",
+          "label": "Failed previous waterproofing",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "renovation",
+          "label": "Renovation/remodeling",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "approximate_area_size",
+      "question": "What is the approximate area size?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your waterproofing needs",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (under 100 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (100-500 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "large",
+          "label": "Large (500-1000 sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "very_large",
+          "label": "Very large (1000+ sq ft)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "existing_waterproofing",
+      "question": "Do you have any existing waterproofing?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your waterproofing needs",
+      "options": [
+        {
+          "value": "yes_failing",
+          "label": "Yes, but it's failing",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "yes_add_layer",
+          "label": "Yes, need to add another layer",
+          "icon": "✅",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "no",
+          "label": "No existing waterproofing",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "waterproofing.json"
+  }
+}

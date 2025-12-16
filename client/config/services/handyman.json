@@ -1,0 +1,238 @@
+{
+  "serviceId": "handyman",
+  "serviceName": "Handyman",
+  "description": "Professional handyman services",
+  "questions": [
+    {
+      "id": "type_handyman_service",
+      "question": "What type of handyman service do you need?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your handyman needs",
+      "options": [
+        {
+          "value": "furniture_assembly",
+          "label": "Furniture assembly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "tv_mounting",
+          "label": "TV/monitor mounting",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "shelf_install",
+          "label": "Shelf/cabinet installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "hanging",
+          "label": "Picture/mirror hanging",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "curtain_blind",
+          "label": "Curtain rod/blind installation",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "door_repairs",
+          "label": "Door repairs/adjustments",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "minor_plumbing",
+          "label": "Minor plumbing fixes",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "minor_electrical",
+          "label": "Minor electrical fixes",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "caulking",
+          "label": "Caulking/grouting",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "general_repairs",
+          "label": "General repairs",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "many_items_tasks",
+      "question": "How many items or tasks do you need help with?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your handyman needs",
+      "options": [
+        {
+          "value": "1_2",
+          "label": "1-2 items",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "3_5",
+          "label": "3-5 items",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "6_10",
+          "label": "6-10 items",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "more_10",
+          "label": "More than 10 items",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "materialshardware_needed",
+      "question": "Do you have the materials/hardware needed?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your handyman needs",
+      "options": [
+        {
+          "value": "have_all",
+          "label": "Yes, I have everything",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "have_some",
+          "label": "I have some items",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_materials",
+          "label": "No, I need the handyman to bring materials",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "not_sure",
+          "label": "I'm not sure what's needed",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "there_access_considerations",
+      "question": "Are there any access considerations?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your handyman needs",
+      "options": [
+        {
+          "value": "ladder",
+          "label": "Work requires a ladder",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "tight_space",
+          "label": "Work is in a tight space",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "heavy_items",
+          "label": "Heavy items need moving",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "outdoor",
+          "label": "Work is outdoors",
+          "icon": "🏡",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No special considerations",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [
+            "specialized"
+          ],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "handyman.json"
+  }
+}

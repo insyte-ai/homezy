@@ -1,0 +1,75 @@
+[
+  {
+    "questionText": "What auto service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Mobile mechanic/repairs", "value": "mechanic" },
+      { "optionText": "Car detailing/cleaning", "value": "detailing" },
+      { "optionText": "Oil change", "value": "oil_change" },
+      { "optionText": "Tire service (change/repair)", "value": "tire" },
+      { "optionText": "Windshield/glass repair", "value": "glass" },
+      { "optionText": "Roadside assistance", "value": "roadside" },
+      { "optionText": "Battery service", "value": "battery" },
+      { "optionText": "AC service", "value": "ac" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of vehicle?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Sedan", "value": "sedan" },
+      { "optionText": "SUV/Crossover", "value": "suv" },
+      { "optionText": "Truck/Pickup", "value": "truck" },
+      { "optionText": "Luxury vehicle", "value": "luxury" },
+      { "optionText": "Sports car", "value": "sports" },
+      { "optionText": "Van/Minivan", "value": "van" },
+      { "optionText": "Motorcycle", "value": "motorcycle" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "For mechanic services: What issue are you experiencing?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Engine problems", "value": "engine" },
+      { "optionText": "Brake issues", "value": "brakes" },
+      { "optionText": "Electrical problems", "value": "electrical" },
+      { "optionText": "Suspension issues", "value": "suspension" },
+      { "optionText": "AC not working", "value": "ac" },
+      { "optionText": "Check engine light on", "value": "check_engine" },
+      { "optionText": "Just need routine service", "value": "routine" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "For detailing: What service level do you want?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Basic wash & clean", "value": "basic" },
+      { "optionText": "Interior detailing", "value": "interior" },
+      { "optionText": "Exterior detailing", "value": "exterior" },
+      { "optionText": "Full detailing (interior + exterior)", "value": "full" },
+      { "optionText": "Ceramic coating", "value": "ceramic" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "Where should the service be performed?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "At my home", "value": "home" },
+      { "optionText": "At my office/workplace", "value": "office" },
+      { "optionText": "Roadside (vehicle is stuck)", "value": "roadside" },
+      { "optionText": "I can bring it to the shop", "value": "shop" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

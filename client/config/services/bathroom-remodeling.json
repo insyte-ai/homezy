@@ -1,219 +1,310 @@
 {
   "serviceId": "bathroom-remodeling",
   "serviceName": "Bathroom Remodeling",
-  "description": "Complete bathroom renovation and remodeling services",
+  "description": "Professional bathroom remodeling services",
   "questions": [
     {
-      "id": "scope",
-      "question": "What's the scope of your bathroom remodel?",
+      "id": "type_bathroom_project",
+      "question": "What type of bathroom project do you need?",
       "type": "single-choice",
       "required": true,
-      "weight": 1.0,
-      "helpText": "This helps us match you with contractors experienced in your type of project",
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your bathroom remodeling needs",
       "options": [
         {
           "value": "full_remodel",
           "label": "Full bathroom remodel",
-          "icon": "🏗️",
-          "weight": 1.0,
-          "tags": ["complex", "high_value", "installation"],
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
           "matchType": "direct"
         },
         {
           "value": "shower_tub",
-          "label": "Shower/Tub replacement",
+          "label": "Shower/tub replacement",
           "icon": "🚿",
-          "weight": 0.8,
-          "tags": ["common", "installation"],
-          "matchType": "partial"
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         },
         {
-          "value": "vanity_sink",
-          "label": "Vanity/Sink replacement",
-          "icon": "🚰",
+          "value": "vanity",
+          "label": "Vanity/sink replacement",
+          "icon": "•",
           "weight": 0.7,
-          "tags": ["common", "installation"],
-          "matchType": "partial"
+          "tags": [],
+          "matchType": "direct"
         },
         {
           "value": "toilet",
           "label": "Toilet replacement",
           "icon": "🚽",
-          "weight": 0.6,
-          "tags": ["simple", "installation"],
-          "matchType": "partial"
-        },
-        {
-          "value": "tile_flooring",
-          "label": "Tile/Flooring only",
-          "icon": "🧱",
           "weight": 0.7,
-          "tags": ["common"],
-          "matchType": "partial"
+          "tags": [],
+          "matchType": "direct"
         },
         {
-          "value": "multiple",
-          "label": "Multiple elements",
-          "icon": "🔧",
-          "weight": 0.9,
-          "tags": ["complex", "high_value"],
-          "matchType": "partial"
+          "value": "tile",
+          "label": "Tile work only",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "fixtures",
+          "label": "Fixtures update",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "tub_to_shower",
+          "label": "Convert tub to walk-in shower",
+          "icon": "🚿",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         }
       ]
     },
     {
-      "id": "bathroom_type",
-      "question": "What type of bathroom?",
+      "id": "type_bathroom",
+      "question": "What type of bathroom is this?",
       "type": "single-choice",
       "required": true,
-      "weight": 0.7,
-      "helpText": "Different bathrooms require different expertise and time",
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your bathroom remodeling needs",
       "options": [
         {
           "value": "master",
           "label": "Master bathroom",
-          "icon": "👑",
-          "weight": 0.9,
-          "tags": ["complex", "high_value"],
-          "matchType": "partial"
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         },
         {
           "value": "guest",
-          "label": "Guest bathroom",
-          "icon": "🏠",
+          "label": "Guest/hall bathroom",
+          "icon": "•",
           "weight": 0.7,
-          "tags": ["common"],
-          "matchType": "partial"
+          "tags": [],
+          "matchType": "direct"
         },
         {
-          "value": "powder_room",
-          "label": "Powder room",
-          "icon": "💄",
-          "weight": 0.6,
-          "tags": ["simple"],
-          "matchType": "partial"
+          "value": "half_bath",
+          "label": "Half bath/powder room",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "ensuite",
+          "label": "En-suite bathroom",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         },
         {
           "value": "multiple",
           "label": "Multiple bathrooms",
-          "icon": "🏘️",
-          "weight": 1.0,
-          "tags": ["complex", "high_value"],
-          "matchType": "flexible"
+          "icon": "📍",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
         }
       ]
     },
     {
-      "id": "design_plans",
-      "question": "Do you have design plans ready?",
+      "id": "showertub_configuration_want",
+      "question": "What shower/tub configuration do you want?",
       "type": "single-choice",
-      "required": true,
+      "required": false,
       "weight": 0.6,
-      "helpText": "Some contractors offer design services, others prefer to work with existing plans",
+      "helpText": "This helps us match you with the right professional for your bathroom remodeling needs",
       "options": [
         {
-          "value": "complete_plans",
-          "label": "Yes, complete plans ready",
-          "icon": "📋",
-          "weight": 0.8,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "basic_idea",
-          "label": "Basic idea, need help finalizing",
-          "icon": "💡",
-          "weight": 0.7,
-          "tags": ["common"],
-          "matchType": "partial"
-        },
-        {
-          "value": "need_designer",
-          "label": "No, need design services",
-          "icon": "🎨",
-          "weight": 0.9,
-          "tags": ["specialized", "high_value"],
-          "matchType": "direct"
-        },
-        {
-          "value": "not_sure",
-          "label": "Not sure yet",
-          "icon": "❓",
-          "weight": 0.4,
+          "value": "walkin_glass",
+          "label": "Walk-in shower with glass door",
+          "icon": "•",
+          "weight": 0.5,
           "tags": [],
-          "matchType": "flexible"
+          "matchType": "partial"
+        },
+        {
+          "value": "walkin_curtain",
+          "label": "Walk-in shower with curtain",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "tub_shower",
+          "label": "Bathtub with shower",
+          "icon": "🚿",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "freestanding",
+          "label": "Freestanding bathtub",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "jacuzzi",
+          "label": "Jacuzzi/soaking tub",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "keep_existing",
+          "label": "Keep existing",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_advice",
+          "label": "Need design advice",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         }
       ]
     },
     {
-      "id": "specific_needs",
-      "question": "What specific work is needed?",
+      "id": "tile_work",
+      "question": "What tile work do you need?",
       "type": "multiple-choice",
       "required": false,
-      "weight": 0.5,
-      "helpText": "Select all that apply - helps contractors understand your needs",
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your bathroom remodeling needs",
       "options": [
         {
-          "value": "plumbing",
-          "label": "Plumbing work",
-          "icon": "🚰",
-          "weight": 0.9,
-          "tags": ["specialized"],
-          "matchType": "direct"
-        },
-        {
-          "value": "electrical",
-          "label": "Electrical work",
-          "icon": "⚡",
-          "weight": 0.8,
-          "tags": ["specialized"],
-          "matchType": "direct"
-        },
-        {
-          "value": "tile_work",
-          "label": "Tile work",
-          "icon": "🧱",
-          "weight": 0.8,
-          "tags": ["common", "specialized"],
+          "value": "floor",
+          "label": "Floor tiles",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
           "matchType": "partial"
         },
         {
-          "value": "waterproofing",
-          "label": "Waterproofing",
-          "icon": "💧",
-          "weight": 0.8,
-          "tags": ["specialized"],
-          "matchType": "direct"
+          "value": "shower_wall",
+          "label": "Shower wall tiles",
+          "icon": "🚿",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         },
         {
-          "value": "painting",
-          "label": "Painting",
-          "icon": "🎨",
-          "weight": 0.6,
-          "tags": ["common", "simple"],
+          "value": "full_wall",
+          "label": "Full wall tiles",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "accent",
+          "label": "Accent/feature wall",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No tile work needed",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "additional_features",
+      "question": "Do you need any additional features?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your bathroom remodeling needs",
+      "options": [
+        {
+          "value": "heated_floor",
+          "label": "Heated flooring",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "bidet",
+          "label": "Bidet/smart toilet",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "rain_shower",
+          "label": "Rain showerhead",
+          "icon": "🚿",
+          "weight": 0.5,
+          "tags": [],
           "matchType": "partial"
         },
         {
           "value": "ventilation",
-          "label": "Ventilation/Exhaust fan",
-          "icon": "🌀",
-          "weight": 0.7,
-          "tags": ["common"],
+          "label": "New ventilation/exhaust fan",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
           "matchType": "partial"
         },
         {
-          "value": "custom_work",
-          "label": "Custom cabinetry/vanity",
-          "icon": "🗄️",
-          "weight": 0.9,
-          "tags": ["specialized", "high_value"],
-          "matchType": "direct"
+          "value": "lighting",
+          "label": "New lighting",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "storage",
+          "label": "Storage solutions",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No additional features",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
         }
       ]
     }
   ],
   "metadata": {
-    "createdAt": "2025-01-12",
-    "createdBy": "system"
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "bathroom-remodeling.json"
   }
 }

@@ -1,0 +1,57 @@
+[
+  {
+    "questionText": "What assembly/installation service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "TV/monitor mounting", "value": "tv_mounting" },
+      { "optionText": "Furniture assembly", "value": "furniture" },
+      { "optionText": "IKEA furniture assembly", "value": "ikea" },
+      { "optionText": "Gym equipment assembly", "value": "gym_equipment" },
+      { "optionText": "Office furniture setup", "value": "office" },
+      { "optionText": "Outdoor furniture assembly", "value": "outdoor" },
+      { "optionText": "Kids furniture/toys", "value": "kids" },
+      { "optionText": "Shelving/storage units", "value": "shelving" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "How many items need assembly?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "1 item", "value": "1" },
+      { "optionText": "2-3 items", "value": "2_3" },
+      { "optionText": "4-6 items", "value": "4_6" },
+      { "optionText": "7-10 items", "value": "7_10" },
+      { "optionText": "More than 10 items", "value": "more_10" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "For TV mounting: What type of wall?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Concrete/brick wall", "value": "concrete" },
+      { "optionText": "Drywall/gypsum", "value": "drywall" },
+      { "optionText": "Above fireplace", "value": "fireplace" },
+      { "optionText": "Ceiling mount", "value": "ceiling" },
+      { "optionText": "Not applicable", "value": "not_applicable" },
+      { "optionText": "Not sure", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you have the mounting bracket/hardware?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I have everything", "value": "have_all" },
+      { "optionText": "I have the item, need bracket/hardware", "value": "need_hardware" },
+      { "optionText": "Professional should bring everything", "value": "bring_all" },
+      { "optionText": "Items are already purchased, just need assembly", "value": "just_assembly" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]

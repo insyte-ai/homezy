@@ -1,0 +1,280 @@
+{
+  "serviceId": "pest-control",
+  "serviceName": "Pest Control",
+  "description": "Professional pest control services",
+  "questions": [
+    {
+      "id": "pest_problem",
+      "question": "What pest problem do you have?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your pest control needs",
+      "options": [
+        {
+          "value": "cockroaches",
+          "label": "Cockroaches",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "ants",
+          "label": "Ants",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "bed_bugs",
+          "label": "Bed bugs",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "termites",
+          "label": "Termites",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "rodents",
+          "label": "Rodents (rats/mice)",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "mosquitoes",
+          "label": "Mosquitoes",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "flies",
+          "label": "Flies",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "spiders",
+          "label": "Spiders",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "preventive",
+          "label": "Preventive treatment (no current problem)",
+          "icon": "⚠️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "type_property",
+      "question": "What type of property is it?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your pest control needs",
+      "options": [
+        {
+          "value": "apartment",
+          "label": "Apartment",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "villa",
+          "label": "Villa/house",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "office",
+          "label": "Office",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "restaurant",
+          "label": "Restaurant/food establishment",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "warehouse",
+          "label": "Warehouse/storage",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "severe_infestation",
+      "question": "How severe is the infestation?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your pest control needs",
+      "options": [
+        {
+          "value": "mild",
+          "label": "Mild (occasional sightings)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "moderate",
+          "label": "Moderate (regular sightings)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "severe",
+          "label": "Severe (heavy infestation)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "preventive",
+          "label": "No current problem (preventive)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "ongoing_pest_control",
+      "question": "Do you need ongoing pest control?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your pest control needs",
+      "options": [
+        {
+          "value": "one_time",
+          "label": "One-time treatment",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "monthly",
+          "label": "Monthly service",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "quarterly",
+          "label": "Quarterly service",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "annual",
+          "label": "Annual contract",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "special_requirements",
+      "question": "Any special requirements?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your pest control needs",
+      "options": [
+        {
+          "value": "pet_safe",
+          "label": "Pet-safe products",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "child_safe",
+          "label": "Child-safe products",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "eco_friendly",
+          "label": "Eco-friendly/organic",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "odorless",
+          "label": "Odorless treatment",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No special requirements",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [
+            "specialized"
+          ],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "pest-control.json"
+  }
+}

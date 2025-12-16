@@ -1,0 +1,77 @@
+[
+  {
+    "questionText": "What interior design service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Full home interior design", "value": "full_home" },
+      { "optionText": "Single room design", "value": "single_room" },
+      { "optionText": "Design consultation only", "value": "consultation" },
+      { "optionText": "Space planning/layout", "value": "space_planning" },
+      { "optionText": "Color consultation", "value": "color" },
+      { "optionText": "Furniture selection/sourcing", "value": "furniture" },
+      { "optionText": "Renovation design", "value": "renovation" },
+      { "optionText": "Home staging", "value": "staging" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "Which rooms need design work?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Living room", "value": "living" },
+      { "optionText": "Bedrooms", "value": "bedrooms" },
+      { "optionText": "Kitchen", "value": "kitchen" },
+      { "optionText": "Bathrooms", "value": "bathrooms" },
+      { "optionText": "Dining room", "value": "dining" },
+      { "optionText": "Home office", "value": "office" },
+      { "optionText": "Outdoor spaces", "value": "outdoor" },
+      { "optionText": "Entire home", "value": "entire_home" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What design style do you prefer?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Modern/Contemporary", "value": "modern" },
+      { "optionText": "Minimalist", "value": "minimalist" },
+      { "optionText": "Traditional/Classic", "value": "traditional" },
+      { "optionText": "Mid-century modern", "value": "midcentury" },
+      { "optionText": "Scandinavian", "value": "scandinavian" },
+      { "optionText": "Industrial", "value": "industrial" },
+      { "optionText": "Bohemian", "value": "bohemian" },
+      { "optionText": "Luxury/Glam", "value": "luxury" },
+      { "optionText": "Need help deciding", "value": "undecided" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What level of service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Design concept/mood board only", "value": "concept_only" },
+      { "optionText": "Design with shopping list", "value": "design_shopping" },
+      { "optionText": "Full service (design + procurement)", "value": "full_service" },
+      { "optionText": "Turnkey (design + implementation)", "value": "turnkey" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "What is your approximate budget?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Under AED 10,000", "value": "under_10k" },
+      { "optionText": "AED 10,000 - 30,000", "value": "10k_30k" },
+      { "optionText": "AED 30,000 - 75,000", "value": "30k_75k" },
+      { "optionText": "AED 75,000 - 150,000", "value": "75k_150k" },
+      { "optionText": "Above AED 150,000", "value": "above_150k" },
+      { "optionText": "Not sure yet", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

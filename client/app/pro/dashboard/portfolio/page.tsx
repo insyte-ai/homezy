@@ -48,7 +48,11 @@ export default function ProPortfolioPage() {
   const loadCategories = async () => {
     try {
       const subservices = await getAllSubservices();
-      setServiceCategories(subservices);
+      // Sort categories alphabetically by name
+      const sortedCategories = [...subservices].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setServiceCategories(sortedCategories);
     } catch (error) {
       console.error('Failed to load categories:', error);
     } finally {

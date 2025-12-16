@@ -1,0 +1,78 @@
+[
+  {
+    "questionText": "What type of swimming pool service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "New pool construction", "value": "new_construction" },
+      { "optionText": "Pool installation", "value": "installation" },
+      { "optionText": "Pool repair", "value": "repair" },
+      { "optionText": "Equipment installation", "value": "equipment_install" },
+      { "optionText": "Pool restoration", "value": "restoration" },
+      { "optionText": "Pool maintenance", "value": "maintenance" },
+      { "optionText": "Pool cleaning", "value": "cleaning" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of pool do you have or want?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "In-ground concrete/gunite pool", "value": "inground_concrete" },
+      { "optionText": "In-ground fiberglass pool", "value": "inground_fiberglass" },
+      { "optionText": "In-ground vinyl liner pool", "value": "inground_vinyl" },
+      { "optionText": "Above-ground pool", "value": "above_ground" },
+      { "optionText": "Infinity pool", "value": "infinity" },
+      { "optionText": "Lap pool", "value": "lap" },
+      { "optionText": "Plunge pool", "value": "plunge" },
+      { "optionText": "Not sure yet", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the approximate size of your pool or desired pool?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (under 200 sq ft)", "value": "small" },
+      { "optionText": "Medium (200-400 sq ft)", "value": "medium" },
+      { "optionText": "Large (400-600 sq ft)", "value": "large" },
+      { "optionText": "Very large (over 600 sq ft)", "value": "very_large" },
+      { "optionText": "Not sure yet", "value": "not_sure" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "What features are you interested in for your pool?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Heating system", "value": "heating" },
+      { "optionText": "Salt water system", "value": "salt_water" },
+      { "optionText": "Automatic cover", "value": "auto_cover" },
+      { "optionText": "Lighting", "value": "lighting" },
+      { "optionText": "Water features (fountain, waterfall)", "value": "water_features" },
+      { "optionText": "Spa/hot tub integration", "value": "spa" },
+      { "optionText": "Automation system", "value": "automation" },
+      { "optionText": "None/Not applicable", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "If you need repairs, what issues are you experiencing?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Leaks", "value": "leaks" },
+      { "optionText": "Pump problems", "value": "pump" },
+      { "optionText": "Heater issues", "value": "heater" },
+      { "optionText": "Filter problems", "value": "filter" },
+      { "optionText": "Cracks or damage to pool surface", "value": "surface_damage" },
+      { "optionText": "Plumbing issues", "value": "plumbing" },
+      { "optionText": "Electrical problems", "value": "electrical" },
+      { "optionText": "Not applicable", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

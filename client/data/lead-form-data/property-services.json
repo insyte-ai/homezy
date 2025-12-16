@@ -1,0 +1,102 @@
+[
+  {
+    "questionText": "What type of property service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Property management", "value": "management" },
+      { "optionText": "Loan/mortgage consultation", "value": "loan" },
+      { "optionText": "Real estate agency services", "value": "real_estate" },
+      { "optionText": "Property valuation", "value": "valuation" },
+      { "optionText": "Property inspection", "value": "inspection" },
+      { "optionText": "Rental dispute resolution", "value": "dispute" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What type of property is involved?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Residential apartment", "value": "apartment" },
+      { "optionText": "Residential villa/house", "value": "villa" },
+      { "optionText": "Commercial office", "value": "office" },
+      { "optionText": "Retail space", "value": "retail" },
+      { "optionText": "Industrial property", "value": "industrial" },
+      { "optionText": "Mixed-use property", "value": "mixed" },
+      { "optionText": "Land/plot", "value": "land" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "For property management: What services do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Tenant screening and placement", "value": "tenant_screening" },
+      { "optionText": "Rent collection", "value": "rent_collection" },
+      { "optionText": "Property maintenance coordination", "value": "maintenance" },
+      { "optionText": "Financial reporting", "value": "financial" },
+      { "optionText": "Property inspections", "value": "inspections" },
+      { "optionText": "Lease renewal/negotiation", "value": "lease" },
+      { "optionText": "Full-service management", "value": "full_service" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "For loan/mortgage consultation: What is your current situation?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "First-time homebuyer", "value": "first_time" },
+      { "optionText": "Looking to refinance", "value": "refinance" },
+      { "optionText": "Investment property financing", "value": "investment" },
+      { "optionText": "Construction loan", "value": "construction" },
+      { "optionText": "Debt consolidation", "value": "debt" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "For real estate agency: What service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Buying a property", "value": "buying" },
+      { "optionText": "Selling a property", "value": "selling" },
+      { "optionText": "Renting a property", "value": "renting" },
+      { "optionText": "Leasing out a property", "value": "leasing" },
+      { "optionText": "Property investment advice", "value": "investment" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "For rental disputes: What is the nature of your dispute?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Rent increase issues", "value": "rent_increase" },
+      { "optionText": "Security deposit disputes", "value": "deposit" },
+      { "optionText": "Maintenance responsibilities", "value": "maintenance" },
+      { "optionText": "Lease termination issues", "value": "termination" },
+      { "optionText": "Property damage claims", "value": "damage" },
+      { "optionText": "Eviction proceedings", "value": "eviction" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  },
+  {
+    "questionText": "What is your timeline for this service?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Immediate (within days)", "value": "immediate" },
+      { "optionText": "Short-term (within weeks)", "value": "short" },
+      { "optionText": "Medium-term (within months)", "value": "medium" },
+      { "optionText": "Long-term (ongoing relationship)", "value": "long" }
+    ],
+    "isRequired": false,
+    "displayOrder": 9
+  }
+]

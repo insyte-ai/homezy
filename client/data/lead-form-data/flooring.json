@@ -1,0 +1,73 @@
+[
+  {
+    "questionText": "What type of flooring are you interested in?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Hardwood", "value": "hardwood" },
+      { "optionText": "Laminate", "value": "laminate" },
+      { "optionText": "Vinyl/LVP", "value": "vinyl" },
+      { "optionText": "Ceramic/porcelain tile", "value": "tile" },
+      { "optionText": "Marble/natural stone", "value": "marble" },
+      { "optionText": "Carpet", "value": "carpet" },
+      { "optionText": "Epoxy/concrete", "value": "epoxy" },
+      { "optionText": "Need advice on options", "value": "need_advice" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What service do you need?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "New flooring installation", "value": "new_install" },
+      { "optionText": "Remove old and install new", "value": "replace" },
+      { "optionText": "Flooring repair", "value": "repair" },
+      { "optionText": "Refinishing/polishing", "value": "refinish" },
+      { "optionText": "Just removal of old flooring", "value": "removal_only" }
+    ],
+    "isRequired": true,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "What is the approximate area size?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small room (under 150 sq ft)", "value": "small" },
+      { "optionText": "Medium room (150-300 sq ft)", "value": "medium" },
+      { "optionText": "Large room (300-500 sq ft)", "value": "large" },
+      { "optionText": "Multiple rooms (500-1000 sq ft)", "value": "multiple" },
+      { "optionText": "Entire home (1000+ sq ft)", "value": "entire_home" }
+    ],
+    "isRequired": true,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Which rooms need flooring?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Living room", "value": "living" },
+      { "optionText": "Bedrooms", "value": "bedrooms" },
+      { "optionText": "Kitchen", "value": "kitchen" },
+      { "optionText": "Bathrooms", "value": "bathrooms" },
+      { "optionText": "Hallways/stairs", "value": "hallways" },
+      { "optionText": "Basement", "value": "basement" },
+      { "optionText": "Outdoor/patio", "value": "outdoor" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "What is the current flooring?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Tile", "value": "tile" },
+      { "optionText": "Carpet", "value": "carpet" },
+      { "optionText": "Hardwood", "value": "hardwood" },
+      { "optionText": "Vinyl/linoleum", "value": "vinyl" },
+      { "optionText": "Concrete", "value": "concrete" },
+      { "optionText": "None (new construction)", "value": "none" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  }
+]

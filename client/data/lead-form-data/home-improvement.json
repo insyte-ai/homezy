@@ -1,0 +1,104 @@
+[
+  {
+    "questionText": "What type of home improvement service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Landscaping", "value": "landscaping" },
+      { "optionText": "Interior painting", "value": "interior_painting" },
+      { "optionText": "Exterior painting", "value": "exterior_painting" },
+      { "optionText": "Door installation/repair", "value": "doors" },
+      { "optionText": "Window installation/repair", "value": "windows" },
+      { "optionText": "Flooring installation", "value": "flooring" },
+      { "optionText": "Masonry work", "value": "masonry" },
+      { "optionText": "Pergola/awning installation", "value": "pergola" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "What is the approximate size of the area to be improved?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (single room/area)", "value": "small" },
+      { "optionText": "Medium (multiple rooms/areas)", "value": "medium" },
+      { "optionText": "Large (entire home interior/exterior)", "value": "large" },
+      { "optionText": "Very large (home and surrounding property)", "value": "very_large" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "For painting: What surfaces need to be painted?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Walls", "value": "walls" },
+      { "optionText": "Ceilings", "value": "ceilings" },
+      { "optionText": "Trim/baseboards", "value": "trim" },
+      { "optionText": "Doors", "value": "doors" },
+      { "optionText": "Cabinets", "value": "cabinets" },
+      { "optionText": "Exterior siding", "value": "siding" },
+      { "optionText": "Exterior trim", "value": "exterior_trim" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "For flooring: What type of flooring are you interested in?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Hardwood", "value": "hardwood" },
+      { "optionText": "Laminate", "value": "laminate" },
+      { "optionText": "Vinyl/LVP", "value": "vinyl" },
+      { "optionText": "Tile", "value": "tile" },
+      { "optionText": "Carpet", "value": "carpet" },
+      { "optionText": "Concrete", "value": "concrete" },
+      { "optionText": "Natural stone", "value": "stone" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  },
+  {
+    "questionText": "For landscaping: What elements are you interested in?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Lawn installation/repair", "value": "lawn" },
+      { "optionText": "Garden beds", "value": "garden" },
+      { "optionText": "Trees and shrubs", "value": "trees" },
+      { "optionText": "Hardscaping (patios, walkways)", "value": "hardscape" },
+      { "optionText": "Water features", "value": "water" },
+      { "optionText": "Outdoor lighting", "value": "lighting" },
+      { "optionText": "Irrigation system", "value": "irrigation" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 7
+  },
+  {
+    "questionText": "For doors/windows: What type of work do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "New door installation", "value": "new_door" },
+      { "optionText": "Door repair/replacement", "value": "door_repair" },
+      { "optionText": "New window installation", "value": "new_window" },
+      { "optionText": "Window repair/replacement", "value": "window_repair" },
+      { "optionText": "Storm door/window installation", "value": "storm" },
+      { "optionText": "Security door/window installation", "value": "security" },
+      { "optionText": "Not applicable", "value": "not_applicable" }
+    ],
+    "isRequired": false,
+    "displayOrder": 8
+  },
+  {
+    "questionText": "Do you have specific materials or brands in mind?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I know exactly what I want", "value": "specific" },
+      { "optionText": "I have some preferences", "value": "preferences" },
+      { "optionText": "No, I need recommendations", "value": "need_recommendations" }
+    ],
+    "isRequired": false,
+    "displayOrder": 9
+  }
+]

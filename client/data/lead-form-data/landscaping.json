@@ -1,0 +1,84 @@
+[
+  {
+    "questionText": "What type of landscaping service do you need?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Landscape design", "value": "design" },
+      { "optionText": "Landscape installation", "value": "installation" },
+      { "optionText": "Landscape renovation", "value": "renovation" },
+      { "optionText": "Hardscaping", "value": "hardscape" },
+      { "optionText": "Softscaping", "value": "softscape" }
+    ],
+    "isRequired": true,
+    "displayOrder": 1
+  },
+  {
+    "questionText": "What is the approximate size of the area to be landscaped?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Small (under 100 sq. meters)", "value": "small" },
+      { "optionText": "Medium (100-500 sq. meters)", "value": "medium" },
+      { "optionText": "Large (500-1000 sq. meters)", "value": "large" },
+      { "optionText": "Very large (over 1000 sq. meters)", "value": "very_large" }
+    ],
+    "isRequired": false,
+    "displayOrder": 2
+  },
+  {
+    "questionText": "What elements are you interested in?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Lawn installation/repair", "value": "lawn" },
+      { "optionText": "Garden beds", "value": "garden" },
+      { "optionText": "Trees and shrubs", "value": "trees" },
+      { "optionText": "Hardscaping (patios, walkways)", "value": "hardscape" },
+      { "optionText": "Water features", "value": "water" },
+      { "optionText": "Outdoor lighting", "value": "lighting" },
+      { "optionText": "Irrigation system", "value": "irrigation" }
+    ],
+    "isRequired": true,
+    "displayOrder": 3
+  },
+  {
+    "questionText": "Do you have any specific style preferences?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Modern/Contemporary", "value": "modern" },
+      { "optionText": "Traditional", "value": "traditional" },
+      { "optionText": "Mediterranean", "value": "mediterranean" },
+      { "optionText": "Tropical", "value": "tropical" },
+      { "optionText": "Desert/Xeriscape", "value": "desert" },
+      { "optionText": "Japanese/Zen", "value": "japanese" },
+      { "optionText": "English Garden", "value": "english" },
+      { "optionText": "No specific style preference", "value": "no_preference" }
+    ],
+    "isRequired": false,
+    "displayOrder": 4
+  },
+  {
+    "questionText": "Do you have any specific requirements for the landscaping?",
+    "questionType": "multi_select",
+    "options": [
+      { "optionText": "Low maintenance", "value": "low_maintenance" },
+      { "optionText": "Water-efficient/drought-tolerant", "value": "water_efficient" },
+      { "optionText": "Child-friendly", "value": "child_friendly" },
+      { "optionText": "Pet-friendly", "value": "pet_friendly" },
+      { "optionText": "Privacy screening", "value": "privacy" },
+      { "optionText": "Shade creation", "value": "shade" },
+      { "optionText": "Edible garden/food production", "value": "edible" }
+    ],
+    "isRequired": false,
+    "displayOrder": 5
+  },
+  {
+    "questionText": "Do you have specific materials or plants in mind?",
+    "questionType": "single_select",
+    "options": [
+      { "optionText": "Yes, I know exactly what I want", "value": "specific" },
+      { "optionText": "I have some preferences", "value": "preferences" },
+      { "optionText": "No, I need recommendations", "value": "need_recommendations" }
+    ],
+    "isRequired": false,
+    "displayOrder": 6
+  }
+]
