@@ -26,10 +26,17 @@ export interface HomeownerProfile {
   favoritePros: string[];
   savedSearches: SavedSearch[];
   notificationPreferences: NotificationPreferences;
+
+  // Home management onboarding
+  onboardingCompleted: boolean;
+  onboardingSkippedAt?: Date;
+  primaryPropertyId?: string;
 }
 
 export interface ProProfile {
   businessName: string;
+  brandName?: string; // Optional brand/trading name if different from legal business name
+  businessEmail?: string; // Optional business contact email (e.g., manager/admin) different from account email
   slug?: string; // URL-friendly slug for public profile
   tagline?: string;
   bio?: string;
@@ -62,7 +69,7 @@ export interface ProProfile {
 
   // Settings
   availability?: Availability;
-  businessType?: 'sole-proprietor' | 'llc' | 'corporation';
+  businessType?: 'sole-establishment' | 'llc' | 'general-partnership' | 'limited-partnership' | 'civil-company' | 'foreign-branch' | 'free-zone';
 }
 
 export interface ServiceArea {
@@ -134,11 +141,15 @@ export interface NotificationPreferences {
     projectUpdate: boolean;
     reviewRequest: boolean;
     marketing: boolean;
+    serviceReminders: boolean;
+    seasonalReminders: boolean;
+    expenseAlerts: boolean;
   };
   push: {
     newQuote: boolean;
     newMessage: boolean;
     projectUpdate: boolean;
+    serviceReminders: boolean;
   };
   doNotDisturbStart?: string; // HH:mm format
   doNotDisturbEnd?: string; // HH:mm format

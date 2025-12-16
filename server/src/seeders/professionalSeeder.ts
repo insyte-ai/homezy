@@ -19,7 +19,7 @@ interface ProfessionalData {
   yearsInBusiness: number;
   teamSize: number;
   languages: string[];
-  businessType: 'sole-proprietor' | 'llc' | 'corporation';
+  businessType: 'sole-establishment' | 'llc' | 'general-partnership' | 'limited-partnership' | 'civil-company' | 'foreign-branch' | 'free-zone';
   hourlyRateMin?: number;
   hourlyRateMax?: number;
   minimumProjectSize?: number;
@@ -115,7 +115,7 @@ const professionals: ProfessionalData[] = [
     yearsInBusiness: 14,
     teamSize: 12,
     languages: ['English', 'Arabic'],
-    businessType: 'corporation',
+    businessType: 'llc',
     hourlyRateMin: 200,
     hourlyRateMax: 350,
     minimumProjectSize: 1000,
@@ -176,7 +176,7 @@ const professionals: ProfessionalData[] = [
     yearsInBusiness: 7,
     teamSize: 10,
     languages: ['English', 'Arabic', 'Hindi'],
-    businessType: 'sole-proprietor',
+    businessType: 'sole-establishment',
     hourlyRateMin: 120,
     hourlyRateMax: 200,
     minimumProjectSize: 800,
@@ -214,7 +214,7 @@ const professionals: ProfessionalData[] = [
     yearsInBusiness: 12,
     teamSize: 20,
     languages: ['English', 'Arabic'],
-    businessType: 'corporation',
+    businessType: 'llc',
     hourlyRateMin: 180,
     hourlyRateMax: 350,
     minimumProjectSize: 2000,
@@ -270,7 +270,7 @@ const professionals: ProfessionalData[] = [
     yearsInBusiness: 5,
     teamSize: 6,
     languages: ['English', 'Arabic'],
-    businessType: 'sole-proprietor',
+    businessType: 'sole-establishment',
     hourlyRateMin: 100,
     hourlyRateMax: 180,
     minimumProjectSize: 200,

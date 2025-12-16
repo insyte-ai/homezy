@@ -61,4 +61,17 @@ router.post(
   asyncHandler(uploadController.uploadPortfolioImages)
 );
 
+/**
+ * @route   POST /api/v1/upload/profile-photo
+ * @desc    Upload profile photo (business logo for pros)
+ * @access  Private (authenticated users, rate limited)
+ */
+router.post(
+  '/profile-photo',
+  authenticate,
+  rateLimitUpload,
+  uploadImage.single('photo'),
+  asyncHandler(uploadController.uploadProfilePhoto)
+);
+
 export default router;

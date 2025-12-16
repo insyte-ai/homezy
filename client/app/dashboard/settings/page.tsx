@@ -21,6 +21,7 @@ import {
   type NotificationPreferences,
 } from '@/lib/services/users';
 import { handleApiError } from '@/lib/utils/errorHandler';
+import { PhoneInput } from '@/components/common/PhoneInput';
 
 export default function SettingsPage() {
   const { user, fetchCurrentUser } = useAuthStore();
@@ -40,6 +41,11 @@ export default function SettingsPage() {
   const [reviewRequestEmail, setReviewRequestEmail] = useState(true);
   const [marketingEmail, setMarketingEmail] = useState(false);
 
+  // My Home Notification Preferences
+  const [serviceRemindersEmail, setServiceRemindersEmail] = useState(true);
+  const [seasonalRemindersEmail, setSeasonalRemindersEmail] = useState(true);
+  const [expenseAlertsEmail, setExpenseAlertsEmail] = useState(true);
+
   // Password Change
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -57,6 +63,9 @@ export default function SettingsPage() {
           setLeadUpdateEmail(prefs.email.projectUpdate ?? true);
           setReviewRequestEmail(prefs.email.reviewRequest ?? true);
           setMarketingEmail(prefs.email.marketing ?? false);
+          setServiceRemindersEmail(prefs.email.serviceReminders ?? true);
+          setSeasonalRemindersEmail(prefs.email.seasonalReminders ?? true);
+          setExpenseAlertsEmail(prefs.email.expenseAlerts ?? true);
 
           // Set master toggle based on individual settings
           const anyEmailEnabled = prefs.email.newQuote || prefs.email.projectUpdate ||
@@ -115,6 +124,9 @@ export default function SettingsPage() {
           projectUpdate: emailNotifications && leadUpdateEmail,
           reviewRequest: emailNotifications && reviewRequestEmail,
           marketing: emailNotifications && marketingEmail,
+          serviceReminders: serviceRemindersEmail,
+          seasonalReminders: seasonalRemindersEmail,
+          expenseAlerts: expenseAlertsEmail,
         },
       };
 
@@ -220,12 +232,10 @@ export default function SettingsPage() {
                 <Phone className="h-4 w-4" />
                 Phone
               </label>
-              <input
-                type="tel"
+              <PhoneInput
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="+971 50 123 4567"
+                onChange={(value) => setPhone(value)}
+                placeholder="50 123 4567"
               />
             </div>
           </div>
@@ -332,6 +342,59 @@ export default function SettingsPage() {
                     className="sr-only peer"
                   />
                   <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600 disabled:opacity-50"></div>
+                </label>
+              </div>
+            </div>
+
+            {/* My Home Notifications */}
+            <div className="border-t border-gray-200 pt-4 mt-4">
+              <h3 className="font-semibold text-gray-900 mb-4">My Home Notifications</h3>
+
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <h3 className="font-medium text-gray-900">Service Reminders</h3>
+                  <p className="text-sm text-gray-600">Get notified about upcoming maintenance tasks</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={serviceRemindersEmail}
+                    onChange={(e) => setServiceRemindersEmail(e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                </label>
+              </div>
+
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <h3 className="font-medium text-gray-900">Seasonal Reminders</h3>
+                  <p className="text-sm text-gray-600">UAE seasonal maintenance tips (AC prep, water heater checks)</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={seasonalRemindersEmail}
+                    onChange={(e) => setSeasonalRemindersEmail(e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                </label>
+              </div>
+
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="font-medium text-gray-900">Expense Alerts</h3>
+                  <p className="text-sm text-gray-600">Budget alerts and monthly expense summaries</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={expenseAlertsEmail}
+                    onChange={(e) => setExpenseAlertsEmail(e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                 </label>
               </div>
             </div>

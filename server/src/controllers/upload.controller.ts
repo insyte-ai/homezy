@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { uploadImage, uploadDocument } from '../utils/uploadHelper';
 import { logger } from '../utils/logger';
+import User from '../models/User.model';
 
 /**
  * Upload image to Cloudinary or local storage
@@ -182,9 +183,60 @@ export const uploadPortfolioImages = async (
   }
 };
 
+/**
+ * Upload profile photo and update user's profilePhoto field
+ */
+export const uploadProfilePhoto = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    if (!req.file) {
+      res.status(400).json({
+        success: false,
+        message: 'No file uploaded',
+      });
+      return;
+    }
+
+    if (!req.user?.id) {
+      res.status(401).json({
+        success: false,
+        message: 'User not authenticated',
+      });
+      return;
+    }
+
+    const url = await uploadImage(req.file.buffer, 'profile-photos');
+
+    // Update user's profilePhoto field
+    await User.findByIdAndUpdate(req.user.id, { profilePhoto: url });
+
+    logger.info('Profile photo uploaded successfully', {
+      url,
+      userId: req.user.id,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Profile photo uploaded successfully',
+      data: {
+        url,
+      },
+    });
+  } catch (error: any) {
+    logger.error('Error uploading profile photo:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to upload profile photo',
+    });
+  }
+};
+
 export default {
   uploadLeadImage,
   uploadVerificationDoc,
   uploadQuoteDocument,
   uploadPortfolioImages,
+  uploadProfilePhoto,
 };

@@ -13,11 +13,15 @@ export interface NotificationPreferences {
     projectUpdate?: boolean;
     reviewRequest?: boolean;
     marketing?: boolean;
+    serviceReminders?: boolean;
+    seasonalReminders?: boolean;
+    expenseAlerts?: boolean;
   };
   push?: {
     newQuote?: boolean;
     newMessage?: boolean;
     projectUpdate?: boolean;
+    serviceReminders?: boolean;
   };
   doNotDisturbStart?: string;
   doNotDisturbEnd?: string;
@@ -57,5 +61,13 @@ export const updateNotificationPreferences = async (preferences: NotificationPre
  */
 export const changePassword = async (data: ChangePasswordData) => {
   const response = await api.patch('/users/change-password', data);
+  return response.data;
+};
+
+/**
+ * Update homeowner onboarding status
+ */
+export const updateOnboardingStatus = async (data: { completed?: boolean; skipped?: boolean }) => {
+  const response = await api.patch('/users/onboarding', data);
   return response.data;
 };

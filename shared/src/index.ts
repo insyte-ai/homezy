@@ -4,6 +4,9 @@ export * from './constants';
 // Types
 export * from './types';
 
+// Schemas (Zod validation)
+export * from './schemas';
+
 // API Client
 export * from './api';
 

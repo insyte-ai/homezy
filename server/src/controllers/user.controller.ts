@@ -72,13 +72,18 @@ export const updateNotificationPreferences = async (req: Request, res: Response)
           projectUpdate: true,
           reviewRequest: true,
           marketing: false,
+          serviceReminders: true,
+          seasonalReminders: true,
+          expenseAlerts: true,
         },
         push: {
           newQuote: true,
           newMessage: true,
           projectUpdate: true,
+          serviceReminders: true,
         },
       },
+      onboardingCompleted: false,
     };
   }
 
@@ -91,11 +96,15 @@ export const updateNotificationPreferences = async (req: Request, res: Response)
         projectUpdate: true,
         reviewRequest: true,
         marketing: false,
+        serviceReminders: true,
+        seasonalReminders: true,
+        expenseAlerts: true,
       },
       push: {
         newQuote: true,
         newMessage: true,
         projectUpdate: true,
+        serviceReminders: true,
       },
     };
   }
@@ -177,6 +186,75 @@ export const changePassword = async (req: Request, res: Response): Promise<void>
   res.status(200).json({
     success: true,
     message: 'Password changed successfully. Please login again with your new password.',
+  });
+};
+
+/**
+ * @desc    Update homeowner onboarding status
+ * @route   PATCH /api/v1/users/onboarding
+ * @access  Private (Homeowner)
+ */
+export const updateOnboardingStatus = async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user?.id;
+  const { completed, skipped } = req.body;
+
+  logger.info('Updating onboarding status', { userId, completed, skipped });
+
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new BadRequestError('User not found');
+  }
+
+  if (user.role !== 'homeowner') {
+    throw new BadRequestError('Only homeowners have onboarding');
+  }
+
+  // Initialize homeownerProfile if it doesn't exist
+  if (!user.homeownerProfile) {
+    user.homeownerProfile = {
+      favoritePros: [],
+      savedSearches: [],
+      notificationPreferences: {
+        email: {
+          newQuote: true,
+          newMessage: true,
+          projectUpdate: true,
+          reviewRequest: true,
+          marketing: false,
+          serviceReminders: true,
+          seasonalReminders: true,
+          expenseAlerts: true,
+        },
+        push: {
+          newQuote: true,
+          newMessage: true,
+          projectUpdate: true,
+          serviceReminders: true,
+        },
+      },
+      onboardingCompleted: false,
+    };
+  }
+
+  if (completed) {
+    user.homeownerProfile.onboardingCompleted = true;
+  }
+
+  if (skipped) {
+    user.homeownerProfile.onboardingSkippedAt = new Date();
+  }
+
+  await user.save();
+
+  logger.info('Onboarding status updated successfully', { userId, completed, skipped });
+
+  res.status(200).json({
+    success: true,
+    message: 'Onboarding status updated successfully',
+    data: {
+      onboardingCompleted: user.homeownerProfile.onboardingCompleted,
+      onboardingSkippedAt: user.homeownerProfile.onboardingSkippedAt,
+    },
   });
 };
 

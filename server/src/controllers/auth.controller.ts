@@ -29,17 +29,44 @@ export const register = async (req: Request<{}, {}, RegisterInput>, res: Respons
   }
 
   // Create new user
+  const userRole = role || 'homeowner';
   const user = new User({
     email: email.toLowerCase(),
     password, // Will be hashed by pre-save hook
     firstName,
     lastName,
     phone,
-    role: role || 'homeowner',
+    role: userRole,
     isEmailVerified: false,
     isPhoneVerified: false,
+    // Create homeownerProfile for homeowner users
+    ...(userRole === 'homeowner' && {
+      homeownerProfile: {
+        favoritePros: [],
+        savedSearches: [],
+        notificationPreferences: {
+          email: {
+            newQuote: true,
+            newMessage: true,
+            projectUpdate: true,
+            reviewRequest: true,
+            marketing: false,
+            serviceReminders: true,
+            seasonalReminders: true,
+            expenseAlerts: true,
+          },
+          push: {
+            newQuote: true,
+            newMessage: true,
+            projectUpdate: true,
+            serviceReminders: true,
+          },
+        },
+        onboardingCompleted: false,
+      }
+    }),
     // Create minimal proProfile for pro users
-    ...(role === 'pro' && {
+    ...(userRole === 'pro' && {
       proProfile: {
         businessName: (firstName && lastName) ? `${firstName} ${lastName}` : email.split('@')[0], // Temporary - will be updated in onboarding
         categories: [],
@@ -294,6 +321,29 @@ export const guestSignup = async (req: Request<{}, {}, GuestSignupInput>, res: R
     isPhoneVerified: false,
     isGuestAccount: true,
     hasSetPassword: false, // User hasn't set their own password yet
+    homeownerProfile: {
+      favoritePros: [],
+      savedSearches: [],
+      notificationPreferences: {
+        email: {
+          newQuote: true,
+          newMessage: true,
+          projectUpdate: true,
+          reviewRequest: true,
+          marketing: false,
+          serviceReminders: true,
+          seasonalReminders: true,
+          expenseAlerts: true,
+        },
+        push: {
+          newQuote: true,
+          newMessage: true,
+          projectUpdate: true,
+          serviceReminders: true,
+        },
+      },
+      onboardingCompleted: false,
+    },
   });
 
   await user.save();

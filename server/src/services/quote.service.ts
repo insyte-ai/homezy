@@ -8,7 +8,7 @@ import { transformLeanDoc, transformLeanDocWith } from '../utils/mongoose.utils'
 import mongoose from 'mongoose';
 import { nanoid } from 'nanoid';
 import type { SubmitQuoteInput, UpdateQuoteInput } from '../schemas/quote.schema';
-import { createProjectFromQuote } from './project.service';
+import { createJobFromQuote } from './job.service';
 
 /**
  * Quote Service
@@ -397,17 +397,17 @@ export const acceptQuote = async (quoteId: string, homeownerId: string, _notes?:
 
     await session.commitTransaction();
 
-    // Create a project from the accepted quote (outside transaction to not block acceptance)
+    // Create a job from the accepted quote (outside transaction to not block acceptance)
     try {
-      const project = await createProjectFromQuote(quote.leadId, quoteId, homeownerId);
-      logger.info('Project created from accepted quote', {
-        projectId: project._id,
+      const job = await createJobFromQuote(quote.leadId, quoteId, homeownerId);
+      logger.info('Job created from accepted quote', {
+        jobId: job._id,
         quoteId,
         leadId: quote.leadId,
       });
-    } catch (projectError) {
+    } catch (jobError) {
       // Log but don't fail the quote acceptance
-      logger.error('Failed to create project from quote', projectError, { quoteId, leadId: quote.leadId });
+      logger.error('Failed to create job from quote', jobError, { quoteId, leadId: quote.leadId });
     }
 
     logger.info('Quote accepted', {

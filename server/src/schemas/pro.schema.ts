@@ -57,8 +57,12 @@ export const onboardingSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters').max(50),
   lastName: z.string().min(2, 'Last name must be at least 2 characters').max(50),
   phone: z.string().min(1, 'Phone number is required'),
+  businessEmail: z.string().email('Invalid email address').optional(), // Optional business contact email
   businessName: z.string().min(2, 'Business name must be at least 2 characters').max(100),
-  businessType: z.enum(['sole-proprietor', 'llc', 'corporation']),
+  brandName: z.string().max(100).optional(), // Optional brand/trading name
+  businessType: z.enum(['sole-establishment', 'llc', 'general-partnership', 'limited-partnership', 'civil-company', 'foreign-branch', 'free-zone']),
+  tradeLicenseNumber: z.string().min(1, 'Trade license number is required'),
+  vatNumber: z.string().min(1, 'VAT number is required'),
   categories: z.array(z.string()).min(1, 'At least one category is required').max(10),
   primaryEmirate: z.string().min(1, 'Primary emirate is required'),
   serviceRadius: z.number().min(10).max(200).optional().default(50),
@@ -67,13 +71,15 @@ export const onboardingSchema = z.object({
 // Pro Profile Update Schema - All fields optional for phased completion
 export const updateProProfileSchema = z.object({
   businessName: z.string().min(2, 'Business name must be at least 2 characters').max(100).optional(),
+  brandName: z.string().max(100).optional(), // Optional brand/trading name
+  businessEmail: z.string().email('Invalid email address').optional(), // Optional business contact email
   tagline: z.string().max(150).optional(),
   bio: z.string().max(500).optional(),
   // Remove .min(1) to allow empty arrays during partial updates
   categories: z.array(z.string()).max(10).optional(),
   serviceAreas: z.array(serviceAreaSchema).max(7).optional(),
   yearsInBusiness: z.number().min(0).max(100).optional(),
-  teamSize: z.number().min(1).max(1000).optional(),
+  teamSize: z.number().min(0).max(1000).optional(), // min(0) allows empty/unset values for partial updates
   languages: z.array(z.string()).optional(),
 
   // Pricing
@@ -83,7 +89,7 @@ export const updateProProfileSchema = z.object({
 
   // Settings
   availability: availabilitySchema.optional(),
-  businessType: z.enum(['sole-proprietor', 'llc', 'corporation']).optional(),
+  businessType: z.enum(['sole-establishment', 'llc', 'general-partnership', 'limited-partnership', 'civil-company', 'foreign-branch', 'free-zone']).optional(),
 }).refine(
   (data) => {
     // Ensure max rate is greater than min rate if both are provided

@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
-import { completeOnboarding, uploadVerificationDocument } from '@/lib/services/professional';
+import { completeOnboarding, uploadVerificationDocument, uploadPortfolioImages, addPortfolioItem, uploadProfilePhoto } from '@/lib/services/professional';
 import { getAllSubservices, SubService } from '@/lib/services/serviceData';
 import toast from 'react-hot-toast';
 import { Upload, FileText, CheckCircle } from 'lucide-react';
+import { PhoneInput } from '@/components/common/PhoneInput';
 
 const UAE_EMIRATES = [
   'Dubai',
@@ -19,9 +20,13 @@ const UAE_EMIRATES = [
 ];
 
 const BUSINESS_TYPES = [
-  { value: 'sole-proprietor', label: 'Sole Proprietor' },
-  { value: 'llc', label: 'LLC' },
-  { value: 'corporation', label: 'Corporation' },
+  { value: 'sole-establishment', label: 'Sole Establishment / Sole Proprietorship' },
+  { value: 'llc', label: 'Limited Liability Company (LLC)' },
+  { value: 'general-partnership', label: 'General Partnership' },
+  { value: 'limited-partnership', label: 'Limited Partnership' },
+  { value: 'civil-company', label: 'Civil Company' },
+  { value: 'foreign-branch', label: 'Branch of a Foreign Company' },
+  { value: 'free-zone', label: 'Free Zone LLC / Free Zone Establishment (FZE)' },
 ];
 
 interface OnboardingData {
@@ -33,10 +38,13 @@ interface OnboardingData {
   firstName: string;
   lastName: string;
   phone: string;
+  businessEmail: string;
   businessName: string;
+  brandName: string;
   businessType: string;
   tradeLicenseNumber: string;
   vatNumber: string;
+  businessLogoFile: File | null;
 
   // Step 3
   primaryEmirate: string;
@@ -46,8 +54,8 @@ interface OnboardingData {
   tradeLicenseFile: File | null;
   vatTrnFile: File | null;
 
-  // Step 5
-  profilePhotoFile: File | null;
+  // Step 5 - Portfolio
+  portfolioFiles: File[];
 }
 
 export default function ProOnboardingPage() {
@@ -57,8 +65,23 @@ export default function ProOnboardingPage() {
   const [categorySearch, setCategorySearch] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [serviceCategories, setServiceCategories] = useState<SubService[]>([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
+
+  // Helper to get field error
+  const getFieldError = (field: string) => fieldErrors[field];
+
+  // Helper to clear field error when user starts typing
+  const clearFieldError = (field: string) => {
+    if (fieldErrors[field]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+  };
 
   const [formData, setFormData] = useState<OnboardingData>({
     primaryCategory: '',
@@ -66,15 +89,18 @@ export default function ProOnboardingPage() {
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
     phone: user?.phone || '',
+    businessEmail: '',
     businessName: '',
-    businessType: 'sole-proprietor',
+    brandName: '',
+    businessType: 'sole-establishment',
     tradeLicenseNumber: '',
     vatNumber: '',
+    businessLogoFile: null,
     primaryEmirate: '',
     serviceRadius: 50,
     tradeLicenseFile: null,
     vatTrnFile: null,
-    profilePhotoFile: null,
+    portfolioFiles: [],
   });
 
   // Fetch service categories from database
@@ -110,9 +136,31 @@ export default function ProOnboardingPage() {
     }
   }, [user, router]);
 
-  const filteredCategories = serviceCategories.filter(cat =>
-    cat.name.toLowerCase().includes(categorySearch.toLowerCase())
-  );
+  // Filter categories using keyword-based search (same logic as homepage SearchBar)
+  const filteredCategories = serviceCategories
+    .map((service) => {
+      if (!categorySearch.trim()) return service;
+
+      const query = categorySearch.toLowerCase();
+      const nameMatch = service.name.toLowerCase().includes(query);
+      const categoryMatch = service.category?.toLowerCase().includes(query);
+      const matchedKeyword = service.keywords?.find(keyword =>
+        keyword.toLowerCase().includes(query)
+      );
+      const matchedType = service.serviceTypes?.find(type =>
+        type.name.toLowerCase().includes(query)
+      );
+
+      if (nameMatch || categoryMatch || matchedKeyword || matchedType) {
+        return {
+          ...service,
+          matchedKeyword: matchedKeyword || null,
+          matchedType: matchedType?.name || null,
+        };
+      }
+      return null;
+    })
+    .filter((service): service is NonNullable<typeof service> => service !== null);
 
   const handleCategoryToggle = (categoryId: string, isPrimary = false) => {
     if (isPrimary) {
@@ -128,34 +176,49 @@ export default function ProOnboardingPage() {
   };
 
   const handleNext = () => {
+    // Clear previous errors
+    setError('');
+    const newFieldErrors: Record<string, string> = {};
+
     // Validation for current step
     if (currentStep === 1 && !formData.primaryCategory) {
       setError('Please select your primary service category');
       return;
     }
     if (currentStep === 2) {
-      if (!formData.firstName || !formData.lastName) {
-        setError('Please enter your first and last name');
-        return;
+      let hasErrors = false;
+      if (!formData.firstName) {
+        newFieldErrors.firstName = 'First name is required';
+        hasErrors = true;
+      }
+      if (!formData.lastName) {
+        newFieldErrors.lastName = 'Last name is required';
+        hasErrors = true;
       }
       if (!formData.phone) {
-        setError('Please enter your phone number');
-        return;
+        newFieldErrors.phone = 'Phone number is required';
+        hasErrors = true;
       }
       if (!formData.businessName) {
-        setError('Please enter your business name');
-        return;
+        newFieldErrors.businessName = 'Business name is required';
+        hasErrors = true;
       }
       if (!formData.tradeLicenseNumber) {
-        setError('Please enter your trade license number');
-        return;
+        newFieldErrors.tradeLicenseNumber = 'Trade license number is required';
+        hasErrors = true;
       }
       if (!formData.vatNumber) {
-        setError('Please enter your VAT registration number');
+        newFieldErrors.vatNumber = 'VAT number is required';
+        hasErrors = true;
+      }
+      if (hasErrors) {
+        setFieldErrors(newFieldErrors);
+        setError('Please fix the highlighted errors');
         return;
       }
     }
     if (currentStep === 3 && !formData.primaryEmirate) {
+      setFieldErrors({ primaryEmirate: 'Please select an emirate' });
       setError('Please select your primary service emirate');
       return;
     }
@@ -171,12 +234,15 @@ export default function ProOnboardingPage() {
     }
 
     setError('');
+    setFieldErrors({});
     if (currentStep < 6) {
       setCurrentStep(prev => prev + 1);
     }
   };
 
   const handleBack = () => {
+    setError('');
+    setFieldErrors({});
     if (currentStep > 1) {
       setCurrentStep(prev => prev - 1);
     }
@@ -207,14 +273,62 @@ export default function ProOnboardingPage() {
     }
   };
 
-  const handleProfilePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePortfolioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    const validVideoTypes = ['video/mp4', 'video/quicktime', 'video/webm'];
+    const validTypes = [...validImageTypes, ...validVideoTypes];
+    const maxFileSize = 50 * 1024 * 1024; // 50MB for videos
+    const maxFiles = 10;
+
+    const newFiles: File[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      if (!validTypes.includes(file.type)) {
+        setError(`"${file.name}" is not a supported format. Use JPEG, PNG, WebP, GIF, MP4, MOV, or WebM.`);
+        return;
+      }
+
+      if (file.size > maxFileSize) {
+        setError(`"${file.name}" is too large. Maximum file size is 50MB.`);
+        return;
+      }
+
+      newFiles.push(file);
+    }
+
+    const totalFiles = formData.portfolioFiles.length + newFiles.length;
+    if (totalFiles > maxFiles) {
+      setError(`You can upload up to ${maxFiles} files. You have ${formData.portfolioFiles.length} already.`);
+      return;
+    }
+
+    setError('');
+    setFormData({ ...formData, portfolioFiles: [...formData.portfolioFiles, ...newFiles] });
+
+    // Reset input so the same file can be selected again if removed
+    e.target.value = '';
+  };
+
+  const removePortfolioFile = (index: number) => {
+    setFormData({
+      ...formData,
+      portfolioFiles: formData.portfolioFiles.filter((_, i) => i !== index),
+    });
+  };
+
+  const handleBusinessLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     // Validate file type (images only)
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/svg+xml'];
     if (!validTypes.includes(file.type)) {
-      setError('Please upload an image file (JPEG, PNG, WebP, GIF)');
+      setError('Please upload an image file (JPEG, PNG, WebP, SVG)');
       return;
     }
 
@@ -225,7 +339,7 @@ export default function ProOnboardingPage() {
     }
 
     setError('');
-    setFormData({ ...formData, profilePhotoFile: file });
+    setFormData({ ...formData, businessLogoFile: file });
   };
 
   const handleSkipToDashboard = async () => {
@@ -238,8 +352,10 @@ export default function ProOnboardingPage() {
           firstName: formData.firstName,
           lastName: formData.lastName,
           phone: formData.phone,
+          businessEmail: formData.businessEmail || undefined,
           businessName: formData.businessName,
-          businessType: formData.businessType as 'sole-proprietor' | 'llc' | 'corporation',
+          brandName: formData.brandName || undefined,
+          businessType: formData.businessType as 'sole-establishment' | 'llc' | 'general-partnership' | 'limited-partnership' | 'civil-company' | 'foreign-branch' | 'free-zone',
           tradeLicenseNumber: formData.tradeLicenseNumber,
           vatNumber: formData.vatNumber,
           categories: [formData.primaryCategory, ...formData.additionalCategories],
@@ -258,36 +374,78 @@ export default function ProOnboardingPage() {
 
   const handleComplete = async () => {
     setIsSubmitting(true);
+    setError('');
+
     try {
       // Validate required fields
       if (!formData.firstName || !formData.lastName || !formData.phone || !formData.businessName || !formData.primaryCategory || !formData.primaryEmirate) {
-        setError('Please complete all required fields');
+        setError('Please complete all required fields in Step 2');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!formData.tradeLicenseNumber) {
+        setError('Please enter your Trade License Number in Step 2');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!formData.vatNumber) {
+        setError('Please enter your VAT Number in Step 2');
+        setIsSubmitting(false);
         return;
       }
 
       if (!formData.tradeLicenseFile) {
-        setError('Please upload your trade license');
+        setError('Please upload your trade license document in Step 4');
+        setIsSubmitting(false);
         return;
       }
 
       if (!formData.vatTrnFile) {
-        setError('Please upload your VAT TRN certificate');
+        setError('Please upload your VAT TRN certificate in Step 4');
+        setIsSubmitting(false);
         return;
       }
+
+      console.log('[Onboarding] Submitting data:', {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        businessName: formData.businessName,
+        tradeLicenseNumber: formData.tradeLicenseNumber,
+        vatNumber: formData.vatNumber,
+        categories: [formData.primaryCategory, ...formData.additionalCategories],
+        primaryEmirate: formData.primaryEmirate,
+      });
 
       // Complete onboarding first
       await completeOnboarding({
         firstName: formData.firstName,
         lastName: formData.lastName,
         phone: formData.phone,
+        businessEmail: formData.businessEmail || undefined,
         businessName: formData.businessName,
-        businessType: formData.businessType as 'sole-proprietor' | 'llc' | 'corporation',
+        brandName: formData.brandName || undefined,
+        businessType: formData.businessType as 'sole-establishment' | 'llc' | 'general-partnership' | 'limited-partnership' | 'civil-company' | 'foreign-branch' | 'free-zone',
         tradeLicenseNumber: formData.tradeLicenseNumber,
         vatNumber: formData.vatNumber,
         categories: [formData.primaryCategory, ...formData.additionalCategories],
         primaryEmirate: formData.primaryEmirate,
         serviceRadius: formData.serviceRadius,
       });
+
+      // Upload business logo as profile photo if provided
+      if (formData.businessLogoFile) {
+        toast.loading('Uploading business logo...');
+        try {
+          await uploadProfilePhoto(formData.businessLogoFile);
+        } catch (logoError) {
+          console.error('[Onboarding] Business logo upload error:', logoError);
+          // Don't fail the whole onboarding if logo upload fails
+          toast.dismiss();
+          toast.error('Business logo could not be uploaded. You can add it later from your profile.');
+        }
+      }
 
       // Upload verification documents
       toast.loading('Uploading verification documents...');
@@ -298,6 +456,31 @@ export default function ProOnboardingPage() {
       // Upload VAT TRN certificate
       await uploadVerificationDocument(formData.vatTrnFile, 'vat');
 
+      // Upload portfolio images if any were added
+      if (formData.portfolioFiles.length > 0) {
+        toast.dismiss();
+        toast.loading('Uploading portfolio images...');
+
+        try {
+          const imageUrls = await uploadPortfolioImages(formData.portfolioFiles);
+
+          // Create a portfolio item with the uploaded images
+          const primaryCategoryName = serviceCategories.find(c => c.id === formData.primaryCategory)?.name || 'Work Samples';
+          await addPortfolioItem({
+            title: `${primaryCategoryName} - Sample Work`,
+            description: 'Work samples uploaded during onboarding. Edit this project to add more details about your work.',
+            category: formData.primaryCategory,
+            images: imageUrls,
+            completionDate: new Date().toISOString(),
+          });
+        } catch (portfolioError) {
+          console.error('[Onboarding] Portfolio upload error:', portfolioError);
+          // Don't fail the whole onboarding if portfolio upload fails
+          toast.dismiss();
+          toast.error('Portfolio images could not be uploaded. You can add them later from your dashboard.');
+        }
+      }
+
       toast.dismiss();
       toast.success('Onboarding completed! Your documents are under review.');
 
@@ -306,8 +489,36 @@ export default function ProOnboardingPage() {
       window.location.href = '/pro/dashboard';
     } catch (err: any) {
       toast.dismiss();
-      setError(err.response?.data?.message || err.message || 'Unable to complete onboarding');
-      toast.error('Unable to complete onboarding. Please try again.');
+      console.error('[Onboarding] Error:', err.response?.data || err.message);
+
+      // Parse field-specific validation errors from server
+      if (err.response?.status === 400 && err.response?.data?.details) {
+        const serverErrors: Record<string, string> = {};
+        err.response.data.details.forEach((detail: { field: string; message: string }) => {
+          serverErrors[detail.field] = detail.message;
+        });
+        setFieldErrors(serverErrors);
+
+        // Find which step has the first error and navigate there
+        const errorFields = Object.keys(serverErrors);
+        const step2Fields = ['firstName', 'lastName', 'phone', 'businessEmail', 'businessName', 'brandName', 'businessType', 'tradeLicenseNumber', 'vatNumber'];
+        const step3Fields = ['primaryEmirate', 'serviceRadius'];
+        const step1Fields = ['categories', 'primaryCategory'];
+
+        if (errorFields.some(f => step1Fields.includes(f))) {
+          setCurrentStep(1);
+        } else if (errorFields.some(f => step2Fields.includes(f))) {
+          setCurrentStep(2);
+        } else if (errorFields.some(f => step3Fields.includes(f))) {
+          setCurrentStep(3);
+        }
+
+        setError('Please fix the highlighted errors below');
+        toast.error('Please fix the validation errors');
+      } else {
+        setError(err.response?.data?.message || err.message || 'Unable to complete onboarding');
+        toast.error('Unable to complete onboarding. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -319,7 +530,7 @@ export default function ProOnboardingPage() {
       case 2: return 'Tell us about your business';
       case 3: return 'Where do you work?';
       case 4: return 'Upload verification documents';
-      case 5: return 'Add your business photo';
+      case 5: return 'Show off your work';
       case 6: return 'You\'re all set!';
       default: return '';
     }
@@ -429,9 +640,14 @@ export default function ProOnboardingPage() {
                         {category.icon && <span className="text-2xl mr-3">{category.icon}</span>}
                         <div className="flex-1">
                           <span className="font-medium text-neutral-900">{category.name}</span>
-                          {category.category && (
-                            <span className="block text-xs text-neutral-500 mt-1">{category.category}</span>
-                          )}
+                          <span className="block text-xs text-neutral-500 mt-1">
+                            {category.category}
+                            {(category.matchedKeyword || category.matchedType) && categorySearch && (
+                              <span className="text-primary-600 font-medium">
+                                {' • '}Matches: {category.matchedKeyword || category.matchedType}
+                              </span>
+                            )}
+                          </span>
                         </div>
                       </button>
                     ))}
@@ -487,10 +703,16 @@ export default function ProOnboardingPage() {
                     type="text"
                     required
                     value={formData.firstName}
-                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className="input"
+                    onChange={(e) => {
+                      setFormData({ ...formData, firstName: e.target.value });
+                      clearFieldError('firstName');
+                    }}
+                    className={`input ${getFieldError('firstName') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
                     placeholder="John"
                   />
+                  {getFieldError('firstName') && (
+                    <p className="mt-1 text-xs text-red-600">{getFieldError('firstName')}</p>
+                  )}
                 </div>
 
                 <div>
@@ -502,28 +724,73 @@ export default function ProOnboardingPage() {
                     type="text"
                     required
                     value={formData.lastName}
-                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className="input"
+                    onChange={(e) => {
+                      setFormData({ ...formData, lastName: e.target.value });
+                      clearFieldError('lastName');
+                    }}
+                    className={`input ${getFieldError('lastName') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
                     placeholder="Doe"
                   />
+                  {getFieldError('lastName') && (
+                    <p className="mt-1 text-xs text-red-600">{getFieldError('lastName')}</p>
+                  )}
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="phone" className="label">
-                  Phone Number <span className="text-red-500">*</span>
-                </label>
-                <input
-                  id="phone"
-                  type="tel"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="input"
-                  placeholder="+971 50 123 4567"
-                />
-                <p className="mt-1 text-xs text-neutral-500">
-                  Homeowners will see this number when you respond to their leads
+              {/* Phone + Business Email Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="phone" className="label">
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
+                  <PhoneInput
+                    id="phone"
+                    required
+                    value={formData.phone}
+                    onChange={(value) => {
+                      setFormData({ ...formData, phone: value });
+                      clearFieldError('phone');
+                    }}
+                    placeholder="50 123 4567"
+                    className={getFieldError('phone') ? 'border-red-500' : ''}
+                  />
+                  {getFieldError('phone') ? (
+                    <p className="mt-1 text-xs text-red-600">{getFieldError('phone')}</p>
+                  ) : (
+                    <p className="mt-1 text-xs text-neutral-500">
+                      Visible to homeowners on your quotes
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label htmlFor="businessEmail" className="label">
+                    Business Email (Optional)
+                  </label>
+                  <input
+                    id="businessEmail"
+                    type="email"
+                    value={formData.businessEmail}
+                    onChange={(e) => {
+                      setFormData({ ...formData, businessEmail: e.target.value });
+                      clearFieldError('businessEmail');
+                    }}
+                    className={`input ${getFieldError('businessEmail') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                    placeholder="contact@yourbusiness.com"
+                  />
+                  {getFieldError('businessEmail') ? (
+                    <p className="mt-1 text-xs text-red-600">{getFieldError('businessEmail')}</p>
+                  ) : (
+                    <p className="mt-1 text-xs text-neutral-500">
+                      If different from your account email
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                <p className="text-sm text-primary-900">
+                  <strong>Your contact info:</strong> We'll use your email ({user?.email}) and the phone number above to send you lead notifications.
                 </p>
               </div>
 
@@ -531,6 +798,66 @@ export default function ProOnboardingPage() {
                 <h3 className="text-lg font-semibold text-neutral-900 mb-4">Business Details</h3>
 
                 <div className="space-y-6">
+                  {/* Business Logo Upload */}
+                  <div>
+                    <label className="label mb-2">
+                      Business Logo (Optional)
+                    </label>
+                    <div className="border-2 border-dashed border-neutral-300 rounded-lg p-3 hover:border-primary-400 transition-colors">
+                      {!formData.businessLogoFile ? (
+                        <label className="cursor-pointer block">
+                          <input
+                            type="file"
+                            accept="image/jpeg,image/jpg,image/png,image/webp,image/svg+xml"
+                            onChange={handleBusinessLogoUpload}
+                            className="hidden"
+                          />
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <Upload className="h-5 w-5 text-neutral-400" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-medium text-neutral-900">
+                                Upload your business logo
+                              </p>
+                              <p className="text-xs text-neutral-500">
+                                JPEG, PNG, WebP, or SVG (max 5MB)
+                              </p>
+                            </div>
+                          </div>
+                        </label>
+                      ) : (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-neutral-100 rounded-lg overflow-hidden flex-shrink-0">
+                              <img
+                                src={URL.createObjectURL(formData.businessLogoFile)}
+                                alt="Business logo preview"
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
+                            <div>
+                              <p className="text-sm font-medium text-neutral-900 truncate max-w-[200px]">
+                                {formData.businessLogoFile.name}
+                              </p>
+                              <p className="text-xs text-neutral-500">
+                                {(formData.businessLogoFile.size / 1024 / 1024).toFixed(2)} MB
+                              </p>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setFormData({ ...formData, businessLogoFile: null })}
+                            className="text-red-600 hover:text-red-800 text-sm font-medium"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Business Name (full width - legal names can be long) */}
                   <div>
                     <label htmlFor="businessName" className="label">
                       Business Name <span className="text-red-500">*</span>
@@ -540,72 +867,118 @@ export default function ProOnboardingPage() {
                       type="text"
                       required
                       value={formData.businessName}
-                      onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                      className="input"
-                      placeholder="e.g., Dubai Pro Plumbing LLC"
+                      onChange={(e) => {
+                        setFormData({ ...formData, businessName: e.target.value });
+                        clearFieldError('businessName');
+                      }}
+                      className={`input ${getFieldError('businessName') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                      placeholder="e.g., Dubai Pro Plumbing Technical Services LLC"
                     />
+                    {getFieldError('businessName') ? (
+                      <p className="mt-1 text-xs text-red-600">{getFieldError('businessName')}</p>
+                    ) : (
+                      <p className="mt-1 text-xs text-neutral-500">
+                        Legal business name as registered on your trade license
+                      </p>
+                    )}
                   </div>
 
-                  <div>
-                    <label htmlFor="businessType" className="label">
-                      Business Type
-                    </label>
-                    <select
-                      id="businessType"
-                      value={formData.businessType}
-                      onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                      className="input"
-                    >
-                      {BUSINESS_TYPES.map((type) => (
-                        <option key={type.value} value={type.value}>
-                          {type.label}
-                        </option>
-                      ))}
-                    </select>
+                  {/* Brand Name + Type Row */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="brandName" className="label">
+                        Brand Name (Optional)
+                      </label>
+                      <input
+                        id="brandName"
+                        type="text"
+                        value={formData.brandName}
+                        onChange={(e) => {
+                          setFormData({ ...formData, brandName: e.target.value });
+                          clearFieldError('brandName');
+                        }}
+                        className={`input ${getFieldError('brandName') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                        placeholder="e.g., Pro Plumbers"
+                      />
+                      {getFieldError('brandName') ? (
+                        <p className="mt-1 text-xs text-red-600">{getFieldError('brandName')}</p>
+                      ) : (
+                        <p className="mt-1 text-xs text-neutral-500">
+                          If different from your legal business name
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="businessType" className="label">
+                        Business Type <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="businessType"
+                        value={formData.businessType}
+                        onChange={(e) => {
+                          setFormData({ ...formData, businessType: e.target.value });
+                          clearFieldError('businessType');
+                        }}
+                        className={`input ${getFieldError('businessType') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                      >
+                        {BUSINESS_TYPES.map((type) => (
+                          <option key={type.value} value={type.value}>
+                            {type.label}
+                          </option>
+                        ))}
+                      </select>
+                      {getFieldError('businessType') && (
+                        <p className="mt-1 text-xs text-red-600">{getFieldError('businessType')}</p>
+                      )}
+                    </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="tradeLicenseNumber" className="label">
-                      Trade License Number <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      id="tradeLicenseNumber"
-                      type="text"
-                      required
-                      value={formData.tradeLicenseNumber}
-                      onChange={(e) => setFormData({ ...formData, tradeLicenseNumber: e.target.value })}
-                      className="input"
-                      placeholder="e.g., 123456"
-                    />
-                    <p className="mt-1 text-xs text-neutral-500">
-                      Enter your business trade license number
-                    </p>
-                  </div>
+                  {/* License + VAT Row */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="tradeLicenseNumber" className="label">
+                        Trade License Number <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="tradeLicenseNumber"
+                        type="text"
+                        required
+                        value={formData.tradeLicenseNumber}
+                        onChange={(e) => {
+                          setFormData({ ...formData, tradeLicenseNumber: e.target.value });
+                          clearFieldError('tradeLicenseNumber');
+                        }}
+                        className={`input ${getFieldError('tradeLicenseNumber') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                        placeholder="e.g., 123456"
+                      />
+                      {getFieldError('tradeLicenseNumber') && (
+                        <p className="mt-1 text-xs text-red-600">{getFieldError('tradeLicenseNumber')}</p>
+                      )}
+                    </div>
 
-                  <div>
-                    <label htmlFor="vatNumber" className="label">
-                      VAT Registration Number (TRN) <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      id="vatNumber"
-                      type="text"
-                      required
-                      value={formData.vatNumber}
-                      onChange={(e) => setFormData({ ...formData, vatNumber: e.target.value })}
-                      className="input"
-                      placeholder="e.g., 100123456700003"
-                    />
-                    <p className="mt-1 text-xs text-neutral-500">
-                      Enter your 15-digit VAT Tax Registration Number
-                    </p>
+                    <div>
+                      <label htmlFor="vatNumber" className="label">
+                        VAT Number (TRN) <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="vatNumber"
+                        type="text"
+                        required
+                        value={formData.vatNumber}
+                        onChange={(e) => {
+                          setFormData({ ...formData, vatNumber: e.target.value });
+                          clearFieldError('vatNumber');
+                        }}
+                        className={`input ${getFieldError('vatNumber') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                        placeholder="e.g., 100123456700003"
+                      />
+                      {getFieldError('vatNumber') && (
+                        <p className="mt-1 text-xs text-red-600">{getFieldError('vatNumber')}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
-                <p className="text-sm text-primary-900">
-                  <strong>Your contact info:</strong> We'll use your email ({user?.email}) and the phone number above to send you lead notifications.
-                </p>
               </div>
             </div>
           )}
@@ -621,8 +994,11 @@ export default function ProOnboardingPage() {
                   id="emirate"
                   required
                   value={formData.primaryEmirate}
-                  onChange={(e) => setFormData({ ...formData, primaryEmirate: e.target.value })}
-                  className="input"
+                  onChange={(e) => {
+                    setFormData({ ...formData, primaryEmirate: e.target.value });
+                    clearFieldError('primaryEmirate');
+                  }}
+                  className={`input ${getFieldError('primaryEmirate') ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
                 >
                   <option value="">Select an emirate</option>
                   {UAE_EMIRATES.map((emirate) => (
@@ -631,6 +1007,9 @@ export default function ProOnboardingPage() {
                     </option>
                   ))}
                 </select>
+                {getFieldError('primaryEmirate') && (
+                  <p className="mt-1 text-xs text-red-600">{getFieldError('primaryEmirate')}</p>
+                )}
               </div>
 
               <div>
@@ -793,78 +1172,100 @@ export default function ProOnboardingPage() {
             </div>
           )}
 
-          {/* Step 5: Profile Photo */}
+          {/* Step 5: Portfolio */}
           {currentStep === 5 && (
             <div className="space-y-6">
-              {!formData.profilePhotoFile ? (
-                <div className="border-2 border-dashed border-neutral-300 rounded-lg p-8 text-center hover:border-primary-400 transition-colors">
-                  <svg
-                    className="mx-auto h-16 w-16 text-neutral-400"
-                    stroke="currentColor"
-                    fill="none"
-                    viewBox="0 0 48 48"
-                  >
-                    <path
-                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <div className="mt-4">
-                    <label htmlFor="photo-upload" className="cursor-pointer">
-                      <span className="mt-2 block text-sm font-medium text-primary-600 hover:text-primary-500">
-                        Upload a photo or logo
-                      </span>
-                      <input
-                        id="photo-upload"
-                        name="photo-upload"
-                        type="file"
-                        className="sr-only"
-                        accept="image/*"
-                        onChange={handleProfilePhotoUpload}
-                      />
-                    </label>
-                    <p className="mt-1 text-xs text-neutral-500">PNG, JPG, WebP, GIF up to 5MB</p>
-                    <p className="mt-2 text-sm text-neutral-600">
-                      Upload a clear image that represents your brand
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <div className="border-2 border-green-300 rounded-lg p-6 bg-green-50">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="w-16 h-16 bg-neutral-200 rounded-lg mr-4 overflow-hidden">
-                        <img
-                          src={URL.createObjectURL(formData.profilePhotoFile)}
-                          alt="Profile preview"
-                          className="w-full h-full object-cover"
-                        />
+              <p className="text-neutral-600">
+                Upload photos and videos to showcase your work. This helps homeowners see the quality of your services.
+              </p>
+
+              {/* Upload suggestions */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h4 className="text-sm font-semibold text-blue-900 mb-2">What to upload:</h4>
+                <ul className="text-sm text-blue-800 space-y-1">
+                  <li>• <strong>Before & after photos</strong> of completed projects</li>
+                  <li>• Photos of your <strong>team at work</strong></li>
+                  <li>• Your <strong>workspace or equipment</strong></li>
+                  <li>• Short <strong>video clips</strong> showcasing your skills</li>
+                </ul>
+              </div>
+
+              {/* Upload area */}
+              <div className="border-2 border-dashed border-neutral-300 rounded-lg p-6 hover:border-primary-400 transition-colors">
+                <label className="cursor-pointer block text-center">
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,video/mp4,video/quicktime,video/webm"
+                    onChange={handlePortfolioUpload}
+                    className="hidden"
+                  />
+                  <Upload className="mx-auto h-12 w-12 text-neutral-400" />
+                  <p className="mt-3 text-sm font-medium text-primary-600 hover:text-primary-500">
+                    Click to upload photos or videos
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-500">
+                    JPEG, PNG, WebP, GIF, MP4, MOV, WebM (max 50MB each, up to 10 files)
+                  </p>
+                </label>
+              </div>
+
+              {/* Uploaded files preview */}
+              {formData.portfolioFiles.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium text-neutral-900 mb-3">
+                    Uploaded files ({formData.portfolioFiles.length}/10)
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {formData.portfolioFiles.map((file, index) => (
+                      <div
+                        key={index}
+                        className="relative group border border-neutral-200 rounded-lg overflow-hidden bg-neutral-100"
+                      >
+                        {file.type.startsWith('video/') ? (
+                          <div className="aspect-square flex items-center justify-center bg-neutral-800">
+                            <video
+                              src={URL.createObjectURL(file)}
+                              className="max-h-full max-w-full"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="bg-black/50 rounded-full p-2">
+                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="aspect-square">
+                            <img
+                              src={URL.createObjectURL(file)}
+                              alt={`Portfolio ${index + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => removePortfolioFile(index)}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-1">
+                          <p className="text-xs text-white truncate">{file.name}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-neutral-900">
-                          {formData.profilePhotoFile.name}
-                        </p>
-                        <p className="text-xs text-neutral-500">
-                          {(formData.profilePhotoFile.size / 1024 / 1024).toFixed(2)} MB
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setFormData({ ...formData, profilePhotoFile: null })}
-                      className="text-red-600 hover:text-red-800 text-sm font-medium"
-                    >
-                      Remove
-                    </button>
+                    ))}
                   </div>
                 </div>
               )}
 
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                 <p className="text-sm text-amber-900">
-                  💡 <strong>New pro tip:</strong> Pros with a profile photo get 3x more responses from homeowners.
+                  💡 <strong>Pro tip:</strong> Professionals with portfolio photos get 3x more quote requests from homeowners.
                 </p>
               </div>
             </div>
@@ -943,7 +1344,7 @@ export default function ProOnboardingPage() {
                 onClick={handleNext}
                 className="btn btn-primary"
               >
-                {currentStep === 4 ? 'Continue' : currentStep === 5 ? (formData.profilePhotoFile ? 'Next' : 'Skip for now') : 'Next'}
+                {currentStep === 4 ? 'Continue' : currentStep === 5 ? (formData.portfolioFiles.length > 0 ? 'Next' : 'Skip for now') : 'Next'}
               </button>
             </div>
           )}

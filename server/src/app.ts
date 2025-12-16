@@ -22,7 +22,14 @@ import serviceRoutes from './routes/service.routes';
 import sitemapRoutes from './routes/sitemap.routes';
 import searchRoutes from './routes/search.routes';
 import reviewRoutes from './routes/review.routes';
-import projectRoutes from './routes/project.routes';
+import jobRoutes from './routes/job.routes';
+
+// Home management routes
+import propertyRoutes from './routes/property.routes';
+import homeProjectRoutes from './routes/homeProject.routes';
+import serviceHistoryRoutes from './routes/serviceHistory.routes';
+import serviceReminderRoutes from './routes/serviceReminder.routes';
+import expenseRoutes from './routes/expense.routes';
 
 /**
  * Create and configure Express application
@@ -130,7 +137,14 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/services`, serviceRoutes);
   app.use(`/api/${env.API_VERSION}/search`, searchRoutes);
   app.use(`/api/${env.API_VERSION}/reviews`, reviewRoutes);
-  app.use(`/api/${env.API_VERSION}/projects`, projectRoutes);
+  app.use(`/api/${env.API_VERSION}/jobs`, jobRoutes);
+
+  // Home management routes
+  app.use(`/api/${env.API_VERSION}/properties`, propertyRoutes);
+  app.use(`/api/${env.API_VERSION}/home-projects`, homeProjectRoutes);
+  app.use(`/api/${env.API_VERSION}/service-history`, serviceHistoryRoutes);
+  app.use(`/api/${env.API_VERSION}/service-reminders`, serviceReminderRoutes);
+  app.use(`/api/${env.API_VERSION}/expenses`, expenseRoutes);
 
   // Nested route: /leads/:leadId/quotes
   app.use(`/api/${env.API_VERSION}/leads/:leadId/quotes`, leadQuoteRouter);

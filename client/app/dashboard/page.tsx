@@ -5,7 +5,7 @@ import Link from 'next/link';
 import {
   FileText,
   MessageSquare,
-  FolderKanban,
+  House,
   Plus,
   Clock,
   Users,
@@ -127,7 +127,7 @@ export default function DashboardPage() {
         </Link>
 
         <Link
-          href="/dashboard/quotes"
+          href="/dashboard/requests"
           className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow group"
         >
           <div className="flex items-center justify-between mb-4">
@@ -146,21 +146,21 @@ export default function DashboardPage() {
         </Link>
 
         <Link
-          href="/dashboard/projects"
+          href="/dashboard/my-home"
           className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow group"
         >
           <div className="flex items-center justify-between mb-4">
             <div className="p-3 bg-green-100 rounded-lg">
-              <FolderKanban className="h-6 w-6 text-green-600" />
+              <House className="h-6 w-6 text-green-600" />
             </div>
             <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-green-600 transition-colors" />
           </div>
           <div className="text-3xl font-bold text-gray-900 mb-1">
             {loading ? '...' : stats.activeProjects}
           </div>
-          <div className="text-sm text-gray-600">Active Projects</div>
+          <div className="text-sm text-gray-600">Active Jobs</div>
           <div className="text-xs text-gray-500 mt-2">
-            In progress
+            Hired professionals
           </div>
         </Link>
       </div>

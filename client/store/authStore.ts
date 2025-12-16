@@ -3,6 +3,12 @@ import { authService, LoginCredentials, RegisterData, GoogleAuthData } from '@/l
 import { logger } from '@/lib/logger';
 import toast from 'react-hot-toast';
 
+interface HomeownerProfile {
+  onboardingCompleted: boolean;
+  onboardingSkippedAt?: string;
+  primaryPropertyId?: string;
+}
+
 interface User {
   id: string;
   email: string;
@@ -15,6 +21,7 @@ interface User {
   avatar?: string;
   createdAt?: string;
   proOnboardingCompleted?: boolean;
+  homeownerProfile?: HomeownerProfile;
 }
 
 interface AuthState {

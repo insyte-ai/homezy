@@ -59,7 +59,7 @@ export interface UpdateProfileInput {
   hourlyRateMin?: number;
   hourlyRateMax?: number;
   minimumProjectSize?: number;
-  businessType?: 'sole-proprietor' | 'llc' | 'corporation';
+  businessType?: 'sole-establishment' | 'llc' | 'general-partnership' | 'limited-partnership' | 'civil-company' | 'foreign-branch' | 'free-zone';
 }
 
 export interface UpdateProfileResponse {
@@ -193,8 +193,10 @@ export const completeOnboarding = async (data: {
   firstName: string;
   lastName: string;
   phone: string;
+  businessEmail?: string;
   businessName: string;
-  businessType: 'sole-proprietor' | 'llc' | 'corporation';
+  brandName?: string;
+  businessType: 'sole-establishment' | 'llc' | 'general-partnership' | 'limited-partnership' | 'civil-company' | 'foreign-branch' | 'free-zone';
   tradeLicenseNumber: string;
   vatNumber: string;
   categories: string[];

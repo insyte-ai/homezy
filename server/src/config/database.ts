@@ -9,6 +9,8 @@ export const connectDatabase = async (): Promise<void> => {
   try {
     const uri = isTest ? env.MONGODB_TEST_URI || env.MONGODB_URI : env.MONGODB_URI;
 
+    logger.info('Attempting MongoDB connection...', { uri: uri.replace(/\/\/.*@/, '//<credentials>@') });
+
     mongoose.set('strictQuery', false);
 
     await mongoose.connect(uri, {

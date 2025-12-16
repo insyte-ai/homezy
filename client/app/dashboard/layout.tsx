@@ -8,9 +8,8 @@ import { useAuthStore } from '@/store/authStore';
 import { useChatPanelStore } from '@/store/chatPanelStore';
 import {
   Home,
+  House,
   FileText,
-  MessageSquare,
-  FolderKanban,
   Users,
   Settings,
   Menu,
@@ -41,7 +40,7 @@ export default function DashboardLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
 
-  // Check if user is homeowner
+  // Check if user is homeowner and handle onboarding
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/auth/login');
@@ -65,8 +64,20 @@ export default function DashboardLayout({
       } else {
         router.push('/');
       }
+      return;
     }
-  }, [user, isAuthenticated, router]);
+
+    // Check if homeowner needs onboarding (not completed and not skipped)
+    const needsOnboarding =
+      user.homeownerProfile &&
+      !user.homeownerProfile.onboardingCompleted &&
+      !user.homeownerProfile.onboardingSkippedAt;
+
+    // Redirect to onboarding if needed (but not if already on onboarding page)
+    if (needsOnboarding && !pathname?.startsWith('/dashboard/onboarding')) {
+      router.push('/dashboard/onboarding');
+    }
+  }, [user, isAuthenticated, router, pathname]);
 
   // Check if user is new (created in last 7 days) AND has no leads
   const [isNewUser, setIsNewUser] = useState(false);
@@ -140,10 +151,9 @@ export default function DashboardLayout({
 
   const navItems = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
+    { name: 'My Home', href: '/dashboard/my-home', icon: House },
     { name: 'My Requests', href: '/dashboard/requests', icon: FileText },
-    { name: 'Quotes', href: '/dashboard/quotes', icon: MessageSquare },
     { name: 'Messages', href: '/dashboard/messages', icon: Mail, badge: unreadCount > 0 ? unreadCount : undefined },
-    { name: 'Projects', href: '/dashboard/projects', icon: FolderKanban },
     { name: 'Professionals', href: '/dashboard/professionals', icon: Users },
   ];
 

@@ -1,6 +1,9 @@
 import { startDirectLeadExpiryJob } from './directLeadExpiry.job';
 import { startDirectLeadRemindersJob } from './directLeadReminders.job';
 import { startSitemapJob } from './sitemap.job';
+import { startServiceReminderNotificationsJob } from './serviceReminderNotifications.job';
+import { startSeasonalRemindersJob } from './seasonalReminders.job';
+import { startServicePatternAnalysisJob } from './servicePatternAnalysis.job';
 import { logger } from '../utils/logger';
 
 /**
@@ -18,6 +21,15 @@ export const initializeJobs = () => {
 
     // Start sitemap jobs (cache warming and search engine notifications)
     startSitemapJob();
+
+    // Start service reminder notification job (daily at 9 AM UAE)
+    startServiceReminderNotificationsJob();
+
+    // Start seasonal reminders job (1st of each month)
+    startSeasonalRemindersJob();
+
+    // Start service pattern analysis job (weekly on Sundays)
+    startServicePatternAnalysisJob();
 
     logger.info('All scheduled jobs initialized successfully');
   } catch (error: any) {

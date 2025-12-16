@@ -13,6 +13,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { PhoneInput } from '@/components/common/PhoneInput';
 
 export default function SettingsPage() {
   const { user } = useAuthStore();
@@ -183,13 +184,12 @@ export default function SettingsPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Phone
                     </label>
-                    <input
-                      type="tel"
+                    <PhoneInput
                       value={profileData.phone}
-                      onChange={(e) =>
-                        setProfileData({ ...profileData, phone: e.target.value })
+                      onChange={(value) =>
+                        setProfileData({ ...profileData, phone: value })
                       }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      placeholder="50 123 4567"
                     />
                   </div>
 

@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 
-export interface IProject extends Document {
+export interface IJob extends Document {
   homeownerId: string;
   professionalId: string;
   leadId: string;
@@ -14,12 +14,12 @@ export interface IProject extends Document {
   startDate?: Date;
   endDate?: Date;
   completedAt?: Date;
-  milestones: IMilestone[];
-  documents: IDocument[];
-  photos: IPhoto[];
+  milestones: IJobMilestone[];
+  documents: IJobDocument[];
+  photos: IJobPhoto[];
 }
 
-export interface IMilestone {
+export interface IJobMilestone {
   id: string;
   name: string;
   description?: string;
@@ -29,7 +29,7 @@ export interface IMilestone {
   order: number;
 }
 
-export interface IDocument {
+export interface IJobDocument {
   id: string;
   name: string;
   url: string;
@@ -39,7 +39,7 @@ export interface IDocument {
   size: number;
 }
 
-export interface IPhoto {
+export interface IJobPhoto {
   id: string;
   url: string;
   thumbnail?: string;
@@ -50,7 +50,7 @@ export interface IPhoto {
   milestoneId?: string;
 }
 
-const MilestoneSchema = new Schema<IMilestone>({
+const JobMilestoneSchema = new Schema<IJobMilestone>({
   id: { type: String, required: true },
   name: { type: String, required: true },
   description: String,
@@ -64,7 +64,7 @@ const MilestoneSchema = new Schema<IMilestone>({
   order: { type: Number, required: true },
 });
 
-const DocumentSchema = new Schema<IDocument>({
+const JobDocumentSchema = new Schema<IJobDocument>({
   id: { type: String, required: true },
   name: { type: String, required: true },
   url: { type: String, required: true },
@@ -78,7 +78,7 @@ const DocumentSchema = new Schema<IDocument>({
   size: { type: Number, required: true },
 });
 
-const PhotoSchema = new Schema<IPhoto>({
+const JobPhotoSchema = new Schema<IJobPhoto>({
   id: { type: String, required: true },
   url: { type: String, required: true },
   thumbnail: String,
@@ -93,7 +93,7 @@ const PhotoSchema = new Schema<IPhoto>({
   milestoneId: String,
 });
 
-const ProjectSchema = new Schema<IProject>(
+const JobSchema = new Schema<IJob>(
   {
     homeownerId: {
       type: String,
@@ -144,9 +144,9 @@ const ProjectSchema = new Schema<IProject>(
     startDate: Date,
     endDate: Date,
     completedAt: Date,
-    milestones: [MilestoneSchema],
-    documents: [DocumentSchema],
-    photos: [PhotoSchema],
+    milestones: [JobMilestoneSchema],
+    documents: [JobDocumentSchema],
+    photos: [JobPhotoSchema],
   },
   {
     timestamps: true,
@@ -163,9 +163,9 @@ const ProjectSchema = new Schema<IProject>(
 );
 
 // Indexes
-ProjectSchema.index({ homeownerId: 1, status: 1, createdAt: -1 });
-ProjectSchema.index({ professionalId: 1, status: 1, createdAt: -1 });
-ProjectSchema.index({ status: 1 });
+JobSchema.index({ homeownerId: 1, status: 1, createdAt: -1 });
+JobSchema.index({ professionalId: 1, status: 1, createdAt: -1 });
+JobSchema.index({ status: 1 });
 
-export const Project: Model<IProject> = mongoose.model<IProject>('Project', ProjectSchema);
-export default Project;
+export const Job: Model<IJob> = mongoose.model<IJob>('Job', JobSchema);
+export default Job;

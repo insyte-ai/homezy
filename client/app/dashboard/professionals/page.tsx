@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import {
   Search,
   MapPin,
@@ -310,13 +309,12 @@ export default function ProfessionalsPage() {
                     >
                       {/* Profile Photo and Info */}
                       <div className="flex items-start gap-3 mb-3">
-                        <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 relative">
+                        <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0">
                           {pro.profilePhoto ? (
-                            <Image
+                            <img
                               src={pro.profilePhoto}
                               alt={pro.businessName}
-                              fill
-                              className="object-cover"
+                              className="w-full h-full object-cover"
                             />
                           ) : (
                             <Briefcase className="h-6 w-6 text-gray-400" />

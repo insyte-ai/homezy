@@ -163,13 +163,18 @@ export const findOrCreateGoogleUser = async (
             projectUpdate: true,
             reviewRequest: true,
             marketing: false,
+            serviceReminders: true,
+            seasonalReminders: true,
+            expenseAlerts: true,
           },
           push: {
             newQuote: true,
             newMessage: true,
             projectUpdate: true,
+            serviceReminders: true,
           },
         },
+        onboardingCompleted: false,
       };
     }
 

@@ -1100,6 +1100,141 @@ class EmailService {
       throw error;
     }
   }
+
+  /**
+   * Send service reminder notification email
+   */
+  async sendServiceReminderEmail(
+    to: string,
+    data: {
+      firstName: string;
+      reminderTitle: string;
+      category: string;
+      propertyName: string;
+      dueDate: Date;
+      daysUntilDue: number;
+      reminderId: string;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const reminderUrl = `${clientUrl}/dashboard/my-home/reminders`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+
+      // Subject varies based on urgency
+      let subject = `Service Reminder: ${data.reminderTitle}`;
+      let urgencyBadge = '';
+      let headerColor = 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)';
+
+      if (data.daysUntilDue <= 1) {
+        subject = `🚨 Due Today: ${data.reminderTitle}`;
+        urgencyBadge = '<span style="background: #ff6b6b; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">DUE TODAY</span>';
+        headerColor = '#ff6b6b';
+      } else if (data.daysUntilDue <= 7) {
+        subject = `⏰ Due Soon: ${data.reminderTitle}`;
+        urgencyBadge = '<span style="background: #ffc107; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">DUE IN ' + data.daysUntilDue + ' DAYS</span>';
+        headerColor = '#ffc107';
+      }
+
+      sendSmtpEmail.subject = subject;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.firstName }];
+
+      const categoryLabel = data.category
+        .split('-')
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: ${headerColor}; color: ${data.daysUntilDue <= 1 ? 'white' : '#000'}; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .reminder-info { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid #FFD700; border-radius: 4px; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+            .cta-section { background: #e8f5e9; border-left: 4px solid #4CAF50; padding: 15px; margin: 20px 0; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>🔔 Service Reminder</h1>
+            </div>
+            <div class="content">
+              <h2>Hi ${data.firstName},</h2>
+              <p>This is a friendly reminder about upcoming home maintenance. ${urgencyBadge}</p>
+
+              <div class="reminder-info">
+                <h3 style="margin-top: 0;">${data.reminderTitle}</h3>
+                <p><strong>Category:</strong> ${categoryLabel}</p>
+                <p><strong>Property:</strong> ${data.propertyName}</p>
+                <p><strong>Due Date:</strong> ${data.dueDate.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'long' })}</p>
+              </div>
+
+              <div class="cta-section">
+                <strong>💡 Need help with this service?</strong><br>
+                Request a quote from verified Homezy professionals and get competitive offers for your ${categoryLabel.toLowerCase()} needs.
+              </div>
+
+              <div style="text-align: center;">
+                <a href="${reminderUrl}" class="button">View Reminder</a>
+              </div>
+
+              <p style="margin-top: 30px; font-size: 14px; color: #666;">
+                You can manage your reminders, snooze them, or mark them as complete from your Homezy dashboard.
+              </p>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+              <p style="font-size: 11px;">You're receiving this email because you have service reminders enabled. <a href="${clientUrl}/dashboard/settings">Manage preferences</a></p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        Service Reminder
+
+        Hi ${data.firstName},
+
+        This is a friendly reminder about upcoming home maintenance.
+
+        ${data.reminderTitle}
+        Category: ${categoryLabel}
+        Property: ${data.propertyName}
+        Due Date: ${data.dueDate.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'long' })}
+
+        Need help with this service?
+        Request a quote from verified Homezy professionals.
+
+        View reminder: ${reminderUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Service reminder email sent', {
+        to,
+        reminderId: data.reminderId,
+        daysUntilDue: data.daysUntilDue,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending service reminder email', {
+        to,
+        reminderId: data.reminderId,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
 }
 
 // Export singleton instance

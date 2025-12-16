@@ -10,6 +10,7 @@ import { useLeadFormStore } from '@/store/leadFormStore';
 import { useAuthStore } from '@/store/authStore';
 import { createLead, createDirectLead } from '@/lib/services/leads';
 import { Mail, User, Phone } from 'lucide-react';
+import { PhoneInput } from '@/components/common/PhoneInput';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { LeadSuccessWithPros } from './LeadSuccessWithPros';
@@ -290,12 +291,10 @@ export function ContactInfoStep({ onSubmit }: ContactInfoStepProps) {
           <Phone className="inline h-4 w-4 mr-1" />
           Phone Number (Optional)
         </label>
-        <input
-          type="tel"
+        <PhoneInput
           value={phone}
-          onChange={(e) => setContactField('phone', e.target.value)}
-          placeholder="+971 50 123 4567"
-          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          onChange={(value) => setContactField('phone', value)}
+          placeholder="50 123 4567"
         />
       </div>
 

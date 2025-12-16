@@ -57,4 +57,14 @@ router.patch(
   asyncHandler(userController.changePassword)
 );
 
+/**
+ * @route   PATCH /api/v1/users/onboarding
+ * @desc    Update homeowner onboarding status
+ * @access  Private (Homeowner)
+ */
+router.patch(
+  '/onboarding',
+  asyncHandler(userController.updateOnboardingStatus)
+);
+
 export default router;

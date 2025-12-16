@@ -113,6 +113,8 @@ const ServiceAreaSchema = new Schema<ServiceArea>({
 
 const ProProfileSchema = new Schema<ProProfile>({
   businessName: { type: String, required: true },
+  brandName: { type: String }, // Optional brand/trading name if different from legal business name
+  businessEmail: { type: String }, // Optional business contact email (e.g., manager/admin) different from account email
   slug: {
     type: String,
     unique: true,
@@ -157,7 +159,7 @@ const ProProfileSchema = new Schema<ProProfile>({
   // Make businessType required only when requesting verification
   businessType: {
     type: String,
-    enum: ['sole-proprietor', 'llc', 'corporation'],
+    enum: ['sole-establishment', 'llc', 'general-partnership', 'limited-partnership', 'civil-company', 'foreign-branch', 'free-zone'],
     required: function(this: any) {
       // Only required when verification status is approved or rejected (has gone through verification)
       return this.verificationStatus && this.verificationStatus !== 'pending';
@@ -184,11 +186,15 @@ const NotificationPreferencesSchema = new Schema<NotificationPreferences>({
     projectUpdate: { type: Boolean, default: true },
     reviewRequest: { type: Boolean, default: true },
     marketing: { type: Boolean, default: false },
+    serviceReminders: { type: Boolean, default: true },
+    seasonalReminders: { type: Boolean, default: true },
+    expenseAlerts: { type: Boolean, default: true },
   },
   push: {
     newQuote: { type: Boolean, default: true },
     newMessage: { type: Boolean, default: true },
     projectUpdate: { type: Boolean, default: true },
+    serviceReminders: { type: Boolean, default: true },
   },
   doNotDisturbStart: String,
   doNotDisturbEnd: String,
@@ -201,6 +207,11 @@ const HomeownerProfileSchema = new Schema<HomeownerProfile>({
     type: NotificationPreferencesSchema,
     default: () => ({}),
   },
+
+  // Home management onboarding
+  onboardingCompleted: { type: Boolean, default: false },
+  onboardingSkippedAt: Date,
+  primaryPropertyId: { type: String, index: true },
 }, { _id: false });
 
 const UserSchema = new Schema<IUser>(

@@ -119,13 +119,12 @@ export default function ProfilePreviewPage() {
         <div className="container-custom py-8">
           <div className="flex flex-col md:flex-row items-start gap-6">
             {/* Profile Photo */}
-            <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg flex-shrink-0">
+            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg flex-shrink-0">
               {profile.profilePhoto ? (
-                <Image
+                <img
                   src={profile.profilePhoto}
                   alt={profile.businessName}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-4xl font-bold">
