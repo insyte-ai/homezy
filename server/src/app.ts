@@ -23,6 +23,7 @@ import sitemapRoutes from './routes/sitemap.routes';
 import searchRoutes from './routes/search.routes';
 import reviewRoutes from './routes/review.routes';
 import jobRoutes from './routes/job.routes';
+import resourceRoutes from './routes/resource.routes';
 
 // Home management routes
 import propertyRoutes from './routes/property.routes';
@@ -138,6 +139,7 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/search`, searchRoutes);
   app.use(`/api/${env.API_VERSION}/reviews`, reviewRoutes);
   app.use(`/api/${env.API_VERSION}/jobs`, jobRoutes);
+  app.use(`/api/${env.API_VERSION}/resources`, resourceRoutes);
 
   // Home management routes
   app.use(`/api/${env.API_VERSION}/properties`, propertyRoutes);

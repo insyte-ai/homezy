@@ -230,9 +230,14 @@ export function PublicHeader() {
                 </Link>
               </div>
 
-              {/* Right side - placeholder for future features */}
-              <div className="text-sm text-gray-400">
-                {/* Resource Center link removed - page doesn't exist yet */}
+              {/* Right side */}
+              <div>
+                <Link
+                  href="/resources/center"
+                  className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+                >
+                  Resource Center
+                </Link>
               </div>
             </div>
           </div>

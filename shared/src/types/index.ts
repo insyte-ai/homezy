@@ -4,3 +4,4 @@ export * from './api.types';
 export * from './chat.types';
 export * from './home.types';
 export * from './project.types';
+export * from './resource.types';

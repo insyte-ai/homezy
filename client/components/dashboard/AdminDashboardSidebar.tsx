@@ -19,6 +19,7 @@ import {
   ChevronRightIcon,
   ArrowRightOnRectangleIcon,
   SparklesIcon,
+  BookOpenIcon,
 } from '@heroicons/react/24/outline';
 
 interface NavItem {
@@ -54,6 +55,7 @@ export function AdminDashboardSidebar() {
     { name: 'Homeowners', href: '/admin/homeowners', icon: UserGroupIcon },
     { name: 'Leads', href: '/admin/leads', icon: DocumentTextIcon },
     { name: 'Credits', href: '/admin/credits', icon: CreditCardIcon },
+    { name: 'Resources', href: '/admin/resources', icon: BookOpenIcon },
     { name: 'Analytics', href: '/admin/analytics', icon: ChartBarIcon },
     { name: 'Audit Logs', href: '/admin/audit', icon: ClipboardDocumentListIcon },
     { name: 'AI', href: '/admin/ai', icon: SparklesIcon },

@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import Service from '../models/Service.model';
 import User from '../models/User.model';
 import Lead from '../models/Lead.model';
+import Resource, { ResourceStatus, ResourceCategory } from '../models/Resource.model';
 
 const router = Router();
 const BASE_URL = process.env.BASE_URL || 'https://homezy.co';
@@ -42,6 +43,13 @@ router.get('/sitemap.xml', async (_req: Request, res: Response) => {
       <lastmod>${new Date().toISOString()}</lastmod>
     </sitemap>`;
 
+    // Resources sitemap
+    xml += `
+    <sitemap>
+      <loc>${BASE_URL}/sitemap-resources.xml</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+    </sitemap>`;
+
     xml += '</sitemapindex>';
 
     res.header('Content-Type', 'application/xml');
@@ -65,6 +73,11 @@ router.get('/sitemap-main.xml', async (_req: Request, res: Response) => {
       { url: '/pros', changefreq: 'daily', priority: 0.8 },
       { url: '/become-a-pro', changefreq: 'monthly', priority: 0.8 },
       { url: '/create-request', changefreq: 'monthly', priority: 0.7 },
+      { url: '/resources/center', changefreq: 'weekly', priority: 0.8 },
+      { url: '/resources/homeowner', changefreq: 'weekly', priority: 0.7 },
+      { url: '/resources/pro', changefreq: 'weekly', priority: 0.7 },
+      { url: '/resources/categories', changefreq: 'weekly', priority: 0.6 },
+      { url: '/resources/search', changefreq: 'weekly', priority: 0.5 },
       { url: '/about', changefreq: 'monthly', priority: 0.6 },
       { url: '/contact', changefreq: 'monthly', priority: 0.6 },
       { url: '/help', changefreq: 'monthly', priority: 0.5 },
@@ -237,6 +250,58 @@ router.get('/sitemap-leads.xml', async (_req: Request, res: Response) => {
 });
 
 // ==========================================
+// RESOURCES SITEMAP
+// ==========================================
+router.get('/sitemap-resources.xml', async (_req: Request, res: Response) => {
+  try {
+    const resources = await Resource.find({
+      status: ResourceStatus.PUBLISHED,
+    })
+      .select('slug category updatedAt publishedAt')
+      .lean();
+
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+    // Add category pages
+    const categories = Object.values(ResourceCategory);
+    categories.forEach((category) => {
+      xml += `
+      <url>
+        <loc>${BASE_URL}/resources/${category}</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+      </url>`;
+    });
+
+    // Add individual resource pages
+    resources.forEach((resource: any) => {
+      const lastmod = resource.updatedAt
+        ? new Date(resource.updatedAt).toISOString()
+        : resource.publishedAt
+          ? new Date(resource.publishedAt).toISOString()
+          : new Date().toISOString();
+      xml += `
+      <url>
+        <loc>${BASE_URL}/resources/${resource.category}/${resource.slug}</loc>
+        <lastmod>${lastmod}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+      </url>`;
+    });
+
+    xml += '</urlset>';
+
+    res.header('Content-Type', 'application/xml');
+    res.header('Cache-Control', 'public, max-age=86400');
+    res.send(xml);
+  } catch (error) {
+    console.error('Error generating resources sitemap:', error);
+    res.status(500).send('Error generating sitemap');
+  }
+});
+
+// ==========================================
 // ROBOTS.TXT
 // ==========================================
 router.get('/robots.txt', async (_req: Request, res: Response) => {
@@ -251,6 +316,8 @@ router.get('/robots.txt', async (_req: Request, res: Response) => {
     txt += 'Allow: /pros/*\n';
     txt += 'Allow: /lead-marketplace\n';
     txt += 'Allow: /lead-marketplace/*\n';
+    txt += 'Allow: /resources\n';
+    txt += 'Allow: /resources/*\n';
     txt += 'Allow: /become-a-pro\n';
     txt += 'Allow: /create-request\n';
     txt += 'Allow: /about\n';

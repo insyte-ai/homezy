@@ -47,8 +47,8 @@ export function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/resources" className="hover:text-gray-900">
-                  Home Resource Center
+                <Link href="/resources/center" className="hover:text-gray-900">
+                  Resource Center
                 </Link>
               </li>
             </ul>
