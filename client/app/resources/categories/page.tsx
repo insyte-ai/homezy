@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronRight, Home, Briefcase } from 'lucide-react';
+import { PublicHeader } from '@/components/layout/PublicHeader';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 import { CategoryCard } from '@/components/resources';
 import { CategoryInfo, TargetAudience } from '@/types/resource';
 import { getResourceStats, getCategoriesWithCounts } from '@/lib/services/resources';
@@ -42,6 +44,8 @@ export default function CategoriesPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <PublicHeader />
+
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-200">
         <div className="container-custom py-4">
@@ -130,6 +134,8 @@ export default function CategoriesPage() {
           </section>
         </>
       )}
+
+      <PublicFooter />
     </div>
   );
 }

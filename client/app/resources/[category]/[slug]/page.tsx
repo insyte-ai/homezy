@@ -5,6 +5,8 @@ import { useParams, notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, Clock, Calendar, ArrowLeft, Share2, Bookmark } from 'lucide-react';
+import { PublicHeader } from '@/components/layout/PublicHeader';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 import { ResourceCard, NewsletterSignup } from '@/components/resources';
 import {
   Resource,
@@ -96,6 +98,8 @@ export default function ArticlePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <PublicHeader />
+
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-200">
         <div className="container-custom py-4">
@@ -289,6 +293,8 @@ export default function ArticlePage() {
           </div>
         </section>
       )}
+
+      <PublicFooter />
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Search, X } from 'lucide-react';
+import { PublicHeader } from '@/components/layout/PublicHeader';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 import { ResourceCard } from '@/components/resources';
 import { Resource, TargetAudience, TARGET_AUDIENCE_LABELS } from '@/types/resource';
 import { searchResources } from '@/lib/services/resources';
@@ -69,6 +71,8 @@ function SearchContent() {
 
   return (
     <div className="min-h-screen bg-white">
+      <PublicHeader />
+
       {/* Search Header */}
       <section className="bg-gray-50 py-12">
         <div className="container-custom">
@@ -205,6 +209,8 @@ function SearchContent() {
           )}
         </div>
       </section>
+
+      <PublicFooter />
     </div>
   );
 }

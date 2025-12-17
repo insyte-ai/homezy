@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Briefcase, ArrowRight } from 'lucide-react';
+import { PublicHeader } from '@/components/layout/PublicHeader';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 import {
   ResourceCard,
   CategoryCard,
@@ -66,6 +68,8 @@ export default function ProAcademyPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <PublicHeader />
+
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-orange-50 to-white py-12 md:py-16">
         <div className="container-custom">
@@ -162,6 +166,8 @@ export default function ProAcademyPage() {
           </main>
         </div>
       </div>
+
+      <PublicFooter />
     </div>
   );
 }

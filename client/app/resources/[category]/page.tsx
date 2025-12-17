@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useParams, notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight, Filter } from 'lucide-react';
+import { PublicHeader } from '@/components/layout/PublicHeader';
+import { PublicFooter } from '@/components/layout/PublicFooter';
 import { ResourceCard } from '@/components/resources';
 import { Resource, ResourceType, RESOURCE_TYPE_LABELS } from '@/types/resource';
 import { getResources, getCategoryBySlug } from '@/lib/services/resources';
@@ -48,6 +50,8 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <PublicHeader />
+
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-200">
         <div className="container-custom py-4">
@@ -139,6 +143,8 @@ export default function CategoryPage() {
           )}
         </div>
       </section>
+
+      <PublicFooter />
     </div>
   );
 }
