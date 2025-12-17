@@ -1,6 +1,6 @@
 // Resource Center Types
 
-export enum ResourceType {
+export enum ResourceContentType {
   GUIDE = 'guide',
   BLOG = 'blog',
   TIP = 'tip',
@@ -63,7 +63,7 @@ export interface Resource {
   title: string;
   excerpt: string;
   content: ResourceContent;
-  type: ResourceType;
+  type: ResourceContentType;
   category: ResourceCategory;
   tags: ResourceTag[];
   targetAudience?: TargetAudience;
@@ -96,7 +96,7 @@ export interface CategoryInfo {
 
 export interface ResourceFilters {
   category?: ResourceCategory;
-  type?: ResourceType;
+  type?: ResourceContentType;
   tags?: string[];
   search?: string;
   featured?: boolean;
