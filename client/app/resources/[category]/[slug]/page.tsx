@@ -164,7 +164,7 @@ export default function ArticlePage() {
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6">
               {/* Author */}
               <div className="flex items-center gap-2">
-                {resource.author.avatar && (
+                {resource.author.avatar && resource.author.avatar.startsWith('http') ? (
                   <Image
                     src={resource.author.avatar}
                     alt={resource.author.name}
@@ -172,6 +172,10 @@ export default function ArticlePage() {
                     height={32}
                     className="rounded-full"
                   />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-sm font-medium">
+                    {resource.author.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                  </div>
                 )}
                 <span className="font-medium text-gray-900">{resource.author.name}</span>
               </div>
@@ -253,7 +257,7 @@ export default function ArticlePage() {
           {resource.author.bio && (
             <div className="bg-gray-50 rounded-xl p-6 mb-12">
               <div className="flex items-start gap-4">
-                {resource.author.avatar && (
+                {resource.author.avatar && resource.author.avatar.startsWith('http') ? (
                   <Image
                     src={resource.author.avatar}
                     alt={resource.author.name}
@@ -261,6 +265,10 @@ export default function ArticlePage() {
                     height={64}
                     className="rounded-full"
                   />
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xl font-medium flex-shrink-0">
+                    {resource.author.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                  </div>
                 )}
                 <div>
                   <h3 className="font-semibold text-gray-900">{resource.author.name}</h3>
