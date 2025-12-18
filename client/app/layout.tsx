@@ -16,7 +16,18 @@ export const metadata: Metadata = {
   title: "Homezy - AI-First Home Improvement Marketplace",
   description: "Connect with verified home improvement professionals in UAE",
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon-32x32.png',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+  other: {
+    'msapplication-TileColor': '#3b82f6',
   },
 };
 
