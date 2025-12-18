@@ -6,6 +6,7 @@ import { ConflictError, UnauthorizedError, NotFoundError, BadRequestError } from
 import { logger } from '../utils/logger';
 import { emailService } from '../services/email.service';
 import { verifyGoogleToken, findOrCreateGoogleUser } from '../services/googleAuthService';
+import { notificationService } from '../services/notification.service';
 import type {
   RegisterInput,
   LoginInput,
@@ -86,6 +87,16 @@ export const register = async (req: Request<{}, {}, RegisterInput>, res: Respons
   });
 
   await user.save();
+
+  // Notify admins when a pro registers
+  if (userRole === 'pro') {
+    const proName = `${firstName || ''} ${lastName || ''}`.trim() || email.split('@')[0];
+    notificationService.notifyAdminsNewProRegistered(
+      user._id.toString(),
+      proName,
+      user.email
+    );
+  }
 
   // Generate tokens
   const tokens = generateTokenPair({

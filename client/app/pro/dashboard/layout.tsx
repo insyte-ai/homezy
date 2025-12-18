@@ -7,11 +7,13 @@ import Image from "next/image";
 import { useAuthStore } from "@/store/authStore";
 import { Search, Menu, X } from "lucide-react";
 import UserProfileDropdown from "@/components/common/UserProfileDropdown";
+import { NotificationBell } from "@/components/common/NotificationBell";
 import {
   getUnreadCount,
   connectMessagingSocket,
   disconnectMessagingSocket,
 } from "@/lib/services/messages";
+import { getMyProfile } from "@/lib/services/professional";
 
 export default function ProDashboardLayout({
   children,
@@ -24,6 +26,10 @@ export default function ProDashboardLayout({
   const [showProgressBanner, setShowProgressBanner] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [profileCompleteness, setProfileCompleteness] = useState<{
+    percentage: number;
+    missingSections: string[];
+  }>({ percentage: 0, missingSections: [] });
 
   // Initialize auth state on mount
   useEffect(() => {
@@ -69,6 +75,24 @@ export default function ProDashboardLayout({
 
     if (isAuthenticated && user) {
       loadUnreadCount();
+    }
+  }, [isAuthenticated, user]);
+
+  // Load profile completeness
+  useEffect(() => {
+    const loadProfileCompleteness = async () => {
+      try {
+        const data = await getMyProfile();
+        if (data.completeness) {
+          setProfileCompleteness(data.completeness);
+        }
+      } catch (error) {
+        console.error("Failed to load profile completeness:", error);
+      }
+    };
+
+    if (isAuthenticated && user) {
+      loadProfileCompleteness();
     }
   }, [isAuthenticated, user]);
 
@@ -128,49 +152,23 @@ export default function ProDashboardLayout({
     }
   }, [user, isAuthenticated, router, pathname, isInitialized]);
 
-  // Mock profile completion - TODO: Get from API
-  const profileCompletion = {
-    completed: 2,
-    total: 5,
-    tasks: [
-      {
-        id: 1,
-        name: "Basic profile setup",
-        completed: true,
-        link: "/pro/onboarding",
-      },
-      {
-        id: 2,
-        name: "Service categories selected",
-        completed: true,
-        link: "/pro/dashboard/profile",
-      },
-      {
-        id: 3,
-        name: "Add bio and tagline",
-        completed: false,
-        link: "/pro/dashboard/profile",
-        highlight: true,
-      },
-      {
-        id: 4,
-        name: "Upload portfolio photos",
-        completed: false,
-        link: "/pro/dashboard/portfolio",
-      },
-      {
-        id: 5,
-        name: "Set pricing and availability",
-        completed: false,
-        link: "/pro/dashboard/settings",
-      },
-    ],
+  // Map missing sections to user-friendly task names and links
+  const sectionToTask: Record<string, { name: string; link: string }> = {
+    basicInfo: { name: "Add bio and tagline", link: "/pro/dashboard/profile" },
+    services: { name: "Set up service categories", link: "/pro/dashboard/profile" },
+    pricing: { name: "Set pricing information", link: "/pro/dashboard/profile" },
+    portfolio: { name: "Upload portfolio photos", link: "/pro/dashboard/profile" },
+    verification: { name: "Complete verification", link: "/pro/dashboard/profile" },
+    availability: { name: "Set availability schedule", link: "/pro/dashboard/profile" },
+    additional: { name: "Add business details", link: "/pro/dashboard/profile" },
   };
 
-  const completionPercentage = Math.round(
-    (profileCompletion.completed / profileCompletion.total) * 100
-  );
-  const incompleteTasks = profileCompletion.tasks.filter((t) => !t.completed);
+  const incompleteTasks = profileCompleteness.missingSections.map((section, index) => ({
+    id: index + 1,
+    name: sectionToTask[section]?.name || section,
+    link: sectionToTask[section]?.link || "/pro/dashboard/profile",
+    highlight: index === 0,
+  }));
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -209,8 +207,9 @@ export default function ProDashboardLayout({
                 </div>
               </div>
 
-              {/* Right Side - User */}
+              {/* Right Side - Notifications & User */}
               <div className="flex items-center space-x-4">
+                <NotificationBell notificationsPath="/pro/dashboard/notifications" />
                 <div className="hidden md:block">
                   <UserProfileDropdown />
                 </div>
@@ -301,7 +300,7 @@ export default function ProDashboardLayout({
       </header>
 
       {/* Profile Completion Banner - Only show on main dashboard page */}
-      {showProgressBanner && completionPercentage < 100 && pathname === '/pro/dashboard' && (
+      {showProgressBanner && profileCompleteness.percentage < 100 && pathname === '/pro/dashboard' && (
         <div className="bg-primary-50 border-b border-primary-200">
           <div className="container-custom py-4">
             <div className="flex items-center justify-between">
@@ -334,12 +333,12 @@ export default function ProDashboardLayout({
                     <div className="w-full bg-primary-200 rounded-full h-2">
                       <div
                         className="bg-primary-600 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${completionPercentage}%` }}
+                        style={{ width: `${profileCompleteness.percentage}%` }}
                       />
                     </div>
                   </div>
                   <span className="text-sm font-medium text-neutral-900 whitespace-nowrap">
-                    {completionPercentage}% Complete
+                    {profileCompleteness.percentage}% Complete
                   </span>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">

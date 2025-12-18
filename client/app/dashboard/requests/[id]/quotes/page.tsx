@@ -278,33 +278,11 @@ export default function QuoteComparisonPage() {
               {/* Timeline */}
               <tr>
                 <td className="px-6 py-4 text-sm font-medium text-gray-900 sticky left-0 bg-white z-10">
-                  Start Date
+                  Estimated Duration
                 </td>
                 {sortedQuotes.map((quote) => (
                   <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
-                    {new Date(quote.timeline.startDate).toLocaleDateString()}
-                  </td>
-                ))}
-              </tr>
-
-              <tr>
-                <td className="px-6 py-4 text-sm font-medium text-gray-900 sticky left-0 bg-white z-10">
-                  Completion Date
-                </td>
-                {sortedQuotes.map((quote) => (
-                  <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
-                    {new Date(quote.timeline.completionDate).toLocaleDateString()}
-                  </td>
-                ))}
-              </tr>
-
-              <tr>
-                <td className="px-6 py-4 text-sm font-medium text-gray-900 sticky left-0 bg-white z-10">
-                  Duration
-                </td>
-                {sortedQuotes.map((quote) => (
-                  <td key={quote.id} className="px-6 py-4 text-center text-sm text-gray-700">
-                    {quote.timeline.estimatedDuration} days
+                    {quote.timeline.estimatedDuration} {quote.timeline.estimatedDuration === 1 ? 'day' : 'days'}
                   </td>
                 ))}
               </tr>

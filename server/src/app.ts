@@ -24,6 +24,7 @@ import searchRoutes from './routes/search.routes';
 import reviewRoutes from './routes/review.routes';
 import jobRoutes from './routes/job.routes';
 import resourceRoutes from './routes/resource.routes';
+import notificationRoutes from './routes/notification.routes';
 
 // Home management routes
 import propertyRoutes from './routes/property.routes';
@@ -140,6 +141,7 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/reviews`, reviewRoutes);
   app.use(`/api/${env.API_VERSION}/jobs`, jobRoutes);
   app.use(`/api/${env.API_VERSION}/resources`, resourceRoutes);
+  app.use(`/api/${env.API_VERSION}/notifications`, notificationRoutes);
 
   // Home management routes
   app.use(`/api/${env.API_VERSION}/properties`, propertyRoutes);

@@ -13,8 +13,6 @@ export interface IQuotePricing {
 }
 
 export interface IQuoteTimeline {
-  startDate: Date;
-  completionDate: Date;
   estimatedDuration: number;
 }
 
@@ -114,14 +112,6 @@ const QuoteSchema = new Schema<IQuote>(
 
     // Timeline (nested)
     timeline: {
-      startDate: {
-        type: Date,
-        required: true,
-      },
-      completionDate: {
-        type: Date,
-        required: true,
-      },
       estimatedDuration: {
         type: Number,
         required: true,
@@ -202,11 +192,6 @@ QuoteSchema.pre('save', function (next) {
     if (Math.abs(expectedTotal - item.total) > 0.01) {
       return next(new Error(`Item "${item.description}" total does not match quantity * unitPrice`));
     }
-  }
-
-  // Validate timeline
-  if (this.timeline.completionDate <= this.timeline.startDate) {
-    return next(new Error('Completion date must be after start date'));
   }
 
   next();

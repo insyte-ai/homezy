@@ -35,19 +35,6 @@ const attachmentSchema = z.object({
 });
 
 /**
- * Helper to parse date strings (supports both ISO datetime and date-only formats)
- */
-const dateStringSchema = z.string()
-  .transform((val) => {
-    // Handle date-only format (YYYY-MM-DD) by treating as start of day
-    if (/^\d{4}-\d{2}-\d{2}$/.test(val)) {
-      return new Date(val + 'T00:00:00.000Z');
-    }
-    return new Date(val);
-  })
-  .refine((date) => !isNaN(date.getTime()), { message: 'Invalid date' });
-
-/**
  * Submit quote schema
  * Accepts nested structure from frontend: { pricing: {...}, timeline: {...}, ... }
  */
@@ -70,13 +57,10 @@ export const submitQuoteSchema = z.object({
 
   // Timeline (nested structure)
   timeline: z.object({
-    startDate: dateStringSchema,
-    completionDate: dateStringSchema,
     estimatedDuration: z.number()
       .int('Duration must be a whole number of days')
       .min(1, 'Duration must be at least 1 day')
-      .max(365, 'Duration cannot exceed 365 days')
-      .optional(),
+      .max(365, 'Duration cannot exceed 365 days'),
   }),
 
   // Details
@@ -86,30 +70,7 @@ export const submitQuoteSchema = z.object({
   warranty: z.string().max(500).optional(),
   attachments: z.array(attachmentSchema).max(10, 'Maximum 10 attachments allowed').default([]),
   questions: z.string().max(1000).optional(),
-}).transform((data) => {
-  // Calculate duration if not provided
-  const startDate = data.timeline.startDate;
-  const completionDate = data.timeline.completionDate;
-  const durationMs = completionDate.getTime() - startDate.getTime();
-  const estimatedDuration = data.timeline.estimatedDuration || Math.ceil(durationMs / (1000 * 60 * 60 * 24));
-
-  return {
-    ...data,
-    timeline: {
-      ...data.timeline,
-      estimatedDuration,
-    },
-  };
 }).refine(
-  (data) => {
-    // Validate that completionDate is after startDate
-    return data.timeline.completionDate > data.timeline.startDate;
-  },
-  {
-    message: 'Completion date must be after start date',
-    path: ['timeline', 'completionDate'],
-  }
-).refine(
   (data) => {
     // Validate that total = subtotal + VAT (with 0.01 tolerance for rounding)
     const expectedTotal = data.pricing.subtotal + data.pricing.vat;
@@ -156,13 +117,10 @@ export const updateQuoteSchema = z.object({
 
   // Timeline (nested structure, optional for updates)
   timeline: z.object({
-    startDate: dateStringSchema,
-    completionDate: dateStringSchema,
     estimatedDuration: z.number()
       .int('Duration must be a whole number of days')
       .min(1, 'Duration must be at least 1 day')
-      .max(365, 'Duration cannot exceed 365 days')
-      .optional(),
+      .max(365, 'Duration cannot exceed 365 days'),
   }).optional(),
 
   // Details

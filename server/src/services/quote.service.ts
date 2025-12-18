@@ -80,8 +80,6 @@ export const submitQuote = async (leadId: string, professionalId: string, data: 
             total: data.pricing.total,
           },
           timeline: {
-            startDate: data.timeline.startDate,
-            completionDate: data.timeline.completionDate,
             estimatedDuration: data.timeline.estimatedDuration,
           },
           approach: data.approach,
@@ -154,8 +152,6 @@ export const updateQuote = async (quoteId: string, professionalId: string, data:
 
   if (data.timeline) {
     quote.timeline = {
-      startDate: data.timeline.startDate,
-      completionDate: data.timeline.completionDate,
       estimatedDuration: data.timeline.estimatedDuration || quote.timeline.estimatedDuration,
     };
   }

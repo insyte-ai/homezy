@@ -8,6 +8,7 @@ import { Server as SocketIOServer } from 'socket.io';
 import { setupChatSockets } from './sockets/chat.socket';
 import { setupMessagingSockets } from './sockets/messaging.socket';
 import { initializeJobs } from './jobs';
+import { setIO } from './utils/socket.utils';
 
 /**
  * Start the server
@@ -42,6 +43,9 @@ const startServer = async (): Promise<void> => {
       },
       transports: ['websocket', 'polling'],
     });
+
+    // Store io instance for use across the application
+    setIO(io);
 
     // Set up chat sockets (AI streaming, function calling, real-time chat)
     setupChatSockets(io);

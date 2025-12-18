@@ -245,27 +245,11 @@ export default function QuoteDetailPage() {
                 Project Timeline
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Start Date</p>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {formatDate(quote.timeline.startDate)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Completion Date</p>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {formatDate(quote.timeline.completionDate)}
-                  </p>
-                </div>
-                {quote.timeline.estimatedDuration && (
-                  <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Duration</p>
-                    <p className="font-medium text-gray-900 dark:text-white">
-                      {quote.timeline.estimatedDuration} days
-                    </p>
-                  </div>
-                )}
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Estimated Duration</p>
+                <p className="font-medium text-gray-900 dark:text-white">
+                  {quote.timeline.estimatedDuration} {quote.timeline.estimatedDuration === 1 ? 'day' : 'days'}
+                </p>
               </div>
             </div>
 

@@ -438,12 +438,9 @@ export default function LeadDetailsPage() {
                           <p className="text-xs text-gray-500">Inc. VAT</p>
                         </div>
                         <div>
-                          <p className="text-sm text-gray-600">Timeline</p>
+                          <p className="text-sm text-gray-600">Estimated Duration</p>
                           <p className="text-sm font-medium text-gray-900">
-                            {new Date(quote.timeline.startDate).toLocaleDateString()} - {new Date(quote.timeline.completionDate).toLocaleDateString()}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {quote.timeline.estimatedDuration} days
+                            {quote.timeline.estimatedDuration} {quote.timeline.estimatedDuration === 1 ? 'day' : 'days'}
                           </p>
                         </div>
                       </div>

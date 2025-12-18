@@ -6,6 +6,7 @@ import { Quote } from '../models/Quote.model';
 import { logger } from '../utils/logger';
 import { BadRequestError, NotFoundError } from '../middleware/errorHandler.middleware';
 import { KnowledgeBaseService } from '../services/tools/knowledge-base.service';
+import { notificationService } from '../services/notification.service';
 
 // Singleton instance of knowledge base service
 const knowledgeBaseService = new KnowledgeBaseService();
@@ -334,6 +335,9 @@ export const approveProfessional = async (req: Request, res: Response): Promise<
 
     logger.info(`Professional ${id} approved`);
 
+    // Notify the professional
+    notificationService.notifyProVerificationApproved(id);
+
     // Fetch updated professional for response
     const updatedProfessional = await User.findById(id);
 
@@ -413,6 +417,9 @@ export const rejectProfessional = async (req: Request, res: Response): Promise<v
     await User.updateOne({ _id: id }, { $set: updateData });
 
     logger.info(`Professional ${id} rejected: ${reason}`);
+
+    // Notify the professional
+    notificationService.notifyProVerificationRejected(id, reason);
 
     // Fetch updated professional for response
     const updatedProfessional = await User.findById(id);

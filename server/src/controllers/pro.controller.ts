@@ -7,6 +7,7 @@ import { AppError } from '../middleware/errorHandler.middleware';
 import logger from '../utils/logger';
 import { v4 as uuidv4 } from 'uuid';
 import { calculateProfileCompleteness } from '../utils/profileCompleteness';
+import { notificationService } from '../services/notification.service';
 
 /**
  * Pro Profile Controller
@@ -679,6 +680,10 @@ export const uploadVerificationDocument = async (
       userId,
       documentType: type,
     });
+
+    // Notify admins about the new verification document
+    const proName = `${user.firstName} ${user.lastName}`.trim() || 'A professional';
+    notificationService.notifyAdminsVerificationUploaded(userId, proName, type);
 
     res.status(201).json({
       success: true,

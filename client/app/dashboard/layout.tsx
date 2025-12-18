@@ -18,6 +18,7 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import UserProfileDropdown from '@/components/common/UserProfileDropdown';
+import { NotificationBell } from '@/components/common/NotificationBell';
 import { DashboardSearch } from '@/components/dashboard/DashboardSearch';
 import {
   getUnreadCount,
@@ -191,8 +192,10 @@ export default function DashboardLayout({
                 <DashboardSearch />
               </div>
 
-              {/* Right Side - User Menu */}
+              {/* Right Side - Notifications & User Menu */}
               <div className="flex items-center space-x-4">
+                {/* Notifications */}
+                <NotificationBell notificationsPath="/dashboard/notifications" />
                 {/* User Menu */}
                 <div className="hidden md:block">
                   <UserProfileDropdown />

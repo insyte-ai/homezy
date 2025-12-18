@@ -283,17 +283,11 @@ export default function QuotesPage() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-sm">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
                       <div>
-                        <span className="text-gray-500">Start Date:</span>
+                        <span className="text-gray-500">Estimated Duration:</span>
                         <p className="font-medium text-gray-900">
-                          {formatDate(quote.timeline.startDate)}
-                        </p>
-                      </div>
-                      <div>
-                        <span className="text-gray-500">Completion:</span>
-                        <p className="font-medium text-gray-900">
-                          {formatDate(quote.timeline.completionDate)}
+                          {quote.timeline.estimatedDuration} {quote.timeline.estimatedDuration === 1 ? 'day' : 'days'}
                         </p>
                       </div>
                       <div>

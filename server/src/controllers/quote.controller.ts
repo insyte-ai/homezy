@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import * as quoteService from '../services/quote.service';
 import { logger } from '../utils/logger';
+import { notificationService } from '../services/notification.service';
+import { Lead } from '../models/Lead.model';
+import { User } from '../models/User.model';
 import type {
   SubmitQuoteInput,
   UpdateQuoteInput,
@@ -31,6 +34,29 @@ export const submitQuote = async (
     professionalId,
     total: quote.pricing.total,
   });
+
+  // Notify homeowner of new quote (fire and forget)
+  (async () => {
+    try {
+      const [lead, professional] = await Promise.all([
+        Lead.findById(leadId).select('homeownerId').lean(),
+        User.findById(professionalId).select('firstName lastName proProfile.businessName').lean(),
+      ]);
+
+      if (lead && professional) {
+        const proName = (professional as any).proProfile?.businessName
+          || `${(professional as any).firstName || ''} ${(professional as any).lastName || ''}`.trim()
+          || 'A professional';
+        notificationService.notifyHomeownerQuoteReceived(
+          (lead as any).homeownerId.toString(),
+          leadId,
+          proName
+        );
+      }
+    } catch (error) {
+      logger.error('Failed to send quote notification', { error, leadId, professionalId });
+    }
+  })();
 
   res.status(201).json({
     success: true,
@@ -174,6 +200,30 @@ export const acceptQuote = async (
     professionalId: quote.professionalId,
   });
 
+  // Notify pro of quote acceptance (fire and forget)
+  (async () => {
+    try {
+      const [lead, homeowner] = await Promise.all([
+        Lead.findById(quote.leadId).select('title').lean(),
+        User.findById(homeownerId).select('firstName lastName').lean(),
+      ]);
+
+      if (lead) {
+        const homeownerName = homeowner
+          ? `${(homeowner as any).firstName || ''} ${(homeowner as any).lastName || ''}`.trim() || 'A homeowner'
+          : 'A homeowner';
+        notificationService.notifyProQuoteAccepted(
+          quote.professionalId.toString(),
+          quote.leadId.toString(),
+          (lead as any).title,
+          homeownerName
+        );
+      }
+    } catch (error) {
+      logger.error('Failed to send quote accepted notification', { error, quoteId: id });
+    }
+  })();
+
   res.status(200).json({
     success: true,
     message: 'Quote accepted successfully. All other pending quotes have been declined.',
@@ -197,6 +247,23 @@ export const declineQuote = async (
   const { reason } = req.body;
 
   const quote = await quoteService.declineQuote(id, homeownerId, reason);
+
+  // Notify pro of quote decline (fire and forget)
+  (async () => {
+    try {
+      const lead = await Lead.findById(quote.leadId).select('title').lean();
+      if (lead) {
+        notificationService.notifyProQuoteRejected(
+          quote.professionalId.toString(),
+          quote.leadId.toString(),
+          (lead as any).title,
+          reason
+        );
+      }
+    } catch (error) {
+      logger.error('Failed to send quote declined notification', { error, quoteId: id });
+    }
+  })();
 
   res.status(200).json({
     success: true,

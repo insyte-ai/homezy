@@ -49,8 +49,6 @@ export interface Quote {
     total: number;
   };
   timeline: {
-    startDate: string;
-    completionDate: string;
     estimatedDuration: number;
   };
   approach: string;
@@ -92,8 +90,7 @@ export interface SubmitQuoteInput {
     total: number;
   };
   timeline: {
-    startDate: string;
-    completionDate: string;
+    estimatedDuration: number;
   };
   approach: string;
   warranty?: string;
@@ -108,8 +105,7 @@ export interface UpdateQuoteInput {
     total: number;
   };
   timeline?: {
-    startDate: string;
-    completionDate: string;
+    estimatedDuration: number;
   };
   approach?: string;
   warranty?: string;

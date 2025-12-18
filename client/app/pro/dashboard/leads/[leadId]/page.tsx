@@ -41,8 +41,7 @@ export default function LeadDetailPage() {
   const [items, setItems] = useState<QuoteItem[]>([
     { description: '', quantity: 1, unitPrice: 0, total: 0 },
   ]);
-  const [startDate, setStartDate] = useState('');
-  const [completionDate, setCompletionDate] = useState('');
+  const [estimatedDays, setEstimatedDays] = useState<number | ''>('');
   const [approach, setApproach] = useState('');
   const [warranty, setWarranty] = useState('');
   const [attachments, setAttachments] = useState<{ url: string; filename: string; size: number }[]>([]);
@@ -165,16 +164,10 @@ export default function LeadDetailPage() {
     const errors: Record<string, string> = {};
 
     // Common validation
-    if (!startDate) {
-      errors.startDate = 'Start date is required';
-    }
-
-    if (!completionDate) {
-      errors.completionDate = 'Completion date is required';
-    }
-
-    if (startDate && completionDate && new Date(completionDate) <= new Date(startDate)) {
-      errors.completionDate = 'Completion date must be after start date';
+    if (!estimatedDays || estimatedDays < 1) {
+      errors.estimatedDays = 'Please enter estimated duration (at least 1 day)';
+    } else if (estimatedDays > 365) {
+      errors.estimatedDays = 'Duration cannot exceed 365 days';
     }
 
     if (!approach.trim()) {
@@ -227,8 +220,7 @@ export default function LeadDetailPage() {
       await submitQuote(leadId, {
         pricing,
         timeline: {
-          startDate,
-          completionDate,
+          estimatedDuration: Number(estimatedDays),
         },
         approach,
         warranty: warranty.trim() || undefined,
@@ -414,6 +406,23 @@ export default function LeadDetailPage() {
                   <h2 className="text-xl font-semibold text-gray-900">Upload Your Quote</h2>
                 </div>
 
+                {/* Error Summary */}
+                {Object.keys(formErrors).length > 0 && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <div className="flex items-start gap-2">
+                      <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium text-red-800">Please fix the following errors:</p>
+                        <ul className="mt-1 text-sm text-red-700 list-disc list-inside">
+                          {Object.entries(formErrors).map(([key, value]) =>
+                            value ? <li key={key}>{value}</li> : null
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Document Upload */}
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -486,44 +495,57 @@ export default function LeadDetailPage() {
                   <input
                     type="number"
                     value={uploadModeTotal || ''}
-                    onChange={(e) => setUploadModeTotal(Number(e.target.value))}
+                    onChange={(e) => {
+                      setUploadModeTotal(Number(e.target.value));
+                      if (formErrors.uploadModeTotal) {
+                        setFormErrors(prev => ({ ...prev, uploadModeTotal: '' }));
+                      }
+                    }}
                     placeholder="Enter total amount including VAT"
                     min="0"
                     step="0.01"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                      formErrors.uploadModeTotal ? 'border-red-500' : 'border-gray-300'
+                    }`}
                     required
                   />
-                  <p className="text-xs text-gray-500 mt-1">This should be the final amount including VAT</p>
+                  {formErrors.uploadModeTotal ? (
+                    <p className="text-sm text-red-600 mt-1">{formErrors.uploadModeTotal}</p>
+                  ) : (
+                    <p className="text-xs text-gray-500 mt-1">This should be the final amount including VAT</p>
+                  )}
                 </div>
 
-                {/* Timeline */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Start Date <span className="text-red-500">*</span>
-                    </label>
+                {/* Estimated Duration */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Estimated Duration <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex items-center gap-2">
                     <input
-                      type="date"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      type="number"
+                      value={estimatedDays}
+                      onChange={(e) => {
+                        setEstimatedDays(e.target.value ? Number(e.target.value) : '');
+                        if (formErrors.estimatedDays) {
+                          setFormErrors(prev => ({ ...prev, estimatedDays: '' }));
+                        }
+                      }}
+                      placeholder="e.g., 5"
+                      min="1"
+                      max="365"
+                      className={`w-32 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                        formErrors.estimatedDays ? 'border-red-500' : 'border-gray-300'
+                      }`}
                       required
                     />
+                    <span className="text-gray-600">day(s)</span>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Estimated Completion <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="date"
-                      value={completionDate}
-                      onChange={(e) => setCompletionDate(e.target.value)}
-                      min={startDate || new Date().toISOString().split('T')[0]}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      required
-                    />
-                  </div>
+                  {formErrors.estimatedDays ? (
+                    <p className="text-sm text-red-600 mt-1">{formErrors.estimatedDays}</p>
+                  ) : (
+                    <p className="text-xs text-gray-500 mt-1">How many days do you estimate this project will take?</p>
+                  )}
                 </div>
 
                 {/* Approach */}
@@ -589,6 +611,23 @@ export default function LeadDetailPage() {
                   </button>
                   <h2 className="text-xl font-semibold text-gray-900">Create Your Quote</h2>
                 </div>
+
+                {/* Error Summary */}
+                {Object.keys(formErrors).length > 0 && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <div className="flex items-start gap-2">
+                      <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium text-red-800">Please fix the following errors:</p>
+                        <ul className="mt-1 text-sm text-red-700 list-disc list-inside">
+                          {Object.entries(formErrors).map(([key, value]) =>
+                            value ? <li key={key}>{value}</li> : null
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Quote Items */}
                 <div className="mb-6">
@@ -677,34 +716,36 @@ export default function LeadDetailPage() {
                   </div>
                 </div>
 
-                {/* Timeline */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Start Date
-                    </label>
+                {/* Estimated Duration */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Estimated Duration <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex items-center gap-2">
                     <input
-                      type="date"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      type="number"
+                      value={estimatedDays}
+                      onChange={(e) => {
+                        setEstimatedDays(e.target.value ? Number(e.target.value) : '');
+                        if (formErrors.estimatedDays) {
+                          setFormErrors(prev => ({ ...prev, estimatedDays: '' }));
+                        }
+                      }}
+                      placeholder="e.g., 5"
+                      min="1"
+                      max="365"
+                      className={`w-32 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                        formErrors.estimatedDays ? 'border-red-500' : 'border-gray-300'
+                      }`}
                       required
                     />
+                    <span className="text-gray-600">day(s)</span>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Estimated Completion Date
-                    </label>
-                    <input
-                      type="date"
-                      value={completionDate}
-                      onChange={(e) => setCompletionDate(e.target.value)}
-                      min={startDate || new Date().toISOString().split('T')[0]}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      required
-                    />
-                  </div>
+                  {formErrors.estimatedDays ? (
+                    <p className="text-sm text-red-600 mt-1">{formErrors.estimatedDays}</p>
+                  ) : (
+                    <p className="text-xs text-gray-500 mt-1">How many days do you estimate this project will take?</p>
+                  )}
                 </div>
 
                 {/* Approach */}

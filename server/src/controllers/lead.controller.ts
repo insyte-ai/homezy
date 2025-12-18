@@ -4,6 +4,8 @@ import * as directLeadService from '../services/directLead.service';
 import * as guestLeadService from '../services/guestLead.service';
 import { leadContentGenerator } from '../services/lead-content-generator.service';
 import { logger } from '../utils/logger';
+import { notificationService } from '../services/notification.service';
+import { User } from '../models/User.model';
 import type {
   CreateLeadInput,
   UpdateLeadInput,
@@ -44,6 +46,17 @@ export const createLead = async (
   }
 
   const lead = await leadService.createLead(homeownerId, data);
+
+  // Notify admins of new lead (fire and forget)
+  const homeowner = await User.findById(homeownerId).select('firstName lastName').lean();
+  const homeownerName = homeowner
+    ? `${(homeowner as any).firstName || ''} ${(homeowner as any).lastName || ''}`.trim() || 'A homeowner'
+    : 'A homeowner';
+  notificationService.notifyAdminsLeadSubmitted(
+    lead._id.toString(),
+    lead.title,
+    homeownerName
+  );
 
   res.status(201).json({
     success: true,
@@ -265,6 +278,13 @@ export const createDirectLead = async (
     professionalId,
     category: data.category,
   });
+
+  // Notify the professional of the direct lead
+  notificationService.notifyProLeadAssigned(
+    professionalId,
+    lead._id.toString(),
+    lead.title
+  );
 
   res.status(201).json({
     success: true,

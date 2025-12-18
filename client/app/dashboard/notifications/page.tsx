@@ -8,9 +8,9 @@ import {
   CheckCheck,
   Trash2,
   Filter,
-  ChevronLeft,
-  ChevronRight,
+  ArrowLeft,
 } from 'lucide-react';
+import Link from 'next/link';
 import { useNotificationStore } from '@/store/notificationStore';
 import {
   Notification,
@@ -20,7 +20,7 @@ import {
   formatTime,
 } from '@/lib/services/notifications';
 
-export default function AdminNotificationsPage() {
+export default function HomeownerNotificationsPage() {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<NotificationCategory | 'all'>('all');
   const [selectedReadStatus, setSelectedReadStatus] = useState<'all' | 'unread' | 'read'>('all');
@@ -92,17 +92,25 @@ export default function AdminNotificationsPage() {
 
   const categories: { value: NotificationCategory | 'all'; label: string }[] = [
     { value: 'all', label: 'All' },
-    { value: 'verification', label: 'Verification' },
-    { value: 'lead', label: 'Leads' },
+    { value: 'lead', label: 'Requests' },
     { value: 'quote', label: 'Quotes' },
     { value: 'message', label: 'Messages' },
     { value: 'system', label: 'System' },
   ];
 
   return (
-    <div className="p-8">
+    <div>
+      {/* Back Link */}
+      <Link
+        href="/dashboard"
+        className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mb-6"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to Dashboard
+      </Link>
+
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
           <p className="text-gray-600 mt-1">
@@ -168,7 +176,7 @@ export default function AdminNotificationsPage() {
       </div>
 
       {/* Notifications List */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
         {loading && notifications.length === 0 ? (
           <div className="py-16 text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
