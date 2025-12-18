@@ -1,0 +1,107 @@
+{
+  "id": "tax-preparation",
+  "title": "Tax Preparation Services",
+  "metaTitle": "Professional Tax Preparation Services in UAE | Homezy",
+  "metaDescription": "Expert tax preparation and VAT services in Dubai, Abu Dhabi, and across UAE. Personal and business tax filing, VAT registration, and tax planning.",
+  "keywords": "tax preparation, tax preparer, tax filing, tax services, VAT registration, VAT filing, tax consultant, tax planning, UAE",
+  "headerImage": "https://images.pexels.com/photos/6863250/pexels-photo-6863250.jpeg",
+  "description": "Navigate UAE tax requirements with professional tax preparation services. Our tax experts help with VAT registration, quarterly VAT returns, corporate tax preparation, and tax planning strategies. We ensure compliance while helping you optimize your tax position legally.",
+  "benefits": [
+    "Experienced tax professionals",
+    "VAT compliance specialists",
+    "Corporate tax expertise",
+    "Tax planning strategies",
+    "Deadline management",
+    "FTA portal assistance"
+  ],
+  "whatToExpect": "Our tax professionals review your financial records, identify applicable taxes, and prepare accurate returns. We handle FTA portal submissions, maintain required documentation, and advise on tax-efficient practices. Regular reviews ensure ongoing compliance.",
+  "faqs": [
+    {
+      "question": "What tax services do you offer?",
+      "answer": "We offer VAT registration, VAT return preparation and filing, corporate tax registration and filing, tax residency certificates, and tax planning consultation for businesses and individuals."
+    },
+    {
+      "question": "Do I need to register for VAT?",
+      "answer": "Businesses with taxable supplies exceeding AED 375,000 must register for VAT. Voluntary registration is available for businesses exceeding AED 187,500. We can assess your situation."
+    },
+    {
+      "question": "When are VAT returns due?",
+      "answer": "VAT returns are typically due quarterly, 28 days after the end of each tax period. We track deadlines and prepare returns in advance to avoid penalties."
+    },
+    {
+      "question": "Can you help with corporate tax?",
+      "answer": "Yes, with the introduction of corporate tax in the UAE, we help with registration, compliance, and planning to ensure you meet all requirements and optimize your position."
+    },
+    {
+      "question": "What records do I need to keep?",
+      "answer": "UAE businesses must maintain financial records for 5 years. This includes invoices, receipts, contracts, and bank statements. We advise on record-keeping best practices."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "accounting",
+      "title": "Accounting Services"
+    },
+    {
+      "id": "legal-services",
+      "title": "Legal Services"
+    },
+    {
+      "id": "web-design",
+      "title": "Web Design"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6863250/pexels-photo-6863250.jpeg",
+    "https://images.pexels.com/photos/6863251/pexels-photo-6863251.jpeg",
+    "https://images.pexels.com/photos/6693661/pexels-photo-6693661.jpeg",
+    "https://images.pexels.com/photos/6693662/pexels-photo-6693662.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Tax Preparation Services",
+    "description": "Professional tax preparation and VAT services for businesses and individuals.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Tax Preparation Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Personal Tax Filing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Business Tax Filing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tax Planning"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/tax-preparation",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

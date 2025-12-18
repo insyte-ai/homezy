@@ -1,0 +1,107 @@
+{
+  "id": "bartending",
+  "title": "Bartending Services",
+  "metaTitle": "Professional Bartending Services in UAE | Homezy",
+  "metaDescription": "Expert bartending services in Dubai, Abu Dhabi, and across UAE. Event bartenders, mobile bars, and cocktail service for private events.",
+  "keywords": "bartender, bartending, mobile bar, event bartender, cocktail bartender, bar service, mixologist, private bartender, UAE",
+  "headerImage": "https://images.pexels.com/photos/1283219/pexels-photo-1283219.jpeg",
+  "description": "Elevate your event with professional bartending services. Our skilled bartenders mix cocktails, serve drinks, and manage your bar with flair and efficiency. From intimate house parties to large celebrations, we provide experienced bar staff, equipment, and optional mobile bar setups.",
+  "benefits": [
+    "Experienced bartenders",
+    "Mobile bar options",
+    "Custom cocktail menus",
+    "Equipment and glassware",
+    "Responsible service",
+    "Professional presentation"
+  ],
+  "whatToExpect": "We discuss your event, guest count, and beverage preferences. Bartenders arrive early to set up the bar area with all necessary equipment. They prepare and serve drinks throughout the event with professionalism and efficiency, managing inventory and keeping the bar area tidy.",
+  "faqs": [
+    {
+      "question": "What's included in bartending service?",
+      "answer": "Our service includes experienced bartenders, bar equipment (shakers, ice buckets, garnish tools), and setup/breakdown. Mobile bars, glassware, and beverages can be added based on your needs."
+    },
+    {
+      "question": "Do you provide the alcohol?",
+      "answer": "We can advise on quantities and types of beverages needed, but typically clients purchase their own alcohol. We can also arrange beverage packages through licensed suppliers."
+    },
+    {
+      "question": "Can bartenders create custom cocktails?",
+      "answer": "Yes, our bartenders can create signature cocktails for your event. Share your preferences and event theme, and we'll design custom drinks to match."
+    },
+    {
+      "question": "How many bartenders do I need?",
+      "answer": "We recommend 1 bartender per 50-75 guests for efficient service. Large events or complex cocktail menus may require additional staff. We'll recommend appropriate staffing."
+    },
+    {
+      "question": "Do you offer non-alcoholic options?",
+      "answer": "Absolutely! We excel at mocktails, specialty non-alcoholic drinks, and beverages for events where alcohol isn't served. Everyone should enjoy great drinks."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "catering",
+      "title": "Catering"
+    },
+    {
+      "id": "event-planning",
+      "title": "Event Planning"
+    },
+    {
+      "id": "dj-services",
+      "title": "DJ Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1283219/pexels-photo-1283219.jpeg",
+    "https://images.pexels.com/photos/602750/pexels-photo-602750.jpeg",
+    "https://images.pexels.com/photos/1170599/pexels-photo-1170599.jpeg",
+    "https://images.pexels.com/photos/696218/pexels-photo-696218.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Bartending Services",
+    "description": "Professional bartending services including mobile bars and cocktail service.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Bartending Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Bar Service"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Cocktail Service"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mobile Bar"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/bartending",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "drum-lessons",
+  "title": "Drum Lessons",
+  "metaTitle": "Professional Drum Lessons in UAE | Homezy",
+  "metaDescription": "Private drum lessons in Dubai, Abu Dhabi, and across UAE. Expert percussion instructors for all skill levels. Learn on acoustic or electronic drums.",
+  "keywords": "drum lessons, drums teacher, percussion lessons, learn drums, drumming lessons, drum instructor, beginner drums, UAE",
+  "headerImage": "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg",
+  "description": "Develop your rhythm and groove with professional drum lessons. Our experienced percussion teachers work with students of all levels, from first-time drummers to advanced players. Learn proper technique, coordination, reading drum notation, and playing various styles on acoustic or electronic drums.",
+  "benefits": [
+    "All skill levels welcome",
+    "Various styles taught",
+    "Acoustic or electronic drums",
+    "Coordination and technique focus",
+    "Learn to play with music",
+    "Band preparation"
+  ],
+  "whatToExpect": "Lessons cover stick grip, posture, rudiments, coordination exercises, reading drum notation, and playing along to songs. Your teacher tailors lessons to your interests, whether rock, jazz, pop, or Latin rhythms. We use practice pads, acoustic drums, or electronic kits.",
+  "faqs": [
+    {
+      "question": "Do I need a drum kit at home?",
+      "answer": "While a full kit is ideal, beginners can start with a practice pad for technique work. Electronic drums are a great option for home practice due to volume control. We'll advise on the best setup for your situation."
+    },
+    {
+      "question": "Are electronic drums okay for learning?",
+      "answer": "Yes, electronic drums are excellent for learning, especially in apartments or homes where noise is a concern. The skills transfer directly to acoustic drums."
+    },
+    {
+      "question": "What age can children start drums?",
+      "answer": "Children can begin drum lessons around age 5-6. Younger students focus on basic rhythm, coordination, and fun. As they grow, we introduce more complex techniques and drum kit playing."
+    },
+    {
+      "question": "How loud is drum practice?",
+      "answer": "Acoustic drums are loud, which is why many students use electronic drums or practice pads at home. We can discuss noise-reduction options like mesh heads or low-volume cymbals."
+    },
+    {
+      "question": "What styles of drumming do you teach?",
+      "answer": "Our teachers cover rock, pop, jazz, funk, Latin, metal, and more. Many drummers learn multiple styles to become versatile players."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "piano-lessons",
+      "title": "Piano Lessons"
+    },
+    {
+      "id": "guitar-lessons",
+      "title": "Guitar Lessons"
+    },
+    {
+      "id": "singing-lessons",
+      "title": "Singing Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg",
+    "https://images.pexels.com/photos/51932/drumming-percussion-music-drumsticks-51932.jpeg",
+    "https://images.pexels.com/photos/690779/pexels-photo-690779.jpeg",
+    "https://images.pexels.com/photos/2111015/pexels-photo-2111015.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Drum Lessons",
+    "description": "Private drum and percussion lessons for all skill levels.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Drum Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Beginner Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Intermediate Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Advanced Lessons"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/drum-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

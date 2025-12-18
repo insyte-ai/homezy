@@ -1,0 +1,114 @@
+{
+  "id": "legal-services",
+  "title": "Legal Services",
+  "metaTitle": "Professional Legal Services in UAE | Homezy",
+  "metaDescription": "Expert legal services in Dubai, Abu Dhabi, and across UAE. Contract review, business formation, legal consultation, and notary services.",
+  "keywords": "lawyer, attorney, legal services, legal advice, contract lawyer, business lawyer, legal consultation, notary, UAE",
+  "headerImage": "https://images.pexels.com/photos/5668882/pexels-photo-5668882.jpeg",
+  "description": "Protect your interests with professional legal services. Our network of qualified lawyers provides consultation, contract drafting and review, business formation assistance, and various legal services. Get expert guidance on UAE law for personal and business matters.",
+  "benefits": [
+    "Qualified legal professionals",
+    "Clear fee structures",
+    "Business and personal law",
+    "Contract expertise",
+    "Confidential consultations",
+    "Multilingual services"
+  ],
+  "whatToExpect": "Initial consultations help us understand your legal needs. We match you with appropriate legal professionals who provide advice, draft documents, or represent your interests. All communications are confidential, and fees are discussed upfront.",
+  "faqs": [
+    {
+      "question": "What legal services do you offer?",
+      "answer": "We offer legal consultations, contract drafting and review, business formation and licensing, employment contracts, property matters, dispute resolution, and notary services."
+    },
+    {
+      "question": "Can you help with business formation?",
+      "answer": "Yes, we assist with company formation in free zones and mainland, trade license applications, visa processing, and corporate structuring. We guide you through the entire process."
+    },
+    {
+      "question": "Do you review contracts?",
+      "answer": "Yes, contract review is one of our most requested services. We review employment contracts, lease agreements, business contracts, and NDAs, advising on terms and potential issues."
+    },
+    {
+      "question": "How much do legal services cost?",
+      "answer": "Costs vary by service. Initial consultations have fixed fees. Contract reviews, drafting, and other services are quoted after understanding scope. We provide clear pricing before work begins."
+    },
+    {
+      "question": "Are consultations confidential?",
+      "answer": "Yes, all legal consultations are strictly confidential, protected by attorney-client privilege. Your information is secure."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "accounting",
+      "title": "Accounting Services"
+    },
+    {
+      "id": "tax-preparation",
+      "title": "Tax Preparation"
+    },
+    {
+      "id": "web-design",
+      "title": "Web Design"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5668882/pexels-photo-5668882.jpeg",
+    "https://images.pexels.com/photos/5668883/pexels-photo-5668883.jpeg",
+    "https://images.pexels.com/photos/5668884/pexels-photo-5668884.jpeg",
+    "https://images.pexels.com/photos/5668885/pexels-photo-5668885.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Legal Services",
+    "description": "Professional legal services including consultation, contracts, and business formation.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Legal Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Legal Consultation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Contract Review"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Business Formation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Notary Services"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/legal-services",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "mobile-tire-service",
+  "title": "Mobile Tire Service",
+  "metaTitle": "Mobile Tire Service in UAE | Homezy",
+  "metaDescription": "Professional mobile tire service in Dubai, Abu Dhabi, and across UAE. Tire change, flat repair, rotation, and balancing at your location.",
+  "keywords": "mobile tire service, tire change, flat tire repair, tire installation, tire rotation, tire balancing, roadside tire service, UAE",
+  "headerImage": "https://images.pexels.com/photos/3807133/pexels-photo-3807133.jpeg",
+  "description": "Handle tire issues wherever they happen with our mobile tire service. From flat tire repairs and emergency tire changes to scheduled rotation and new tire installation, our technicians come to you fully equipped. Get back on the road quickly without visiting a tire shop.",
+  "benefits": [
+    "Service at your location",
+    "Emergency and scheduled service",
+    "Tire sales and installation",
+    "Rotation and balancing",
+    "Flat repair or replacement",
+    "Fast response times"
+  ],
+  "whatToExpect": "Our technician arrives with professional tire equipment including jacks, balancers, and new tires if needed. For flat repairs, we assess if the tire can be safely repaired or needs replacement. We can install new tires, rotate and balance existing tires, and check tire pressure.",
+  "faqs": [
+    {
+      "question": "Can you repair my flat tire?",
+      "answer": "We can repair punctures in the tread area using industry-standard plug-patch repairs. Sidewall damage, large punctures, or worn tires require replacement for safety."
+    },
+    {
+      "question": "Do you sell tires?",
+      "answer": "Yes, we supply and install new tires from major brands. Let us know your vehicle and we'll recommend appropriate tires and provide pricing before your appointment."
+    },
+    {
+      "question": "How quickly can you arrive for emergencies?",
+      "answer": "For emergency flat tires, we aim to arrive within 30-60 minutes depending on your location and traffic conditions. Standard appointments are scheduled at your convenience."
+    },
+    {
+      "question": "Can you balance tires on-site?",
+      "answer": "Yes, our mobile units carry portable balancing equipment. We can balance tires at your location for a smooth ride."
+    },
+    {
+      "question": "What if I need all four tires replaced?",
+      "answer": "We can replace all four tires at your location. Provide your vehicle details and we'll bring the right tires, mount them, balance them, and dispose of old tires."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "mobile-mechanic",
+      "title": "Mobile Mechanic"
+    },
+    {
+      "id": "roadside-assistance",
+      "title": "Roadside Assistance"
+    },
+    {
+      "id": "mobile-oil-change",
+      "title": "Mobile Oil Change"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3807133/pexels-photo-3807133.jpeg",
+    "https://images.pexels.com/photos/3807134/pexels-photo-3807134.jpeg",
+    "https://images.pexels.com/photos/4489770/pexels-photo-4489770.jpeg",
+    "https://images.pexels.com/photos/4489771/pexels-photo-4489771.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mobile Tire Service",
+    "description": "Professional mobile tire service including changes, repairs, and installation.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Mobile Tire Service",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tire Change"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Flat Tire Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tire Rotation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/mobile-tire-service",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "id": "facade-work",
+  "title": "Facade Work Services",
+  "metaTitle": "Professional Facade Work Services in UAE | Homezy",
+  "metaDescription": "Expert facade cleaning, painting, repair, and cladding services in Dubai, Abu Dhabi, and across UAE. Building exterior specialists.",
+  "keywords": "facade work, facade cleaning, facade painting, facade repair, cladding installation, building facade, exterior renovation, UAE",
+  "headerImage": "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
+  "description": "Transform and maintain your building's exterior with our professional facade services. From high-rise cleaning and painting to repairs and cladding installation, our specialized teams handle all aspects of facade work. We use rope access and aerial platforms to safely service buildings of any height.",
+  "benefits": [
+    "Specialized high-rise capabilities",
+    "Rope access certified technicians",
+    "Comprehensive facade solutions",
+    "Safety-first approach",
+    "Minimal business disruption",
+    "Regular maintenance contracts available"
+  ],
+  "whatToExpect": "Our facade services begin with a detailed building assessment. We develop a safe work plan, coordinate with building management, and execute work efficiently using appropriate access methods. Our teams are trained in rope access and platform work, ensuring safe operations at any height.",
+  "faqs": [
+    {
+      "question": "What facade services do you offer?",
+      "answer": "We offer facade cleaning, facade painting, facade repairs, cladding installation, glass replacement, sealant replacement, pressure washing, and ongoing maintenance programs for residential and commercial buildings."
+    },
+    {
+      "question": "Can you work on high-rise buildings?",
+      "answer": "Yes, we specialize in high-rise facade work. Our teams are certified in rope access (IRATA) and operate aerial platforms. We can service buildings of any height safely and efficiently."
+    },
+    {
+      "question": "How often should facade cleaning be done?",
+      "answer": "In the UAE climate, we recommend facade cleaning every 6-12 months depending on location and exposure. Buildings near construction sites or coastal areas may need more frequent cleaning."
+    },
+    {
+      "question": "Do you offer maintenance contracts?",
+      "answer": "Yes, we offer annual maintenance contracts that include scheduled cleaning, inspections, and minor repairs. This ensures your building maintains its appearance and catches issues early."
+    },
+    {
+      "question": "Can you repair damaged cladding?",
+      "answer": "Yes, we repair and replace damaged cladding panels, including ACP, aluminum, glass, and stone cladding. We source matching materials for seamless repairs."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "exterior-painting",
+      "title": "Exterior Painting"
+    },
+    {
+      "id": "waterproofing",
+      "title": "Waterproofing"
+    },
+    {
+      "id": "masonry",
+      "title": "Masonry"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
+    "https://images.pexels.com/photos/2760243/pexels-photo-2760243.jpeg",
+    "https://images.pexels.com/photos/323772/pexels-photo-323772.jpeg",
+    "https://images.pexels.com/photos/1329061/pexels-photo-1329061.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Facade Work Services",
+    "description": "Professional facade cleaning, painting, repair, and cladding services for buildings.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Facade Work Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Facade Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Facade Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Facade Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Cladding Installation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/facade-work",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

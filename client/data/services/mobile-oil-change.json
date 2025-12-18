@@ -1,0 +1,107 @@
+{
+  "id": "mobile-oil-change",
+  "title": "Mobile Oil Change Services",
+  "metaTitle": "Mobile Oil Change Services in UAE | Homezy",
+  "metaDescription": "Professional mobile oil change in Dubai, Abu Dhabi, and across UAE. Convenient oil changes at your location with quality synthetic and conventional oils.",
+  "keywords": "mobile oil change, oil change at home, oil change service, synthetic oil change, quick oil change, on-site oil change, UAE",
+  "headerImage": "https://images.pexels.com/photos/4489731/pexels-photo-4489731.jpeg",
+  "description": "Never wait at a service center again with our mobile oil change service. Our technicians come to your home or office to perform oil changes using quality conventional or synthetic oils. We also check and top up other fluids, replace filters, and perform basic inspections to keep your car running smoothly.",
+  "benefits": [
+    "Service at your location",
+    "Quality oils and filters",
+    "Conventional and synthetic options",
+    "Quick 30-45 minute service",
+    "Environmentally responsible disposal",
+    "Service reminders included"
+  ],
+  "whatToExpect": "Our technician arrives with oil, filters, and all necessary equipment. They drain old oil, replace the filter, add fresh oil, and dispose of waste oil properly. A quick inspection checks fluid levels and identifies any potential issues. The whole process takes about 30-45 minutes.",
+  "faqs": [
+    {
+      "question": "What type of oil do you use?",
+      "answer": "We offer conventional, synthetic blend, full synthetic, and high-mileage oils from quality brands. We recommend oil based on your vehicle's requirements and driving conditions."
+    },
+    {
+      "question": "How often should I change my oil?",
+      "answer": "Modern vehicles with synthetic oil typically need changes every 10,000-15,000 km or annually. Check your owner's manual or ask our technician for your vehicle's recommendation."
+    },
+    {
+      "question": "Do you replace the filter too?",
+      "answer": "Yes, every oil change includes a new oil filter. We use quality filters compatible with your vehicle."
+    },
+    {
+      "question": "Where do you dispose of old oil?",
+      "answer": "We collect all used oil and filters and dispose of them at certified recycling facilities. Environmental responsibility is part of our service."
+    },
+    {
+      "question": "Can you service any vehicle?",
+      "answer": "We service most passenger vehicles, SUVs, and light trucks. Some specialized vehicles may require dealership service. Check with us when booking."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "mobile-mechanic",
+      "title": "Mobile Mechanic"
+    },
+    {
+      "id": "mobile-auto-detailing",
+      "title": "Mobile Auto Detailing"
+    },
+    {
+      "id": "mobile-tire-service",
+      "title": "Mobile Tire Service"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4489731/pexels-photo-4489731.jpeg",
+    "https://images.pexels.com/photos/4489732/pexels-photo-4489732.jpeg",
+    "https://images.pexels.com/photos/4489733/pexels-photo-4489733.jpeg",
+    "https://images.pexels.com/photos/4489734/pexels-photo-4489734.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mobile Oil Change Services",
+    "description": "Professional mobile oil change service at your location.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Mobile Oil Change Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Conventional Oil Change"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Synthetic Oil Change"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "High Mileage Oil Change"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/mobile-oil-change",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "personal-training",
+  "title": "Personal Training Services",
+  "metaTitle": "Professional Personal Training Services in UAE | Homezy",
+  "metaDescription": "Certified personal trainers in Dubai, Abu Dhabi, and across UAE. In-home fitness training, workout plans, and one-on-one coaching.",
+  "keywords": "personal trainer, fitness trainer, personal training, home fitness, workout trainer, fitness coach, gym trainer, UAE",
+  "headerImage": "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg",
+  "description": "Achieve your fitness goals with personalized training from certified professionals. Our personal trainers come to your home or preferred location, designing custom workout programs tailored to your goals, fitness level, and schedule. Whether you want to lose weight, build muscle, or improve overall health, we provide expert guidance and motivation.",
+  "benefits": [
+    "Certified personal trainers",
+    "Custom workout programs",
+    "In-home or location of choice",
+    "Flexible scheduling",
+    "Nutrition guidance included",
+    "Progress tracking"
+  ],
+  "whatToExpect": "We start with a fitness assessment to understand your goals, current fitness level, and any limitations. Your trainer designs a personalized program and brings necessary equipment for sessions. Each workout is supervised with proper form guidance, motivation, and adjustments based on your progress.",
+  "faqs": [
+    {
+      "question": "What qualifications do your trainers have?",
+      "answer": "All our trainers are certified by recognized fitness organizations and have insurance. Many have specializations in areas like weight loss, strength training, rehabilitation, or sports performance."
+    },
+    {
+      "question": "Do I need equipment at home?",
+      "answer": "Trainers bring basic equipment for sessions. If you have home gym equipment, they'll incorporate it. We can also advise on equipment purchases if you want to build a home gym."
+    },
+    {
+      "question": "How often should I train?",
+      "answer": "Most clients see best results with 2-3 sessions per week, combined with independent workouts. Your trainer will recommend a frequency based on your goals and schedule."
+    },
+    {
+      "question": "Can trainers help with nutrition?",
+      "answer": "Yes, personal trainers provide general nutrition guidance and meal suggestions. For detailed meal plans or medical dietary needs, we can connect you with a registered nutritionist."
+    },
+    {
+      "question": "What if I have injuries or health conditions?",
+      "answer": "Inform us during booking. Trainers can modify exercises around limitations. For medical conditions, we may request clearance from your doctor before starting."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "yoga-instruction",
+      "title": "Yoga Instruction"
+    },
+    {
+      "id": "nutritionist",
+      "title": "Nutritionist"
+    },
+    {
+      "id": "massage-therapy",
+      "title": "Massage Therapy"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg",
+    "https://images.pexels.com/photos/841131/pexels-photo-841131.jpeg",
+    "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg",
+    "https://images.pexels.com/photos/3768917/pexels-photo-3768917.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Personal Training Services",
+    "description": "Professional personal training services with certified fitness trainers.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Personal Training Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "One-on-One Training"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Couples Training"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Group Training"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/personal-training",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

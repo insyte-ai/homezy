@@ -1,0 +1,114 @@
+{
+  "id": "exterior-painting",
+  "title": "Exterior Painting Services",
+  "metaTitle": "Professional Exterior Painting Services in UAE | Homezy",
+  "metaDescription": "Expert exterior painting services in Dubai, Abu Dhabi, and across UAE. House painting, fence staining, deck refinishing, and pressure washing.",
+  "keywords": "exterior painting, house painting, outdoor painting, fence painting, deck staining, pressure washing, facade painting, UAE",
+  "headerImage": "https://images.pexels.com/photos/5691500/pexels-photo-5691500.jpeg",
+  "description": "Enhance your property's curb appeal with our professional exterior painting services. Our experienced painters handle all outdoor surfaces including walls, fences, decks, and trim. We use weather-resistant, UV-protected paints designed to withstand the UAE's harsh climate, ensuring your exterior looks great for years.",
+  "benefits": [
+    "Weather-resistant, UV-protected paints",
+    "Professional surface preparation",
+    "Comprehensive pressure washing included",
+    "Licensed and insured painters",
+    "Flexible scheduling around weather",
+    "Long-lasting results guaranteed"
+  ],
+  "whatToExpect": "Our exterior painting process starts with thorough pressure washing and surface preparation. We repair cracks, fill holes, and prime bare surfaces. Using premium exterior paints, our team applies multiple coats for durability. We work efficiently while prioritizing safety and quality, with full cleanup upon completion.",
+  "faqs": [
+    {
+      "question": "How long does exterior painting take?",
+      "answer": "A typical villa exterior takes 5-10 days depending on size, condition, and weather. We work around weather conditions to ensure proper paint adhesion and curing."
+    },
+    {
+      "question": "What type of paint do you use for exteriors?",
+      "answer": "We use premium exterior paints with UV protection and weather resistance, specifically formulated for the UAE climate. These paints resist fading, peeling, and cracking caused by sun exposure and humidity."
+    },
+    {
+      "question": "Do you pressure wash before painting?",
+      "answer": "Yes, pressure washing is included in our exterior painting service. It removes dirt, mold, and loose paint, ensuring the new paint adheres properly for a lasting finish."
+    },
+    {
+      "question": "Can you paint during summer?",
+      "answer": "Yes, but we adjust our schedule to work during cooler parts of the day. Extreme heat can affect paint application, so we take precautions to ensure quality results year-round."
+    },
+    {
+      "question": "How long will the exterior paint last?",
+      "answer": "With quality paint and proper preparation, exterior paint typically lasts 5-8 years in the UAE climate. We provide maintenance tips to extend the life of your paint job."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "interior-painting",
+      "title": "Interior Painting"
+    },
+    {
+      "id": "waterproofing",
+      "title": "Waterproofing"
+    },
+    {
+      "id": "facade-work",
+      "title": "Facade Work"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5691500/pexels-photo-5691500.jpeg",
+    "https://images.pexels.com/photos/5691501/pexels-photo-5691501.jpeg",
+    "https://images.pexels.com/photos/5691502/pexels-photo-5691502.jpeg",
+    "https://images.pexels.com/photos/5691503/pexels-photo-5691503.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Exterior Painting Services",
+    "description": "Professional exterior painting services including house painting, fence staining, and deck refinishing.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Exterior Painting Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "House Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Fence Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deck Staining"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pressure Washing"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/exterior-painting",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

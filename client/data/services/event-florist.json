@@ -1,0 +1,114 @@
+{
+  "id": "event-florist",
+  "title": "Event Florist Services",
+  "metaTitle": "Event Florist Services in UAE | Homezy",
+  "metaDescription": "Professional event florists in Dubai, Abu Dhabi, and across UAE. Wedding flowers, centerpieces, bouquets, and floral event decor.",
+  "keywords": "event florist, wedding florist, flower arrangement, floral design, wedding flowers, centerpieces, bouquet, event flowers, UAE",
+  "headerImage": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg",
+  "description": "Transform your event with stunning floral designs. Our talented florists create beautiful arrangements from romantic wedding bouquets and elegant centerpieces to dramatic installations and ceremony decor. We work with you to design florals that match your vision, style, and budget.",
+  "benefits": [
+    "Experienced event florists",
+    "Custom design consultations",
+    "Fresh premium flowers",
+    "Setup and breakdown included",
+    "Various styles and budgets",
+    "Rental items available"
+  ],
+  "whatToExpect": "We begin with a consultation to understand your vision, colors, and style. Our florists create a proposal with design concepts and pricing. Fresh flowers are sourced and arranged close to your event, then delivered and set up. Breakdown and rental return is handled after.",
+  "faqs": [
+    {
+      "question": "What floral services do you offer?",
+      "answer": "We create bridal bouquets, bridesmaids' flowers, boutonnieres, centerpieces, ceremony arrangements, installations, cake flowers, and general event florals."
+    },
+    {
+      "question": "How far in advance should I book?",
+      "answer": "For weddings and large events, book 3-6 months ahead to ensure availability and time for design consultation. Smaller events can be arranged 2-4 weeks out."
+    },
+    {
+      "question": "Can you match specific colors?",
+      "answer": "Yes, we source flowers to match your color palette. Some shades may require specific flower varieties or seasons. We'll advise on the best options for your colors."
+    },
+    {
+      "question": "Do you offer artificial flowers?",
+      "answer": "Yes, we offer high-quality silk and artificial flower options for certain applications. These work well for outdoor events in extreme heat or when fresh flowers aren't practical."
+    },
+    {
+      "question": "Can I keep the flowers after the event?",
+      "answer": "Personal flowers like bouquets and boutonnieres are yours to keep. Centerpieces and arrangements can be gifted to guests or we can arrange delivery to specified locations."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "event-planning",
+      "title": "Event Planning"
+    },
+    {
+      "id": "event-setup",
+      "title": "Event Setup"
+    },
+    {
+      "id": "photography",
+      "title": "Photography"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg",
+    "https://images.pexels.com/photos/931178/pexels-photo-931178.jpeg",
+    "https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg",
+    "https://images.pexels.com/photos/169194/pexels-photo-169194.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Event Florist Services",
+    "description": "Professional event florist services for weddings, centerpieces, and floral decor.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Event Florist Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wedding Flowers"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Centerpieces"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bouquets"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Floral Event Decor"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/event-florist",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -68,6 +68,7 @@ data/
 client/data/*
 !client/data/lead-form-data/
 !client/data/resources.ts
+!client/data/services/
 
 # Uploads
 uploads/

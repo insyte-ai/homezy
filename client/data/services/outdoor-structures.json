@@ -1,0 +1,114 @@
+{
+  "id": "outdoor-structures",
+  "title": "Outdoor Structures",
+  "metaTitle": "Professional Outdoor Structure Installation in UAE | Homezy",
+  "metaDescription": "Expert pergola, gazebo, deck, and patio construction in Dubai, Abu Dhabi, and across UAE. Custom outdoor living spaces.",
+  "keywords": "outdoor structures, pergola, gazebo, deck building, patio construction, awnings, shade sails, outdoor living, UAE",
+  "headerImage": "https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg",
+  "description": "Enhance your outdoor living space with custom-built structures designed for the UAE climate. From elegant pergolas and gazebos to functional decks and patios, our craftsmen create beautiful, durable outdoor spaces. We use weather-resistant materials and expert construction techniques for lasting enjoyment.",
+  "benefits": [
+    "Custom designs for your space",
+    "Weather-resistant materials",
+    "Expert craftsmanship",
+    "Structural engineering included",
+    "Municipality permit assistance",
+    "Warranty on construction"
+  ],
+  "whatToExpect": "We begin with an on-site consultation to understand your vision and assess your space. Our designers create custom plans, we handle permits if required, and our construction team builds your structure with quality materials and precise craftsmanship. Final inspection ensures everything meets our standards.",
+  "faqs": [
+    {
+      "question": "What outdoor structures do you build?",
+      "answer": "We build pergolas, gazebos, decks, patios, awnings, shade sails, carports, outdoor kitchens, pool houses, and custom garden structures. All are designed for the UAE climate."
+    },
+    {
+      "question": "What materials do you use?",
+      "answer": "We use weather-resistant materials including treated wood, composite decking, aluminum, steel, and WPC (wood-plastic composite). Material selection depends on your design preferences and budget."
+    },
+    {
+      "question": "How long does construction take?",
+      "answer": "Timeline varies by project size. A standard pergola takes 3-5 days, while larger structures like pool houses may take 2-4 weeks. We provide a detailed timeline during consultation."
+    },
+    {
+      "question": "Do I need permits for outdoor structures?",
+      "answer": "Some structures require municipality approval. We assess permit requirements during consultation and can handle the application process on your behalf."
+    },
+    {
+      "question": "Can you match existing architecture?",
+      "answer": "Yes, we design structures that complement your home's architecture and existing landscaping. Our designers work with you to achieve a cohesive outdoor aesthetic."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "landscaping",
+      "title": "Landscaping"
+    },
+    {
+      "id": "outdoor-lighting",
+      "title": "Outdoor Lighting"
+    },
+    {
+      "id": "in-ground-swimming-pool-construction",
+      "title": "Pool Construction"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg",
+    "https://images.pexels.com/photos/1643388/pexels-photo-1643388.jpeg",
+    "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg",
+    "https://images.pexels.com/photos/1080696/pexels-photo-1080696.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Outdoor Structures",
+    "description": "Professional pergola, gazebo, deck, and patio construction services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Outdoor Structures",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pergola Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Gazebo Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deck Building"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Patio Construction"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/outdoor-structures",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

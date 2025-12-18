@@ -1,0 +1,114 @@
+{
+  "id": "specialized-cleaning",
+  "title": "Specialized Cleaning Services",
+  "metaTitle": "Specialized Cleaning Services in UAE | Homezy",
+  "metaDescription": "Professional specialized cleaning for sofas, mattresses, curtains, and tiles in Dubai, Abu Dhabi, and across UAE. Expert stain removal and sanitization.",
+  "keywords": "sofa cleaning, mattress cleaning, curtain cleaning, tile cleaning, upholstery cleaning, carpet cleaning, stain removal, UAE",
+  "headerImage": "https://images.pexels.com/photos/4107120/pexels-photo-4107120.jpeg",
+  "description": "Our specialized cleaning services target specific items and surfaces that need expert attention. From sofa and mattress deep cleaning to curtain washing and tile grout restoration, we use professional equipment and techniques to remove stains, eliminate odors, and restore your belongings to their best condition.",
+  "benefits": [
+    "Professional-grade steam cleaning equipment",
+    "Effective stain and odor removal",
+    "Allergen and dust mite elimination",
+    "Extends life of furniture and fabrics",
+    "Eco-friendly cleaning solutions",
+    "On-site service at your convenience"
+  ],
+  "whatToExpect": "Our specialized cleaning technicians arrive with professional equipment including steam cleaners and extraction machines. They'll inspect the item, identify any stains or problem areas, and apply appropriate cleaning methods. Most items are dry and ready to use within 2-4 hours after cleaning.",
+  "faqs": [
+    {
+      "question": "What specialized cleaning services do you offer?",
+      "answer": "We offer sofa and upholstery cleaning, mattress deep cleaning, curtain and drape cleaning, carpet and rug cleaning, tile and grout cleaning, leather furniture cleaning, and fabric protection treatments."
+    },
+    {
+      "question": "How long does sofa cleaning take?",
+      "answer": "A standard 3-seater sofa takes about 45-60 minutes to clean. Drying time is typically 2-4 hours depending on fabric type and ventilation. We recommend allowing sofas to dry completely before use."
+    },
+    {
+      "question": "Can you remove all stains?",
+      "answer": "We successfully remove most stains including food, drinks, pet stains, and general dirt. Some old or set-in stains may be difficult to remove completely, but we'll assess and advise honestly before proceeding."
+    },
+    {
+      "question": "Is mattress cleaning safe?",
+      "answer": "Yes, our mattress cleaning is completely safe. We use hypoallergenic solutions and hot steam extraction to kill dust mites, bacteria, and allergens while removing stains and odors."
+    },
+    {
+      "question": "Do you clean curtains on-site?",
+      "answer": "Yes, we clean most curtains on-site using steam cleaning methods. For delicate fabrics or heavily soiled curtains, we may recommend off-site cleaning for best results."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "deep-cleaning",
+      "title": "Deep Cleaning"
+    },
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    },
+    {
+      "id": "disinfection",
+      "title": "Disinfection Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4107120/pexels-photo-4107120.jpeg",
+    "https://images.pexels.com/photos/4107112/pexels-photo-4107112.jpeg",
+    "https://images.pexels.com/photos/4239031/pexels-photo-4239031.jpeg",
+    "https://images.pexels.com/photos/4108715/pexels-photo-4108715.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Specialized Cleaning Services",
+    "description": "Professional specialized cleaning for sofas, mattresses, curtains, carpets, and tile grout.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Specialized Cleaning Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Sofa Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mattress Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Curtain Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tile & Grout Cleaning"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/specialized-cleaning",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

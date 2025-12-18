@@ -1,0 +1,107 @@
+{
+  "id": "pilates-instruction",
+  "title": "Pilates Instruction",
+  "metaTitle": "Professional Pilates Instruction Services in UAE | Homezy",
+  "metaDescription": "Certified Pilates instructors in Dubai, Abu Dhabi, and across UAE. Private mat and reformer Pilates sessions at home or studio.",
+  "keywords": "pilates instructor, pilates teacher, private pilates, mat pilates, pilates classes, home pilates, pilates training, UAE",
+  "headerImage": "https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg",
+  "description": "Strengthen your core and improve posture with private Pilates instruction. Our certified instructors bring personalized mat Pilates sessions to your home or can arrange reformer sessions at partner studios. Pilates builds strength, flexibility, and body awareness through controlled movements suitable for all fitness levels.",
+  "benefits": [
+    "Certified Pilates instructors",
+    "Personalized programs",
+    "Mat and reformer options",
+    "Core strength focus",
+    "Posture improvement",
+    "Injury rehabilitation"
+  ],
+  "whatToExpect": "Your instructor assesses your fitness level, goals, and any physical limitations. Sessions focus on controlled movements, proper breathing, and core engagement. Mat Pilates is conducted at your home with provided equipment. Reformer sessions can be arranged at partner studios.",
+  "faqs": [
+    {
+      "question": "What's the difference between mat and reformer Pilates?",
+      "answer": "Mat Pilates uses body weight and small props on a mat. Reformer Pilates uses a specialized machine with springs for resistance. Both are effective - reformer offers more variety while mat is more portable."
+    },
+    {
+      "question": "Is Pilates good for back pain?",
+      "answer": "Yes, Pilates is excellent for strengthening core muscles that support the spine. Many clients find relief from back pain. Always inform your instructor of any injuries or pain."
+    },
+    {
+      "question": "How is Pilates different from yoga?",
+      "answer": "Pilates focuses more on core strength, controlled movements, and muscle toning. Yoga incorporates more stretching, balance, and mindfulness. Both complement each other well."
+    },
+    {
+      "question": "Can beginners do Pilates?",
+      "answer": "Absolutely! Pilates is accessible for all fitness levels. Instructors teach foundational movements and progress at your pace. The controlled nature makes it safe for beginners."
+    },
+    {
+      "question": "How often should I do Pilates?",
+      "answer": "2-3 sessions per week is ideal for seeing results. Consistency matters more than frequency. Your instructor will recommend a schedule based on your goals."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "yoga-instruction",
+      "title": "Yoga Instruction"
+    },
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    },
+    {
+      "id": "massage-therapy",
+      "title": "Massage Therapy"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg",
+    "https://images.pexels.com/photos/4056724/pexels-photo-4056724.jpeg",
+    "https://images.pexels.com/photos/4498574/pexels-photo-4498574.jpeg",
+    "https://images.pexels.com/photos/4498575/pexels-photo-4498575.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Pilates Instruction",
+    "description": "Professional Pilates instruction with certified instructors for mat and reformer sessions.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Pilates Instruction",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mat Pilates"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Reformer Pilates"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Sessions"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/pilates-instruction",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

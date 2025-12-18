@@ -1,0 +1,114 @@
+{
+  "id": "videography",
+  "title": "Videography Services",
+  "metaTitle": "Professional Videography Services in UAE | Homezy",
+  "metaDescription": "Expert video production in Dubai, Abu Dhabi, and across UAE. Corporate videos, promotional content, video editing, and drone videography.",
+  "keywords": "videographer, videography, video production, video editing, corporate video, promotional video, commercial video, drone videography, UAE",
+  "headerImage": "https://images.pexels.com/photos/2873486/pexels-photo-2873486.jpeg",
+  "description": "Tell your story through compelling video with our professional videography services. From corporate videos and promotional content to social media clips and event coverage, our videographers create engaging visual content that captures attention and delivers your message effectively.",
+  "benefits": [
+    "Professional videographers",
+    "4K video quality",
+    "Drone videography available",
+    "Professional editing",
+    "Music and graphics included",
+    "Multiple format delivery"
+  ],
+  "whatToExpect": "We begin with pre-production planning - understanding goals, scripting if needed, and shoot logistics. On shoot day, our team captures footage efficiently. Post-production includes editing, color grading, music, and graphics. You receive review cuts before final delivery.",
+  "faqs": [
+    {
+      "question": "What video services do you offer?",
+      "answer": "We produce corporate videos, promotional content, social media videos, event coverage, testimonials, product videos, training videos, and aerial/drone footage."
+    },
+    {
+      "question": "How long is the production process?",
+      "answer": "Simple social media videos can be delivered in 1-2 weeks. Corporate videos typically take 2-4 weeks. Complex productions with multiple shoot days take longer. Rush services available."
+    },
+    {
+      "question": "Do you provide scriptwriting?",
+      "answer": "Yes, we offer scriptwriting and concept development as part of our full-service packages. We can also work with scripts you provide or develop ideas collaboratively."
+    },
+    {
+      "question": "What formats do you deliver?",
+      "answer": "We deliver in formats optimized for your use - web/social (MP4), broadcast quality, or specific platform requirements (YouTube, Instagram, LinkedIn). We provide files ready to use."
+    },
+    {
+      "question": "Do you have drone capabilities?",
+      "answer": "Yes, we have licensed drone pilots and equipment for aerial videography. Drone footage adds dramatic perspectives for real estate, events, and corporate videos."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "photography",
+      "title": "Photography"
+    },
+    {
+      "id": "graphic-design",
+      "title": "Graphic Design"
+    },
+    {
+      "id": "web-design",
+      "title": "Web Design"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/2873486/pexels-photo-2873486.jpeg",
+    "https://images.pexels.com/photos/2873487/pexels-photo-2873487.jpeg",
+    "https://images.pexels.com/photos/66134/pexels-photo-66134.jpeg",
+    "https://images.pexels.com/photos/2510428/pexels-photo-2510428.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Videography Services",
+    "description": "Professional videography and video production services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Videography Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate Video"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Promotional Video"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Video Editing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Drone Videography"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/videography",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

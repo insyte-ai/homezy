@@ -1,0 +1,107 @@
+{
+  "id": "live-music",
+  "title": "Live Music Entertainment",
+  "metaTitle": "Live Music Entertainment in UAE | Homezy",
+  "metaDescription": "Professional live musicians in Dubai, Abu Dhabi, and across UAE. Bands, solo musicians, and duos for weddings, parties, and corporate events.",
+  "keywords": "live music, live band, wedding band, musician, solo musician, acoustic band, jazz band, cover band, live entertainment, UAE",
+  "headerImage": "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg",
+  "description": "Add elegance and excitement to your event with live music. From solo acoustic performers to full bands, we connect you with talented musicians for any occasion. Whether you need background music for a cocktail hour, a jazz ensemble for dinner, or an energetic band to pack the dance floor, we have the right act.",
+  "benefits": [
+    "Versatile talented musicians",
+    "Various ensemble sizes",
+    "Multiple genres available",
+    "Custom song requests",
+    "Professional sound equipment",
+    "Experienced performers"
+  ],
+  "whatToExpect": "We help you choose the right musical style and ensemble size for your event. Musicians arrive early for sound check and setup. They perform professionally, engage with your guests, and can often take song requests. Sound equipment is typically included.",
+  "faqs": [
+    {
+      "question": "What types of live music do you offer?",
+      "answer": "We offer solo musicians (piano, guitar, violin), duos, trios, jazz bands, cover bands, acoustic sets, classical ensembles, and specialty acts. We match the music to your event style."
+    },
+    {
+      "question": "Can musicians learn specific songs?",
+      "answer": "Yes, most musicians can learn special request songs with enough advance notice (2-4 weeks typically). Let us know early if you have must-play songs for key moments."
+    },
+    {
+      "question": "How long do performances last?",
+      "answer": "Typical sets are 2-3 hours with breaks. Background music during dinner is usually 2 hours. Dance sets can run 3-4 hours. We customize to your event timeline."
+    },
+    {
+      "question": "Do musicians bring their own equipment?",
+      "answer": "Yes, musicians bring their instruments and basic amplification suitable for most venues. For large venues or outdoor events, we can arrange additional sound reinforcement."
+    },
+    {
+      "question": "What genres are available?",
+      "answer": "We have musicians specializing in jazz, pop, rock, R&B, classical, Arabic, Latin, Bollywood, and more. Tell us your preferences and we'll recommend appropriate acts."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "dj-services",
+      "title": "DJ Services"
+    },
+    {
+      "id": "event-planning",
+      "title": "Event Planning"
+    },
+    {
+      "id": "catering",
+      "title": "Catering"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg",
+    "https://images.pexels.com/photos/1763076/pexels-photo-1763076.jpeg",
+    "https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg",
+    "https://images.pexels.com/photos/442540/pexels-photo-442540.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Live Music Entertainment",
+    "description": "Professional live music including bands, solo musicians, and ensembles.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Live Music Entertainment",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Solo Musician"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Duo"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Band"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/live-music",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

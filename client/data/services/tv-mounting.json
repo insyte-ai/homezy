@@ -1,0 +1,107 @@
+{
+  "id": "tv-mounting",
+  "title": "TV Mounting Services",
+  "metaTitle": "Professional TV Mounting Services in UAE | Homezy",
+  "metaDescription": "Expert TV wall mounting and installation in Dubai, Abu Dhabi, and across UAE. Cable management, soundbar installation, and all TV sizes.",
+  "keywords": "TV mounting, TV installation, wall mount TV, TV bracket installation, cable management, soundbar installation, UAE",
+  "headerImage": "https://images.pexels.com/photos/6782567/pexels-photo-6782567.jpeg",
+  "description": "Get your TV professionally mounted with our expert installation services. We handle all TV sizes and types, ensuring secure mounting with clean cable management. From selecting the right bracket to hiding wires in the wall, our technicians deliver a sleek, professional finish that transforms your viewing experience.",
+  "benefits": [
+    "All TV sizes and types",
+    "Professional cable concealment",
+    "Optimal viewing height positioning",
+    "Bracket included in service",
+    "Same-day service available",
+    "Wall type assessment included"
+  ],
+  "whatToExpect": "Our technician arrives with all necessary equipment and brackets. They assess your wall type, recommend optimal TV height and position, securely mount the bracket, attach your TV, and neatly manage all cables. We test the installation and clean up completely.",
+  "faqs": [
+    {
+      "question": "What's included in TV mounting service?",
+      "answer": "Our service includes wall assessment, bracket installation, TV mounting, basic cable management, and testing. We supply standard brackets, or can install brackets you provide. In-wall cable concealment is available for an additional fee."
+    },
+    {
+      "question": "Can you mount a TV on any wall type?",
+      "answer": "Yes, we mount TVs on all wall types including drywall, concrete, brick, and hollow blocks. We use appropriate anchors and techniques for each wall type to ensure secure installation."
+    },
+    {
+      "question": "How long does TV mounting take?",
+      "answer": "Standard TV mounting takes 1-2 hours. If you want cables hidden inside the wall, allow an additional 1-2 hours depending on complexity."
+    },
+    {
+      "question": "What size TVs do you mount?",
+      "answer": "We mount TVs of all sizes, from small 32-inch screens to large 85-inch+ displays. Our technicians have experience with various brands and mount types."
+    },
+    {
+      "question": "Can you install a soundbar too?",
+      "answer": "Yes, we install soundbars, surround sound speakers, and other audio equipment along with your TV mounting. Just let us know when booking."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-automation",
+      "title": "Home Automation"
+    },
+    {
+      "id": "furniture-assembly",
+      "title": "Furniture Assembly"
+    },
+    {
+      "id": "electrical",
+      "title": "Electrical Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6782567/pexels-photo-6782567.jpeg",
+    "https://images.pexels.com/photos/6782568/pexels-photo-6782568.jpeg",
+    "https://images.pexels.com/photos/4009402/pexels-photo-4009402.jpeg",
+    "https://images.pexels.com/photos/6782571/pexels-photo-6782571.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "TV Mounting Services",
+    "description": "Professional TV wall mounting with cable management and soundbar installation.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "TV Mounting Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wall Mount Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Ceiling Mount Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Cable Management"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/tv-mounting",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

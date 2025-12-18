@@ -1,0 +1,114 @@
+{
+  "id": "waterproofing",
+  "title": "Waterproofing Services",
+  "metaTitle": "Professional Waterproofing Services in UAE | Homezy",
+  "metaDescription": "Expert waterproofing services in Dubai, Abu Dhabi, and across UAE. Basement, roof, bathroom, and balcony waterproofing. Prevent leaks and water damage.",
+  "keywords": "waterproofing, water proofing, basement waterproofing, roof waterproofing, bathroom waterproofing, leak prevention, damp proofing, UAE",
+  "headerImage": "https://images.pexels.com/photos/5974382/pexels-photo-5974382.jpeg",
+  "description": "Protect your property from water damage with our professional waterproofing services. We specialize in comprehensive waterproofing solutions for basements, roofs, bathrooms, balconies, and foundations. Using premium membranes and sealants, we prevent leaks, moisture infiltration, and structural damage caused by water.",
+  "benefits": [
+    "Permanent leak prevention",
+    "Premium waterproofing materials",
+    "10-year warranty on workmanship",
+    "Experienced certified applicators",
+    "Both interior and exterior solutions",
+    "Free moisture assessment"
+  ],
+  "whatToExpect": "Our waterproofing process starts with a thorough inspection to identify moisture sources and problem areas. We prepare surfaces, apply appropriate waterproofing systems (membranes, coatings, or sealants), and ensure proper curing. All work is documented and backed by our warranty.",
+  "faqs": [
+    {
+      "question": "What areas can be waterproofed?",
+      "answer": "We waterproof basements, roofs, terraces, balconies, bathrooms, swimming pools, water tanks, foundations, and retaining walls. Each area requires specific materials and techniques for optimal protection."
+    },
+    {
+      "question": "How long does waterproofing last?",
+      "answer": "Quality waterproofing typically lasts 10-15 years or more depending on the area, materials used, and exposure to elements. We provide warranties up to 10 years on our waterproofing work."
+    },
+    {
+      "question": "Can you fix existing leaks?",
+      "answer": "Yes, we specialize in leak detection and repair. We identify the source of water infiltration, fix the underlying issue, and apply appropriate waterproofing to prevent future leaks."
+    },
+    {
+      "question": "What's the best time for waterproofing?",
+      "answer": "Waterproofing can be done year-round, but dry weather is ideal. For new construction, waterproofing should be done before finishing. For existing structures, we can work any time after proper surface preparation."
+    },
+    {
+      "question": "Do you waterproof new bathrooms?",
+      "answer": "Yes, bathroom waterproofing is crucial before tile installation. We apply waterproof membranes to floors, walls, and wet areas to prevent moisture damage to the structure beneath."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "roofing",
+      "title": "Roofing"
+    },
+    {
+      "id": "bathroom-remodelling",
+      "title": "Bathroom Remodeling"
+    },
+    {
+      "id": "plumbing",
+      "title": "Plumbing"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5974382/pexels-photo-5974382.jpeg",
+    "https://images.pexels.com/photos/5974383/pexels-photo-5974383.jpeg",
+    "https://images.pexels.com/photos/5974384/pexels-photo-5974384.jpeg",
+    "https://images.pexels.com/photos/5974385/pexels-photo-5974385.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Waterproofing Services",
+    "description": "Professional waterproofing services for basements, roofs, bathrooms, and balconies.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Waterproofing Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Basement Waterproofing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Roof Waterproofing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bathroom Waterproofing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Balcony Waterproofing"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/waterproofing",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

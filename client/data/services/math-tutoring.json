@@ -1,0 +1,114 @@
+{
+  "id": "math-tutoring",
+  "title": "Math Tutoring",
+  "metaTitle": "Professional Math Tutoring in UAE | Homezy",
+  "metaDescription": "Expert math tutoring in Dubai, Abu Dhabi, and across UAE. Private tutors for all levels from elementary to university. Algebra, calculus, statistics.",
+  "keywords": "math tutor, math tutoring, mathematics tutor, algebra tutor, calculus tutor, geometry tutor, statistics tutor, private math tutor, UAE",
+  "headerImage": "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg",
+  "description": "Boost your math skills with personalized tutoring from experienced educators. Our math tutors work with students from elementary through university level, covering arithmetic, algebra, geometry, calculus, statistics, and more. We identify gaps, build understanding, and help students gain confidence in mathematics.",
+  "benefits": [
+    "Qualified experienced tutors",
+    "All levels and curricula",
+    "In-home and online options",
+    "Personalized learning plans",
+    "Exam preparation",
+    "Progress tracking"
+  ],
+  "whatToExpect": "Your tutor assesses current skills and identifies areas needing improvement. Each session focuses on building understanding through explanation, practice problems, and real-world applications. Regular progress reviews ensure goals are being met.",
+  "faqs": [
+    {
+      "question": "What math levels do you tutor?",
+      "answer": "We tutor all levels from elementary arithmetic through university-level mathematics including algebra, geometry, trigonometry, pre-calculus, calculus, statistics, and linear algebra."
+    },
+    {
+      "question": "Which curricula do your tutors cover?",
+      "answer": "Our tutors are experienced with British (IGCSE, A-Levels), American (Common Core, AP), IB, Indian (CBSE, ICSE), and UAE national curricula."
+    },
+    {
+      "question": "How often should my child have math tutoring?",
+      "answer": "Weekly sessions are typical for ongoing support. During exam periods or for significant gaps, 2-3 sessions per week may be beneficial. We'll recommend a schedule based on needs."
+    },
+    {
+      "question": "Can tutors help with homework?",
+      "answer": "Yes, tutors help students understand homework concepts and work through problems. The goal is teaching problem-solving skills, not just providing answers."
+    },
+    {
+      "question": "Do you prepare students for standardized tests?",
+      "answer": "Yes, we prepare students for SAT, ACT, GRE, GMAT, and other standardized tests with math components. This includes test strategies and practice with actual test formats."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "science-tutoring",
+      "title": "Science Tutoring"
+    },
+    {
+      "id": "test-prep",
+      "title": "Test Preparation"
+    },
+    {
+      "id": "language-lessons",
+      "title": "Language Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg",
+    "https://images.pexels.com/photos/5212340/pexels-photo-5212340.jpeg",
+    "https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg",
+    "https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Math Tutoring",
+    "description": "Private math tutoring for all levels from elementary to university.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Math Tutoring",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Elementary Math"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Algebra"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Calculus"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Statistics"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/math-tutoring",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

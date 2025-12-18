@@ -1,0 +1,114 @@
+{
+  "id": "test-prep",
+  "title": "Test Preparation",
+  "metaTitle": "Professional Test Preparation Services in UAE | Homezy",
+  "metaDescription": "Expert test prep tutoring in Dubai, Abu Dhabi, and across UAE. SAT, ACT, GRE, GMAT, IELTS, and TOEFL preparation with proven strategies.",
+  "keywords": "test prep, SAT tutor, ACT tutor, GRE tutor, GMAT tutor, IELTS preparation, TOEFL preparation, exam preparation, UAE",
+  "headerImage": "https://images.pexels.com/photos/5088179/pexels-photo-5088179.jpeg",
+  "description": "Achieve your target scores with professional test preparation. Our expert tutors specialize in major standardized tests including SAT, ACT, GRE, GMAT, IELTS, and TOEFL. Through strategic instruction, practice tests, and personalized coaching, we help students maximize their scores and achieve their academic goals.",
+  "benefits": [
+    "Expert test prep specialists",
+    "Proven score improvement",
+    "Strategic test-taking skills",
+    "Full-length practice tests",
+    "Personalized study plans",
+    "Flexible scheduling"
+  ],
+  "whatToExpect": "We begin with a diagnostic test to assess current skills and identify target areas. Your tutor creates a study plan covering content review, test strategies, timing techniques, and extensive practice. Regular mock tests track progress toward your goal score.",
+  "faqs": [
+    {
+      "question": "Which tests do you prepare students for?",
+      "answer": "We offer preparation for SAT, ACT, PSAT, GRE, GMAT, LSAT, MCAT, IELTS, TOEFL, and other standardized tests. Each program is tailored to the specific test format and requirements."
+    },
+    {
+      "question": "How long is a typical test prep program?",
+      "answer": "Most students see significant improvement with 8-12 weeks of preparation meeting 2-3 times per week. Intensive programs can be shorter, while comprehensive programs may extend longer."
+    },
+    {
+      "question": "What score improvement can I expect?",
+      "answer": "Results vary by student, but our students typically see 100-200+ point improvements on SAT, 3-5 points on ACT, and 0.5-1.0 band improvements on IELTS with dedicated preparation."
+    },
+    {
+      "question": "Do you provide practice tests?",
+      "answer": "Yes, our programs include full-length practice tests under timed conditions. These help build stamina, refine timing strategies, and track progress toward goal scores."
+    },
+    {
+      "question": "Can you help with university applications?",
+      "answer": "While our focus is test preparation, we can connect you with college admissions consultants for comprehensive application support including essays and interview prep."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "math-tutoring",
+      "title": "Math Tutoring"
+    },
+    {
+      "id": "language-lessons",
+      "title": "Language Lessons"
+    },
+    {
+      "id": "science-tutoring",
+      "title": "Science Tutoring"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5088179/pexels-photo-5088179.jpeg",
+    "https://images.pexels.com/photos/5088188/pexels-photo-5088188.jpeg",
+    "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg",
+    "https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Test Preparation",
+    "description": "Professional test preparation for SAT, ACT, GRE, GMAT, IELTS, and TOEFL.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Test Preparation",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "SAT Prep"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "ACT Prep"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "GRE Prep"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "IELTS Prep"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/test-prep",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

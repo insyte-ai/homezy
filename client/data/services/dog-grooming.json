@@ -1,0 +1,114 @@
+{
+  "id": "dog-grooming",
+  "title": "Dog Grooming Services",
+  "metaTitle": "Professional Dog Grooming Services in UAE | Homezy",
+  "metaDescription": "Expert dog grooming in Dubai, Abu Dhabi, and across UAE. Bathing, haircuts, nail trimming, and full grooming services. Mobile grooming available.",
+  "keywords": "dog grooming, dog groomer, pet grooming, dog bath, dog haircut, nail trimming, mobile dog grooming, dog spa, UAE",
+  "headerImage": "https://images.pexels.com/photos/6816860/pexels-photo-6816860.jpeg",
+  "description": "Keep your furry friend looking and feeling great with our professional dog grooming services. Our experienced groomers provide everything from basic baths and nail trims to breed-specific haircuts and full spa treatments. We handle all breeds and sizes with gentle, patient care. Mobile grooming brings the salon to you.",
+  "benefits": [
+    "Experienced certified groomers",
+    "All breeds and sizes",
+    "Mobile grooming available",
+    "Gentle, patient handling",
+    "Premium grooming products",
+    "Convenient scheduling"
+  ],
+  "whatToExpect": "Your dog's grooming session begins with a thorough brush-out, followed by a warm bath with breed-appropriate shampoo. We clean ears, trim nails, and style fur according to breed standards or your preferences. The session ends with a final fluff and any finishing touches you request.",
+  "faqs": [
+    {
+      "question": "What grooming services do you offer?",
+      "answer": "We offer full grooming (bath, haircut, nail trim, ear cleaning), bath and brush packages, nail trimming only, ear cleaning, teeth brushing, de-shedding treatments, and breed-specific styling."
+    },
+    {
+      "question": "How long does grooming take?",
+      "answer": "A basic bath and brush takes 45-60 minutes. Full grooming with haircut takes 1.5-3 hours depending on breed, coat condition, and style. Large or matted dogs may take longer."
+    },
+    {
+      "question": "Do you groom all dog breeds?",
+      "answer": "Yes, our groomers are trained to work with all breeds from Chihuahuas to Great Danes. We know breed-specific cuts and can also do custom styles you prefer."
+    },
+    {
+      "question": "What if my dog is nervous?",
+      "answer": "Our groomers are experienced with anxious dogs. We use gentle handling, take breaks when needed, and create a calm environment. For very nervous dogs, we can schedule longer appointments to go slowly."
+    },
+    {
+      "question": "Do you offer mobile grooming?",
+      "answer": "Yes, our mobile grooming service brings a fully-equipped grooming van to your home. This is ideal for busy owners, multiple pets, or dogs who get anxious during car rides."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "cat-grooming",
+      "title": "Cat Grooming"
+    },
+    {
+      "id": "dog-walking",
+      "title": "Dog Walking"
+    },
+    {
+      "id": "dog-training",
+      "title": "Dog Training"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6816860/pexels-photo-6816860.jpeg",
+    "https://images.pexels.com/photos/6816861/pexels-photo-6816861.jpeg",
+    "https://images.pexels.com/photos/5731866/pexels-photo-5731866.jpeg",
+    "https://images.pexels.com/photos/6131004/pexels-photo-6131004.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Dog Grooming Services",
+    "description": "Professional dog grooming including bathing, haircuts, nail trimming, and mobile grooming.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Dog Grooming Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Grooming Service"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bath & Brush"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Nail Trimming"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mobile Grooming"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/dog-grooming",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

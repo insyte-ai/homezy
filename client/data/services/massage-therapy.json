@@ -1,0 +1,107 @@
+{
+  "id": "massage-therapy",
+  "title": "Massage Therapy Services",
+  "metaTitle": "Professional Massage Therapy Services in UAE | Homezy",
+  "metaDescription": "Licensed massage therapists in Dubai, Abu Dhabi, and across UAE. In-home massage, deep tissue, Swedish, sports massage, and more.",
+  "keywords": "massage therapist, massage therapy, home massage, deep tissue massage, Swedish massage, sports massage, relaxation massage, UAE",
+  "headerImage": "https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg",
+  "description": "Experience professional massage therapy in the comfort of your home. Our licensed massage therapists bring everything needed for a rejuvenating session - from portable massage tables to premium oils. Whether you need deep tissue work for muscle tension, Swedish massage for relaxation, or sports massage for recovery, we have skilled therapists for every need.",
+  "benefits": [
+    "Licensed massage therapists",
+    "In-home convenience",
+    "Various massage styles",
+    "Professional equipment provided",
+    "Couples massage available",
+    "Flexible scheduling"
+  ],
+  "whatToExpect": "Your therapist arrives with a portable massage table, linens, and quality oils. They discuss your needs, areas of tension, and pressure preferences. You relax in a comfortable space while receiving professional treatment. Therapists maintain highest hygiene standards and respect your privacy.",
+  "faqs": [
+    {
+      "question": "What types of massage do you offer?",
+      "answer": "We offer Swedish, deep tissue, sports massage, aromatherapy, hot stone, prenatal massage, and more. Tell us your goals and we'll match you with the right therapist and technique."
+    },
+    {
+      "question": "What do I need to prepare at home?",
+      "answer": "Just a quiet space large enough for a massage table (about 8x6 feet). Therapists bring table, linens, oils, and music. A warm room is ideal for comfort."
+    },
+    {
+      "question": "Are your therapists licensed?",
+      "answer": "Yes, all our massage therapists are licensed, trained professionals with proper certifications. Many have specializations in specific techniques or conditions."
+    },
+    {
+      "question": "Can I book a couples massage?",
+      "answer": "Yes, we offer couples massage where two therapists come together for a shared experience. It's perfect for partners, friends, or family members."
+    },
+    {
+      "question": "Is massage safe during pregnancy?",
+      "answer": "Yes, prenatal massage is safe and beneficial when performed by a certified prenatal massage therapist. Always inform us if you're pregnant when booking."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    },
+    {
+      "id": "yoga-instruction",
+      "title": "Yoga Instruction"
+    },
+    {
+      "id": "life-coaching",
+      "title": "Life Coaching"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg",
+    "https://images.pexels.com/photos/3757953/pexels-photo-3757953.jpeg",
+    "https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg",
+    "https://images.pexels.com/photos/3997994/pexels-photo-3997994.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Massage Therapy Services",
+    "description": "Professional massage therapy services with licensed therapists for in-home sessions.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Massage Therapy Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Swedish Massage"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deep Tissue Massage"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Sports Massage"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/massage-therapy",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

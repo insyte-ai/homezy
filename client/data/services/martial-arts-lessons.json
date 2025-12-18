@@ -1,0 +1,114 @@
+{
+  "id": "martial-arts-lessons",
+  "title": "Martial Arts Lessons",
+  "metaTitle": "Professional Martial Arts Lessons in UAE | Homezy",
+  "metaDescription": "Private martial arts training in Dubai, Abu Dhabi, and across UAE. Karate, taekwondo, boxing, jiu jitsu, and self-defense lessons for all ages.",
+  "keywords": "martial arts lessons, karate, taekwondo, boxing, jiu jitsu, MMA, self defense, martial arts instructor, UAE",
+  "headerImage": "https://images.pexels.com/photos/6253306/pexels-photo-6253306.jpeg",
+  "description": "Learn martial arts from experienced instructors who bring training to you. We offer private lessons in various disciplines including karate, taekwondo, boxing, jiu jitsu, and practical self-defense. Build strength, confidence, discipline, and self-protection skills in a supportive environment for all ages.",
+  "benefits": [
+    "Multiple martial arts styles",
+    "Self-defense training",
+    "All ages and fitness levels",
+    "Private personalized instruction",
+    "Belt progression available",
+    "Builds confidence and discipline"
+  ],
+  "whatToExpect": "Your instructor meets you at home or a suitable space with necessary equipment. Training includes warm-up, technique instruction, practice drills, and conditioning. Progress through belt levels if desired, or focus purely on fitness and practical self-defense skills.",
+  "faqs": [
+    {
+      "question": "What martial arts do you teach?",
+      "answer": "We offer instruction in karate, taekwondo, boxing, kickboxing, Brazilian jiu jitsu, MMA fundamentals, and practical self-defense. Choose based on your interests and goals."
+    },
+    {
+      "question": "What age can children start martial arts?",
+      "answer": "Children can begin martial arts training from age 4-5. Young children focus on basic movements, coordination, and discipline. More technical training develops as they grow."
+    },
+    {
+      "question": "Is martial arts training safe?",
+      "answer": "Yes, proper instruction emphasizes safety. We use appropriate protective equipment, teach controlled techniques, and progress at a pace suitable for your fitness level."
+    },
+    {
+      "question": "Do I need any equipment?",
+      "answer": "Initially, comfortable workout clothes are sufficient. As you progress, you may need specific gear like gloves or protective padding, which your instructor can recommend."
+    },
+    {
+      "question": "Can martial arts help with self-defense?",
+      "answer": "Absolutely. All our martial arts training includes practical self-defense applications. We also offer dedicated self-defense courses focused specifically on real-world protection."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    },
+    {
+      "id": "yoga-instruction",
+      "title": "Yoga Instruction"
+    },
+    {
+      "id": "swimming-lessons",
+      "title": "Swimming Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6253306/pexels-photo-6253306.jpeg",
+    "https://images.pexels.com/photos/6253307/pexels-photo-6253307.jpeg",
+    "https://images.pexels.com/photos/4761779/pexels-photo-4761779.jpeg",
+    "https://images.pexels.com/photos/4754146/pexels-photo-4754146.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Martial Arts Lessons",
+    "description": "Private martial arts training including karate, taekwondo, boxing, and self-defense.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Martial Arts Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Karate"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Taekwondo"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Boxing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Jiu Jitsu"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/martial-arts-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

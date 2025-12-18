@@ -1,0 +1,107 @@
+{
+  "id": "counseling",
+  "title": "Counseling Services",
+  "metaTitle": "Professional Counseling Services in UAE | Homezy",
+  "metaDescription": "Licensed counselors and therapists in Dubai, Abu Dhabi, and across UAE. Individual, couples, and family counseling for mental health and emotional wellbeing.",
+  "keywords": "counselor, counseling, therapy, therapist, mental health, family counseling, couples counseling, anxiety, depression, UAE",
+  "headerImage": "https://images.pexels.com/photos/4101143/pexels-photo-4101143.jpeg",
+  "description": "Professional counseling services to support your mental health and emotional wellbeing. Our licensed counselors provide a safe, confidential space to address life challenges, relationship issues, anxiety, depression, and personal growth. Whether you need individual support, couples therapy, or family counseling, we connect you with qualified professionals who can help.",
+  "benefits": [
+    "Licensed and certified counselors",
+    "Confidential and non-judgmental",
+    "Individual, couples, and family sessions",
+    "In-person or virtual appointments",
+    "Evidence-based therapeutic approaches",
+    "Flexible scheduling options"
+  ],
+  "whatToExpect": "Your first session is typically an intake assessment where your counselor learns about your history, current challenges, and goals. Together you'll develop a treatment plan tailored to your needs. Regular sessions (usually weekly) provide ongoing support, skill-building, and progress monitoring in a safe, confidential environment.",
+  "faqs": [
+    {
+      "question": "What issues can counseling help with?",
+      "answer": "Counseling can help with anxiety, depression, stress, relationship problems, grief, trauma, life transitions, self-esteem issues, anger management, and many other mental health and emotional concerns."
+    },
+    {
+      "question": "How is counseling different from coaching?",
+      "answer": "Counseling addresses mental health concerns, emotional difficulties, and past experiences affecting present wellbeing. Coaching focuses on future goals and personal development. Counselors are trained to diagnose and treat mental health conditions."
+    },
+    {
+      "question": "Are sessions confidential?",
+      "answer": "Yes, all sessions are strictly confidential. Counselors are bound by professional ethics and laws protecting client privacy. Information is only shared in specific circumstances like imminent harm."
+    },
+    {
+      "question": "How long does counseling take?",
+      "answer": "Duration varies based on individual needs and goals. Some issues resolve in 8-12 sessions, while others benefit from longer-term support. Your counselor will discuss expectations during your initial sessions."
+    },
+    {
+      "question": "Can I choose between in-person and online sessions?",
+      "answer": "Yes, most counselors offer both in-person and virtual sessions. Online counseling provides flexibility and accessibility while maintaining the same professional standards and confidentiality."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "life-coaching",
+      "title": "Life Coaching"
+    },
+    {
+      "id": "nutritionist",
+      "title": "Nutritionist"
+    },
+    {
+      "id": "yoga-instruction",
+      "title": "Yoga Instruction"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4101143/pexels-photo-4101143.jpeg",
+    "https://images.pexels.com/photos/4101148/pexels-photo-4101148.jpeg",
+    "https://images.pexels.com/photos/4098224/pexels-photo-4098224.jpeg",
+    "https://images.pexels.com/photos/4098366/pexels-photo-4098366.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Counseling Services",
+    "description": "Professional counseling services with licensed therapists for individual, couples, and family mental health support.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Counseling Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Individual Counseling"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Couples Counseling"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Family Counseling"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/counseling",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

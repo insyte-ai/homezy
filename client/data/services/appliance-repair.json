@@ -1,0 +1,114 @@
+{
+  "id": "appliance-repair",
+  "title": "Appliance Repair Services",
+  "metaTitle": "Professional Appliance Repair Services in UAE | Homezy",
+  "metaDescription": "Expert appliance repair services in Dubai, Abu Dhabi, and across UAE. We fix washing machines, refrigerators, dishwashers, ovens, and dryers. Same-day service.",
+  "keywords": "appliance repair, washing machine repair, refrigerator repair, dishwasher repair, oven repair, dryer repair, home appliance service, UAE",
+  "headerImage": "https://images.pexels.com/photos/5591717/pexels-photo-5591717.jpeg",
+  "description": "Our professional appliance repair services keep your home running smoothly. From washing machines and refrigerators to dishwashers and ovens, our certified technicians diagnose and fix all major home appliances. We use genuine parts and offer warranties on all repairs to ensure lasting solutions.",
+  "benefits": [
+    "Same-day repair service available",
+    "Certified and experienced technicians",
+    "Genuine replacement parts",
+    "Warranty on repairs",
+    "All major brands serviced",
+    "Transparent pricing"
+  ],
+  "whatToExpect": "When you book our appliance repair service, a certified technician will arrive at your scheduled time to diagnose the issue. They'll explain the problem, provide a detailed quote including parts and labor, and upon approval, complete the repair. Most repairs are completed in a single visit. You'll receive a warranty on both parts and labor.",
+  "faqs": [
+    {
+      "question": "What appliances do you repair?",
+      "answer": "We repair all major home appliances including washing machines, dryers, refrigerators, freezers, dishwashers, ovens, stoves, cooktops, microwaves, and garbage disposals. We service all major brands."
+    },
+    {
+      "question": "How much does appliance repair cost?",
+      "answer": "Repair costs vary depending on the appliance type, issue, and parts required. We charge a diagnostic fee starting from AED 100, which is waived if you proceed with the repair. We provide a detailed quote before starting any work."
+    },
+    {
+      "question": "Do you use genuine parts?",
+      "answer": "Yes, we use genuine manufacturer parts whenever possible to ensure quality and longevity. All replacement parts come with a warranty."
+    },
+    {
+      "question": "How long does appliance repair take?",
+      "answer": "Most repairs are completed within 1-2 hours in a single visit. If special parts need to be ordered, we'll schedule a follow-up appointment once they arrive."
+    },
+    {
+      "question": "Is it worth repairing an old appliance?",
+      "answer": "Our technicians will honestly assess whether repair is worthwhile. Generally, if the repair cost exceeds 50% of a new appliance's price, we'll recommend replacement. We'll help you make an informed decision."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "electrical",
+      "title": "Electrical Services"
+    },
+    {
+      "id": "plumbing",
+      "title": "Plumbing Services"
+    },
+    {
+      "id": "heating-ventilation-air-conditioning",
+      "title": "HVAC Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5591717/pexels-photo-5591717.jpeg",
+    "https://images.pexels.com/photos/5591718/pexels-photo-5591718.jpeg",
+    "https://images.pexels.com/photos/5591719/pexels-photo-5591719.jpeg",
+    "https://images.pexels.com/photos/5591720/pexels-photo-5591720.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Appliance Repair Services",
+    "description": "Professional appliance repair services for all major home appliances including washing machines, refrigerators, and dishwashers.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Appliance Repair Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Washing Machine Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Refrigerator Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Dishwasher Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Oven Repair"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/appliance-repair",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

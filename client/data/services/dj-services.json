@@ -1,0 +1,107 @@
+{
+  "id": "dj-services",
+  "title": "DJ Services",
+  "metaTitle": "Professional DJ Services in UAE | Homezy",
+  "metaDescription": "Expert DJ services in Dubai, Abu Dhabi, and across UAE. Wedding DJs, party DJs, and corporate event entertainment.",
+  "keywords": "DJ, disc jockey, wedding DJ, party DJ, event DJ, mobile DJ, DJ hire, DJ services, UAE",
+  "headerImage": "https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg",
+  "description": "Create the perfect atmosphere with professional DJ services. Our experienced DJs bring the right energy to any event - from elegant wedding receptions to corporate celebrations and private parties. With quality sound equipment, diverse music libraries, and the ability to read the crowd, we keep your guests dancing.",
+  "benefits": [
+    "Experienced professional DJs",
+    "Professional sound equipment",
+    "Diverse music libraries",
+    "Custom playlists available",
+    "MC services included",
+    "Lighting packages available"
+  ],
+  "whatToExpect": "We discuss your event, music preferences, and any special requests during booking. Your DJ arrives early for setup and sound checks. Throughout the event, they manage music flow, make announcements if needed, and adjust to keep the energy right. Equipment is included in the package.",
+  "faqs": [
+    {
+      "question": "What equipment do DJs bring?",
+      "answer": "Our DJs bring professional DJ controllers, high-quality speakers, subwoofers, microphones, and necessary cables. We size equipment to your venue and guest count. Lighting can be added."
+    },
+    {
+      "question": "Can I provide a playlist?",
+      "answer": "Absolutely! We encourage you to share must-play songs and any do-not-play requests. Your DJ will incorporate your preferences while keeping the dance floor moving."
+    },
+    {
+      "question": "Do DJs also MC?",
+      "answer": "Yes, most of our DJs offer MC services including introductions, announcements, and event flow management. For elaborate MC requirements, we also have dedicated MCs."
+    },
+    {
+      "question": "How long do DJs typically perform?",
+      "answer": "Standard booking is 4-5 hours of performance plus setup/breakdown time. Extended hours can be arranged. Wedding packages often run longer for ceremony through reception."
+    },
+    {
+      "question": "What music genres do DJs play?",
+      "answer": "Our DJs are versatile and play all genres - pop, hip-hop, R&B, EDM, Arabic, Bollywood, rock, and more. We match DJ style to your preferences and event type."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "live-music",
+      "title": "Live Music"
+    },
+    {
+      "id": "event-planning",
+      "title": "Event Planning"
+    },
+    {
+      "id": "photo-booth",
+      "title": "Photo Booth"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg",
+    "https://images.pexels.com/photos/1540407/pexels-photo-1540407.jpeg",
+    "https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg",
+    "https://images.pexels.com/photos/3429774/pexels-photo-3429774.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "DJ Services",
+    "description": "Professional DJ services for weddings, parties, and corporate events.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "DJ Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wedding DJ"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Party DJ"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate Event DJ"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/dj-services",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

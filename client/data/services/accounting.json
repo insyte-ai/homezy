@@ -1,0 +1,107 @@
+{
+  "id": "accounting",
+  "title": "Accounting Services",
+  "metaTitle": "Professional Accounting Services in UAE | Homezy",
+  "metaDescription": "Expert accounting and bookkeeping services in Dubai, Abu Dhabi, and across UAE. Small business accounting, bookkeeping, payroll, and financial statements.",
+  "keywords": "accountant, accounting services, bookkeeping, bookkeeper, CPA, small business accounting, financial statements, payroll services, UAE",
+  "headerImage": "https://images.pexels.com/photos/6693661/pexels-photo-6693661.jpeg",
+  "description": "Keep your finances in order with professional accounting services. Our experienced accountants provide bookkeeping, financial statement preparation, payroll processing, and financial advisory for businesses of all sizes. We help you maintain accurate records, ensure compliance, and make informed financial decisions.",
+  "benefits": [
+    "Qualified accountants",
+    "Accurate financial records",
+    "Compliance assurance",
+    "Payroll management",
+    "Monthly/quarterly reporting",
+    "Cost-effective solutions"
+  ],
+  "whatToExpect": "We begin by understanding your business and current financial setup. Our accountants organize your records, implement proper systems, and provide regular reports. Services can be ongoing monthly support or project-based assistance.",
+  "faqs": [
+    {
+      "question": "What accounting services do you offer?",
+      "answer": "We offer bookkeeping, accounts payable/receivable, bank reconciliation, financial statement preparation, payroll processing, VAT filing assistance, and management reporting."
+    },
+    {
+      "question": "Do you work with small businesses?",
+      "answer": "Yes, we specialize in small and medium businesses. We offer scalable solutions that grow with your business, from basic bookkeeping to comprehensive financial management."
+    },
+    {
+      "question": "How often will I receive financial reports?",
+      "answer": "We provide monthly financial statements as standard. Weekly reports and custom dashboards are available for businesses requiring more frequent visibility."
+    },
+    {
+      "question": "Can you help set up accounting software?",
+      "answer": "Yes, we help implement and configure accounting software like QuickBooks, Xero, and Zoho Books. We also provide training for your team."
+    },
+    {
+      "question": "Are your accountants certified?",
+      "answer": "Yes, our team includes certified accountants with qualifications such as ACCA, CPA, and CA. All staff have relevant experience in UAE business accounting."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "tax-preparation",
+      "title": "Tax Preparation"
+    },
+    {
+      "id": "legal-services",
+      "title": "Legal Services"
+    },
+    {
+      "id": "web-design",
+      "title": "Web Design"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6693661/pexels-photo-6693661.jpeg",
+    "https://images.pexels.com/photos/6693662/pexels-photo-6693662.jpeg",
+    "https://images.pexels.com/photos/6694543/pexels-photo-6694543.jpeg",
+    "https://images.pexels.com/photos/6694544/pexels-photo-6694544.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Accounting Services",
+    "description": "Professional accounting and bookkeeping services for businesses.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Accounting Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bookkeeping"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Payroll Services"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Financial Statements"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/accounting",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "guitar-lessons",
+  "title": "Guitar Lessons",
+  "metaTitle": "Professional Guitar Lessons in UAE | Homezy",
+  "metaDescription": "Private guitar lessons in Dubai, Abu Dhabi, and across UAE. Acoustic, electric, and bass guitar instruction for all levels. In-home lessons.",
+  "keywords": "guitar lessons, guitar teacher, guitar tutor, learn guitar, acoustic guitar, electric guitar, bass guitar, guitar instructor, UAE",
+  "headerImage": "https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg",
+  "description": "Master the guitar with personalized lessons from experienced instructors. Whether you want to strum chords around a campfire, shred electric solos, or groove on bass, our teachers adapt to your musical interests. We cover technique, music theory, and your favorite songs in a fun, encouraging environment.",
+  "benefits": [
+    "Acoustic, electric, and bass options",
+    "Learn songs you love",
+    "All ages and skill levels",
+    "In-home lessons",
+    "Music theory included",
+    "Performance opportunities"
+  ],
+  "whatToExpect": "Your teacher arrives at your home with materials and lesson plans tailored to your goals. Lessons cover proper technique, chord progressions, scales, strumming patterns, and songs across your preferred genres. Progress at your pace with regular feedback and encouragement.",
+  "faqs": [
+    {
+      "question": "What type of guitar should I start with?",
+      "answer": "Most beginners start with acoustic guitar as it builds finger strength and doesn't require additional equipment. If you're passionate about rock or metal, starting on electric is fine too."
+    },
+    {
+      "question": "Do I need to read music?",
+      "answer": "No, many guitarists learn through tablature (tabs) and chord diagrams. However, we can teach traditional music notation if you're interested or preparing for exams."
+    },
+    {
+      "question": "What age can children start guitar?",
+      "answer": "Children can begin around age 6-7 when their hands are large enough to form chords. Smaller guitars (3/4 size) are available for young players."
+    },
+    {
+      "question": "How long until I can play songs?",
+      "answer": "Most students can play simple songs within the first few lessons. With regular practice, you'll be playing more complex songs within a few months."
+    },
+    {
+      "question": "Do you teach bass guitar?",
+      "answer": "Yes, we have instructors who specialize in bass guitar. Bass lessons cover technique, groove, rhythm, and playing in a band context."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "piano-lessons",
+      "title": "Piano Lessons"
+    },
+    {
+      "id": "singing-lessons",
+      "title": "Singing Lessons"
+    },
+    {
+      "id": "drum-lessons",
+      "title": "Drum Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg",
+    "https://images.pexels.com/photos/1656066/pexels-photo-1656066.jpeg",
+    "https://images.pexels.com/photos/96380/pexels-photo-96380.jpeg",
+    "https://images.pexels.com/photos/210766/pexels-photo-210766.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Guitar Lessons",
+    "description": "Private guitar lessons for acoustic, electric, and bass guitar.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Guitar Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Acoustic Guitar"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Electric Guitar"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bass Guitar"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/guitar-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

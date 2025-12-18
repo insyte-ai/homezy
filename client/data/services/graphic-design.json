@@ -1,0 +1,114 @@
+{
+  "id": "graphic-design",
+  "title": "Graphic Design Services",
+  "metaTitle": "Professional Graphic Design Services in UAE | Homezy",
+  "metaDescription": "Expert graphic design in Dubai, Abu Dhabi, and across UAE. Logo design, branding, print design, and social media graphics.",
+  "keywords": "graphic design, graphic designer, logo design, branding, business card design, flyer design, visual design, print design, UAE",
+  "headerImage": "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg",
+  "description": "Build a strong visual identity with professional graphic design services. Our designers create logos, brand identities, marketing materials, and digital graphics that capture attention and communicate your message. From startups needing their first logo to established brands refreshing their look, we deliver creative excellence.",
+  "benefits": [
+    "Creative professional designers",
+    "Brand identity expertise",
+    "Print and digital design",
+    "Multiple revision rounds",
+    "All source files provided",
+    "Fast turnaround options"
+  ],
+  "whatToExpect": "We begin with a brief to understand your brand, audience, and goals. Designers create initial concepts for your review. After feedback and revisions, we deliver final files in all formats needed for print and digital use, plus source files for future needs.",
+  "faqs": [
+    {
+      "question": "What graphic design services do you offer?",
+      "answer": "We offer logo design, brand identity packages, business cards, brochures, flyers, social media graphics, presentation design, packaging design, and more."
+    },
+    {
+      "question": "How much does a logo design cost?",
+      "answer": "Logo design packages start from AED 1,500 for basic concepts to AED 5,000+ for comprehensive brand identity packages including multiple concepts, revisions, and brand guidelines."
+    },
+    {
+      "question": "How many revisions are included?",
+      "answer": "Standard projects include 2-3 rounds of revisions. We work collaboratively to ensure you're happy with the final design. Additional revisions are available if needed."
+    },
+    {
+      "question": "What files will I receive?",
+      "answer": "You receive all formats needed including AI, EPS, PDF, PNG, and JPG. We also provide source files so you own your designs completely and can edit them in the future."
+    },
+    {
+      "question": "How long does design take?",
+      "answer": "A logo design takes 1-2 weeks. Business cards and simple items take 3-5 days. Comprehensive branding projects take 3-4 weeks. Rush services are available."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "web-design",
+      "title": "Web Design"
+    },
+    {
+      "id": "photography",
+      "title": "Photography"
+    },
+    {
+      "id": "videography",
+      "title": "Videography"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg",
+    "https://images.pexels.com/photos/6444/pencil-typography-black-design.jpg",
+    "https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg",
+    "https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Graphic Design Services",
+    "description": "Professional graphic design including logos, branding, and marketing materials.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Graphic Design Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Logo Design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Branding"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Print Design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Social Media Graphics"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/graphic-design",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

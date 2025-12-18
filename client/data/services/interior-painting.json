@@ -1,0 +1,114 @@
+{
+  "id": "interior-painting",
+  "title": "Interior Painting Services",
+  "metaTitle": "Professional Interior Painting Services in UAE | Homezy",
+  "metaDescription": "Expert interior painting services in Dubai, Abu Dhabi, and across UAE. Wall painting, ceiling painting, cabinet refinishing, and decorative finishes.",
+  "keywords": "interior painting, wall painting, house painting, room painting, ceiling painting, cabinet painting, decorative painting, UAE",
+  "headerImage": "https://images.pexels.com/photos/5691545/pexels-photo-5691545.jpeg",
+  "description": "Transform your living spaces with our professional interior painting services. Our skilled painters deliver flawless finishes on walls, ceilings, cabinets, and trim. From color consultation to final touch-ups, we handle every detail to ensure beautiful, long-lasting results that enhance your home's aesthetic.",
+  "benefits": [
+    "Free color consultation",
+    "Premium quality paints",
+    "Clean and precise workmanship",
+    "Furniture protection included",
+    "Minimal disruption to your routine",
+    "Satisfaction guaranteed"
+  ],
+  "whatToExpect": "Our painting process begins with a detailed consultation and quote. On the scheduled day, our team arrives with all necessary equipment and materials. We protect your furniture and floors, prepare surfaces properly, apply primer if needed, and complete the painting with attention to detail. Final cleanup leaves your space ready to enjoy.",
+  "faqs": [
+    {
+      "question": "How long does interior painting take?",
+      "answer": "A single room typically takes 1-2 days including preparation and drying time. Larger projects like full apartments or villas may take 3-7 days depending on size and complexity."
+    },
+    {
+      "question": "Do I need to move furniture before painting?",
+      "answer": "No, our team handles furniture moving and protection. We cover everything with drop cloths and plastic sheeting to ensure your belongings stay paint-free."
+    },
+    {
+      "question": "What type of paint do you use?",
+      "answer": "We use premium quality, low-VOC paints from trusted brands. We can also work with specific paints you prefer. Our team will recommend the best paint type for each surface and room."
+    },
+    {
+      "question": "Can you help with color selection?",
+      "answer": "Yes, we offer free color consultations. Our experienced painters can recommend colors that complement your decor, lighting, and personal style. We can also provide sample swatches."
+    },
+    {
+      "question": "Do you repair walls before painting?",
+      "answer": "Yes, our preparation includes filling small holes and cracks, sanding rough areas, and applying primer where needed. For major wall repairs, we'll advise on additional services."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "exterior-painting",
+      "title": "Exterior Painting"
+    },
+    {
+      "id": "interior-design",
+      "title": "Interior Design"
+    },
+    {
+      "id": "villa-renovation",
+      "title": "Villa Renovation"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5691545/pexels-photo-5691545.jpeg",
+    "https://images.pexels.com/photos/5691546/pexels-photo-5691546.jpeg",
+    "https://images.pexels.com/photos/5691549/pexels-photo-5691549.jpeg",
+    "https://images.pexels.com/photos/5691547/pexels-photo-5691547.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Interior Painting Services",
+    "description": "Professional interior painting services including wall painting, ceiling painting, and decorative finishes.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Interior Painting Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wall Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Ceiling Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Cabinet Painting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Decorative Painting"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/interior-painting",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

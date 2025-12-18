@@ -1,0 +1,114 @@
+{
+  "id": "mobile-auto-detailing",
+  "title": "Mobile Auto Detailing",
+  "metaTitle": "Mobile Auto Detailing Services in UAE | Homezy",
+  "metaDescription": "Professional mobile car detailing in Dubai, Abu Dhabi, and across UAE. Interior and exterior detailing, ceramic coating, and paint correction at your location.",
+  "keywords": "mobile detailing, car detailing, auto detailing, mobile car wash, interior detailing, exterior detailing, ceramic coating, UAE",
+  "headerImage": "https://images.pexels.com/photos/6873082/pexels-photo-6873082.jpeg",
+  "description": "Give your car the professional care it deserves with mobile detailing services. Our detailing experts come to your home or office with all equipment needed for thorough interior and exterior cleaning, polishing, and protection. From basic washes to full details and ceramic coatings, we make your car shine.",
+  "benefits": [
+    "Service at your location",
+    "Professional-grade products",
+    "Interior and exterior services",
+    "Ceramic coating specialists",
+    "Water-efficient techniques",
+    "Convenient scheduling"
+  ],
+  "whatToExpect": "Our detailer arrives with a fully-equipped vehicle containing water tanks, pressure washers, vacuums, and professional products. They systematically clean, treat, and protect your vehicle's interior and exterior. Most details take 2-4 hours depending on the package selected.",
+  "faqs": [
+    {
+      "question": "What's included in a full detail?",
+      "answer": "A full detail includes exterior wash, clay bar treatment, polish, wax/sealant, interior vacuum, dashboard and trim cleaning, leather conditioning, window cleaning, and tire dressing."
+    },
+    {
+      "question": "Do you need water and electricity?",
+      "answer": "No, our mobile units are self-contained with water tanks and generators. We can work in any parking space. We also use water-efficient or waterless techniques where appropriate."
+    },
+    {
+      "question": "How long does detailing take?",
+      "answer": "A basic wash takes 30-45 minutes. Interior-only or exterior-only details take 1-2 hours. Full details take 2-4 hours. Ceramic coating applications may require a full day."
+    },
+    {
+      "question": "What is ceramic coating?",
+      "answer": "Ceramic coating is a liquid polymer that bonds to your paint, providing long-lasting protection against UV rays, scratches, and contaminants. It creates a glossy, hydrophobic finish lasting 2-5 years."
+    },
+    {
+      "question": "Can you remove scratches?",
+      "answer": "We offer paint correction services that can remove or minimize scratches, swirl marks, and oxidation. Deep scratches through the clear coat may require additional bodywork."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "mobile-mechanic",
+      "title": "Mobile Mechanic"
+    },
+    {
+      "id": "mobile-tire-service",
+      "title": "Mobile Tire Service"
+    },
+    {
+      "id": "auto-glass-repair",
+      "title": "Auto Glass Repair"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6873082/pexels-photo-6873082.jpeg",
+    "https://images.pexels.com/photos/6873083/pexels-photo-6873083.jpeg",
+    "https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg",
+    "https://images.pexels.com/photos/4480505/pexels-photo-4480505.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mobile Auto Detailing",
+    "description": "Professional mobile car detailing including interior, exterior, and ceramic coating.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Mobile Auto Detailing",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Exterior Detailing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Interior Detailing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Detailing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Ceramic Coating"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/mobile-auto-detailing",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

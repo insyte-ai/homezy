@@ -1,0 +1,107 @@
+{
+  "id": "science-tutoring",
+  "title": "Science Tutoring",
+  "metaTitle": "Professional Science Tutoring in UAE | Homezy",
+  "metaDescription": "Expert science tutoring in Dubai, Abu Dhabi, and across UAE. Physics, chemistry, and biology tutors for all levels. Exam preparation specialists.",
+  "keywords": "science tutor, science tutoring, physics tutor, chemistry tutor, biology tutor, STEM tutor, private science tutor, UAE",
+  "headerImage": "https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg",
+  "description": "Excel in science with personalized tutoring from expert educators. Our science tutors specialize in physics, chemistry, and biology at all academic levels. Through clear explanations, hands-on demonstrations, and practice problems, we help students understand complex concepts and achieve their academic goals.",
+  "benefits": [
+    "Subject specialist tutors",
+    "All academic levels",
+    "Conceptual understanding focus",
+    "Lab and practical guidance",
+    "Exam preparation",
+    "Multiple curricula supported"
+  ],
+  "whatToExpect": "Your tutor identifies knowledge gaps and creates a targeted learning plan. Sessions combine concept explanation, visual aids, practice problems, and exam-style questions. For lab-based subjects, tutors explain experimental techniques and help with practical reports.",
+  "faqs": [
+    {
+      "question": "What science subjects do you tutor?",
+      "answer": "We offer tutoring in physics, chemistry, biology, and combined/integrated sciences. Advanced topics like AP Physics, IB Chemistry, and A-Level Biology are all covered by specialist tutors."
+    },
+    {
+      "question": "Can tutors help with lab work?",
+      "answer": "Yes, tutors help students understand experimental procedures, analyze data, write lab reports, and prepare for practical exams. Actual lab work requires appropriate facilities."
+    },
+    {
+      "question": "Which curricula do tutors support?",
+      "answer": "Our tutors are experienced with IGCSE, A-Level, IB, AP, American, and Indian curricula. We match you with a tutor familiar with your specific syllabus."
+    },
+    {
+      "question": "How do tutors explain difficult concepts?",
+      "answer": "Our tutors use multiple approaches - diagrams, real-world examples, analogies, and step-by-step breakdowns. We find what works for each student's learning style."
+    },
+    {
+      "question": "Can you help prepare for medical school entrance?",
+      "answer": "Yes, we prepare students for medical school requirements including biology and chemistry preparation, UCAT/BMAT prep, and interview coaching through our test prep services."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "math-tutoring",
+      "title": "Math Tutoring"
+    },
+    {
+      "id": "test-prep",
+      "title": "Test Preparation"
+    },
+    {
+      "id": "language-lessons",
+      "title": "Language Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg",
+    "https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg",
+    "https://images.pexels.com/photos/256262/pexels-photo-256262.jpeg",
+    "https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Science Tutoring",
+    "description": "Private science tutoring for physics, chemistry, and biology.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Science Tutoring",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Physics"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Chemistry"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Biology"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/science-tutoring",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

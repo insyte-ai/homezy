@@ -1,0 +1,107 @@
+{
+  "id": "life-coaching",
+  "title": "Life Coaching Services",
+  "metaTitle": "Professional Life Coaching Services in UAE | Homezy",
+  "metaDescription": "Certified life coaches in Dubai, Abu Dhabi, and across UAE. Personal development, career coaching, goal setting, and transformational coaching.",
+  "keywords": "life coach, life coaching, personal development, career coaching, goal setting, mindset coaching, transformation coach, UAE",
+  "headerImage": "https://images.pexels.com/photos/7176319/pexels-photo-7176319.jpeg",
+  "description": "Unlock your potential with professional life coaching. Our certified coaches help you gain clarity, set meaningful goals, overcome obstacles, and create lasting positive change. Whether you're navigating career transitions, improving relationships, or seeking personal growth, coaching provides the guidance and accountability to achieve your vision.",
+  "benefits": [
+    "Certified life coaches",
+    "Personalized approach",
+    "Goal setting and tracking",
+    "Accountability support",
+    "In-person or virtual sessions",
+    "Confidential and supportive"
+  ],
+  "whatToExpect": "Coaching begins with a discovery session to understand your goals, challenges, and vision. Regular sessions (typically weekly or bi-weekly) focus on progress, problem-solving, and building skills. Your coach asks powerful questions, provides tools, and holds you accountable to your commitments.",
+  "faqs": [
+    {
+      "question": "What is life coaching?",
+      "answer": "Life coaching is a partnership focused on helping you achieve your goals. Unlike therapy which addresses past issues, coaching is future-focused, working on where you are and where you want to be."
+    },
+    {
+      "question": "What topics can coaching help with?",
+      "answer": "Common areas include career transitions, work-life balance, confidence building, relationships, health goals, time management, leadership development, and overall life satisfaction."
+    },
+    {
+      "question": "How is coaching different from therapy?",
+      "answer": "Coaching focuses on present goals and future outcomes, while therapy often addresses past trauma or mental health conditions. Coaches don't diagnose or treat mental health issues."
+    },
+    {
+      "question": "How long does a coaching engagement last?",
+      "answer": "Most clients work with coaches for 3-6 months to achieve significant goals. Some prefer ongoing coaching for continued growth. We'll recommend a timeline based on your objectives."
+    },
+    {
+      "question": "Are sessions in-person or virtual?",
+      "answer": "Both options are available. Many clients prefer virtual sessions for convenience and flexibility. In-person sessions can be arranged at your home or a suitable meeting location."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "counseling",
+      "title": "Counseling"
+    },
+    {
+      "id": "nutritionist",
+      "title": "Nutritionist"
+    },
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7176319/pexels-photo-7176319.jpeg",
+    "https://images.pexels.com/photos/7176320/pexels-photo-7176320.jpeg",
+    "https://images.pexels.com/photos/5668869/pexels-photo-5668869.jpeg",
+    "https://images.pexels.com/photos/5668870/pexels-photo-5668870.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Life Coaching Services",
+    "description": "Professional life coaching services with certified coaches for personal and professional development.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Life Coaching Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Personal Development Coaching"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Career Coaching"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Executive Coaching"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/life-coaching",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

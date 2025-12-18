@@ -1,0 +1,114 @@
+{
+  "id": "event-planning",
+  "title": "Event Planning Services",
+  "metaTitle": "Professional Event Planning Services in UAE | Homezy",
+  "metaDescription": "Expert event planning in Dubai, Abu Dhabi, and across UAE. Wedding planners, corporate event planners, and party coordinators.",
+  "keywords": "event planner, event planning, party planner, wedding planner, event coordinator, event organizer, corporate event planner, UAE",
+  "headerImage": "https://images.pexels.com/photos/1114690/pexels-photo-1114690.jpeg",
+  "description": "Create memorable events with professional planning services. Our experienced event planners handle every detail - from concept development and vendor coordination to day-of management. Whether it's a wedding, corporate function, or milestone celebration, we ensure flawless execution while you enjoy your event.",
+  "benefits": [
+    "Experienced event planners",
+    "Full-service coordination",
+    "Vendor management",
+    "Budget optimization",
+    "Day-of coordination",
+    "Stress-free experience"
+  ],
+  "whatToExpect": "We start with a consultation to understand your vision, budget, and requirements. Our planners develop concepts, source vendors, create timelines, and manage all logistics. On event day, we're there ensuring everything runs smoothly while you focus on your guests.",
+  "faqs": [
+    {
+      "question": "What does event planning include?",
+      "answer": "Our services range from full planning (concept to completion) to day-of coordination only. Full planning includes venue selection, vendor sourcing, design, timeline creation, and complete management."
+    },
+    {
+      "question": "How far in advance should I book?",
+      "answer": "For large events like weddings, book 6-12 months ahead. Corporate events need 2-3 months. Smaller parties can be planned in 4-6 weeks. Earlier booking ensures better vendor availability."
+    },
+    {
+      "question": "Can you work within my budget?",
+      "answer": "Yes, we work with various budgets. We help prioritize spending where it matters most to you and find cost-effective solutions without compromising quality."
+    },
+    {
+      "question": "Do you handle vendor coordination?",
+      "answer": "Yes, we source, negotiate with, and coordinate all vendors - caterers, entertainment, photographers, florists, and more. We manage communications and ensure everyone delivers as promised."
+    },
+    {
+      "question": "What is day-of coordination?",
+      "answer": "Day-of coordination is for clients who've planned their event but want professional management on the day. We execute your timeline, coordinate vendors, solve problems, and ensure everything runs smoothly."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "catering",
+      "title": "Catering"
+    },
+    {
+      "id": "event-florist",
+      "title": "Event Florist"
+    },
+    {
+      "id": "dj-services",
+      "title": "DJ Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1114690/pexels-photo-1114690.jpeg",
+    "https://images.pexels.com/photos/1114691/pexels-photo-1114691.jpeg",
+    "https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg",
+    "https://images.pexels.com/photos/3171838/pexels-photo-3171838.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Event Planning Services",
+    "description": "Professional event planning for weddings, corporate events, and parties.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Event Planning Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wedding Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate Event Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Party Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Day-of Coordination"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/event-planning",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

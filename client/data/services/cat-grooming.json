@@ -1,0 +1,114 @@
+{
+  "id": "cat-grooming",
+  "title": "Cat Grooming Services",
+  "metaTitle": "Professional Cat Grooming Services in UAE | Homezy",
+  "metaDescription": "Expert cat grooming in Dubai, Abu Dhabi, and across UAE. Bathing, brushing, nail trimming, and lion cuts for all cat breeds. Gentle handling.",
+  "keywords": "cat grooming, cat groomer, feline grooming, cat bath, cat haircut, nail trimming, lion cut, long hair cat grooming, UAE",
+  "headerImage": "https://images.pexels.com/photos/6001414/pexels-photo-6001414.jpeg",
+  "description": "Give your cat the professional grooming care they deserve with our specialized feline grooming services. Our experienced cat groomers understand feline behavior and use gentle techniques to keep your cat calm and comfortable. From basic nail trims to full grooming and lion cuts for long-haired breeds, we handle it all.",
+  "benefits": [
+    "Cat behavior specialists",
+    "Gentle, stress-free handling",
+    "Experience with all breeds",
+    "Low-stress grooming environment",
+    "Premium cat-safe products",
+    "Mobile service available"
+  ],
+  "whatToExpect": "Our groomers create a calm, quiet environment for your cat. We begin with gentle brushing to assess coat condition, followed by bathing if needed (some cats only need brush-outs). We trim nails, clean ears, and address any matting. For long-haired cats, we offer lion cuts and other styling options.",
+  "faqs": [
+    {
+      "question": "Do cats need professional grooming?",
+      "answer": "While cats self-groom, professional grooming helps with mats, long coats, nail trimming, and reduces shedding. Senior cats and long-haired breeds especially benefit from regular professional grooming."
+    },
+    {
+      "question": "Will my cat be sedated?",
+      "answer": "No, we never sedate cats. Our groomers are trained in low-stress handling techniques. For very anxious cats, we take breaks, work slowly, and may split services across multiple appointments if needed."
+    },
+    {
+      "question": "What is a lion cut?",
+      "answer": "A lion cut shaves the body short while leaving fur on the head, tail tip, and sometimes legs, resembling a lion's mane. It's popular for long-haired cats to reduce matting and keep them cool."
+    },
+    {
+      "question": "How often should cats be groomed?",
+      "answer": "Short-haired cats benefit from grooming every 6-8 weeks. Long-haired cats may need grooming every 4-6 weeks to prevent mats. Regular nail trims are recommended every 2-3 weeks."
+    },
+    {
+      "question": "Can you groom aggressive or nervous cats?",
+      "answer": "Yes, our groomers have experience with difficult cats. We use gentle restraint techniques and work at the cat's pace. Extremely aggressive cats may need veterinary grooming for safety."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "dog-grooming",
+      "title": "Dog Grooming"
+    },
+    {
+      "id": "pet-sitting",
+      "title": "Pet Sitting"
+    },
+    {
+      "id": "pet-boarding",
+      "title": "Pet Boarding"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6001414/pexels-photo-6001414.jpeg",
+    "https://images.pexels.com/photos/6001416/pexels-photo-6001416.jpeg",
+    "https://images.pexels.com/photos/1521306/pexels-photo-1521306.jpeg",
+    "https://images.pexels.com/photos/2061057/pexels-photo-2061057.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Cat Grooming Services",
+    "description": "Professional cat grooming including bathing, brushing, nail trimming, and lion cuts.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Cat Grooming Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Grooming Service"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bath & Brush"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Nail Trimming"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Lion Cut"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/cat-grooming",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "id": "photography",
+  "title": "Photography Services",
+  "metaTitle": "Professional Photography Services in UAE | Homezy",
+  "metaDescription": "Expert photography in Dubai, Abu Dhabi, and across UAE. Portrait photography, headshots, product photography, and real estate photography.",
+  "keywords": "photographer, photography, photo shoot, portrait photography, headshot photographer, product photography, real estate photography, UAE",
+  "headerImage": "https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg",
+  "description": "Capture your best moments and showcase your business with professional photography. Our skilled photographers specialize in portraits, corporate headshots, product photography, real estate, and events. We deliver high-quality images that tell your story and make an impact.",
+  "benefits": [
+    "Professional photographers",
+    "Studio or on-location shoots",
+    "Quick turnaround times",
+    "Professional editing included",
+    "Digital and print options",
+    "Commercial usage rights"
+  ],
+  "whatToExpect": "We discuss your vision and requirements before the shoot. On the day, our photographer guides you through poses and setups for optimal results. After shooting, images are professionally edited and delivered digitally. Print services and retouching are available.",
+  "faqs": [
+    {
+      "question": "What photography services do you offer?",
+      "answer": "We offer portrait photography, corporate headshots, product photography, real estate photography, event photography, and lifestyle shoots for personal and commercial use."
+    },
+    {
+      "question": "How long is a typical photo session?",
+      "answer": "Headshot sessions take 30-60 minutes. Portrait sessions run 1-2 hours. Product shoots vary by number of items. Real estate shoots take 1-3 hours depending on property size."
+    },
+    {
+      "question": "How many photos will I receive?",
+      "answer": "Deliverables vary by package. Headshot sessions typically include 3-5 edited images. Portrait sessions include 15-25 images. We discuss expectations during booking."
+    },
+    {
+      "question": "Can I use photos for commercial purposes?",
+      "answer": "Yes, our commercial packages include usage rights for marketing, websites, and business use. We provide appropriate licensing based on your intended use."
+    },
+    {
+      "question": "How soon will I receive my photos?",
+      "answer": "Standard delivery is 5-7 business days after the shoot. Rush delivery within 24-48 hours is available for an additional fee."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "videography",
+      "title": "Videography"
+    },
+    {
+      "id": "graphic-design",
+      "title": "Graphic Design"
+    },
+    {
+      "id": "web-design",
+      "title": "Web Design"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg",
+    "https://images.pexels.com/photos/1264211/pexels-photo-1264211.jpeg",
+    "https://images.pexels.com/photos/3379934/pexels-photo-3379934.jpeg",
+    "https://images.pexels.com/photos/3379935/pexels-photo-3379935.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Photography Services",
+    "description": "Professional photography including portraits, headshots, product, and real estate photography.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Photography Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Portrait Photography"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Headshots"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Product Photography"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Real Estate Photography"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/photography",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

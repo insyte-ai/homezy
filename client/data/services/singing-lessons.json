@@ -1,0 +1,107 @@
+{
+  "id": "singing-lessons",
+  "title": "Singing Lessons",
+  "metaTitle": "Professional Singing Lessons in UAE | Homezy",
+  "metaDescription": "Private voice and singing lessons in Dubai, Abu Dhabi, and across UAE. Expert vocal coaches for all styles and skill levels. Build confidence and technique.",
+  "keywords": "singing lessons, vocal lessons, voice lessons, singing teacher, vocal coach, voice training, learn to sing, UAE",
+  "headerImage": "https://images.pexels.com/photos/7086295/pexels-photo-7086295.jpeg",
+  "description": "Discover your voice with professional singing lessons from experienced vocal coaches. Whether you dream of performing, want to improve your karaoke skills, or simply love to sing, our teachers help you develop proper technique, expand your range, and build confidence. All ages and styles welcome.",
+  "benefits": [
+    "Trained vocal coaches",
+    "All music styles",
+    "Breath and technique training",
+    "Range expansion",
+    "Confidence building",
+    "Performance preparation"
+  ],
+  "whatToExpect": "Lessons begin with vocal warm-ups and breathing exercises. Your coach works on technique, pitch, tone, and expression while teaching songs you enjoy. As you progress, you'll tackle more challenging material and develop your unique vocal style.",
+  "faqs": [
+    {
+      "question": "Can anyone learn to sing?",
+      "answer": "Yes! While some people have natural talent, singing is a skill that can be learned and improved. With proper technique and practice, most people can develop a pleasant singing voice."
+    },
+    {
+      "question": "What styles do you teach?",
+      "answer": "Our vocal coaches teach pop, rock, R&B, classical, musical theatre, jazz, and more. We match you with a teacher who specializes in your preferred style."
+    },
+    {
+      "question": "I'm nervous about singing - is that okay?",
+      "answer": "Absolutely! Many students start feeling nervous or shy. Our teachers create a supportive environment where you can build confidence gradually. No judgment, just encouragement."
+    },
+    {
+      "question": "Do you prepare students for auditions?",
+      "answer": "Yes, we help students prepare for auditions, performances, talent shows, and singing exams. This includes song selection, interpretation, and performance coaching."
+    },
+    {
+      "question": "Can children take singing lessons?",
+      "answer": "Yes, children from age 5-6 can begin voice training. Young students focus on pitch, rhythm, and fun songs. More technical training begins around age 8-10 when the voice develops further."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "piano-lessons",
+      "title": "Piano Lessons"
+    },
+    {
+      "id": "guitar-lessons",
+      "title": "Guitar Lessons"
+    },
+    {
+      "id": "drum-lessons",
+      "title": "Drum Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/7086295/pexels-photo-7086295.jpeg",
+    "https://images.pexels.com/photos/7086296/pexels-photo-7086296.jpeg",
+    "https://images.pexels.com/photos/6966/abstract-music-rock-bw.jpg",
+    "https://images.pexels.com/photos/3771830/pexels-photo-3771830.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Singing Lessons",
+    "description": "Private singing and voice lessons for all ages and music styles.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Singing Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Beginner Voice Training"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pop/Rock Vocals"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Classical Voice"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/singing-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "id": "handyman",
+  "title": "Handyman Services",
+  "metaTitle": "Professional Handyman Services in UAE | Homezy",
+  "metaDescription": "Hire skilled handymen for home repairs, furniture assembly, TV mounting, and general maintenance in Dubai, Abu Dhabi, and across UAE. Same-day service available.",
+  "keywords": "handyman services, home repairs, furniture assembly, TV mounting, odd jobs, general repairs, maintenance, UAE handyman",
+  "headerImage": "https://images.pexels.com/photos/5691659/pexels-photo-5691659.jpeg",
+  "description": "Our professional handyman services cover all your home repair and maintenance needs. From furniture assembly and TV mounting to minor repairs and general maintenance, our skilled handymen deliver quality workmanship with attention to detail. No job is too small - we handle everything from hanging pictures to fixing doors and cabinets.",
+  "benefits": [
+    "Same-day service available",
+    "Skilled and experienced handymen",
+    "No job too small",
+    "Transparent pricing with no hidden fees",
+    "Clean workspace after completion",
+    "Tools and equipment provided"
+  ],
+  "whatToExpect": "When you book our handyman service, a skilled professional will arrive at your scheduled time with all necessary tools. They'll assess your repair or installation needs, provide a clear quote, and complete the work efficiently. Whether it's assembling furniture, mounting a TV, or fixing a leaky faucet, our handymen ensure quality results and clean up after the job is done.",
+  "faqs": [
+    {
+      "question": "What services does a handyman provide?",
+      "answer": "Our handymen handle a wide range of tasks including furniture assembly (IKEA and other brands), TV and shelf mounting, picture hanging, minor plumbing and electrical repairs, door and cabinet repairs, caulking, weatherstripping, and general home maintenance tasks."
+    },
+    {
+      "question": "How much do handyman services cost?",
+      "answer": "Our handyman services are charged hourly, with rates starting from AED 100/hour. The final cost depends on the complexity of the work and materials needed. We provide a detailed quote before starting any work."
+    },
+    {
+      "question": "Do handymen bring their own tools?",
+      "answer": "Yes, our handymen come fully equipped with professional tools for most common repairs and installations. If specialized tools or materials are needed, we'll inform you in advance."
+    },
+    {
+      "question": "Can I book a handyman for multiple tasks?",
+      "answer": "Absolutely! Many customers book our handymen for a list of small tasks. This is often the most cost-effective way to handle multiple home repairs and improvements in one visit."
+    },
+    {
+      "question": "Do you offer same-day handyman services?",
+      "answer": "Yes, we offer same-day handyman services based on availability. For urgent repairs, contact us early in the day to secure a same-day appointment."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "furniture-assembly",
+      "title": "Furniture Assembly"
+    },
+    {
+      "id": "tv-mounting",
+      "title": "TV Mounting"
+    },
+    {
+      "id": "plumbing",
+      "title": "Plumbing Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/5691659/pexels-photo-5691659.jpeg",
+    "https://images.pexels.com/photos/5691660/pexels-photo-5691660.jpeg",
+    "https://images.pexels.com/photos/5691658/pexels-photo-5691658.jpeg",
+    "https://images.pexels.com/photos/5974388/pexels-photo-5974388.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Handyman Services",
+    "description": "Professional handyman services for home repairs, furniture assembly, and general maintenance.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Handyman Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Furniture Assembly"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "TV Mounting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "General Home Repairs"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Minor Fixes"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/handyman",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

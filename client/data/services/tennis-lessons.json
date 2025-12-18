@@ -1,0 +1,107 @@
+{
+  "id": "tennis-lessons",
+  "title": "Tennis Lessons",
+  "metaTitle": "Professional Tennis Lessons in UAE | Homezy",
+  "metaDescription": "Private tennis lessons in Dubai, Abu Dhabi, and across UAE. Expert tennis coaches for beginners to advanced players. Individual and group lessons.",
+  "keywords": "tennis lessons, tennis coach, tennis instructor, learn tennis, private tennis lessons, tennis training, kids tennis, UAE",
+  "headerImage": "https://images.pexels.com/photos/1432039/pexels-photo-1432039.jpeg",
+  "description": "Improve your tennis game with professional coaching. Our certified tennis instructors offer private and small group lessons for all ages and skill levels. From learning basic strokes to refining competitive technique, we help you achieve your tennis goals with personalized instruction and structured practice.",
+  "benefits": [
+    "Certified tennis coaches",
+    "Private or group lessons",
+    "All ages and skill levels",
+    "Technique and strategy focus",
+    "Match play experience",
+    "Flexible court locations"
+  ],
+  "whatToExpect": "Your coach assesses your current skills and goals, then creates a training plan covering groundstrokes, volleys, serves, footwork, and match strategy. Lessons include drills, rallying, and match play situations. Equipment recommendations provided for beginners.",
+  "faqs": [
+    {
+      "question": "What age can children start tennis?",
+      "answer": "Children can begin tennis from age 4-5 with modified equipment and fun activities. More structured coaching typically starts around age 6-7. We use age-appropriate balls and rackets."
+    },
+    {
+      "question": "Do I need to bring my own racket?",
+      "answer": "Beginners don't need to buy equipment immediately - coaches can provide rackets for initial lessons. We'll recommend appropriate equipment as you progress."
+    },
+    {
+      "question": "Where do lessons take place?",
+      "answer": "Lessons are conducted at your preferred tennis court - community courts, club courts, or building facilities. We can also recommend courts if you don't have access to one."
+    },
+    {
+      "question": "How often should I take lessons?",
+      "answer": "Weekly lessons are ideal for consistent improvement. Serious players may benefit from 2-3 sessions per week. Regular practice between lessons accelerates progress."
+    },
+    {
+      "question": "Do you prepare players for competitions?",
+      "answer": "Yes, we coach competitive players and prepare them for tournaments. This includes advanced technique, match strategy, mental game coaching, and competition simulation."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "swimming-lessons",
+      "title": "Swimming Lessons"
+    },
+    {
+      "id": "golf-lessons",
+      "title": "Golf Lessons"
+    },
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1432039/pexels-photo-1432039.jpeg",
+    "https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg",
+    "https://images.pexels.com/photos/5067844/pexels-photo-5067844.jpeg",
+    "https://images.pexels.com/photos/3800503/pexels-photo-3800503.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Tennis Lessons",
+    "description": "Private and group tennis lessons for all ages and skill levels.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Tennis Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Group Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Kids Tennis"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/tennis-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

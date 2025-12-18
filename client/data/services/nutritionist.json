@@ -1,0 +1,107 @@
+{
+  "id": "nutritionist",
+  "title": "Nutritionist Services",
+  "metaTitle": "Professional Nutritionist Services in UAE | Homezy",
+  "metaDescription": "Registered nutritionists and dietitians in Dubai, Abu Dhabi, and across UAE. Personalized meal plans, nutrition counseling, and dietary guidance.",
+  "keywords": "nutritionist, dietitian, nutrition counseling, meal planning, diet plan, weight loss nutrition, sports nutrition, UAE",
+  "headerImage": "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
+  "description": "Optimize your health with personalized nutrition guidance from registered nutritionists and dietitians. Our professionals create customized meal plans based on your health goals, dietary preferences, and lifestyle. Whether you're managing a health condition, losing weight, or enhancing athletic performance, we provide evidence-based nutrition support.",
+  "benefits": [
+    "Registered nutritionists/dietitians",
+    "Personalized meal plans",
+    "Health condition support",
+    "Weight management",
+    "Sports nutrition",
+    "Ongoing guidance"
+  ],
+  "whatToExpect": "Initial consultations include a comprehensive assessment of your health history, current diet, goals, and lifestyle. Your nutritionist creates a personalized plan with specific recommendations. Follow-up sessions track progress, address challenges, and adjust the plan as needed.",
+  "faqs": [
+    {
+      "question": "What's the difference between a nutritionist and dietitian?",
+      "answer": "Both are nutrition professionals. Dietitians have specific clinical credentials and can provide medical nutrition therapy. We have both on our team and match you based on your needs."
+    },
+    {
+      "question": "Can you help with medical conditions?",
+      "answer": "Yes, our dietitians work with conditions like diabetes, heart disease, digestive disorders, food allergies, and eating disorders. We coordinate with your healthcare providers as needed."
+    },
+    {
+      "question": "Do you provide meal plans?",
+      "answer": "Yes, we create personalized meal plans based on your preferences, lifestyle, and goals. Plans include recipes, portion guidance, and practical tips for success."
+    },
+    {
+      "question": "How often do I need to meet with a nutritionist?",
+      "answer": "Initially, weekly or bi-weekly sessions help establish new habits. Once you're comfortable, monthly check-ins maintain progress. The frequency depends on your goals and needs."
+    },
+    {
+      "question": "Can you accommodate dietary restrictions?",
+      "answer": "Absolutely! We create plans for vegetarian, vegan, halal, gluten-free, lactose-free, and other dietary requirements. Your preferences are always respected."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    },
+    {
+      "id": "life-coaching",
+      "title": "Life Coaching"
+    },
+    {
+      "id": "yoga-instruction",
+      "title": "Yoga Instruction"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
+    "https://images.pexels.com/photos/1640778/pexels-photo-1640778.jpeg",
+    "https://images.pexels.com/photos/4021870/pexels-photo-4021870.jpeg",
+    "https://images.pexels.com/photos/4021871/pexels-photo-4021871.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Nutritionist Services",
+    "description": "Professional nutrition services with registered nutritionists and dietitians.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Nutritionist Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Nutrition Counseling"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Meal Planning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Sports Nutrition"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/nutritionist",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

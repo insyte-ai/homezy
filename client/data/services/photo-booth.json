@@ -1,0 +1,107 @@
+{
+  "id": "photo-booth",
+  "title": "Photo Booth Rental",
+  "metaTitle": "Photo Booth Rental Services in UAE | Homezy",
+  "metaDescription": "Professional photo booth rental in Dubai, Abu Dhabi, and across UAE. Traditional, 360, and mirror booths for weddings and events.",
+  "keywords": "photo booth, photo booth rental, party photo booth, wedding photo booth, 360 photo booth, mirror booth, selfie booth, UAE",
+  "headerImage": "https://images.pexels.com/photos/3379943/pexels-photo-3379943.jpeg",
+  "description": "Add interactive fun to your event with photo booth rentals. From classic enclosed booths to modern 360 video booths and mirror selfie stations, we provide memorable entertainment for guests of all ages. Props, instant prints, and digital sharing create keepsakes everyone loves.",
+  "benefits": [
+    "Various booth styles available",
+    "Instant photo prints",
+    "Digital sharing options",
+    "Custom backdrops and props",
+    "On-site attendant",
+    "Guest book option"
+  ],
+  "whatToExpect": "Our team sets up the photo booth with backdrop, props, and equipment before guests arrive. An attendant operates the booth, assists guests, and ensures everything runs smoothly. Guests receive instant prints and can access digital copies. Breakdown is handled after your event.",
+  "faqs": [
+    {
+      "question": "What types of photo booths do you offer?",
+      "answer": "We offer traditional enclosed booths, open-air setups, 360 video booths, mirror booths, and GIF stations. Each creates different experiences - from classic photos to viral video content."
+    },
+    {
+      "question": "What's included in the rental?",
+      "answer": "Standard rentals include the booth, props, on-site attendant, unlimited sessions during rental period, and instant prints. Custom backdrops and additional prints are available."
+    },
+    {
+      "question": "Can prints be customized?",
+      "answer": "Yes, photo strips can be customized with your event logo, names, date, or theme. We design templates that match your event aesthetic."
+    },
+    {
+      "question": "How much space is needed?",
+      "answer": "Space requirements vary by booth type. Traditional booths need about 8x8 feet, 360 booths need 10x10 feet minimum. We'll confirm space requirements for your chosen booth."
+    },
+    {
+      "question": "Can guests share photos digitally?",
+      "answer": "Yes, guests can email or text photos to themselves instantly. Some setups include social media sharing. We can also provide a gallery of all event photos."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "photography",
+      "title": "Photography"
+    },
+    {
+      "id": "event-planning",
+      "title": "Event Planning"
+    },
+    {
+      "id": "dj-services",
+      "title": "DJ Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3379943/pexels-photo-3379943.jpeg",
+    "https://images.pexels.com/photos/3379944/pexels-photo-3379944.jpeg",
+    "https://images.pexels.com/photos/3321796/pexels-photo-3321796.jpeg",
+    "https://images.pexels.com/photos/3321797/pexels-photo-3321797.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Photo Booth Rental",
+    "description": "Photo booth rental services including traditional, 360, and mirror booths.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Photo Booth Rental",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Traditional Photo Booth"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "360 Photo Booth"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mirror Booth"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/photo-booth",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

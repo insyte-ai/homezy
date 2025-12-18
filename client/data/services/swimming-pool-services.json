@@ -1,0 +1,114 @@
+{
+  "id": "swimming-pool-services",
+  "title": "Swimming Pool Services",
+  "metaTitle": "Professional Swimming Pool Services in UAE | Homezy",
+  "metaDescription": "Expert pool cleaning, maintenance, and repair services in Dubai, Abu Dhabi, and across UAE. Keep your pool sparkling clean and safe.",
+  "keywords": "pool service, pool cleaning, pool maintenance, pool repair, swimming pool service, pool chemicals, pool equipment repair, UAE",
+  "headerImage": "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg",
+  "description": "Keep your pool pristine with our comprehensive swimming pool services. From regular cleaning and chemical balancing to equipment repairs and renovations, our certified pool technicians ensure your pool is safe, clean, and ready to enjoy year-round. We service residential and commercial pools of all sizes.",
+  "benefits": [
+    "Certified pool technicians",
+    "Regular maintenance plans available",
+    "All pool types serviced",
+    "Quality chemicals and equipment",
+    "Emergency repair services",
+    "Health and safety compliance"
+  ],
+  "whatToExpect": "Our pool services include thorough cleaning of surfaces and waterline, skimming debris, vacuuming, filter cleaning, chemical testing and balancing, and equipment inspection. We document every visit and alert you to any issues requiring attention.",
+  "faqs": [
+    {
+      "question": "What pool services do you offer?",
+      "answer": "We offer pool cleaning, chemical balancing, filter maintenance, pump and equipment repairs, leak detection, pool resurfacing, tile cleaning and repair, and complete pool renovations."
+    },
+    {
+      "question": "How often should a pool be serviced?",
+      "answer": "For optimal cleanliness and safety, pools should be serviced weekly or bi-weekly. We offer flexible maintenance plans to fit your needs and budget."
+    },
+    {
+      "question": "Do you service all pool types?",
+      "answer": "Yes, we service all pool types including concrete, fiberglass, vinyl liner, infinity pools, indoor pools, and commercial pools. We also service hot tubs and spas."
+    },
+    {
+      "question": "Can you repair pool equipment?",
+      "answer": "Yes, we repair and replace pool pumps, filters, heaters, salt systems, automatic cleaners, and control systems. We stock common parts for quick repairs."
+    },
+    {
+      "question": "What chemicals do you use?",
+      "answer": "We use high-quality, certified pool chemicals from reputable suppliers. We balance chlorine, pH, alkalinity, and other factors to maintain safe, crystal-clear water."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "in-ground-swimming-pool-construction",
+      "title": "Pool Construction"
+    },
+    {
+      "id": "landscaping",
+      "title": "Landscaping"
+    },
+    {
+      "id": "outdoor-lighting",
+      "title": "Outdoor Lighting"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg",
+    "https://images.pexels.com/photos/261411/pexels-photo-261411.jpeg",
+    "https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg",
+    "https://images.pexels.com/photos/261410/pexels-photo-261410.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Swimming Pool Services",
+    "description": "Professional pool cleaning, maintenance, and repair services for residential and commercial pools.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Swimming Pool Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pool Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pool Maintenance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pool Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pool Renovation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/swimming-pool-services",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

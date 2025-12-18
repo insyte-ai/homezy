@@ -1,0 +1,107 @@
+{
+  "id": "yoga-instruction",
+  "title": "Yoga Instruction",
+  "metaTitle": "Professional Yoga Instruction Services in UAE | Homezy",
+  "metaDescription": "Certified yoga instructors in Dubai, Abu Dhabi, and across UAE. Private yoga classes, group sessions, and corporate yoga programs.",
+  "keywords": "yoga instructor, yoga teacher, private yoga, yoga classes, home yoga, corporate yoga, yoga training, UAE",
+  "headerImage": "https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg",
+  "description": "Experience the benefits of yoga with private instruction from certified teachers. Our yoga instructors come to your home, office, or preferred location, offering personalized sessions tailored to your goals. From stress relief and flexibility to strength and mindfulness, we guide you through practices that transform your wellbeing.",
+  "benefits": [
+    "Certified yoga instructors",
+    "Personalized instruction",
+    "Various yoga styles",
+    "Flexible scheduling",
+    "Equipment provided",
+    "All levels welcome"
+  ],
+  "whatToExpect": "We discuss your goals, experience level, and any physical considerations. Your instructor tailors sessions to your needs, bringing mats and props. Classes include warm-up, poses, breathing exercises, and relaxation. Instructors modify poses for your comfort and guide proper alignment.",
+  "faqs": [
+    {
+      "question": "What styles of yoga do you offer?",
+      "answer": "We offer various styles including Hatha, Vinyasa, Yin, Restorative, Power Yoga, and Prenatal Yoga. Tell us your preferences and we'll match you with the right instructor."
+    },
+    {
+      "question": "Do I need to be flexible to start yoga?",
+      "answer": "Not at all! Yoga builds flexibility over time. Our instructors adapt poses to your current ability and help you progress safely at your own pace."
+    },
+    {
+      "question": "Can yoga be done during pregnancy?",
+      "answer": "Yes, prenatal yoga is beneficial for expectant mothers. We have instructors certified in prenatal yoga who focus on safe poses, breathing, and relaxation techniques."
+    },
+    {
+      "question": "Do you provide mats and equipment?",
+      "answer": "Yes, instructors bring yoga mats, blocks, straps, and other props needed for your session. You can also use your own mat if preferred."
+    },
+    {
+      "question": "Do you offer group or corporate classes?",
+      "answer": "Yes, we offer group sessions for families or friends and corporate yoga programs for offices. Group classes are a great way to practice together and can be more cost-effective."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "pilates-instruction",
+      "title": "Pilates Instruction"
+    },
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    },
+    {
+      "id": "massage-therapy",
+      "title": "Massage Therapy"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg",
+    "https://images.pexels.com/photos/3822623/pexels-photo-3822623.jpeg",
+    "https://images.pexels.com/photos/3822906/pexels-photo-3822906.jpeg",
+    "https://images.pexels.com/photos/3822907/pexels-photo-3822907.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Yoga Instruction",
+    "description": "Professional yoga instruction with certified instructors for private and group classes.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Yoga Instruction",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Yoga Classes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Group Yoga Classes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate Yoga"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/yoga-instruction",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

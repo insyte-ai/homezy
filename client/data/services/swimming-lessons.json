@@ -1,0 +1,107 @@
+{
+  "id": "swimming-lessons",
+  "title": "Swimming Lessons",
+  "metaTitle": "Professional Swimming Lessons in UAE | Homezy",
+  "metaDescription": "Private swimming lessons in Dubai, Abu Dhabi, and across UAE. Expert swim instructors for kids and adults. Learn at your pool or facility.",
+  "keywords": "swimming lessons, swim lessons, learn to swim, swim instructor, swimming teacher, kids swimming, adult swimming, private swim lessons, UAE",
+  "headerImage": "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg",
+  "description": "Learn to swim or improve your technique with private swimming lessons. Our certified instructors teach water safety, stroke technique, and swimming confidence for all ages and abilities. Whether you're a child taking first strokes or an adult overcoming fear of water, we create a safe, supportive learning environment.",
+  "benefits": [
+    "Certified swim instructors",
+    "Lessons at your pool",
+    "All ages and skill levels",
+    "Water safety focus",
+    "Individual attention",
+    "Flexible scheduling"
+  ],
+  "whatToExpect": "Your instructor meets you at your pool or a designated facility. Lessons begin with water comfort and safety skills, progressing to stroke development. Each lesson builds on the previous one, with clear goals and patient instruction tailored to your pace.",
+  "faqs": [
+    {
+      "question": "What age can children start swimming lessons?",
+      "answer": "Children can begin swim lessons from 6 months old (parent-child classes) through adulthood. Private lessons typically start around age 3-4 when children can follow instructions independently."
+    },
+    {
+      "question": "Where do lessons take place?",
+      "answer": "Lessons can be conducted at your home pool, building pool, or a partner facility. We'll confirm the location during booking."
+    },
+    {
+      "question": "I'm an adult who can't swim - is it too late?",
+      "answer": "It's never too late to learn! Many adults learn to swim successfully. Our instructors specialize in adult beginners and understand any fears or concerns you may have."
+    },
+    {
+      "question": "Are your instructors certified?",
+      "answer": "Yes, all our swim instructors hold recognized certifications and are trained in water safety and rescue. Many have competitive swimming backgrounds."
+    },
+    {
+      "question": "How many lessons until I can swim?",
+      "answer": "Progress varies by individual, but most beginners achieve basic swimming skills within 8-12 lessons. Consistent weekly lessons and practice produce the best results."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "tennis-lessons",
+      "title": "Tennis Lessons"
+    },
+    {
+      "id": "golf-lessons",
+      "title": "Golf Lessons"
+    },
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg",
+    "https://images.pexels.com/photos/260598/pexels-photo-260598.jpeg",
+    "https://images.pexels.com/photos/1263349/pexels-photo-1263349.jpeg",
+    "https://images.pexels.com/photos/2098416/pexels-photo-2098416.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Swimming Lessons",
+    "description": "Private swimming lessons for children and adults at your pool.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Swimming Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Kids Swimming Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Adult Swimming Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Competitive Swimming"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/swimming-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

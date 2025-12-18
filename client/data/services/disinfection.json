@@ -1,0 +1,107 @@
+{
+  "id": "disinfection",
+  "title": "Disinfection Services",
+  "metaTitle": "Professional Disinfection Services in UAE | Homezy",
+  "metaDescription": "Expert disinfection and sanitization services in Dubai, Abu Dhabi, and across UAE. Home sanitization, office disinfection, and deep sanitization.",
+  "keywords": "disinfection, sanitization, home sanitization, office disinfection, antibacterial treatment, germ killing, viral disinfection, UAE",
+  "headerImage": "https://images.pexels.com/photos/4099467/pexels-photo-4099467.jpeg",
+  "description": "Protect your family and employees with our professional disinfection services. Using hospital-grade disinfectants and advanced application methods, we eliminate harmful bacteria, viruses, and pathogens from your home or business. Our services are safe for humans and pets after the recommended drying time.",
+  "benefits": [
+    "Hospital-grade disinfectants",
+    "99.9% germ elimination",
+    "Safe for families and pets",
+    "Certified technicians",
+    "Electrostatic spraying available",
+    "Documentation provided"
+  ],
+  "whatToExpect": "Our certified technicians arrive in protective gear with professional equipment. They apply disinfectant to all surfaces using appropriate methods - electrostatic spraying for large areas, manual application for detailed work. We focus on high-touch surfaces and provide a certificate of disinfection upon completion.",
+  "faqs": [
+    {
+      "question": "What disinfection methods do you use?",
+      "answer": "We use electrostatic spraying, fogging, and manual application depending on the space and requirements. Our methods ensure complete coverage of all surfaces including hard-to-reach areas."
+    },
+    {
+      "question": "Are the disinfectants safe?",
+      "answer": "Yes, we use EPA-registered, hospital-grade disinfectants that are safe for humans and pets after drying (typically 1-2 hours). We can also use food-safe disinfectants for kitchens and food service areas."
+    },
+    {
+      "question": "How long does disinfection take?",
+      "answer": "A standard apartment takes 30-60 minutes, while larger spaces take longer. The space can be occupied 1-2 hours after treatment once surfaces are dry."
+    },
+    {
+      "question": "How often should disinfection be done?",
+      "answer": "For homes, monthly disinfection is recommended for ongoing protection. High-traffic businesses may benefit from weekly or bi-weekly services. After illness, immediate disinfection is advisable."
+    },
+    {
+      "question": "Do you provide disinfection certificates?",
+      "answer": "Yes, we provide a certificate of disinfection upon completion, documenting the date, areas treated, and products used. This is especially useful for businesses."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "deep-cleaning",
+      "title": "Deep Cleaning"
+    },
+    {
+      "id": "air-quality",
+      "title": "Air Quality"
+    },
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4099467/pexels-photo-4099467.jpeg",
+    "https://images.pexels.com/photos/4099466/pexels-photo-4099466.jpeg",
+    "https://images.pexels.com/photos/4099469/pexels-photo-4099469.jpeg",
+    "https://images.pexels.com/photos/4099472/pexels-photo-4099472.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Disinfection Services",
+    "description": "Professional disinfection and sanitization services for homes and businesses.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Disinfection Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Home Sanitization"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Office Disinfection"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deep Sanitization"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/disinfection",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "air-quality",
+  "title": "Air Quality Services",
+  "metaTitle": "Professional Air Quality Services in UAE | Homezy",
+  "metaDescription": "Expert air quality services in Dubai, Abu Dhabi, and across UAE. Air duct cleaning, mold removal, air purifier installation, and IAQ testing.",
+  "keywords": "air quality, indoor air quality, air duct cleaning, mold removal, air purifier, IAQ testing, HVAC cleaning, UAE",
+  "headerImage": "https://images.pexels.com/photos/3768914/pexels-photo-3768914.jpeg",
+  "description": "Breathe easier with our professional air quality services. From air duct cleaning and mold remediation to air purifier installation and IAQ testing, we improve your indoor environment. Our certified technicians use specialized equipment to remove contaminants and enhance air quality in homes and businesses.",
+  "benefits": [
+    "Certified IAQ technicians",
+    "Complete air duct cleaning",
+    "Mold testing and removal",
+    "Air purifier installation",
+    "Allergen reduction",
+    "Detailed IAQ reports"
+  ],
+  "whatToExpect": "Our air quality services begin with an assessment of your HVAC system and indoor environment. We identify issues like dirty ducts, mold, or poor ventilation. Our technicians then clean, repair, or install equipment as needed. We provide a report of findings and recommendations for maintaining healthy air quality.",
+  "faqs": [
+    {
+      "question": "What air quality services do you offer?",
+      "answer": "We offer air duct cleaning, mold inspection and removal, air purifier installation, IAQ testing, HVAC sanitization, and ventilation improvement. We address allergens, pollutants, and microbial contamination."
+    },
+    {
+      "question": "How often should air ducts be cleaned?",
+      "answer": "Air ducts should be cleaned every 3-5 years, or more frequently if you have pets, allergies, or live in a dusty area. After renovation or moving into a new home, duct cleaning is also recommended."
+    },
+    {
+      "question": "Can you test for mold?",
+      "answer": "Yes, we provide mold testing including visual inspection, moisture readings, and air sampling when needed. If mold is found, we offer complete remediation services."
+    },
+    {
+      "question": "What air purifiers do you recommend?",
+      "answer": "We recommend air purifiers based on your specific needs - HEPA filters for allergens, activated carbon for odors, and UV-C systems for pathogens. We install both portable and whole-home systems."
+    },
+    {
+      "question": "How do I know if I have air quality problems?",
+      "answer": "Signs include persistent allergies, musty odors, visible dust or mold, respiratory issues, and high humidity. Our IAQ testing can identify specific pollutants and their sources."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "heating-ventilation-air-conditioning",
+      "title": "HVAC Services"
+    },
+    {
+      "id": "disinfection",
+      "title": "Disinfection"
+    },
+    {
+      "id": "deep-cleaning",
+      "title": "Deep Cleaning"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/3768914/pexels-photo-3768914.jpeg",
+    "https://images.pexels.com/photos/4270087/pexels-photo-4270087.jpeg",
+    "https://images.pexels.com/photos/4270088/pexels-photo-4270088.jpeg",
+    "https://images.pexels.com/photos/4270089/pexels-photo-4270089.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Air Quality Services",
+    "description": "Professional air quality services including duct cleaning, mold removal, and air purifier installation.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Air Quality Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Air Duct Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mold Removal"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Air Purifier Installation"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/air-quality",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

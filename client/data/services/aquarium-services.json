@@ -1,0 +1,107 @@
+{
+  "id": "aquarium-services",
+  "title": "Aquarium Services",
+  "metaTitle": "Professional Aquarium Services in UAE | Homezy",
+  "metaDescription": "Expert aquarium setup, maintenance, and cleaning in Dubai, Abu Dhabi, and across UAE. Freshwater and saltwater tanks serviced.",
+  "keywords": "aquarium service, fish tank maintenance, aquarium cleaning, aquarium setup, reef tank, saltwater aquarium, freshwater aquarium, UAE",
+  "headerImage": "https://images.pexels.com/photos/128756/pexels-photo-128756.jpeg",
+  "description": "Keep your aquarium thriving with our professional aquarium services. From initial setup and stocking to regular maintenance and emergency care, our aquarium specialists handle freshwater and saltwater systems of all sizes. We ensure healthy water parameters, thriving fish, and beautiful aquascapes.",
+  "benefits": [
+    "Expert aquarists",
+    "Freshwater and saltwater expertise",
+    "Custom aquarium design",
+    "Regular maintenance plans",
+    "Water quality testing",
+    "Fish health monitoring"
+  ],
+  "whatToExpect": "Our aquarium service includes water testing, partial water changes, filter maintenance, glass cleaning, equipment checks, and fish health assessment. For setups, we design systems, install equipment, cycle tanks properly, and stock fish gradually for the best results.",
+  "faqs": [
+    {
+      "question": "What aquarium services do you provide?",
+      "answer": "We provide aquarium setup and design, regular maintenance, deep cleaning, water testing, filter service, equipment repair/replacement, fish health consultation, and reef tank care."
+    },
+    {
+      "question": "How often should aquariums be maintained?",
+      "answer": "Most aquariums benefit from bi-weekly or monthly professional maintenance. High-tech planted tanks or reef systems may need weekly attention. We'll recommend a schedule based on your setup."
+    },
+    {
+      "question": "Do you work with saltwater tanks?",
+      "answer": "Yes, we have specialists for saltwater fish-only and reef aquariums. This includes corals, invertebrates, and all the specialized equipment reef tanks require."
+    },
+    {
+      "question": "Can you set up a new aquarium?",
+      "answer": "Yes, we design and install complete aquarium systems. This includes tank selection, stand, filtration, lighting, aquascaping, cycling, and gradual fish introduction over several weeks."
+    },
+    {
+      "question": "My fish look sick - can you help?",
+      "answer": "Yes, we diagnose and treat common fish diseases, recommend medications, and adjust water parameters. Early intervention is key, so contact us as soon as you notice problems."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "pet-sitting",
+      "title": "Pet Sitting"
+    },
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    },
+    {
+      "id": "handyman",
+      "title": "Handyman Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/128756/pexels-photo-128756.jpeg",
+    "https://images.pexels.com/photos/325045/pexels-photo-325045.jpeg",
+    "https://images.pexels.com/photos/2156311/pexels-photo-2156311.jpeg",
+    "https://images.pexels.com/photos/3763085/pexels-photo-3763085.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Aquarium Services",
+    "description": "Professional aquarium setup, maintenance, and cleaning for freshwater and saltwater tanks.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Aquarium Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Aquarium Setup"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Regular Maintenance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deep Cleaning"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/aquarium-services",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

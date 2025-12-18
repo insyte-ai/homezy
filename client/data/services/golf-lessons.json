@@ -1,0 +1,107 @@
+{
+  "id": "golf-lessons",
+  "title": "Golf Lessons",
+  "metaTitle": "Professional Golf Lessons in UAE | Homezy",
+  "metaDescription": "Private golf lessons in Dubai, Abu Dhabi, and across UAE. PGA-certified instructors for beginners to advanced players. Improve your swing and game.",
+  "keywords": "golf lessons, golf instructor, golf coach, learn golf, golf tutor, private golf lessons, golf swing lessons, beginner golf, UAE",
+  "headerImage": "https://images.pexels.com/photos/1325659/pexels-photo-1325659.jpeg",
+  "description": "Master your golf game with professional instruction from PGA-certified coaches. Our lessons cover all aspects of golf - from grip and stance basics to advanced swing mechanics, short game skills, and course management. Whether you're picking up clubs for the first time or looking to lower your handicap, we help you improve.",
+  "benefits": [
+    "PGA-certified instructors",
+    "Video swing analysis",
+    "All skill levels",
+    "Driving range and on-course lessons",
+    "Short game specialization",
+    "Club fitting advice"
+  ],
+  "whatToExpect": "Lessons typically take place at a driving range or golf course. Your instructor analyzes your current technique, identifies areas for improvement, and provides drills and practice routines. Video analysis helps you visualize corrections. On-course lessons add strategy and real-play experience.",
+  "faqs": [
+    {
+      "question": "Do I need my own golf clubs?",
+      "answer": "Not initially - clubs can be rented at most facilities. As you progress, your instructor can recommend clubs suited to your swing and physique, including club fitting guidance."
+    },
+    {
+      "question": "How long until I can play on a course?",
+      "answer": "Most beginners are course-ready after 5-10 lessons, depending on practice frequency. We ensure you're comfortable with basic shots and etiquette before heading to the course."
+    },
+    {
+      "question": "Where do golf lessons take place?",
+      "answer": "Lessons are conducted at driving ranges, practice facilities, or on-course at various golf clubs across the UAE. We'll arrange a convenient location for you."
+    },
+    {
+      "question": "Can you help lower my handicap?",
+      "answer": "Yes, our coaches work with players of all levels to improve scores. This includes swing refinement, short game work, course strategy, and mental game coaching."
+    },
+    {
+      "question": "Do you offer junior golf programs?",
+      "answer": "Yes, we have instructors who specialize in teaching children and teens. Junior programs focus on fundamentals, fun, and developing a love for the game."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "tennis-lessons",
+      "title": "Tennis Lessons"
+    },
+    {
+      "id": "swimming-lessons",
+      "title": "Swimming Lessons"
+    },
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1325659/pexels-photo-1325659.jpeg",
+    "https://images.pexels.com/photos/1325735/pexels-photo-1325735.jpeg",
+    "https://images.pexels.com/photos/1325681/pexels-photo-1325681.jpeg",
+    "https://images.pexels.com/photos/54123/pexels-photo-54123.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Golf Lessons",
+    "description": "Private golf lessons from PGA-certified instructors.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Golf Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Beginner Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Intermediate Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Short Game Lessons"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/golf-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

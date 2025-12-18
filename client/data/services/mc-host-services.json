@@ -1,0 +1,107 @@
+{
+  "id": "mc-host-services",
+  "title": "MC & Host Services",
+  "metaTitle": "Professional MC & Host Services in UAE | Homezy",
+  "metaDescription": "Expert MC and event host services in Dubai, Abu Dhabi, and across UAE. Wedding MCs, corporate MCs, and party hosts.",
+  "keywords": "MC, master of ceremonies, event host, emcee, wedding MC, corporate MC, party host, event emcee, UAE",
+  "headerImage": "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg",
+  "description": "Keep your event flowing smoothly with a professional MC or host. Our experienced emcees engage guests, manage event timing, make announcements, and add energy to any celebration. From formal corporate galas to lively wedding receptions, we have the right host for your event.",
+  "benefits": [
+    "Experienced professional MCs",
+    "Bilingual options available",
+    "Event timeline management",
+    "Guest engagement expertise",
+    "Coordination with vendors",
+    "Professional presentation"
+  ],
+  "whatToExpect": "We discuss your event format, key moments, and tone during planning. Your MC arrives early to meet key participants and coordinate with vendors. Throughout the event, they manage the flow, make announcements, introduce speakers, and ensure everything runs on schedule with energy and professionalism.",
+  "faqs": [
+    {
+      "question": "What does an MC do?",
+      "answer": "An MC manages event flow, introduces speakers and entertainment, makes announcements, keeps the timeline on track, and maintains energy throughout. They're the voice of your event."
+    },
+    {
+      "question": "Do I need an MC for my wedding?",
+      "answer": "A wedding MC ensures smooth transitions between ceremony, cocktails, dinner, and dancing. They introduce the couple, announce toasts, and guide guests through the celebration."
+    },
+    {
+      "question": "Are MCs available in multiple languages?",
+      "answer": "Yes, we have MCs fluent in English, Arabic, Hindi, and other languages. Bilingual MCs can address diverse guest groups seamlessly."
+    },
+    {
+      "question": "How do MCs coordinate with other vendors?",
+      "answer": "Professional MCs work closely with DJs, caterers, and coordinators to ensure smooth transitions. They cue entertainment, announce meal service, and keep everything synchronized."
+    },
+    {
+      "question": "What's the difference between MC and DJ?",
+      "answer": "DJs focus on music while MCs focus on hosting and announcements. Many events use both, with the MC handling speaking duties and the DJ managing music. Some DJs also MC."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "dj-services",
+      "title": "DJ Services"
+    },
+    {
+      "id": "event-planning",
+      "title": "Event Planning"
+    },
+    {
+      "id": "live-music",
+      "title": "Live Music"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg",
+    "https://images.pexels.com/photos/2774557/pexels-photo-2774557.jpeg",
+    "https://images.pexels.com/photos/3321793/pexels-photo-3321793.jpeg",
+    "https://images.pexels.com/photos/3321794/pexels-photo-3321794.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "MC & Host Services",
+    "description": "Professional MC and event hosting for weddings, corporate events, and parties.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "MC & Host Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wedding MC"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate MC"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Party Host"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/mc-host-services",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

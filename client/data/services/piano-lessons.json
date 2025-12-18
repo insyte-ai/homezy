@@ -1,0 +1,107 @@
+{
+  "id": "piano-lessons",
+  "title": "Piano Lessons",
+  "metaTitle": "Professional Piano Lessons in UAE | Homezy",
+  "metaDescription": "Private piano lessons in Dubai, Abu Dhabi, and across UAE. Expert instructors for beginners to advanced players. In-home and online lessons available.",
+  "keywords": "piano lessons, piano teacher, piano tutor, learn piano, keyboard lessons, piano instructor, beginner piano, UAE",
+  "headerImage": "https://images.pexels.com/photos/1246437/pexels-photo-1246437.jpeg",
+  "description": "Learn to play piano with our expert instructors who bring lessons to your home. From complete beginners to advanced players preparing for exams, our teachers customize lessons to your goals, age, and learning style. We teach classical, pop, jazz, and music theory with patience and expertise.",
+  "benefits": [
+    "Qualified experienced teachers",
+    "In-home lessons at your convenience",
+    "All ages and skill levels",
+    "Customized lesson plans",
+    "Exam preparation (ABRSM, Trinity)",
+    "Theory and practical combined"
+  ],
+  "whatToExpect": "Lessons are conducted at your home on your piano or keyboard. Your teacher assesses your current level, discusses your goals, and creates a personalized curriculum. Each lesson builds technique, repertoire, and music reading skills at a pace that works for you.",
+  "faqs": [
+    {
+      "question": "What age can children start piano lessons?",
+      "answer": "Children can begin piano lessons from age 4-5. Young beginners focus on musical games, basic rhythm, and simple tunes. More structured learning typically begins around age 6-7."
+    },
+    {
+      "question": "Do I need a piano at home?",
+      "answer": "Yes, you'll need a piano or keyboard for practice between lessons. A full-size 88-key digital piano is ideal. For beginners, a 61-key keyboard can work initially."
+    },
+    {
+      "question": "How often should lessons be?",
+      "answer": "Weekly lessons are recommended for consistent progress. The typical lesson length is 30 minutes for beginners, 45-60 minutes for intermediate and advanced students."
+    },
+    {
+      "question": "Can you prepare students for exams?",
+      "answer": "Yes, our teachers prepare students for ABRSM, Trinity, and other international music exams. This includes practical skills, theory, sight-reading, and aural tests."
+    },
+    {
+      "question": "Do you teach adults?",
+      "answer": "Absolutely! Many of our students are adults learning for the first time or returning to piano. We tailor lessons to adult learning styles and busy schedules."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "guitar-lessons",
+      "title": "Guitar Lessons"
+    },
+    {
+      "id": "singing-lessons",
+      "title": "Singing Lessons"
+    },
+    {
+      "id": "drum-lessons",
+      "title": "Drum Lessons"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1246437/pexels-photo-1246437.jpeg",
+    "https://images.pexels.com/photos/164935/pexels-photo-164935.jpeg",
+    "https://images.pexels.com/photos/4088015/pexels-photo-4088015.jpeg",
+    "https://images.pexels.com/photos/4088016/pexels-photo-4088016.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Piano Lessons",
+    "description": "Private piano lessons for all ages and skill levels.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Piano Lessons",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Beginner Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Intermediate Lessons"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Advanced Lessons"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/piano-lessons",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

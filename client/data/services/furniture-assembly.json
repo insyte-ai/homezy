@@ -1,0 +1,107 @@
+{
+  "id": "furniture-assembly",
+  "title": "Furniture Assembly Services",
+  "metaTitle": "Professional Furniture Assembly Services in UAE | Homezy",
+  "metaDescription": "Expert furniture assembly in Dubai, Abu Dhabi, and across UAE. IKEA, office furniture, beds, wardrobes, and more. Same-day service available.",
+  "keywords": "furniture assembly, IKEA assembly, flatpack assembly, bed assembly, wardrobe assembly, office furniture, furniture installation, UAE",
+  "headerImage": "https://images.pexels.com/photos/6474471/pexels-photo-6474471.jpeg",
+  "description": "Save time and frustration with our professional furniture assembly services. Our experienced assemblers handle all types of flatpack and ready-to-assemble furniture from IKEA, Home Centre, and other brands. We assemble beds, wardrobes, desks, shelving, outdoor furniture, and more with precision and care.",
+  "benefits": [
+    "All brands and furniture types",
+    "Experienced professional assemblers",
+    "Same-day service available",
+    "Tools and hardware provided",
+    "Packaging disposal included",
+    "Warranty on assembly work"
+  ],
+  "whatToExpect": "Our assembler arrives with professional tools ready to work. They unpack your furniture, organize all parts and hardware, follow manufacturer instructions precisely, and assemble your items securely. We dispose of packaging and leave your space clean and ready to enjoy.",
+  "faqs": [
+    {
+      "question": "What furniture do you assemble?",
+      "answer": "We assemble all types of flatpack furniture including beds, wardrobes, desks, tables, chairs, bookcases, entertainment centers, outdoor furniture, and exercise equipment from any brand."
+    },
+    {
+      "question": "How long does furniture assembly take?",
+      "answer": "Assembly time varies by item complexity. A simple bookshelf takes 30-60 minutes, a bed frame 1-2 hours, and a large wardrobe 2-4 hours. We provide time estimates when booking."
+    },
+    {
+      "question": "Do you assemble IKEA furniture?",
+      "answer": "Yes, we're experts at IKEA assembly. We assemble all IKEA products including PAX wardrobes, MALM beds, KALLAX shelving, HEMNES furniture, and kitchen cabinets."
+    },
+    {
+      "question": "Do I need to provide tools?",
+      "answer": "No, our assemblers bring all necessary professional tools. If any special tools or additional hardware are needed, we'll advise you during the appointment."
+    },
+    {
+      "question": "Can you disassemble furniture for moving?",
+      "answer": "Yes, we also offer furniture disassembly services for moving or storage. We carefully take apart furniture and organize all hardware for easy reassembly later."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "handyman",
+      "title": "Handyman Services"
+    },
+    {
+      "id": "tv-mounting",
+      "title": "TV Mounting"
+    },
+    {
+      "id": "packers-movers",
+      "title": "Packers & Movers"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6474471/pexels-photo-6474471.jpeg",
+    "https://images.pexels.com/photos/6474472/pexels-photo-6474472.jpeg",
+    "https://images.pexels.com/photos/6474475/pexels-photo-6474475.jpeg",
+    "https://images.pexels.com/photos/6474476/pexels-photo-6474476.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Furniture Assembly Services",
+    "description": "Professional furniture assembly for IKEA, office furniture, and all flatpack brands.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Furniture Assembly Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "IKEA Furniture Assembly"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Office Furniture Assembly"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Outdoor Furniture Assembly"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/furniture-assembly",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

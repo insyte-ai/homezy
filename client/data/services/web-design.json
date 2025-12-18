@@ -1,0 +1,107 @@
+{
+  "id": "web-design",
+  "title": "Web Design Services",
+  "metaTitle": "Professional Web Design Services in UAE | Homezy",
+  "metaDescription": "Expert web design and development in Dubai, Abu Dhabi, and across UAE. Custom websites, WordPress, e-commerce, and responsive design.",
+  "keywords": "web design, web designer, website design, web development, website builder, WordPress, responsive design, e-commerce website, UAE",
+  "headerImage": "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg",
+  "description": "Create a powerful online presence with professional web design. Our designers and developers create custom, responsive websites that look great and perform well. From simple business sites to complex e-commerce platforms, we build websites that help your business succeed online.",
+  "benefits": [
+    "Custom design approach",
+    "Mobile-responsive websites",
+    "SEO-friendly structure",
+    "Fast loading speeds",
+    "Content management systems",
+    "Ongoing support available"
+  ],
+  "whatToExpect": "We begin with discovery to understand your business, goals, and preferences. Our designers create mockups for your approval, then developers build your site with quality code. We handle hosting setup, testing, and launch, with training on managing your content.",
+  "faqs": [
+    {
+      "question": "What types of websites do you build?",
+      "answer": "We build business websites, portfolios, e-commerce stores, blogs, landing pages, and web applications. We work with WordPress, Shopify, custom development, and other platforms."
+    },
+    {
+      "question": "How long does website development take?",
+      "answer": "A simple business website takes 2-4 weeks. E-commerce sites or custom applications take 4-8 weeks or longer. Timeline depends on complexity, content readiness, and revision cycles."
+    },
+    {
+      "question": "Do you provide hosting?",
+      "answer": "Yes, we offer hosting solutions or can work with your existing hosting. We recommend reliable hosts appropriate for your site's needs and traffic."
+    },
+    {
+      "question": "Will my website work on mobile devices?",
+      "answer": "Yes, all our websites are fully responsive, meaning they adapt to look and work great on desktops, tablets, and mobile phones."
+    },
+    {
+      "question": "Can I update the website myself?",
+      "answer": "Yes, we build on user-friendly content management systems and provide training so you can easily update text, images, and basic content. We're also available for ongoing support."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "graphic-design",
+      "title": "Graphic Design"
+    },
+    {
+      "id": "photography",
+      "title": "Photography"
+    },
+    {
+      "id": "videography",
+      "title": "Videography"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg",
+    "https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg",
+    "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg",
+    "https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Web Design Services",
+    "description": "Professional web design and development services including WordPress and e-commerce.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Web Design Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Website Design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "WordPress Development"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "E-Commerce Website"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/web-design",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

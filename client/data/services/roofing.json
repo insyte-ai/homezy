@@ -1,0 +1,114 @@
+{
+  "id": "roofing",
+  "title": "Roofing Services",
+  "metaTitle": "Professional Roofing Services in UAE | Homezy",
+  "metaDescription": "Expert roofing services in Dubai, Abu Dhabi, and across UAE. Roof installation, repairs, inspections, and gutter services. Licensed contractors.",
+  "keywords": "roofing services, roof repair, roof installation, roof inspection, gutter installation, gutter cleaning, roof maintenance, UAE",
+  "headerImage": "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg",
+  "description": "Protect your home with our professional roofing services. From new roof installations and repairs to inspections and gutter services, our licensed contractors deliver quality workmanship using premium materials. We handle all types of roofing systems and provide solutions designed to withstand the UAE's climate.",
+  "benefits": [
+    "Licensed and insured contractors",
+    "Premium roofing materials",
+    "Comprehensive warranties",
+    "Emergency repair services",
+    "Free roof inspections with service",
+    "Storm damage specialists"
+  ],
+  "whatToExpect": "Our roofing process begins with a thorough inspection to assess your roof's condition. We provide a detailed report and quote, explaining all recommended work. Our crews work safely and efficiently, minimizing disruption while ensuring quality installation or repairs. We clean up completely after the job.",
+  "faqs": [
+    {
+      "question": "What roofing services do you offer?",
+      "answer": "We offer complete roofing services including new roof installation, roof repairs, leak repairs, roof coating, tile replacement, flat roof services, gutter installation, gutter cleaning, and roof inspections."
+    },
+    {
+      "question": "How do I know if I need a new roof?",
+      "answer": "Signs you may need a new roof include: frequent leaks, missing or damaged tiles, sagging areas, visible wear or aging, or if your roof is over 20 years old. We offer free inspections to assess your roof's condition."
+    },
+    {
+      "question": "How long does roof installation take?",
+      "answer": "A typical residential roof replacement takes 3-5 days depending on size and complexity. Repairs are usually completed in 1-2 days. We work to minimize disruption while ensuring quality."
+    },
+    {
+      "question": "Do you repair all types of roofs?",
+      "answer": "Yes, we repair all common roofing types including tile, metal, flat roofs, shingle, and membrane roofing. Our team is experienced with both residential and commercial roofing systems."
+    },
+    {
+      "question": "What warranty do you provide?",
+      "answer": "We offer workmanship warranties up to 10 years, plus manufacturer warranties on materials (typically 20-50 years depending on the product). We'll explain all warranty coverage during your consultation."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "waterproofing",
+      "title": "Waterproofing"
+    },
+    {
+      "id": "exterior-painting",
+      "title": "Exterior Painting"
+    },
+    {
+      "id": "masonry",
+      "title": "Masonry"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg",
+    "https://images.pexels.com/photos/3935336/pexels-photo-3935336.jpeg",
+    "https://images.pexels.com/photos/6474343/pexels-photo-6474343.jpeg",
+    "https://images.pexels.com/photos/6474344/pexels-photo-6474344.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Roofing Services",
+    "description": "Professional roofing services including installation, repairs, inspections, and gutter services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Roofing Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Roof Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Roof Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Gutter Installation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Roof Inspection"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/roofing",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

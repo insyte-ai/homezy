@@ -1,0 +1,107 @@
+{
+  "id": "auto-glass-repair",
+  "title": "Auto Glass Repair Services",
+  "metaTitle": "Auto Glass Repair Services in UAE | Homezy",
+  "metaDescription": "Professional auto glass repair and replacement in Dubai, Abu Dhabi, and across UAE. Windshield repair, chip repair, and window replacement.",
+  "keywords": "auto glass repair, windshield repair, windshield replacement, car window repair, glass chip repair, cracked windshield, mobile windshield, UAE",
+  "headerImage": "https://images.pexels.com/photos/6870325/pexels-photo-6870325.jpeg",
+  "description": "Restore visibility and safety with our professional auto glass services. From small chip repairs to complete windshield replacement, our certified technicians handle all auto glass needs. Mobile service available - we come to your location to minimize disruption to your day.",
+  "benefits": [
+    "Mobile service available",
+    "Same-day appointments",
+    "OEM and aftermarket glass options",
+    "Insurance claim assistance",
+    "Certified technicians",
+    "Warranty on workmanship"
+  ],
+  "whatToExpect": "Our technician assesses the damage and determines if repair or replacement is needed. Chips and small cracks can often be repaired in 30 minutes. Replacement takes 1-2 hours, with a curing period before driving. We handle insurance paperwork if applicable.",
+  "faqs": [
+    {
+      "question": "Can chips and cracks be repaired?",
+      "answer": "Small chips (smaller than a coin) and cracks under 6 inches can usually be repaired. Larger damage, cracks in the driver's line of sight, or damage at the windshield edge typically require replacement."
+    },
+    {
+      "question": "How long until I can drive after replacement?",
+      "answer": "After windshield replacement, we recommend waiting at least 1 hour before driving to allow the adhesive to cure. Full cure takes 24-48 hours; avoid car washes and rough roads during this time."
+    },
+    {
+      "question": "Do you work with insurance companies?",
+      "answer": "Yes, we work directly with major insurance companies. We handle the paperwork and can often bill your insurer directly. Comprehensive coverage usually includes glass repair/replacement."
+    },
+    {
+      "question": "What glass do you use?",
+      "answer": "We offer both OEM (Original Equipment Manufacturer) and quality aftermarket glass. OEM matches factory specifications; aftermarket provides cost savings while meeting safety standards."
+    },
+    {
+      "question": "Can you replace side and rear windows?",
+      "answer": "Yes, we replace all auto glass including side windows, rear windows, and quarter glass. For specialized glass with sensors or heating elements, we ensure proper functionality."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "mobile-mechanic",
+      "title": "Mobile Mechanic"
+    },
+    {
+      "id": "mobile-auto-detailing",
+      "title": "Mobile Auto Detailing"
+    },
+    {
+      "id": "roadside-assistance",
+      "title": "Roadside Assistance"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/6870325/pexels-photo-6870325.jpeg",
+    "https://images.pexels.com/photos/6870326/pexels-photo-6870326.jpeg",
+    "https://images.pexels.com/photos/6870327/pexels-photo-6870327.jpeg",
+    "https://images.pexels.com/photos/6870328/pexels-photo-6870328.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Auto Glass Repair Services",
+    "description": "Professional auto glass repair and windshield replacement services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Auto Glass Repair Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Chip Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Windshield Replacement"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Window Replacement"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/auto-glass-repair",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

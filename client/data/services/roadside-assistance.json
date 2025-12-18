@@ -1,0 +1,114 @@
+{
+  "id": "roadside-assistance",
+  "title": "Roadside Assistance",
+  "metaTitle": "Roadside Assistance Services in UAE | Homezy",
+  "metaDescription": "24/7 roadside assistance in Dubai, Abu Dhabi, and across UAE. Towing, jump starts, lockout service, and fuel delivery. Fast response times.",
+  "keywords": "roadside assistance, towing, tow truck, jump start, battery jump, lockout service, car lockout, fuel delivery, emergency roadside, UAE",
+  "headerImage": "https://images.pexels.com/photos/4489780/pexels-photo-4489780.jpeg",
+  "description": "Get help when you need it most with our 24/7 roadside assistance services. Whether you have a flat tire, dead battery, locked keys, or need a tow, our response team is ready to help. We provide fast, professional service to get you back on the road or safely to a repair facility.",
+  "benefits": [
+    "24/7 emergency service",
+    "Fast response times",
+    "UAE-wide coverage",
+    "Professional operators",
+    "Flatbed towing available",
+    "Affordable pricing"
+  ],
+  "whatToExpect": "Call our hotline and describe your situation and location. We dispatch the nearest available technician with appropriate equipment. They'll arrive quickly, assess the situation, and provide the needed service - whether it's a jump start, tire change, lockout assistance, fuel delivery, or tow.",
+  "faqs": [
+    {
+      "question": "What services do you provide?",
+      "answer": "We offer towing, jump starts, flat tire changes, lockout service (keys locked in car), fuel delivery, and minor roadside repairs. Our operators handle most common breakdown situations."
+    },
+    {
+      "question": "How quickly can you arrive?",
+      "answer": "In urban areas, we typically arrive within 30-45 minutes. Remote locations may take longer. Our dispatcher provides an ETA when you call."
+    },
+    {
+      "question": "Do you offer 24/7 service?",
+      "answer": "Yes, our roadside assistance is available 24 hours a day, 7 days a week, including holidays. Emergencies don't keep business hours, and neither do we."
+    },
+    {
+      "question": "How much does towing cost?",
+      "answer": "Towing rates depend on distance and vehicle type. We provide pricing before dispatch so you know the cost upfront. Basic roadside services have fixed rates."
+    },
+    {
+      "question": "Can you tow my car to any workshop?",
+      "answer": "Yes, we tow to your preferred workshop, dealership, or home. If you don't have a preference, we can recommend reputable repair facilities."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "mobile-mechanic",
+      "title": "Mobile Mechanic"
+    },
+    {
+      "id": "mobile-tire-service",
+      "title": "Mobile Tire Service"
+    },
+    {
+      "id": "auto-glass-repair",
+      "title": "Auto Glass Repair"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4489780/pexels-photo-4489780.jpeg",
+    "https://images.pexels.com/photos/4489781/pexels-photo-4489781.jpeg",
+    "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg",
+    "https://images.pexels.com/photos/3807518/pexels-photo-3807518.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Roadside Assistance",
+    "description": "24/7 roadside assistance including towing, jump starts, and lockout service.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Roadside Assistance",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Towing"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Jump Start"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Lockout Service"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Fuel Delivery"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/roadside-assistance",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

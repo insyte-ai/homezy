@@ -1,0 +1,107 @@
+{
+  "id": "personal-services",
+  "title": "Personal Services",
+  "metaTitle": "Personal Wellness Services in UAE | Homezy",
+  "metaDescription": "In-home personal training, yoga, massage therapy, and wellness services in Dubai, Abu Dhabi, and across UAE. Professional trainers and therapists.",
+  "keywords": "personal services, personal training, yoga classes, massage therapy, pilates, fitness trainer, home wellness, UAE",
+  "headerImage": "https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg",
+  "description": "Bring wellness to your doorstep with our personal services. From in-home personal training and private yoga sessions to massage therapy and fitness coaching, our certified professionals provide personalized attention in the comfort of your home. Achieve your health and wellness goals on your schedule.",
+  "benefits": [
+    "Certified professionals",
+    "Personalized programs",
+    "Convenient home visits",
+    "Flexible scheduling",
+    "Equipment provided if needed",
+    "Progress tracking"
+  ],
+  "whatToExpect": "Our professionals arrive at your home with any necessary equipment. They assess your goals, fitness level, or wellness needs and create customized sessions. Whether it's a workout, yoga practice, or massage, you receive focused, private attention without leaving home.",
+  "faqs": [
+    {
+      "question": "What personal services do you offer?",
+      "answer": "We offer personal training, private yoga instruction, pilates, massage therapy, meditation sessions, and fitness coaching. All services are provided in your home by certified professionals."
+    },
+    {
+      "question": "Are the trainers certified?",
+      "answer": "Yes, all our personal trainers hold recognized certifications (ACE, NASM, or equivalent). Yoga instructors and massage therapists are also certified in their respective fields."
+    },
+    {
+      "question": "Do I need equipment for training?",
+      "answer": "Our trainers can bring necessary equipment for most sessions. For extensive home gyms, trainers work with your existing equipment. We'll discuss equipment needs during booking."
+    },
+    {
+      "question": "How long are sessions?",
+      "answer": "Standard sessions are 60 minutes, with options for 30, 45, or 90-minute sessions depending on the service. Massage sessions are typically 60 or 90 minutes."
+    },
+    {
+      "question": "Can I book regular recurring sessions?",
+      "answer": "Yes, we offer packages for regular weekly or bi-weekly sessions at discounted rates. Consistent training produces the best results, and packages provide savings and scheduling priority."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "personal-training",
+      "title": "Personal Training"
+    },
+    {
+      "id": "yoga-instruction",
+      "title": "Yoga Instruction"
+    },
+    {
+      "id": "massage-therapy",
+      "title": "Massage Therapy"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg",
+    "https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg",
+    "https://images.pexels.com/photos/3822864/pexels-photo-3822864.jpeg",
+    "https://images.pexels.com/photos/3757954/pexels-photo-3757954.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Personal Services",
+    "description": "In-home personal training, yoga, massage therapy, and wellness services.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Personal Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Personal Training"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Yoga Classes"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Massage Therapy"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/personal-services",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

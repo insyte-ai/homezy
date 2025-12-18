@@ -1,0 +1,107 @@
+{
+  "id": "storage",
+  "title": "Storage Solutions",
+  "metaTitle": "Professional Storage Solutions in UAE | Homezy",
+  "metaDescription": "Secure storage solutions in Dubai, Abu Dhabi, and across UAE. Self storage, climate controlled, and mobile storage options for personal and business needs.",
+  "keywords": "storage solutions, self storage, climate controlled storage, mobile storage, furniture storage, personal storage, UAE",
+  "headerImage": "https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg",
+  "description": "Keep your belongings safe and accessible with our professional storage solutions. Whether you need short-term storage during a move, long-term storage for seasonal items, or climate-controlled space for valuables, we offer flexible options to fit your needs. Our secure facilities feature 24/7 surveillance and easy access.",
+  "benefits": [
+    "Secure facilities with 24/7 surveillance",
+    "Climate controlled options available",
+    "Flexible rental terms",
+    "Various unit sizes",
+    "Easy access to your items",
+    "Insurance options available"
+  ],
+  "whatToExpect": "Choose from various storage options based on your needs. We offer self-storage units you can access anytime, climate-controlled storage for sensitive items, and mobile storage containers delivered to your location. Our team helps you select the right size and provides moving supplies if needed.",
+  "faqs": [
+    {
+      "question": "What storage options do you offer?",
+      "answer": "We offer self-storage units (various sizes), climate-controlled storage, mobile storage containers, document storage, and vehicle storage. Units range from locker-sized to large warehouse spaces."
+    },
+    {
+      "question": "Is my storage unit secure?",
+      "answer": "Yes, our facilities feature 24/7 video surveillance, individual unit alarms, secure access codes, and on-site security. Only you have access to your unit with your unique code and lock."
+    },
+    {
+      "question": "Do you offer climate controlled storage?",
+      "answer": "Yes, we have climate-controlled units maintained at optimal temperature and humidity levels. This is ideal for furniture, electronics, artwork, documents, and other sensitive items."
+    },
+    {
+      "question": "What size storage unit do I need?",
+      "answer": "Unit size depends on your items. A studio apartment's contents typically fit in a 5x10 unit, while a 3-bedroom home needs a 10x20 unit. We provide free consultations to help you choose."
+    },
+    {
+      "question": "Can I access my storage unit anytime?",
+      "answer": "Most locations offer extended access hours, with some providing 24/7 access. Check with your specific facility for access hours and any restrictions."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "packers-movers",
+      "title": "Packers & Movers"
+    },
+    {
+      "id": "junk-removal",
+      "title": "Junk Removal"
+    },
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg",
+    "https://images.pexels.com/photos/4483608/pexels-photo-4483608.jpeg",
+    "https://images.pexels.com/photos/4246120/pexels-photo-4246120.jpeg",
+    "https://images.pexels.com/photos/4246119/pexels-photo-4246119.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Storage Solutions",
+    "description": "Professional storage solutions including self storage, climate controlled, and mobile storage.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Storage Solutions",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Self Storage"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Climate Controlled Storage"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mobile Storage"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/storage",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

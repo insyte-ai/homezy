@@ -1,0 +1,114 @@
+{
+  "id": "deep-cleaning",
+  "title": "Deep Cleaning Services",
+  "metaTitle": "Professional Deep Cleaning Services in UAE | Homezy",
+  "metaDescription": "Thorough deep cleaning services in Dubai, Abu Dhabi, and across UAE. Kitchen deep clean, bathroom sanitization, carpet cleaning, and more. Book today.",
+  "keywords": "deep cleaning, thorough cleaning, kitchen deep clean, bathroom cleaning, carpet cleaning, window cleaning, sanitization, UAE",
+  "headerImage": "https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg",
+  "description": "Our professional deep cleaning services go beyond regular cleaning to thoroughly sanitize and refresh your home. From kitchen deep cleaning and bathroom sanitization to carpet shampooing and window washing, our trained cleaners use professional-grade equipment and eco-friendly products to eliminate dirt, grime, and bacteria from every corner.",
+  "benefits": [
+    "Thorough top-to-bottom cleaning",
+    "Professional-grade equipment",
+    "Eco-friendly cleaning products",
+    "Trained and vetted cleaners",
+    "Flexible scheduling options",
+    "Satisfaction guaranteed"
+  ],
+  "whatToExpect": "Our deep cleaning service covers every detail of your home. Cleaners arrive with all necessary equipment and supplies. They'll work systematically through each room, deep cleaning surfaces, sanitizing high-touch areas, scrubbing grout, cleaning inside appliances, and more. Depending on your home's size, expect 4-8 hours for a thorough deep clean.",
+  "faqs": [
+    {
+      "question": "What's included in a deep cleaning?",
+      "answer": "Deep cleaning includes everything in regular cleaning plus: inside oven and refrigerator cleaning, kitchen cabinet fronts and handles, bathroom tile and grout scrubbing, baseboard cleaning, window sill cleaning, light fixture dusting, door frame cleaning, and detailed sanitization of all surfaces."
+    },
+    {
+      "question": "How long does deep cleaning take?",
+      "answer": "A deep cleaning typically takes 4-8 hours depending on your home's size and condition. A 2-bedroom apartment usually takes 4-5 hours, while larger villas may require 6-8 hours or more."
+    },
+    {
+      "question": "How often should I get a deep cleaning?",
+      "answer": "We recommend deep cleaning every 3-6 months to maintain a healthy home environment. Between deep cleans, regular weekly or bi-weekly cleaning helps maintain the results."
+    },
+    {
+      "question": "Do I need to provide cleaning supplies?",
+      "answer": "No, our cleaners bring all professional-grade cleaning equipment and eco-friendly products. If you have specific products you prefer us to use, just let us know."
+    },
+    {
+      "question": "Is deep cleaning safe for children and pets?",
+      "answer": "Yes, we use eco-friendly, non-toxic cleaning products that are safe for families with children and pets. Let us know about any allergies or sensitivities, and we'll accommodate accordingly."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "home-cleaning",
+      "title": "Home Cleaning"
+    },
+    {
+      "id": "specialized-cleaning",
+      "title": "Specialized Cleaning"
+    },
+    {
+      "id": "disinfection",
+      "title": "Disinfection Services"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg",
+    "https://images.pexels.com/photos/4239096/pexels-photo-4239096.jpeg",
+    "https://images.pexels.com/photos/4239146/pexels-photo-4239146.jpeg",
+    "https://images.pexels.com/photos/4239036/pexels-photo-4239036.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Deep Cleaning Services",
+    "description": "Professional deep cleaning services including kitchen deep cleaning, bathroom sanitization, and thorough home cleaning.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Deep Cleaning Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Kitchen Deep Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bathroom Deep Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Carpet Cleaning"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Window Cleaning"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/deep-cleaning",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

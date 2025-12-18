@@ -1,0 +1,114 @@
+{
+  "id": "mobile-mechanic",
+  "title": "Mobile Mechanic Services",
+  "metaTitle": "Mobile Mechanic Services in UAE | Homezy",
+  "metaDescription": "Professional mobile mechanic services in Dubai, Abu Dhabi, and across UAE. Car repairs at your location. Diagnostics, brakes, and general repairs.",
+  "keywords": "mobile mechanic, mobile car repair, mechanic near me, on-site mechanic, car repair at home, mobile auto repair, UAE",
+  "headerImage": "https://images.pexels.com/photos/4489702/pexels-photo-4489702.jpeg",
+  "description": "Get your car repaired without leaving home or work. Our mobile mechanics bring the workshop to you, providing professional diagnostics and repairs at your location. From brake repairs and battery replacement to engine diagnostics and general maintenance, we handle a wide range of services conveniently.",
+  "benefits": [
+    "Service at your location",
+    "Certified mechanics",
+    "Transparent pricing",
+    "Quality parts used",
+    "No towing required",
+    "Warranty on repairs"
+  ],
+  "whatToExpect": "Our mechanic arrives at your location in a fully-equipped service vehicle. They diagnose the issue, explain the problem and repair options, provide a quote, and complete the repair on-site. For complex repairs requiring a workshop, we'll arrange towing if needed.",
+  "faqs": [
+    {
+      "question": "What repairs can a mobile mechanic do?",
+      "answer": "We handle battery replacement, brake repairs, starter and alternator issues, oil changes, fluid top-ups, belt replacement, minor electrical repairs, diagnostics, and many other services."
+    },
+    {
+      "question": "How much does mobile mechanic service cost?",
+      "answer": "Pricing varies by repair type. We charge a call-out fee starting from AED 100, plus parts and labor. Full pricing is provided before work begins."
+    },
+    {
+      "question": "Where can you come to service my car?",
+      "answer": "We come to homes, offices, parking lots, and most accessible locations throughout the UAE. Just provide your address when booking."
+    },
+    {
+      "question": "What if the repair can't be done on-site?",
+      "answer": "For complex repairs requiring lift equipment or specialized tools, we'll diagnose the issue and arrange workshop service or towing. You'll know before any work begins."
+    },
+    {
+      "question": "Do you service all car brands?",
+      "answer": "Yes, our mechanics are trained to work on all major car brands including Japanese, European, American, and Korean vehicles."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "mobile-oil-change",
+      "title": "Mobile Oil Change"
+    },
+    {
+      "id": "mobile-tire-service",
+      "title": "Mobile Tire Service"
+    },
+    {
+      "id": "roadside-assistance",
+      "title": "Roadside Assistance"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/4489702/pexels-photo-4489702.jpeg",
+    "https://images.pexels.com/photos/4489703/pexels-photo-4489703.jpeg",
+    "https://images.pexels.com/photos/4489704/pexels-photo-4489704.jpeg",
+    "https://images.pexels.com/photos/4489705/pexels-photo-4489705.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mobile Mechanic Services",
+    "description": "Professional mobile mechanic services providing car repairs at your location.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Mobile Mechanic Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Diagnostics"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Brake Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Engine Repair"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "General Repair"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/mobile-mechanic",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

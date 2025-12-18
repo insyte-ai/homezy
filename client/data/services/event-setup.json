@@ -1,0 +1,107 @@
+{
+  "id": "event-setup",
+  "title": "Event Setup Services",
+  "metaTitle": "Professional Event Setup Services in UAE | Homezy",
+  "metaDescription": "Expert event setup and decoration in Dubai, Abu Dhabi, and across UAE. Party decorations, tent rental, furniture rental, and event equipment.",
+  "keywords": "event setup, party setup, event decoration, party decoration, tent rental, furniture rental, wedding setup, corporate event, UAE",
+  "headerImage": "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg",
+  "description": "Create memorable events with our professional setup services. From intimate birthday parties to large corporate events, we handle decorations, tent and furniture rental, lighting, and all the details that make your event special. Our experienced team transforms any venue into the perfect celebration space.",
+  "benefits": [
+    "Complete event setup solutions",
+    "Decoration design services",
+    "Tent and canopy rental",
+    "Furniture and equipment rental",
+    "Setup and breakdown included",
+    "Experienced event teams"
+  ],
+  "whatToExpect": "We start with a consultation to understand your vision and requirements. Our team designs and plans the setup, coordinates rentals, and arrives early on event day to transform your space. After the event, we handle complete breakdown and removal, leaving the venue clean.",
+  "faqs": [
+    {
+      "question": "What event setup services do you offer?",
+      "answer": "We offer decoration services, balloon arrangements, tent and canopy rental, table and chair rental, stage setup, lighting installation, backdrop creation, and complete event styling for all occasions."
+    },
+    {
+      "question": "How far in advance should I book?",
+      "answer": "For large events, book 2-4 weeks in advance. Smaller setups can often be arranged with 3-7 days notice. During peak seasons (holidays, wedding season), book earlier to ensure availability."
+    },
+    {
+      "question": "Do you provide event decoration design?",
+      "answer": "Yes, our event designers create custom decoration concepts based on your theme, colors, and budget. We provide design mockups for approval before the event."
+    },
+    {
+      "question": "Can you set up at any venue?",
+      "answer": "We set up at homes, hotels, outdoor spaces, halls, and most venues. We coordinate with venue management and ensure all setups meet venue requirements and safety standards."
+    },
+    {
+      "question": "Is breakdown and cleanup included?",
+      "answer": "Yes, our service includes complete setup before the event and full breakdown after. We remove all rented items and decorations, leaving the venue clean."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "event-planning",
+      "title": "Event Planning"
+    },
+    {
+      "id": "catering",
+      "title": "Catering"
+    },
+    {
+      "id": "event-florist",
+      "title": "Event Florist"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg",
+    "https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg",
+    "https://images.pexels.com/photos/587741/pexels-photo-587741.jpeg",
+    "https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Event Setup Services",
+    "description": "Professional event setup and decoration services including tent rental and furniture rental.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Event Setup Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Party Setup & Decoration"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Tent & Canopy Rental"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event Furniture Rental"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/event-setup",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}

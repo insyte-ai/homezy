@@ -1,0 +1,107 @@
+{
+  "id": "pet-boarding",
+  "title": "Pet Boarding Services",
+  "metaTitle": "Professional Pet Boarding Services in UAE | Homezy",
+  "metaDescription": "Quality pet boarding and daycare in Dubai, Abu Dhabi, and across UAE. Safe, comfortable overnight and extended stay boarding for dogs and cats.",
+  "keywords": "pet boarding, dog boarding, cat boarding, pet hotel, pet daycare, doggy daycare, overnight boarding, pet resort, UAE",
+  "headerImage": "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg",
+  "description": "Give your pets a home away from home with our professional boarding services. Whether you need daycare while you're at work or extended boarding during travel, our facilities provide safe, comfortable, and loving care for dogs and cats. Experienced staff ensures your pets receive attention, exercise, and proper care.",
+  "benefits": [
+    "Safe, clean facilities",
+    "Experienced pet care staff",
+    "Daily exercise and playtime",
+    "Webcam access available",
+    "Medication administration",
+    "Flexible drop-off/pickup times"
+  ],
+  "whatToExpect": "Your pet will be cared for in a clean, climate-controlled environment with comfortable sleeping areas. Dogs enjoy supervised play sessions and outdoor time. Cats have quiet, separate spaces. Staff provides feeding on your schedule, medication if needed, and lots of attention. We send photo updates during extended stays.",
+  "faqs": [
+    {
+      "question": "What types of boarding do you offer?",
+      "answer": "We offer daycare (hourly/daily), overnight boarding, and extended stay boarding (weeks or longer). Options include private suites, shared play areas, and special accommodations for senior or special needs pets."
+    },
+    {
+      "question": "What should I bring for my pet?",
+      "answer": "Bring your pet's regular food (to maintain diet consistency), any medications, vaccination records, and a familiar item like a blanket or toy. We provide bedding, bowls, and treats."
+    },
+    {
+      "question": "Are vaccinations required?",
+      "answer": "Yes, all pets must be up-to-date on vaccinations. Dogs need rabies, DHPP, and kennel cough vaccines. Cats need rabies and FVRCP. Please bring vaccination records."
+    },
+    {
+      "question": "Can my pet interact with other animals?",
+      "answer": "Dogs participate in supervised group play if temperament-tested and approved. We also offer private care for pets who prefer less interaction. Cats are housed separately from dogs."
+    },
+    {
+      "question": "Do you have cameras I can view?",
+      "answer": "Many of our facilities offer webcam access so you can check on your pet during their stay. Ask about this feature when booking."
+    }
+  ],
+  "relatedServices": [
+    {
+      "id": "pet-sitting",
+      "title": "Pet Sitting"
+    },
+    {
+      "id": "dog-walking",
+      "title": "Dog Walking"
+    },
+    {
+      "id": "dog-grooming",
+      "title": "Dog Grooming"
+    }
+  ],
+  "images": [
+    "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg",
+    "https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg",
+    "https://images.pexels.com/photos/1378849/pexels-photo-1378849.jpeg",
+    "https://images.pexels.com/photos/1490908/pexels-photo-1490908.jpeg"
+  ],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Pet Boarding Services",
+    "description": "Professional pet boarding and daycare services for dogs and cats.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Homezy"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Pet Boarding Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pet Daycare"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Overnight Boarding"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Extended Stay Boarding"
+          }
+        }
+      ]
+    },
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://www.homezy.co/services/pet-boarding",
+      "servicePhone": "+971800HOMEZY",
+      "serviceSmsNumber": "+971800HOMEZY"
+    }
+  }
+}
