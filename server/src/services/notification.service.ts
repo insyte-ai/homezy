@@ -104,7 +104,7 @@ class NotificationService {
     ]);
 
     return {
-      notifications: notifications as INotification[],
+      notifications: notifications as unknown as INotification[],
       pagination: {
         currentPage: page,
         totalPages: Math.ceil(total / limit),

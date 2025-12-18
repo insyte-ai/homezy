@@ -169,7 +169,5 @@ export async function createJobFromQuote(
     description: lead.description,
     category: lead.category,
     budgetEstimated: quote.pricing.total,
-    startDate: quote.timeline.startDate,
-    endDate: quote.timeline.completionDate,
   });
 }
