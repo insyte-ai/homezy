@@ -52,6 +52,11 @@ export const createApp = (): Application => {
 
   app.use(cors({
     origin: (origin, callback) => {
+      // In development, allow all origins (for mobile app testing)
+      if (isDevelopment) {
+        return callback(null, true);
+      }
+
       // Allow requests with no origin (mobile apps, curl, etc.)
       if (!origin) return callback(null, true);
 
