@@ -3,7 +3,7 @@
  * Step 4 (final) of the create request flow
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -23,6 +23,7 @@ import { textStyles } from '../../../src/theme/typography';
 import { useLeadFormStore } from '../../../src/store/leadFormStore';
 import { EMIRATES, BUDGET_BRACKETS, URGENCY_LEVELS } from '../../../src/constants/leadForm';
 import { createLead } from '../../../src/services/leads';
+import { getProProfile, ProProfile } from '../../../src/services/pro';
 
 // Progress indicator component
 function ProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
@@ -82,6 +83,7 @@ export default function ReviewScreen() {
     budgetBracket,
     urgency,
     photos,
+    targetProfessionalId,
     isSubmitting,
     setSubmitting,
     getFormData,
@@ -89,6 +91,19 @@ export default function ReviewScreen() {
   } = useLeadFormStore();
 
   const [error, setError] = useState<string | null>(null);
+  const [targetPro, setTargetPro] = useState<ProProfile | null>(null);
+  const [loadingPro, setLoadingPro] = useState(false);
+
+  // Load target professional info if this is a direct quote request
+  useEffect(() => {
+    if (targetProfessionalId) {
+      setLoadingPro(true);
+      getProProfile(targetProfessionalId)
+        .then(setTargetPro)
+        .catch((err) => console.error('Failed to load pro profile:', err))
+        .finally(() => setLoadingPro(false));
+    }
+  }, [targetProfessionalId]);
 
   const handleBack = () => {
     router.back();
@@ -106,15 +121,23 @@ export default function ReviewScreen() {
       setSubmitting(true);
       setError(null);
 
-      const lead = await createLead(formData);
+      // Include targetProfessionalId if this is a direct quote request
+      const leadData = targetProfessionalId
+        ? { ...formData, targetProfessionalId }
+        : formData;
+
+      const lead = await createLead(leadData);
 
       // Reset form after successful submission
       reset();
 
-      // Navigate to success screen or requests list
+      // Show different success message for direct quotes
+      const isDirectQuote = !!targetProfessionalId;
       Alert.alert(
-        'Request Submitted!',
-        'Your service request has been posted. Professionals will start sending you quotes soon.',
+        isDirectQuote ? 'Quote Request Sent!' : 'Request Submitted!',
+        isDirectQuote
+          ? `Your quote request has been sent to ${targetPro?.businessName || 'the professional'}. They will respond soon.`
+          : 'Your service request has been posted. Professionals will start sending you quotes soon.',
         [
           {
             text: 'View My Requests',
@@ -171,6 +194,29 @@ export default function ReviewScreen() {
             Make sure everything looks good before submitting
           </Text>
         </View>
+
+        {/* Direct Quote Banner */}
+        {targetProfessionalId && (
+          <View style={styles.directQuoteBanner}>
+            <View style={styles.directQuoteIcon}>
+              <Ionicons name="person-circle" size={24} color={colors.primary[600]} />
+            </View>
+            <View style={styles.directQuoteContent}>
+              <Text style={styles.directQuoteTitle}>Direct Quote Request</Text>
+              {loadingPro ? (
+                <Text style={styles.directQuoteText}>Loading...</Text>
+              ) : targetPro ? (
+                <Text style={styles.directQuoteText}>
+                  This request will be sent directly to {targetPro.businessName}
+                </Text>
+              ) : (
+                <Text style={styles.directQuoteText}>
+                  This request will be sent to a specific professional
+                </Text>
+              )}
+            </View>
+          </View>
+        )}
 
         {/* Error */}
         {error && (
@@ -362,6 +408,37 @@ const styles = StyleSheet.create({
   pageSubtitle: {
     ...textStyles.body,
     color: colors.text.secondary,
+  },
+  directQuoteBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.primary[50],
+    padding: spacing[4],
+    borderRadius: borderRadius.lg,
+    marginBottom: spacing[4],
+    gap: spacing[3],
+    borderWidth: 1,
+    borderColor: colors.primary[200],
+  },
+  directQuoteIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: colors.primary[100],
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  directQuoteContent: {
+    flex: 1,
+  },
+  directQuoteTitle: {
+    ...textStyles.label,
+    color: colors.primary[700],
+    marginBottom: 2,
+  },
+  directQuoteText: {
+    ...textStyles.bodySmall,
+    color: colors.primary[600],
   },
   errorContainer: {
     flexDirection: 'row',

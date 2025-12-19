@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { User } from '../models/User.model';
 import { logger } from '../utils/logger';
 import { BadRequestError, UnauthorizedError } from '../middleware/errorHandler.middleware';
+import { pushService } from '../services/push.service';
 
 /**
  * @desc    Update user profile
@@ -296,5 +297,73 @@ export const getNotificationPreferences = async (req: Request, res: Response): P
     data: {
       notificationPreferences: preferences,
     },
+  });
+};
+
+/**
+ * @desc    Register a push token for the current user
+ * @route   POST /api/v1/users/push-token
+ * @access  Private (Homeowner, Pro, Admin)
+ */
+export const registerPushToken = async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user?.id;
+  const { token, platform, deviceId } = req.body;
+
+  logger.info('Registering push token', { userId, platform, deviceId });
+
+  if (!token) {
+    throw new BadRequestError('Push token is required');
+  }
+
+  if (!platform || !['ios', 'android', 'web'].includes(platform)) {
+    throw new BadRequestError('Valid platform is required (ios, android, or web)');
+  }
+
+  await pushService.registerPushToken(userId!, token, platform, deviceId);
+
+  res.status(200).json({
+    success: true,
+    message: 'Push token registered successfully',
+  });
+};
+
+/**
+ * @desc    Remove a push token for the current user
+ * @route   DELETE /api/v1/users/push-token
+ * @access  Private (Homeowner, Pro, Admin)
+ */
+export const removePushToken = async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user?.id;
+  const { token } = req.body;
+
+  logger.info('Removing push token', { userId });
+
+  if (!token) {
+    throw new BadRequestError('Push token is required');
+  }
+
+  await pushService.removePushToken(userId!, token);
+
+  res.status(200).json({
+    success: true,
+    message: 'Push token removed successfully',
+  });
+};
+
+/**
+ * @desc    Remove all push tokens for the current user (logout from all devices)
+ * @route   DELETE /api/v1/users/push-tokens
+ * @access  Private (Homeowner, Pro, Admin)
+ */
+export const removeAllPushTokens = async (req: Request, res: Response): Promise<void> => {
+  const userId = req.user?.id;
+
+  logger.info('Removing all push tokens', { userId });
+
+  await pushService.removeAllPushTokens(userId!);
+
+  res.status(200).json({
+    success: true,
+    message: 'All push tokens removed successfully',
   });
 };

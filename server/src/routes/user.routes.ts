@@ -67,4 +67,34 @@ router.patch(
   asyncHandler(userController.updateOnboardingStatus)
 );
 
+/**
+ * @route   POST /api/v1/users/push-token
+ * @desc    Register a push notification token
+ * @access  Private (Homeowner, Pro, Admin)
+ */
+router.post(
+  '/push-token',
+  asyncHandler(userController.registerPushToken)
+);
+
+/**
+ * @route   DELETE /api/v1/users/push-token
+ * @desc    Remove a push notification token
+ * @access  Private (Homeowner, Pro, Admin)
+ */
+router.delete(
+  '/push-token',
+  asyncHandler(userController.removePushToken)
+);
+
+/**
+ * @route   DELETE /api/v1/users/push-tokens
+ * @desc    Remove all push notification tokens (logout from all devices)
+ * @access  Private (Homeowner, Pro, Admin)
+ */
+router.delete(
+  '/push-tokens',
+  asyncHandler(userController.removeAllPushTokens)
+);
+
 export default router;

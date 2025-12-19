@@ -69,10 +69,16 @@ export default function HomeownerTabsLayout() {
       <Tabs.Screen
         name="messages"
         options={{
-          title: 'Messages',
+          href: null, // Hide from tab bar but keep accessible
+        }}
+      />
+      <Tabs.Screen
+        name="find-pros"
+        options={{
+          title: 'Find Pros',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? 'mail' : 'mail-outline'}
+              name={focused ? 'people' : 'people-outline'}
               size={24}
               color={color}
             />

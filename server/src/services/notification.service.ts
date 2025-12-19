@@ -8,6 +8,7 @@ import Notification, {
 import { User } from '../models/User.model';
 import { emitToUser, emitToUsers } from '../utils/socket.utils';
 import { logger } from '../utils/logger';
+import { pushService } from './push.service';
 
 interface CreateNotificationParams {
   recipient: string;
@@ -40,7 +41,7 @@ interface PaginatedNotifications {
 
 class NotificationService {
   /**
-   * Create a notification and emit via Socket.io
+   * Create a notification, emit via Socket.io, and send push notification
    */
   async createNotification(params: CreateNotificationParams): Promise<INotification> {
     try {
@@ -59,10 +60,35 @@ class NotificationService {
       // Emit to user via Socket.io for real-time updates
       emitToUser(params.recipient, 'notification:new', notification);
 
+      // Send push notification for high priority or specific types
+      const shouldSendPush = this.shouldSendPushNotification(params.type, params.priority);
+      if (shouldSendPush) {
+        // Map category to channel
+        const channelId = this.getCategoryChannelId(params.category);
+
+        // Send push notification (non-blocking)
+        pushService.sendToUser({
+          userId: params.recipient,
+          title: params.title,
+          body: params.message,
+          data: {
+            type: params.type,
+            notificationId: notification._id?.toString(),
+            actionUrl: params.actionUrl,
+            ...params.data,
+          },
+          channelId,
+          priority: params.priority === NotificationPriority.HIGH ? 'high' : 'default',
+        }).catch((error) => {
+          logger.warn('Failed to send push notification', { error, notificationId: notification._id });
+        });
+      }
+
       logger.info('Notification created', {
         notificationId: notification._id,
         recipient: params.recipient,
         type: params.type,
+        pushSent: shouldSendPush,
       });
 
       return notification;
@@ -70,6 +96,47 @@ class NotificationService {
       logger.error('Failed to create notification', { error, params });
       throw error;
     }
+  }
+
+  /**
+   * Determine if a push notification should be sent based on type and priority
+   */
+  private shouldSendPushNotification(
+    type: NotificationType,
+    priority?: NotificationPriority
+  ): boolean {
+    // Always send push for high priority
+    if (priority === NotificationPriority.HIGH) {
+      return true;
+    }
+
+    // Send push for specific notification types
+    const pushEnabledTypes: NotificationType[] = [
+      NotificationType.QUOTE_RECEIVED,
+      NotificationType.QUOTE_ACCEPTED,
+      NotificationType.QUOTE_REJECTED,
+      NotificationType.LEAD_ASSIGNED,
+      NotificationType.PRO_MESSAGED,
+      NotificationType.VERIFICATION_APPROVED,
+      NotificationType.VERIFICATION_REJECTED,
+    ];
+
+    return pushEnabledTypes.includes(type);
+  }
+
+  /**
+   * Map notification category to push notification channel ID
+   */
+  private getCategoryChannelId(category: NotificationCategory): string {
+    const channelMap: Record<NotificationCategory, string> = {
+      [NotificationCategory.QUOTE]: 'leads',
+      [NotificationCategory.LEAD]: 'leads',
+      [NotificationCategory.MESSAGE]: 'messages',
+      [NotificationCategory.VERIFICATION]: 'default',
+      [NotificationCategory.SYSTEM]: 'default',
+    };
+
+    return channelMap[category] || 'default';
   }
 
   /**

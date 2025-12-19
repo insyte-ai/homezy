@@ -79,7 +79,7 @@ Build a **single Expo React Native app** with role-based UI for both homeowners 
 - [x] Accept/decline quotes
 - [ ] HomeGPT AI chat with streaming
 - [x] Real-time messaging with pros
-- [ ] My Home: Properties, Projects, Service History, Reminders, Expenses
+- [x] My Home: Properties, Projects, Service History, Reminders, Expenses
 - [ ] Browse professionals
 - [x] In-app notifications
 - [x] Settings
@@ -256,17 +256,34 @@ Messaging: message:new, typing:user_typing, typing:user_stopped
 - [x] Real-time messaging
 - [x] Profile management (edit, portfolio, verification, settings)
 
-**Phase 4: In Progress**
-- [ ] HomeGPT AI chat with streaming
-- [ ] My Home section (Properties, Projects, Reminders)
-- [ ] Push notifications (backend integration needed)
+**Phase 4: My Home (Completed)**
+- [x] My Home hub screen with primary property and quick stats
+- [x] Properties: List, Create, Edit/View with rooms
+- [x] Projects: List, Create, Detail with Tasks/Costs/Milestones
+- [x] Reminders: List with snooze/pause/resume/complete actions
+- [x] Service History: List with category/type badges
+- [x] Expenses: List with summary and category breakdown
+- [x] API services for all My Home features
+
+**Phase 4: HomeGPT (Completed)**
+- [x] HomeGPT AI chat with streaming
+- [x] Chat store (Zustand) for message state management
+- [x] Socket.io hook for real-time token streaming
+- [x] Tool call indicators (searching professionals, calculating estimates, etc.)
+- [x] Welcome screen with suggestion prompts
+- [x] Connection status indicator
+
+**Phase 4: Push Notifications (Completed)**
+- [x] Push notifications with Expo
+- [x] Backend push service with expo-server-sdk
+- [x] Push token registration API endpoints
+- [x] Integration with notification service
+- [x] Android notification channels (default, messages, leads)
+- [x] Deep linking from notification taps
 
 ---
 
 ## Next Steps
 
-1. **HomeGPT Integration** - Port AI chat with streaming from web
-2. **My Home Section** - Properties CRUD, projects, service history
-3. **Push Notifications** - Add expo-server-sdk to backend
-4. **Testing & Polish** - E2E tests, performance optimization
-5. **App Store Submission** - EAS Build, TestFlight, Play Store
+1. **Testing & Polish** - E2E tests, performance optimization
+2. **App Store Submission** - EAS Build, TestFlight, Play Store

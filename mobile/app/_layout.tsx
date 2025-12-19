@@ -10,6 +10,7 @@ import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useAuthStore } from '../src/store/authStore';
+import { usePushNotifications } from '../src/hooks/usePushNotifications';
 import 'react-native-reanimated';
 
 export { ErrorBoundary } from 'expo-router';
@@ -19,6 +20,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { initialize, isInitialized } = useAuthStore();
+
+  // Initialize push notifications (runs when authenticated)
+  usePushNotifications();
 
   useEffect(() => {
     async function initializeApp() {

@@ -184,18 +184,82 @@ export const getProProfile = async (id: string): Promise<ProProfile> => {
 };
 
 /**
+ * Search result professional (matches backend response)
+ */
+export interface SearchResultPro {
+  id: string;
+  businessName: string;
+  slug: string;
+  profilePhoto?: string;
+  proProfile: {
+    businessName: string;
+    slug: string;
+    tagline?: string;
+    categories: string[];
+    serviceAreas: Array<{ emirate: string; neighborhoods?: string[] }>;
+    verificationStatus: string;
+    rating: number;
+    reviewCount: number;
+    projectsCompleted: number;
+    responseTimeHours: number;
+    quoteAcceptanceRate: number;
+    yearsInBusiness?: number;
+    hourlyRateMin?: number;
+    hourlyRateMax?: number;
+  };
+}
+
+/**
  * Search professionals
  */
 export const searchPros = async (params?: {
   q?: string;
+  category?: string;
   service?: string;
   emirate?: string;
+  minRating?: number;
   page?: number;
   limit?: number;
 }): Promise<{
-  professionals: Array<ProProfile & { user: { firstName: string; lastName: string; profilePhoto?: string } }>;
+  professionals: SearchResultPro[];
   pagination: { page: number; limit: number; total: number; pages: number };
 }> => {
   const response = await api.get('/pros/search', { params });
+  return response.data.data;
+};
+
+/**
+ * Review interface
+ */
+export interface Review {
+  id: string;
+  homeownerId: string;
+  homeownerName: string;
+  homeownerPhoto?: string;
+  overallRating: number;
+  categoryRatings?: {
+    quality?: number;
+    communication?: number;
+    punctuality?: number;
+    value?: number;
+  };
+  reviewText: string;
+  wouldRecommend: boolean;
+  createdAt: string;
+  jobId?: string;
+  jobCategory?: string;
+}
+
+/**
+ * Get professional reviews
+ */
+export const getProReviews = async (
+  proId: string,
+  params?: { page?: number; limit?: number }
+): Promise<{
+  reviews: Review[];
+  pagination: { page: number; limit: number; total: number; pages: number };
+}> => {
+  const response = await api.get(`/pros/${proId}/reviews`, { params });
   return response.data.data;
 };

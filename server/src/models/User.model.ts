@@ -15,6 +15,13 @@ import type {
   NotificationPreferences,
 } from '@homezy/shared';
 
+export interface PushToken {
+  token: string;
+  platform: 'ios' | 'android' | 'web';
+  deviceId?: string;
+  createdAt: Date;
+}
+
 export interface IUser extends Omit<UserType, 'id' | 'createdAt' | 'updatedAt'>, Document {
   password: string;
   refreshTokenVersion: number;
@@ -23,6 +30,7 @@ export interface IUser extends Omit<UserType, 'id' | 'createdAt' | 'updatedAt'>,
   hasSetPassword: boolean;
   isGuestAccount: boolean;
   proOnboardingCompleted: boolean;
+  pushTokens: PushToken[];
   comparePassword(candidatePassword: string): Promise<boolean>;
   incrementRefreshTokenVersion(): Promise<void>;
   generateMagicLinkToken(): Promise<string>;
@@ -298,6 +306,12 @@ const UserSchema = new Schema<IUser>(
     },
     homeownerProfile: HomeownerProfileSchema,
     proProfile: ProProfileSchema,
+    pushTokens: [{
+      token: { type: String, required: true },
+      platform: { type: String, enum: ['ios', 'android', 'web'], required: true },
+      deviceId: { type: String },
+      createdAt: { type: Date, default: Date.now },
+    }],
   },
   {
     timestamps: true,
