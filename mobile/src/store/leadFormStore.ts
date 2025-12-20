@@ -271,8 +271,10 @@ export const useLeadFormStore = create<LeadFormState>()(
           }
         }
 
-        // Step 1: Project details (title, description, location, budget, urgency)
-        if (currentStep === 1) {
+        // Step 1: Service-specific questions (handled in questions screen)
+
+        // Step 2: Project details (title, description, location, budget, urgency)
+        if (currentStep === 2) {
           if (!title || title.length < 10) {
             setError('title', 'Title must be at least 10 characters');
             isValid = false;
@@ -295,10 +297,10 @@ export const useLeadFormStore = create<LeadFormState>()(
           }
         }
 
-        // Step 2: Photo upload (optional - no validation required)
+        // Step 3: Photo upload (optional - no validation required)
 
-        // Step 3: Review (final validation before submit)
-        if (currentStep === 3) {
+        // Step 4: Review (final validation before submit)
+        if (currentStep === 4) {
           if (!selectedService) {
             setError('service', 'Please select a service');
             isValid = false;
@@ -335,12 +337,13 @@ export const useLeadFormStore = create<LeadFormState>()(
       reset: () => set(initialState),
 
       getTotalSteps: () => {
-        // Fixed 4-step flow:
+        // Fixed 5-step flow:
         // 0. Service selection
-        // 1. Project details (title, description, location, budget, urgency)
-        // 2. Photo upload (optional)
-        // 3. Review & submit
-        return 4;
+        // 1. Service-specific questions
+        // 2. Project details (title, description, location, budget, urgency)
+        // 3. Photo upload (optional)
+        // 4. Review & submit
+        return 5;
       },
 
       getProgress: () => {

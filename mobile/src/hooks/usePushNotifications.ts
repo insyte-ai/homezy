@@ -201,7 +201,8 @@ export const usePushNotifications = () => {
     const mappings: Record<string, string> = {
       '/dashboard/requests': '/(homeowner)/(tabs)/requests',
       '/dashboard/messages': '/(homeowner)/(tabs)/messages',
-      '/pro/dashboard/leads': '/(pro)/(tabs)/leads',
+      '/pro/dashboard/leads': '/(pro)/(tabs)/marketplace',
+      '/pro/dashboard/my-leads': '/(pro)/(tabs)/my-leads',
       '/pro/dashboard/quotes': '/(pro)/(tabs)/quotes',
       '/pro/dashboard/messages': '/(pro)/(tabs)/messages',
     };

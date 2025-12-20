@@ -22,9 +22,9 @@ import { spacing, borderRadius, layout } from '../../../src/theme/spacing';
 import { textStyles } from '../../../src/theme/typography';
 import { getMyProfile, ProProfile } from '../../../src/services/pro';
 
-type VerificationStatus = 'unverified' | 'pending' | 'basic' | 'comprehensive' | 'rejected';
+type VerificationStatus = 'pending' | 'approved' | 'rejected';
 
-const STATUS_CONFIG: Record<VerificationStatus, {
+const STATUS_CONFIG: Record<VerificationStatus | 'unverified', {
   icon: keyof typeof Ionicons.glyphMap;
   color: string;
   bgColor: string;
@@ -45,19 +45,12 @@ const STATUS_CONFIG: Record<VerificationStatus, {
     title: 'Verification Pending',
     description: 'Your documents are being reviewed. This usually takes 1-3 business days.',
   },
-  basic: {
+  approved: {
     icon: 'shield-checkmark',
     color: colors.success[600],
     bgColor: colors.success[50],
-    title: 'Basic Verified',
-    description: 'Your identity and trade license have been verified.',
-  },
-  comprehensive: {
-    icon: 'shield-checkmark',
-    color: colors.primary[600],
-    bgColor: colors.primary[50],
-    title: 'Fully Verified',
-    description: 'All your documents have been verified. You have our highest trust level.',
+    title: 'Verified',
+    description: 'Your documents have been verified. You get 15% discount on lead claims!',
   },
   rejected: {
     icon: 'close-circle',
@@ -156,7 +149,7 @@ export default function VerificationScreen() {
     );
   }
 
-  const status = (profile?.verificationStatus || 'unverified') as VerificationStatus;
+  const status = (profile?.verificationStatus || 'unverified') as VerificationStatus | 'unverified';
   const statusConfig = STATUS_CONFIG[status];
 
   return (
@@ -215,7 +208,7 @@ export default function VerificationScreen() {
           icon="card-outline"
           title="Emirates ID"
           description="Front and back of your Emirates ID"
-          status={status === 'basic' || status === 'comprehensive' ? 'verified' : 'required'}
+          status={status === 'approved' ? 'verified' : status === 'pending' ? 'pending' : 'required'}
           onUpload={() => handleUpload('Emirates ID')}
         />
 
@@ -223,7 +216,7 @@ export default function VerificationScreen() {
           icon="document-text-outline"
           title="Trade License"
           description="Valid trade license for your business"
-          status={status === 'basic' || status === 'comprehensive' ? 'verified' : 'required'}
+          status={status === 'approved' ? 'verified' : status === 'pending' ? 'pending' : 'required'}
           onUpload={() => handleUpload('Trade License')}
         />
 
@@ -231,7 +224,7 @@ export default function VerificationScreen() {
           icon="shield-checkmark-outline"
           title="Insurance Certificate"
           description="Proof of liability insurance (optional)"
-          status={status === 'comprehensive' ? 'verified' : 'missing'}
+          status={status === 'approved' ? 'verified' : 'missing'}
           onUpload={() => handleUpload('Insurance')}
         />
 
@@ -243,7 +236,7 @@ export default function VerificationScreen() {
           onUpload={() => handleUpload('Certifications')}
         />
 
-        {(status === 'unverified' || status === 'rejected') && (
+        {(status !== 'approved' && status !== 'pending') && (
           <View style={styles.buttonContainer}>
             <Button
               title="Start Verification"

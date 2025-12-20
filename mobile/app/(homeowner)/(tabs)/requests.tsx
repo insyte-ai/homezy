@@ -88,7 +88,7 @@ function LeadCard({ lead, onPress }: { lead: Lead; onPress: () => void }) {
         <View style={styles.statsContainer}>
           <View style={styles.statItem}>
             <Ionicons name="people-outline" size={16} color={colors.primary[500]} />
-            <Text style={styles.statText}>{lead.claimsCount} claims</Text>
+            <Text style={styles.statText}>{lead.claimCount ?? 0} claims</Text>
           </View>
           <View style={styles.statItem}>
             <Ionicons name="document-text-outline" size={16} color={colors.primary[500]} />

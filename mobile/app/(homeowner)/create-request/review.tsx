@@ -1,6 +1,6 @@
 /**
  * Review & Submit Screen
- * Step 4 (final) of the create request flow
+ * Step 5 (final) of the create request flow
  */
 
 import React, { useState, useEffect } from 'react';
@@ -180,7 +180,7 @@ export default function ReviewScreen() {
       </View>
 
       {/* Progress */}
-      <ProgressBar currentStep={3} totalSteps={4} />
+      <ProgressBar currentStep={4} totalSteps={5} />
 
       <ScrollView
         style={styles.scrollView}

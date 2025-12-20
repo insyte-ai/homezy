@@ -7,12 +7,13 @@ import { api } from './api';
 
 // Interfaces
 export interface CreditBalance {
-  totalCredits: number;
+  totalBalance: number;
   freeCredits: number;
   paidCredits: number;
   lifetimeEarned: number;
   lifetimeSpent: number;
   lastResetDate?: string;
+  lastSpendAt?: string;
 }
 
 export interface CreditTransaction {

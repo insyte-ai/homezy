@@ -63,10 +63,12 @@ Build a **single Expo React Native app** with role-based UI for both homeowners 
 | Tab | Screen | Icon |
 |-----|--------|------|
 | Home | Dashboard | home |
-| Leads | Marketplace | briefcase |
+| Marketplace | Lead Marketplace | storefront |
+| My Leads | Direct Requests + Claimed | briefcase |
 | Quotes | My Quotes | document-text |
-| Messages | Conversations | mail |
 | Profile | Portfolio, Settings | person |
+
+Note: Messages are accessible from the header icon (similar to homeowner experience)
 
 ---
 
@@ -77,10 +79,10 @@ Build a **single Expo React Native app** with role-based UI for both homeowners 
 - [x] Create service request (multi-step lead form)
 - [x] View leads and received quotes
 - [x] Accept/decline quotes
-- [ ] HomeGPT AI chat with streaming
+- [x] HomeGPT AI chat with streaming
 - [x] Real-time messaging with pros
 - [x] My Home: Properties, Projects, Service History, Reminders, Expenses
-- [ ] Browse professionals
+- [x] Browse professionals (Find Pros)
 - [x] In-app notifications
 - [x] Settings
 
@@ -251,9 +253,10 @@ Messaging: message:new, typing:user_typing, typing:user_stopped
 - [x] Pro dashboard with analytics
 - [x] Lead marketplace with filters
 - [x] Lead claiming with credit deduction
+- [x] My Leads screen (Direct Requests + Claimed leads tabs)
 - [x] Quote creation and management
 - [x] Credits balance display and purchase flow
-- [x] Real-time messaging
+- [x] Real-time messaging (header icon)
 - [x] Profile management (edit, portfolio, verification, settings)
 
 **Phase 4: My Home (Completed)**
@@ -272,6 +275,11 @@ Messaging: message:new, typing:user_typing, typing:user_stopped
 - [x] Tool call indicators (searching professionals, calculating estimates, etc.)
 - [x] Welcome screen with suggestion prompts
 - [x] Connection status indicator
+
+**Find Pros (Completed)**
+- [x] Browse professionals screen for homeowners
+- [x] Search and filter by category
+- [x] Professional cards with ratings and details
 
 **Phase 4: Push Notifications (Completed)**
 - [x] Push notifications with Expo

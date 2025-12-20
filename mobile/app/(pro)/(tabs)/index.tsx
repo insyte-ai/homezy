@@ -21,6 +21,7 @@ import { colors } from '../../../src/theme/colors';
 import { spacing, borderRadius, layout } from '../../../src/theme/spacing';
 import { textStyles } from '../../../src/theme/typography';
 import { useAuthStore } from '../../../src/store/authStore';
+import { useMessagingStore } from '../../../src/store/messagingStore';
 import { getAnalytics, ProAnalytics } from '../../../src/services/pro';
 import { getBalance, CreditBalance } from '../../../src/services/credits';
 
@@ -75,11 +76,11 @@ function QuickAction({
     <TouchableOpacity style={styles.quickAction} onPress={onPress} activeOpacity={0.7}>
       <View style={styles.quickActionIcon}>
         <Ionicons name={icon as any} size={24} color={colors.professional.primary} />
-        {badge && badge > 0 && (
+        {badge != null && badge > 0 ? (
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{badge > 99 ? '99+' : badge}</Text>
           </View>
-        )}
+        ) : null}
       </View>
       <Text style={styles.quickActionLabel}>{label}</Text>
     </TouchableOpacity>
@@ -88,6 +89,7 @@ function QuickAction({
 
 export default function ProDashboard() {
   const { user, logout } = useAuthStore();
+  const { totalUnread, refreshUnreadCount } = useMessagingStore();
 
   const [analytics, setAnalytics] = useState<ProAnalytics | null>(null);
   const [creditBalance, setCreditBalance] = useState<CreditBalance | null>(null);
@@ -118,6 +120,7 @@ export default function ProDashboard() {
 
   useEffect(() => {
     loadData();
+    refreshUnreadCount();
   }, []);
 
   useFocusEffect(
@@ -141,7 +144,7 @@ export default function ProDashboard() {
   };
 
   const handleBrowseLeads = () => {
-    router.push('/(pro)/(tabs)/leads');
+    router.push('/(pro)/(tabs)/marketplace');
   };
 
   const handleViewQuotes = () => {
@@ -178,13 +181,26 @@ export default function ProDashboard() {
               {user?.proProfile?.businessName || user?.firstName || 'Professional'}
             </Text>
           </View>
-          <TouchableOpacity onPress={handleViewProfile}>
-            <Avatar
-              source={user?.profilePhoto}
-              name={`${user?.firstName} ${user?.lastName}`}
-              size="lg"
-            />
-          </TouchableOpacity>
+          <View style={styles.headerRight}>
+            {/* Messages Icon */}
+            <TouchableOpacity onPress={handleViewMessages} style={styles.messagesButton}>
+              <Ionicons name="chatbubbles-outline" size={24} color={colors.text.primary} />
+              {totalUnread > 0 && (
+                <View style={styles.unreadBadge}>
+                  <Text style={styles.unreadText}>
+                    {totalUnread > 99 ? '99+' : totalUnread}
+                  </Text>
+                </View>
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleViewProfile}>
+              <Avatar
+                source={user?.profilePhoto}
+                name={`${user?.firstName} ${user?.lastName}`}
+                size="lg"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Credits Banner */}
@@ -194,7 +210,7 @@ export default function ProDashboard() {
               <View>
                 <Text style={styles.creditsLabel}>Available Credits</Text>
                 <Text style={styles.creditsValue}>
-                  {isLoading ? '...' : creditBalance?.totalCredits ?? 0}
+                  {isLoading ? '...' : creditBalance?.totalBalance ?? 0}
                 </Text>
               </View>
               <TouchableOpacity style={styles.buyButton} onPress={handleBuyCredits}>
@@ -202,7 +218,7 @@ export default function ProDashboard() {
                 <Text style={styles.buyButtonText}>Buy Credits</Text>
               </TouchableOpacity>
             </View>
-            {creditBalance && creditBalance.totalCredits < 10 && (
+            {creditBalance && creditBalance.totalBalance < 10 && (
               <View style={styles.lowCreditsWarning}>
                 <Ionicons name="warning" size={14} color={colors.warning[500]} />
                 <Text style={styles.lowCreditsText}>Low credits - Buy more to claim leads</Text>
@@ -217,13 +233,13 @@ export default function ProDashboard() {
             icon="briefcase-outline"
             label="Browse Leads"
             onPress={handleBrowseLeads}
-            badge={analytics?.recentActivity.newLeadsToday}
+            badge={analytics?.overview.claimedLeads.last7Days}
           />
           <QuickAction
             icon="document-text-outline"
             label="My Quotes"
             onPress={handleViewQuotes}
-            badge={analytics?.recentActivity.pendingQuotes}
+            badge={analytics?.quotes.pending}
           />
           <QuickAction
             icon="mail-outline"
@@ -248,44 +264,44 @@ export default function ProDashboard() {
             <StatCard
               icon="flash-outline"
               iconColor={colors.primary[500]}
-              value={analytics?.recentActivity.newLeadsToday ?? 0}
-              label="New Leads Today"
+              value={analytics?.overview.claimedLeads.last7Days ?? 0}
+              label="Leads This Week"
               onPress={handleBrowseLeads}
             />
             <StatCard
               icon="checkmark-circle-outline"
               iconColor={colors.success[500]}
-              value={analytics?.overview.totalLeadsClaimed ?? 0}
-              label="Leads Claimed"
+              value={analytics?.overview.claimedLeads.total ?? 0}
+              label="Total Leads Claimed"
             />
             <StatCard
               icon="document-outline"
               iconColor={colors.warning[500]}
-              value={analytics?.recentActivity.pendingQuotes ?? 0}
+              value={analytics?.quotes.pending ?? 0}
               label="Pending Quotes"
               onPress={handleViewQuotes}
             />
             <StatCard
               icon="trophy-outline"
               iconColor={colors.professional.primary}
-              value={analytics?.overview.quotesAccepted ?? 0}
+              value={analytics?.quotes.accepted ?? 0}
               label="Quotes Accepted"
             />
           </View>
         )}
 
         {/* Conversion Rate */}
-        {analytics && analytics.overview.conversionRate > 0 && (
+        {analytics && analytics.quotes.acceptanceRate > 0 && (
           <Card style={styles.conversionCard}>
             <View style={styles.conversionHeader}>
               <Ionicons name="trending-up" size={20} color={colors.success[500]} />
               <Text style={styles.conversionTitle}>Conversion Rate</Text>
             </View>
             <Text style={styles.conversionValue}>
-              {(analytics.overview.conversionRate * 100).toFixed(1)}%
+              {analytics.quotes.acceptanceRate.toFixed(0)}%
             </Text>
             <Text style={styles.conversionSubtitle}>
-              {analytics.overview.quotesAccepted} of {analytics.overview.totalQuotesSubmitted} quotes accepted
+              {analytics.quotes.accepted} of {analytics.quotes.total} quotes accepted
             </Text>
           </Card>
         )}
@@ -296,45 +312,49 @@ export default function ProDashboard() {
           <View style={styles.verificationContent}>
             <Ionicons
               name={
-                user?.proProfile?.verificationStatus === 'comprehensive'
+                user?.proProfile?.verificationStatus === 'approved'
                   ? 'shield-checkmark'
-                  : user?.proProfile?.verificationStatus === 'basic'
+                  : user?.proProfile?.verificationStatus === 'pending'
                   ? 'shield-half'
                   : 'shield-outline'
               }
               size={32}
               color={
-                user?.proProfile?.verificationStatus === 'comprehensive'
+                user?.proProfile?.verificationStatus === 'approved'
                   ? colors.success[500]
-                  : user?.proProfile?.verificationStatus === 'basic'
-                  ? colors.primary[500]
-                  : colors.warning[500]
+                  : user?.proProfile?.verificationStatus === 'pending'
+                  ? colors.warning[500]
+                  : colors.neutral[400]
               }
             />
             <View style={styles.verificationText}>
               <Text style={styles.verificationTitle}>
-                {user?.proProfile?.verificationStatus === 'comprehensive'
-                  ? 'Fully Verified'
-                  : user?.proProfile?.verificationStatus === 'basic'
-                  ? 'Basic Verified'
+                {user?.proProfile?.verificationStatus === 'approved'
+                  ? 'Verified'
                   : user?.proProfile?.verificationStatus === 'pending'
                   ? 'Verification Pending'
+                  : user?.proProfile?.verificationStatus === 'rejected'
+                  ? 'Verification Rejected'
                   : 'Not Verified'}
               </Text>
               <Text style={styles.verificationSubtitle}>
-                {user?.proProfile?.verificationStatus === 'comprehensive'
+                {user?.proProfile?.verificationStatus === 'approved'
                   ? 'You get 15% discount on lead claims'
-                  : user?.proProfile?.verificationStatus === 'basic'
-                  ? 'Upgrade to comprehensive for 15% discount'
+                  : user?.proProfile?.verificationStatus === 'pending'
+                  ? 'Your documents are under review'
+                  : user?.proProfile?.verificationStatus === 'rejected'
+                  ? 'Please resubmit your documents'
                   : 'Complete verification to build trust'}
               </Text>
             </View>
           </View>
-          {user?.proProfile?.verificationStatus !== 'comprehensive' && (
+          {user?.proProfile?.verificationStatus !== 'approved' && (
             <TouchableOpacity style={styles.verifyButton} onPress={handleViewProfile}>
               <Text style={styles.verifyButtonText}>
-                {user?.proProfile?.verificationStatus === 'basic'
-                  ? 'Upgrade Verification'
+                {user?.proProfile?.verificationStatus === 'rejected'
+                  ? 'Resubmit Documents'
+                  : user?.proProfile?.verificationStatus === 'pending'
+                  ? 'View Status'
                   : 'Start Verification'}
               </Text>
               <Ionicons name="chevron-forward" size={16} color={colors.professional.primary} />
@@ -343,7 +363,7 @@ export default function ProDashboard() {
         </Card>
 
         {/* Direct Leads Alert */}
-        {analytics && analytics.recentActivity.directLeadsPending > 0 && (
+        {analytics && (analytics.recentActivity.directLeadsPending ?? 0) > 0 && (
           <Card style={styles.directLeadsCard}>
             <View style={styles.directLeadsContent}>
               <View style={styles.directLeadsIcon}>
@@ -352,7 +372,7 @@ export default function ProDashboard() {
               <View style={styles.directLeadsText}>
                 <Text style={styles.directLeadsTitle}>
                   {analytics.recentActivity.directLeadsPending} Direct Lead
-                  {analytics.recentActivity.directLeadsPending > 1 ? 's' : ''}
+                  {(analytics.recentActivity.directLeadsPending ?? 0) > 1 ? 's' : ''}
                 </Text>
                 <Text style={styles.directLeadsSubtitle}>
                   Homeowners sent you leads directly. Respond within 24h!
@@ -361,7 +381,7 @@ export default function ProDashboard() {
             </View>
             <TouchableOpacity
               style={styles.directLeadsButton}
-              onPress={() => router.push('/(pro)/(tabs)/leads')}
+              onPress={() => router.push('/(pro)/(tabs)/my-leads')}
             >
               <Text style={styles.directLeadsButtonText}>View Now</Text>
             </TouchableOpacity>
@@ -420,6 +440,33 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: spacing[4],
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing[3],
+  },
+  messagesButton: {
+    position: 'relative',
+    padding: spacing[2],
+  },
+  unreadBadge: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: colors.error[500],
+    borderRadius: 10,
+    minWidth: 18,
+    height: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+  },
+  unreadText: {
+    ...textStyles.caption,
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: '700',
   },
   greeting: {
     ...textStyles.body,

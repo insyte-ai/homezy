@@ -234,7 +234,7 @@ export default function ProLeadDetailsScreen() {
       if (creditBalance) {
         setCreditBalance({
           ...creditBalance,
-          totalCredits: result.remainingCredits,
+          totalBalance: result.remainingCredits,
         });
       }
 
@@ -336,9 +336,9 @@ export default function ProLeadDetailsScreen() {
   const canClaim =
     !hasClaimed &&
     lead.status === 'open' &&
-    lead.claimsCount < lead.maxClaimsAllowed;
+    (lead.claimCount ?? 0) < (lead.maxClaims ?? 5);
 
-  const credits = creditBalance?.totalCredits || 0;
+  const credits = creditBalance?.totalBalance || 0;
 
   // Get homeowner info if claimed
   const homeowner =
@@ -441,7 +441,7 @@ export default function ProLeadDetailsScreen() {
               <View style={styles.detailContent}>
                 <Text style={styles.detailLabel}>Claims</Text>
                 <Text style={styles.detailValue}>
-                  {lead.claimsCount} / {lead.maxClaimsAllowed} professionals
+                  {lead.claimCount ?? 0} / {lead.maxClaims ?? 5} professionals
                 </Text>
               </View>
             </View>

@@ -18,7 +18,7 @@ export interface ProProfile {
   employeeCount?: number;
   services: string[];
   serviceAreas: string[];
-  verificationStatus: 'unverified' | 'pending' | 'basic' | 'comprehensive' | 'rejected';
+  verificationStatus: 'pending' | 'approved' | 'rejected';
   rating: number;
   reviewCount: number;
   completedJobs: number;
@@ -49,29 +49,49 @@ export interface PortfolioItem {
 
 export interface ProAnalytics {
   overview: {
-    totalLeadsClaimed: number;
-    totalQuotesSubmitted: number;
-    quotesAccepted: number;
-    quotesDeclined: number;
-    conversionRate: number;
-    totalRevenue: number;
-    averageQuoteValue: number;
-  };
-  credits: {
-    totalCredits: number;
-    creditsSpentThisMonth: number;
-    creditsSpentAllTime: number;
+    activeQuotes: number;
+    claimedLeads: {
+      change: number;
+      last7Days: number;
+      total: number;
+    };
+    creditBalance: {
+      free: number;
+      paid: number;
+      total: number;
+    };
+    projectsCompleted: number;
   };
   performance: {
-    responseTime: number;
+    projectsCompleted: number;
     rating: number;
+    responseTimeHours: number;
     reviewCount: number;
   };
+  quotes: {
+    acceptanceRate: number;
+    accepted: number;
+    avgValue: number;
+    last7Days: number;
+    pending: number;
+    rejected: number;
+    total: number;
+  };
   recentActivity: {
-    pendingQuotes: number;
-    activeJobs: number;
-    newLeadsToday: number;
-    directLeadsPending: number;
+    transactions: Array<{
+      id: string;
+      type: string;
+      amount: number;
+      description: string;
+      createdAt: string;
+    }>;
+    directLeadsPending?: number;
+    newLeadsToday?: number;
+  };
+  revenue: {
+    change: number;
+    lastMonth: number;
+    total: number;
   };
 }
 

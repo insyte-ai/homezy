@@ -1,6 +1,6 @@
 /**
  * Project Details Screen
- * Step 2 of the create request flow
+ * Step 3 of the create request flow
  */
 
 import React, { useState } from 'react';
@@ -197,7 +197,7 @@ export default function ProjectDetailsScreen() {
         </View>
 
         {/* Progress */}
-        <ProgressBar currentStep={1} totalSteps={4} />
+        <ProgressBar currentStep={2} totalSteps={5} />
 
         <ScrollView
           style={styles.scrollView}

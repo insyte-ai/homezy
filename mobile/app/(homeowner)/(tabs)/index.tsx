@@ -11,12 +11,36 @@ import { Card, Avatar } from '../../../src/components/ui';
 import { SearchBar } from '../../../src/components/home/SearchBar';
 import { PopularServices } from '../../../src/components/home/PopularServices';
 import { colors } from '../../../src/theme/colors';
-import { spacing } from '../../../src/theme/spacing';
+import { spacing, borderRadius } from '../../../src/theme/spacing';
 import { textStyles } from '../../../src/theme/typography';
 import { useAuthStore } from '../../../src/store/authStore';
 import { useMessagingStore } from '../../../src/store/messagingStore';
 import { useLeadFormStore } from '../../../src/store/leadFormStore';
 import { SubService } from '../../../src/services/services';
+
+// Quick action button for home management features
+function QuickAction({
+  icon,
+  label,
+  color,
+  bgColor,
+  onPress,
+}: {
+  icon: string;
+  label: string;
+  color: string;
+  bgColor: string;
+  onPress: () => void;
+}) {
+  return (
+    <TouchableOpacity style={styles.quickAction} onPress={onPress} activeOpacity={0.7}>
+      <View style={[styles.quickActionIcon, { backgroundColor: bgColor }]}>
+        <Ionicons name={icon as any} size={22} color={color} />
+      </View>
+      <Text style={styles.quickActionLabel} numberOfLines={2}>{label}</Text>
+    </TouchableOpacity>
+  );
+}
 
 export default function HomeownerDashboard() {
   const { user } = useAuthStore();
@@ -42,6 +66,23 @@ export default function HomeownerDashboard() {
     };
     setService(subService);
     router.push('/(homeowner)/create-request/' as any);
+  };
+
+  // Quick action handlers
+  const handleNewProject = () => {
+    router.push('/(homeowner)/my-home/projects/new');
+  };
+
+  const handleAddExpense = () => {
+    router.push('/(homeowner)/my-home/expenses');
+  };
+
+  const handleSetReminder = () => {
+    router.push('/(homeowner)/my-home/reminders');
+  };
+
+  const handleSaveIdea = () => {
+    router.push('/(homeowner)/my-home/projects');
   };
 
   return (
@@ -83,6 +124,39 @@ export default function HomeownerDashboard() {
         {/* Popular Services */}
         <View style={styles.section}>
           <PopularServices onServiceSelect={handleServiceSelect} />
+        </View>
+
+        {/* Quick Actions for Home Management */}
+        <Text style={styles.sectionTitle}>Home Management</Text>
+        <View style={styles.quickActionsContainer}>
+          <QuickAction
+            icon="construct-outline"
+            label="New Project"
+            color={colors.primary[600]}
+            bgColor={colors.primary[50]}
+            onPress={handleNewProject}
+          />
+          <QuickAction
+            icon="wallet-outline"
+            label="Add Expense"
+            color={colors.success[600]}
+            bgColor={colors.success[50]}
+            onPress={handleAddExpense}
+          />
+          <QuickAction
+            icon="notifications-outline"
+            label="Set Reminder"
+            color={colors.warning[600]}
+            bgColor={colors.warning[50]}
+            onPress={handleSetReminder}
+          />
+          <QuickAction
+            icon="bulb-outline"
+            label="Save Idea"
+            color={colors.info[600]}
+            bgColor={colors.info[50]}
+            onPress={handleSaveIdea}
+          />
         </View>
 
         {/* Stats Cards */}
@@ -171,6 +245,30 @@ const styles = StyleSheet.create({
     ...textStyles.h4,
     color: colors.text.primary,
     marginBottom: spacing[3],
+  },
+  // Quick Actions
+  quickActionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: spacing[6],
+  },
+  quickAction: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  quickActionIcon: {
+    width: 52,
+    height: 52,
+    borderRadius: borderRadius.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing[2],
+  },
+  quickActionLabel: {
+    ...textStyles.caption,
+    color: colors.text.secondary,
+    textAlign: 'center',
+    fontWeight: '500',
   },
   statsRow: {
     flexDirection: 'row',

@@ -64,7 +64,7 @@ export function ProCard({ professional, onViewProfile, onRequestQuote }: ProCard
               {businessName}
             </Text>
             <VerificationBadges
-              verificationStatus={verificationStatus as 'unverified' | 'pending' | 'basic' | 'comprehensive' | 'rejected' | 'approved'}
+              verificationStatus={verificationStatus as 'pending' | 'approved' | 'rejected'}
               size="sm"
               showLabel={false}
             />

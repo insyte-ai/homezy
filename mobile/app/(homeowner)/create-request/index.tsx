@@ -110,6 +110,16 @@ export default function ServiceSelectionScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasRedirected, setHasRedirected] = useState(false);
+
+  // If service is already selected (from dashboard), skip to questionnaire/details
+  useEffect(() => {
+    if (selectedService && !hasRedirected) {
+      setHasRedirected(true);
+      // Skip to questionnaire step (or details if no questionnaire)
+      router.replace('/(homeowner)/create-request/questions');
+    }
+  }, [selectedService, hasRedirected]);
 
   // Load all services on mount
   useEffect(() => {
@@ -156,7 +166,7 @@ export default function ServiceSelectionScreen() {
 
   const handleContinue = () => {
     if (selectedService) {
-      router.push('/(homeowner)/create-request/details');
+      router.push('/(homeowner)/create-request/questions');
     }
   };
 
@@ -191,7 +201,7 @@ export default function ServiceSelectionScreen() {
       </View>
 
       {/* Progress */}
-      <ProgressBar currentStep={0} totalSteps={4} />
+      <ProgressBar currentStep={0} totalSteps={5} />
 
       {/* Title */}
       <View style={styles.titleSection}>

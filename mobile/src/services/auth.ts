@@ -55,7 +55,7 @@ export interface User {
   };
   proProfile?: {
     businessName?: string;
-    verificationStatus?: 'unverified' | 'pending' | 'basic' | 'comprehensive' | 'rejected';
+    verificationStatus?: 'pending' | 'approved' | 'rejected';
     services?: string[];
     serviceAreas?: string[];
     rating?: number;

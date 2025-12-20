@@ -10,7 +10,7 @@ import { colors } from '../../theme/colors';
 import { spacing, borderRadius } from '../../theme/spacing';
 import { textStyles } from '../../theme/typography';
 
-type VerificationStatus = 'unverified' | 'pending' | 'basic' | 'comprehensive' | 'rejected' | 'approved';
+type VerificationStatus = 'pending' | 'approved' | 'rejected';
 
 interface VerificationBadgesProps {
   verificationStatus: VerificationStatus;
@@ -24,29 +24,11 @@ const statusConfig: Record<VerificationStatus, {
   color: string;
   bgColor: string;
 }> = {
-  unverified: {
-    label: 'Unverified',
-    icon: 'shield-outline',
-    color: colors.text.tertiary,
-    bgColor: colors.neutral[100],
-  },
   pending: {
     label: 'Pending',
     icon: 'time-outline',
     color: colors.warning[600],
     bgColor: colors.warning[50],
-  },
-  basic: {
-    label: 'Verified',
-    icon: 'shield-checkmark',
-    color: colors.primary[600],
-    bgColor: colors.primary[50],
-  },
-  comprehensive: {
-    label: 'Fully Verified',
-    icon: 'shield-checkmark',
-    color: colors.success[600],
-    bgColor: colors.success[50],
   },
   approved: {
     label: 'Verified',
@@ -67,11 +49,11 @@ export function VerificationBadges({
   size = 'md',
   showLabel = true,
 }: VerificationBadgesProps) {
-  const config = statusConfig[verificationStatus] || statusConfig.unverified;
+  const config = statusConfig[verificationStatus] || statusConfig.pending;
   const iconSize = size === 'sm' ? 14 : 18;
 
-  // For unverified, don't show anything
-  if (verificationStatus === 'unverified') {
+  // Only show badge for approved or pending
+  if (!verificationStatus || !config) {
     return null;
   }
 
@@ -87,9 +69,6 @@ export function VerificationBadges({
         >
           {config.label}
         </Text>
-      )}
-      {verificationStatus === 'comprehensive' && (
-        <Ionicons name="checkmark" size={iconSize - 2} color={config.color} />
       )}
     </View>
   );

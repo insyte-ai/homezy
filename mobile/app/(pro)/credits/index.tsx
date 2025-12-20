@@ -279,7 +279,7 @@ export default function CreditsScreen() {
             <Ionicons name="ticket" size={32} color={colors.primary[600]} />
             <Text style={styles.balanceLabel}>Available Credits</Text>
           </View>
-          <Text style={styles.balanceAmount}>{balance?.totalCredits || 0}</Text>
+          <Text style={styles.balanceAmount}>{balance?.totalBalance || 0}</Text>
 
           <View style={styles.balanceBreakdown}>
             <View style={styles.breakdownItem}>

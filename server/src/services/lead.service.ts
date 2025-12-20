@@ -124,6 +124,9 @@ export const getLeadById = async (leadId: string, userId?: string) => {
     }
   }
 
+  // Add creditsRequired for professionals viewing the lead
+  leadData.creditsRequired = calculateLeadCreditCost(lead);
+
   return {
     lead: leadData,
     hasClaimed,

@@ -87,10 +87,10 @@ export interface Lead {
   timeline?: string;
   attachments?: LeadAttachment[];
   status: LeadStatus;
-  claimsCount: number;
-  quotesCount: number;
-  maxClaimsAllowed: number;
-  creditsRequired: number;
+  claimCount: number;
+  quotesCount?: number;
+  maxClaims: number;
+  creditsRequired?: number;
   expiresAt: string;
   createdAt: string;
   updatedAt: string;
@@ -202,6 +202,8 @@ interface LeadResponse {
   message: string;
   data: {
     lead: Lead;
+    hasClaimed?: boolean;
+    isOwner?: boolean;
   };
 }
 
@@ -290,7 +292,12 @@ export const getMyLeads = async (params?: {
  */
 export const getLeadById = async (leadId: string): Promise<Lead> => {
   const response = await api.get<LeadResponse>(`/leads/${leadId}`);
-  return response.data.data.lead;
+  const { lead, hasClaimed } = response.data.data;
+  // Include hasClaimed from the response in the lead object
+  return {
+    ...lead,
+    hasClaimed: hasClaimed ?? lead.hasClaimed,
+  };
 };
 
 /**

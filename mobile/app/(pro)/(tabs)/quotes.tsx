@@ -286,7 +286,7 @@ export default function QuotesScreen() {
           onAction={
             statusFilter !== 'all'
               ? () => setStatusFilter('all')
-              : () => router.push('/(pro)/(tabs)/leads')
+              : () => router.push('/(pro)/(tabs)/marketplace')
           }
         />
       ) : (

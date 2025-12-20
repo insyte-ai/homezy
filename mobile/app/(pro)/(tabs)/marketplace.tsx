@@ -110,7 +110,7 @@ function MarketplaceLeadCard({
           <View style={styles.claimCount}>
             <Ionicons name="people-outline" size={14} color={colors.text.tertiary} />
             <Text style={styles.claimCountText}>
-              {lead.claimsCount}/{lead.maxClaimsAllowed} claimed
+              {lead.claimCount ?? 0}/{lead.maxClaims ?? 5} claimed
             </Text>
           </View>
         </View>
@@ -327,13 +327,13 @@ export default function LeadsScreen() {
           urgency: filters.urgency,
         }),
         services.length === 0 ? getAllServices() : Promise.resolve(services),
-        getBalance().catch(() => ({ balance: { totalCredits: 0 } })),
+        getBalance().catch(() => ({ balance: { totalBalance: 0 } })),
       ]);
 
       setLeads(page === 1 ? leadsData.leads : [...leads, ...leadsData.leads]);
       setPagination(leadsData.pagination || { page: 1, total: 0, pages: 0 });
       if (servicesData !== services) setServices(servicesData as ServiceGroup[]);
-      setCredits(balanceData.balance.totalCredits);
+      setCredits(balanceData.balance.totalBalance);
     } catch (err) {
       console.error('Error loading leads:', err);
       setError('Failed to load leads. Please try again.');

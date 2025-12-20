@@ -41,9 +41,22 @@ export default function ProTabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="leads"
+        name="marketplace"
         options={{
-          title: 'Leads',
+          title: 'Marketplace',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'storefront' : 'storefront-outline'}
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="my-leads"
+        options={{
+          title: 'My Leads',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? 'briefcase' : 'briefcase-outline'}
@@ -69,14 +82,7 @@ export default function ProTabsLayout() {
       <Tabs.Screen
         name="messages"
         options={{
-          title: 'Messages',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'mail' : 'mail-outline'}
-              size={24}
-              color={color}
-            />
-          ),
+          href: null, // Hide from tab bar but keep accessible
         }}
       />
       <Tabs.Screen

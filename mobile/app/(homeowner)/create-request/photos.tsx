@@ -1,6 +1,6 @@
 /**
  * Photo Upload Screen
- * Step 3 of the create request flow
+ * Step 4 of the create request flow
  */
 
 import React, { useState } from 'react';
@@ -176,7 +176,7 @@ export default function PhotosScreen() {
       </View>
 
       {/* Progress */}
-      <ProgressBar currentStep={2} totalSteps={4} />
+      <ProgressBar currentStep={3} totalSteps={5} />
 
       <ScrollView
         style={styles.scrollView}
