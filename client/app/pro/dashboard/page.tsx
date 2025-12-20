@@ -4,8 +4,55 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getProAnalytics, ProAnalytics } from '@/lib/services/analytics';
 import { getMyDirectLeads, getMarketplace, Lead } from '@/lib/services/leads';
-import { TrendingUp, DollarSign, FileText, Star, Clock, Inbox } from 'lucide-react';
+import { getMyProfile } from '@/lib/services/professional';
+import { TrendingUp, DollarSign, FileText, Star, Clock, Inbox, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
+
+// Map section names to next step configurations
+const SECTION_STEP_CONFIG: Record<string, { icon: string; title: string; description: string; link: string; priority: number }> = {
+  'Verification': {
+    icon: '📄',
+    title: 'Upload verification documents',
+    description: 'Upload your trade license and insurance to get verified',
+    link: '/pro/dashboard/verification',
+    priority: 1,
+  },
+  'Portfolio': {
+    icon: '📸',
+    title: 'Add a portfolio project',
+    description: 'Showcase your work to get more responses',
+    link: '/pro/dashboard/portfolio',
+    priority: 2,
+  },
+  'Basic Information': {
+    icon: '✍️',
+    title: 'Complete your profile',
+    description: 'Add tagline, bio, years in business, team size, and languages',
+    link: '/pro/dashboard/profile',
+    priority: 3,
+  },
+  'Services & Areas': {
+    icon: '📍',
+    title: 'Set service areas',
+    description: 'Define where you provide services',
+    link: '/pro/dashboard/profile',
+    priority: 4,
+  },
+  'Pricing': {
+    icon: '💰',
+    title: 'Set your pricing',
+    description: 'Add hourly rates or minimum project size',
+    link: '/pro/dashboard/profile',
+    priority: 5,
+  },
+  'Availability': {
+    icon: '📅',
+    title: 'Set your availability',
+    description: 'Let customers know when you\'re available',
+    link: '/pro/dashboard/profile',
+    priority: 6,
+  },
+};
 
 export default function ProDashboardPage() {
   const [analytics, setAnalytics] = useState<ProAnalytics | null>(null);
@@ -13,11 +60,16 @@ export default function ProDashboardPage() {
   const [directLeadsCount, setDirectLeadsCount] = useState(0);
   const [recentLeads, setRecentLeads] = useState<Lead[]>([]);
   const [leadsLoading, setLeadsLoading] = useState(true);
+  const [profileCompleteness, setProfileCompleteness] = useState<{
+    percentage: number;
+    missingSections: string[];
+  } | null>(null);
 
   useEffect(() => {
     loadAnalytics();
     loadDirectLeadsCount();
     loadRecentLeads();
+    loadProfileCompleteness();
   }, []);
 
   const loadAnalytics = async () => {
@@ -54,6 +106,25 @@ export default function ProDashboardPage() {
     }
   };
 
+  const loadProfileCompleteness = async () => {
+    try {
+      const data = await getMyProfile();
+      setProfileCompleteness({
+        percentage: data.completeness.percentage,
+        missingSections: data.completeness.missingSections,
+      });
+    } catch (error) {
+      console.error('Failed to load profile completeness:', error);
+    }
+  };
+
+  // Build next steps from missing sections
+  const nextSteps = profileCompleteness?.missingSections
+    .map((section) => SECTION_STEP_CONFIG[section])
+    .filter(Boolean)
+    .sort((a, b) => a.priority - b.priority)
+    .slice(0, 3) || [];
+
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -67,32 +138,6 @@ export default function ProDashboardPage() {
     return date.toLocaleDateString();
   };
 
-  const nextSteps = [
-    {
-      id: 1,
-      icon: '📸',
-      title: 'Add portfolio photos',
-      description: 'Pros with portfolios get 3x more responses',
-      link: '/pro/dashboard/portfolio',
-      primary: true,
-    },
-    {
-      id: 2,
-      icon: '💰',
-      title: 'Purchase credits',
-      description: 'Get ready to claim your first lead',
-      link: '/pro/dashboard/credits',
-      primary: false,
-    },
-    {
-      id: 3,
-      icon: '✍️',
-      title: 'Complete your bio',
-      description: 'Tell homeowners about your experience',
-      link: '/pro/dashboard/profile',
-      primary: false,
-    },
-  ];
 
 
   return (
@@ -314,39 +359,75 @@ export default function ProDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column - Next Steps */}
         <div className="lg:col-span-2">
-          {/* Next Steps Card */}
+          {/* Profile Completion Card */}
           <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 mb-8">
-            <h2 className="text-xl font-bold text-neutral-900 mb-4">
-              Complete Your Setup
-            </h2>
-            <div className="space-y-3">
-              {nextSteps.map((step) => (
-                <Link
-                  key={step.id}
-                  href={step.link}
-                  className={`block p-4 rounded-lg border-2 transition-all hover:shadow-md ${
-                    step.primary
-                      ? 'border-primary-600 bg-primary-50 hover:border-primary-700'
-                      : 'border-neutral-200 hover:border-neutral-300'
-                  }`}
-                >
-                  <div className="flex items-start">
-                    <span className="text-2xl mr-3">{step.icon}</span>
-                    <div className="flex-1">
-                      <h3 className={`font-semibold mb-1 ${step.primary ? 'text-primary-900' : 'text-neutral-900'}`}>
-                        {step.title}
-                      </h3>
-                      <p className={`text-sm ${step.primary ? 'text-primary-700' : 'text-neutral-600'}`}>
-                        {step.description}
-                      </p>
-                    </div>
-                    <svg className="w-5 h-5 text-neutral-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-neutral-900">
+                {profileCompleteness?.percentage === 100 ? 'Profile Complete!' : 'Complete Your Profile'}
+              </h2>
+              {profileCompleteness && (
+                <div className="flex items-center gap-2">
+                  <div className="w-24 h-2 bg-neutral-200 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all ${
+                        profileCompleteness.percentage === 100 ? 'bg-green-500' : 'bg-primary-600'
+                      }`}
+                      style={{ width: `${profileCompleteness.percentage}%` }}
+                    />
                   </div>
-                </Link>
-              ))}
+                  <span className={`text-sm font-semibold ${
+                    profileCompleteness.percentage === 100 ? 'text-green-600' : 'text-primary-600'
+                  }`}>
+                    {profileCompleteness.percentage}%
+                  </span>
+                </div>
+              )}
             </div>
+
+            {profileCompleteness?.percentage === 100 ? (
+              <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                <CheckCircle className="w-6 h-6 text-green-600" />
+                <div>
+                  <p className="font-medium text-green-900">Your profile is complete!</p>
+                  <p className="text-sm text-green-700">You're all set to receive leads and grow your business.</p>
+                </div>
+              </div>
+            ) : nextSteps.length > 0 ? (
+              <div className="space-y-3">
+                {nextSteps.map((step, index) => (
+                  <Link
+                    key={step.title}
+                    href={step.link}
+                    className={`block p-4 rounded-lg border-2 transition-all hover:shadow-md ${
+                      index === 0
+                        ? 'border-primary-600 bg-primary-50 hover:border-primary-700'
+                        : 'border-neutral-200 hover:border-neutral-300'
+                    }`}
+                  >
+                    <div className="flex items-start">
+                      <span className="text-2xl mr-3">{step.icon}</span>
+                      <div className="flex-1">
+                        <h3 className={`font-semibold mb-1 ${index === 0 ? 'text-primary-900' : 'text-neutral-900'}`}>
+                          {step.title}
+                        </h3>
+                        <p className={`text-sm ${index === 0 ? 'text-primary-700' : 'text-neutral-600'}`}>
+                          {step.description}
+                        </p>
+                      </div>
+                      <svg className="w-5 h-5 text-neutral-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="animate-pulse space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-20 bg-neutral-100 rounded-lg" />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Recent Leads */}

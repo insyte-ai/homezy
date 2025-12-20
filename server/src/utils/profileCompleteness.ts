@@ -22,13 +22,12 @@ export interface ProfileCompletenessResult {
  * Section weights (must sum to 100)
  */
 const SECTION_WEIGHTS = {
-  basicInfo: 20, // Business name, tagline, bio
+  basicInfo: 25, // Business name, tagline, bio, years in business, team size, languages
   services: 15, // Categories, service areas
   pricing: 10, // Hourly rates or minimum project size
   portfolio: 20, // At least 5 portfolio items
   verification: 25, // Basic or comprehensive verification
   availability: 5, // Has availability schedule set
-  additional: 5, // Years in business, team size, languages
 };
 
 /**
@@ -43,21 +42,32 @@ export function calculateProfileCompleteness(
   let totalWeight = 0;
   let completedWeight = 0;
 
-  // 1. Basic Info (20 points)
+  // 1. Basic Info (25 points) - includes business details and additional info
+  const hasBusinessName = Boolean(profile.businessName);
+  const hasTagline = Boolean(profile.tagline?.trim());
+  const hasBio = Boolean(profile.bio?.trim() && profile.bio.length >= 50);
+  const hasYearsInBusiness = profile.yearsInBusiness !== undefined && profile.yearsInBusiness > 0;
+  const hasTeamSize = profile.teamSize !== undefined && profile.teamSize > 0;
+  const hasLanguages = (profile.languages?.length || 0) > 0;
+
   const hasBasicInfo =
-    Boolean(profile.businessName) &&
-    Boolean(profile.tagline?.trim()) &&
-    Boolean(profile.bio?.trim() && profile.bio.length >= 50);
+    hasBusinessName &&
+    hasTagline &&
+    hasBio &&
+    hasYearsInBusiness &&
+    hasTeamSize &&
+    hasLanguages;
 
   sectionDetails.basicInfo = {
     completed: hasBasicInfo,
     weight: SECTION_WEIGHTS.basicInfo,
     items: [
-      profile.businessName ? '✓ Business name' : '✗ Business name',
-      profile.tagline?.trim() ? '✓ Tagline' : '✗ Tagline',
-      profile.bio?.trim() && profile.bio.length >= 50
-        ? '✓ Bio (50+ characters)'
-        : '✗ Bio (50+ characters)',
+      hasBusinessName ? '✓ Business name' : '✗ Business name',
+      hasTagline ? '✓ Tagline' : '✗ Tagline',
+      hasBio ? '✓ Bio (50+ characters)' : `✗ Bio (50+ characters) - currently ${profile.bio?.length || 0}`,
+      hasYearsInBusiness ? `✓ Years in business (${profile.yearsInBusiness})` : '✗ Years in business',
+      hasTeamSize ? `✓ Team size (${profile.teamSize})` : '✗ Team size',
+      hasLanguages ? `✓ Languages (${profile.languages?.join(', ')})` : '✗ Languages',
     ],
   };
   totalWeight += SECTION_WEIGHTS.basicInfo;
@@ -104,43 +114,39 @@ export function calculateProfileCompleteness(
 
   // 4. Portfolio (20 points)
   const portfolioCount = profile.portfolio?.length || 0;
-  const hasPortfolio = portfolioCount >= 5;
-  const hasFeatured = (profile.featuredProjects?.length || 0) >= 3;
+  const hasPortfolio = portfolioCount >= 1;
 
   sectionDetails.portfolio = {
     completed: hasPortfolio,
     weight: SECTION_WEIGHTS.portfolio,
     items: [
-      portfolioCount >= 5
-        ? `✓ Portfolio items (${portfolioCount}/5+)`
-        : `✗ Portfolio items (${portfolioCount}/5+)`,
-      hasFeatured
-        ? `✓ Featured projects (${profile.featuredProjects?.length || 0}/3+)`
-        : `✗ Featured projects (${profile.featuredProjects?.length || 0}/3+)`,
+      hasPortfolio
+        ? `✓ Portfolio items (${portfolioCount})`
+        : `✗ At least 1 portfolio item required`,
     ],
   };
   totalWeight += SECTION_WEIGHTS.portfolio;
   if (hasPortfolio) completedWeight += SECTION_WEIGHTS.portfolio;
 
-  // 5. Verification (25 points) - Most important!
-  const isVerified =
-    profile.verificationStatus === 'approved';
-  const hasDocuments = (profile.verificationDocuments?.length || 0) >= 2;
+  // 5. Verification (25 points) - Based on documents uploaded (not admin approval)
+  const documentCount = profile.verificationDocuments?.length || 0;
+  const hasRequiredDocuments = documentCount >= 2;
+  const isVerified = profile.verificationStatus === 'approved';
 
   sectionDetails.verification = {
-    completed: isVerified,
+    completed: hasRequiredDocuments,
     weight: SECTION_WEIGHTS.verification,
     items: [
+      hasRequiredDocuments
+        ? `✓ Documents uploaded (${documentCount}/2+)`
+        : `✗ Documents uploaded (${documentCount}/2+)`,
       isVerified
-        ? `✓ Verified (${profile.verificationStatus})`
-        : `✗ Not verified (${profile.verificationStatus})`,
-      hasDocuments
-        ? `✓ Documents uploaded (${profile.verificationDocuments?.length || 0})`
-        : `✗ Documents uploaded (${profile.verificationDocuments?.length || 0}/2+)`,
+        ? `✓ Verified by admin`
+        : `⏳ Pending admin verification`,
     ],
   };
   totalWeight += SECTION_WEIGHTS.verification;
-  if (isVerified) completedWeight += SECTION_WEIGHTS.verification;
+  if (hasRequiredDocuments) completedWeight += SECTION_WEIGHTS.verification;
 
   // 6. Availability (5 points)
   const hasAvailability = profile.availability && hasAnyAvailableDay(profile.availability);
@@ -156,28 +162,6 @@ export function calculateProfileCompleteness(
   };
   totalWeight += SECTION_WEIGHTS.availability;
   if (hasAvailability) completedWeight += SECTION_WEIGHTS.availability;
-
-  // 7. Additional Info (5 points)
-  const hasAdditional =
-    (profile.yearsInBusiness !== undefined && profile.yearsInBusiness > 0) &&
-    (profile.teamSize !== undefined && profile.teamSize > 0) &&
-    (profile.languages?.length || 0) > 0;
-
-  sectionDetails.additional = {
-    completed: hasAdditional,
-    weight: SECTION_WEIGHTS.additional,
-    items: [
-      profile.yearsInBusiness
-        ? `✓ Years in business (${profile.yearsInBusiness})`
-        : '✗ Years in business',
-      profile.teamSize ? `✓ Team size (${profile.teamSize})` : '✗ Team size',
-      profile.languages?.length
-        ? `✓ Languages (${profile.languages.join(', ')})`
-        : '✗ Languages',
-    ],
-  };
-  totalWeight += SECTION_WEIGHTS.additional;
-  if (hasAdditional) completedWeight += SECTION_WEIGHTS.additional;
 
   // Calculate percentage
   const percentage = Math.round((completedWeight / totalWeight) * 100);
@@ -234,7 +218,6 @@ function formatSectionName(key: string): string {
     portfolio: 'Portfolio',
     verification: 'Verification',
     availability: 'Availability',
-    additional: 'Additional Info',
   };
 
   return names[key] || key;
@@ -266,7 +249,7 @@ export function getProfileNextSteps(
     steps.push({
       priority: 2,
       section: 'Portfolio',
-      action: 'Add at least 5 portfolio photos',
+      action: 'Add at least 1 portfolio project',
       link: '/pro/dashboard/portfolio',
     });
   }
@@ -275,7 +258,7 @@ export function getProfileNextSteps(
     steps.push({
       priority: 3,
       section: 'Basic Information',
-      action: 'Complete tagline and bio (50+ characters)',
+      action: 'Complete profile info (tagline, bio, years in business, team size, languages)',
       link: '/pro/dashboard/profile',
     });
   }
@@ -304,15 +287,6 @@ export function getProfileNextSteps(
       section: 'Availability',
       action: 'Set your availability schedule',
       link: '/pro/dashboard/profile#availability',
-    });
-  }
-
-  if (!completeness.sectionDetails.additional.completed) {
-    steps.push({
-      priority: 7,
-      section: 'Additional Info',
-      action: 'Add years in business, team size, and languages',
-      link: '/pro/dashboard/profile#additional',
     });
   }
 

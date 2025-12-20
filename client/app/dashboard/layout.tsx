@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useAuthStore } from '@/store/authStore';
 import { useChatPanelStore } from '@/store/chatPanelStore';
 import {
-  Home,
+  LayoutDashboard,
   House,
   FileText,
   Users,
@@ -151,11 +151,11 @@ export default function DashboardLayout({
   }, [isAuthenticated]);
 
   const navItems = [
-    { name: 'Dashboard', href: '/dashboard', icon: Home },
+    { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'My Home', href: '/dashboard/my-home', icon: House },
     { name: 'My Requests', href: '/dashboard/requests', icon: FileText },
     { name: 'Messages', href: '/dashboard/messages', icon: Mail, badge: unreadCount > 0 ? unreadCount : undefined },
-    { name: 'Professionals', href: '/dashboard/professionals', icon: Users },
+    { name: 'Find Pros', href: '/dashboard/professionals', icon: Users },
   ];
 
   const isActivePath = (href: string) => {

@@ -15,14 +15,51 @@ import {
   X,
   Camera,
   Loader2,
+  Upload,
+  FileText,
+  CheckCircle,
+  Clock,
+  XCircle,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { getMyProfile, updateMyProfile, uploadProfilePhoto } from '@/lib/services/professional';
+import type { PortfolioItem } from '@homezy/shared';
 import { CharacterCounter } from '@/components/pro/CharacterCounter';
 import toast from 'react-hot-toast';
 
 type Tab = 'basic' | 'services' | 'pricing' | 'availability' | 'links';
 
 type AvailabilityMode = 'business_hours' | 'any_time';
+
+interface VerificationDocument {
+  type: string;
+  url: string;
+  status: 'pending' | 'approved' | 'rejected';
+  uploadedAt: Date | string;
+  rejectionReason?: string;
+}
+
+interface DocumentType {
+  id: string;
+  label: string;
+  description: string;
+  required: boolean;
+}
+
+const DOCUMENT_TYPES: DocumentType[] = [
+  {
+    id: 'license',
+    label: 'Trade/Business License',
+    description: 'PDF, PNG, JPG up to 10MB',
+    required: true,
+  },
+  {
+    id: 'vat',
+    label: 'VAT Certificate',
+    description: 'Tax Registration Number (TRN) certificate',
+    required: true,
+  },
+];
 
 interface DaySchedule {
   isAvailable: boolean;
@@ -125,6 +162,17 @@ export default function ProProfilePage() {
   const [editingSchedule, setEditingSchedule] = useState(false);
   const [tempSchedule, setTempSchedule] = useState<WeeklySchedule>(DEFAULT_SCHEDULE);
 
+  // Portfolio & Verification state
+  const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
+  const [featuredProjects, setFeaturedProjects] = useState<string[]>([]);
+  const [verificationDocuments, setVerificationDocuments] = useState<VerificationDocument[]>([]);
+  const [verificationStatus, setVerificationStatus] = useState<string>('pending');
+  const [uploadingDoc, setUploadingDoc] = useState<Record<string, boolean>>({});
+  const [docErrors, setDocErrors] = useState<Record<string, string>>({});
+
+  // Form validation errors
+  const [bioError, setBioError] = useState<string>('');
+
   const tabs = [
     { id: 'basic' as Tab, name: 'Basic Info', icon: User },
     { id: 'services' as Tab, name: 'Services & Areas', icon: Briefcase },
@@ -173,6 +221,12 @@ export default function ProProfilePage() {
         setAvailabilityMode('business_hours');
       }
 
+      // Load portfolio and verification data
+      setPortfolio(proProfile?.portfolio || []);
+      setFeaturedProjects(proProfile?.featuredProjects || []);
+      setVerificationDocuments(proProfile?.verificationDocuments || []);
+      setVerificationStatus(proProfile?.verificationStatus || 'pending');
+
       setCompleteness(comp || { percentage: 0, missingSections: [] });
     } catch (error: any) {
       console.error('Failed to load profile:', error);
@@ -187,7 +241,121 @@ export default function ProProfilePage() {
     }
   };
 
+  // Verification document handlers
+  const getDocumentByType = (type: string): VerificationDocument | undefined => {
+    return verificationDocuments.find((doc) => doc.type === type);
+  };
+
+  const handleDocumentUpload = async (type: string, file: File) => {
+    // Validate file size (10MB max)
+    if (file.size > 10 * 1024 * 1024) {
+      setDocErrors((prev) => ({ ...prev, [type]: 'File size must be less than 10MB' }));
+      return;
+    }
+
+    // Validate file type
+    const validTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+    if (!validTypes.includes(file.type)) {
+      setDocErrors((prev) => ({ ...prev, [type]: 'File must be PDF, PNG, or JPG' }));
+      return;
+    }
+
+    setDocErrors((prev) => ({ ...prev, [type]: '' }));
+    setUploadingDoc((prev) => ({ ...prev, [type]: true }));
+
+    try {
+      const formData = new FormData();
+      formData.append('document', file);
+      formData.append('type', type);
+
+      const token = localStorage.getItem('accessToken');
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/pros/me/verification/upload`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Upload failed');
+      }
+
+      const result = await response.json();
+
+      // Update local state with the new document
+      setVerificationDocuments((prev) => {
+        const existing = prev.findIndex((doc) => doc.type === type);
+        if (existing !== -1) {
+          const updated = [...prev];
+          updated[existing] = result.data.document;
+          return updated;
+        }
+        return [...prev, result.data.document];
+      });
+
+      toast.success('Document uploaded successfully');
+
+      // Refresh profile to get updated completeness
+      await fetchProfile();
+    } catch (error) {
+      console.error('Upload error:', error);
+      setDocErrors((prev) => ({
+        ...prev,
+        [type]: error instanceof Error ? error.message : 'Upload failed. Please try again.',
+      }));
+    } finally {
+      setUploadingDoc((prev) => ({ ...prev, [type]: false }));
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'approved':
+        return <CheckCircle className="h-5 w-5 text-green-500" />;
+      case 'rejected':
+        return <XCircle className="h-5 w-5 text-red-500" />;
+      default:
+        return <Clock className="h-5 w-5 text-yellow-500" />;
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'approved':
+        return 'Approved';
+      case 'rejected':
+        return 'Rejected';
+      default:
+        return 'Pending Review';
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'approved':
+        return 'border-green-200 bg-green-50';
+      case 'rejected':
+        return 'border-red-200 bg-red-50';
+      default:
+        return 'border-yellow-200 bg-yellow-50';
+    }
+  };
+
   const handleSave = async () => {
+    // Validate bio length
+    if (formData.bio.trim() && formData.bio.trim().length < 50) {
+      setBioError('Bio must be at least 50 characters for profile completion');
+      // Switch to basic tab to show the error
+      setActiveTab('basic');
+      return;
+    }
+
     try {
       setSaving(true);
 
@@ -235,6 +403,11 @@ export default function ProProfilePage() {
   const handleChange = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setHasChanges(true);
+
+    // Clear bio error when user types enough characters
+    if (field === 'bio' && bioError && value.trim().length >= 50) {
+      setBioError('');
+    }
   };
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -554,11 +727,21 @@ export default function ProProfilePage() {
                   onChange={(e) => handleChange('bio', e.target.value)}
                   maxLength={500}
                   rows={6}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                    bioError ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                  }`}
                   placeholder="Tell homeowners about your experience, specializations, and what makes you stand out..."
                 />
                 <div className="flex justify-between mt-1">
-                  <p className="text-xs text-gray-500">Min 50 characters recommended</p>
+                  {bioError ? (
+                    <p className="text-xs text-red-600">{bioError}</p>
+                  ) : (
+                    <p className={`text-xs ${formData.bio.trim().length >= 50 ? 'text-green-600' : 'text-gray-500'}`}>
+                      {formData.bio.trim().length >= 50
+                        ? `✓ ${formData.bio.trim().length} characters`
+                        : `Min 50 characters required (${formData.bio.trim().length}/50)`}
+                    </p>
+                  )}
                   <CharacterCounter current={formData.bio.length} max={500} />
                 </div>
               </div>
@@ -1044,32 +1227,195 @@ export default function ProProfilePage() {
           {/* Links Tab */}
           {activeTab === 'links' && (
             <div className="space-y-6">
+              {/* Portfolio Section */}
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Portfolio</h3>
-                <p className="text-gray-600 mb-4">
-                  Add photos of your completed projects to showcase your work
-                </p>
-                <Link
-                  href="/pro/dashboard/portfolio"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition"
-                >
-                  Manage Portfolio
-                  <ExternalLink className="h-4 w-4" />
-                </Link>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Portfolio</h3>
+                    <p className="text-sm text-gray-600">
+                      {portfolio.length === 0
+                        ? 'Add photos of your completed projects to showcase your work'
+                        : `${portfolio.length} project${portfolio.length !== 1 ? 's' : ''} • ${featuredProjects.length} featured`}
+                    </p>
+                  </div>
+                  <Link
+                    href="/pro/dashboard/portfolio"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition text-sm"
+                  >
+                    {portfolio.length === 0 ? 'Add Projects' : 'Manage'}
+                    <ExternalLink className="h-4 w-4" />
+                  </Link>
+                </div>
+
+                {portfolio.length > 0 ? (
+                  <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                    {portfolio.slice(0, 6).map((item) => (
+                      <div key={item.id} className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+                        {item.images && item.images.length > 0 ? (
+                          <img
+                            src={item.images[0]}
+                            alt={item.title}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full">
+                            <ImageIcon className="h-6 w-6 text-gray-400" />
+                          </div>
+                        )}
+                        {featuredProjects.includes(item.id) && (
+                          <div className="absolute top-1 right-1 bg-yellow-500 rounded-full p-0.5">
+                            <CheckCircle className="h-3 w-3 text-white" />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    {portfolio.length > 6 && (
+                      <Link
+                        href="/pro/dashboard/portfolio"
+                        className="aspect-square rounded-lg bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-600 hover:bg-gray-200 transition"
+                      >
+                        +{portfolio.length - 6} more
+                      </Link>
+                    )}
+                  </div>
+                ) : (
+                  <div className="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center">
+                    <ImageIcon className="mx-auto h-10 w-10 text-gray-400 mb-2" />
+                    <p className="text-sm text-gray-500">No projects yet</p>
+                    <p className="text-xs text-gray-400 mt-1">Pros with portfolios get 3x more responses</p>
+                  </div>
+                )}
               </div>
 
+              {/* Verification Section */}
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Verification</h3>
-                <p className="text-gray-600 mb-4">
-                  Upload your business license and insurance to get verified
-                </p>
-                <Link
-                  href="/pro/dashboard/verification"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition"
-                >
-                  Upload Documents
-                  <ExternalLink className="h-4 w-4" />
-                </Link>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Verification Documents</h3>
+                    <p className="text-sm text-gray-600">
+                      Upload your documents to get verified and start claiming leads
+                    </p>
+                  </div>
+                  {verificationStatus === 'approved' && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                      <CheckCircle className="h-4 w-4" />
+                      Verified
+                    </span>
+                  )}
+                </div>
+
+                <div className="space-y-4">
+                  {DOCUMENT_TYPES.map((docType) => {
+                    const existingDoc = getDocumentByType(docType.id);
+                    const isUploading = uploadingDoc[docType.id];
+                    const error = docErrors[docType.id];
+
+                    return (
+                      <div key={docType.id}>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          {docType.label} {docType.required && <span className="text-red-500">*</span>}
+                        </label>
+
+                        {existingDoc ? (
+                          <div className={`border rounded-lg p-4 ${getStatusColor(existingDoc.status)}`}>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <FileText className="h-8 w-8 text-gray-400" />
+                                <div>
+                                  <p className="font-medium text-gray-900">{docType.label}</p>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    {getStatusIcon(existingDoc.status)}
+                                    <span className="text-sm">{getStatusText(existingDoc.status)}</span>
+                                  </div>
+                                  {existingDoc.status === 'rejected' && existingDoc.rejectionReason && (
+                                    <p className="text-sm text-red-600 mt-1">
+                                      Reason: {existingDoc.rejectionReason}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <a
+                                  href={existingDoc.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                                >
+                                  View
+                                </a>
+                                {existingDoc.status !== 'approved' && (
+                                  <label className="text-sm text-gray-600 hover:text-gray-700 font-medium cursor-pointer">
+                                    {isUploading ? 'Uploading...' : 'Replace'}
+                                    <input
+                                      type="file"
+                                      accept=".pdf,.png,.jpg,.jpeg"
+                                      onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) handleDocumentUpload(docType.id, file);
+                                        e.target.value = '';
+                                      }}
+                                      className="hidden"
+                                      disabled={isUploading}
+                                    />
+                                  </label>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <label
+                            className={`mt-2 border-2 border-dashed rounded-lg p-6 text-center block cursor-pointer transition-colors ${
+                              isUploading
+                                ? 'border-primary-300 bg-primary-50'
+                                : 'border-gray-300 hover:border-primary-400'
+                            }`}
+                          >
+                            {isUploading ? (
+                              <>
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
+                                <p className="mt-2 text-sm text-gray-600">Uploading...</p>
+                              </>
+                            ) : (
+                              <>
+                                <Upload className="mx-auto h-8 w-8 text-gray-400" />
+                                <p className="mt-2 text-sm text-gray-600">
+                                  <span className="font-medium text-primary-600">Click to upload</span>
+                                </p>
+                                <p className="text-xs text-gray-500">{docType.description}</p>
+                              </>
+                            )}
+                            <input
+                              type="file"
+                              accept=".pdf,.png,.jpg,.jpeg"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) handleDocumentUpload(docType.id, file);
+                                e.target.value = '';
+                              }}
+                              className="hidden"
+                              disabled={isUploading}
+                            />
+                          </label>
+                        )}
+
+                        {error && (
+                          <p className="mt-2 text-sm text-red-600">{error}</p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {verificationDocuments.length > 0 && verificationDocuments.some((d) => d.status === 'pending') && (
+                  <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-5 w-5 text-yellow-600" />
+                      <p className="text-sm text-yellow-800">
+                        Your documents are being reviewed. This typically takes 1-2 business days.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}

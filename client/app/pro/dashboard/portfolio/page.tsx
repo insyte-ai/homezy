@@ -18,6 +18,14 @@ interface PortfolioFormData {
   isFeatured: boolean;
 }
 
+interface FormErrors {
+  title?: string;
+  description?: string;
+  category?: string;
+  completionDate?: string;
+  images?: string;
+}
+
 const emptyFormData: PortfolioFormData = {
   title: '',
   description: '',
@@ -35,6 +43,7 @@ export default function ProPortfolioPage() {
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<PortfolioFormData>(emptyFormData);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [uploading, setUploading] = useState(false);
   const [featuredProjects, setFeaturedProjects] = useState<string[]>([]);
   const [serviceCategories, setServiceCategories] = useState<SubService[]>([]);
@@ -137,6 +146,10 @@ export default function ProPortfolioPage() {
         ...prev,
         [type]: [...prev[type], ...urls],
       }));
+      // Clear images error if uploading to main images
+      if (type === 'images') {
+        clearFieldError('images');
+      }
       toast.success(`${urls.length} image(s) uploaded successfully`);
     } catch (error) {
       toast.error('Failed to upload images');
@@ -152,11 +165,51 @@ export default function ProPortfolioPage() {
     }));
   };
 
+  const validateForm = (): boolean => {
+    const errors: FormErrors = {};
+
+    if (!formData.title.trim()) {
+      errors.title = 'Project title is required';
+    } else if (formData.title.trim().length < 3) {
+      errors.title = 'Title must be at least 3 characters';
+    }
+
+    if (!formData.category) {
+      errors.category = 'Please select a category';
+    }
+
+    if (!formData.description.trim()) {
+      errors.description = 'Description is required';
+    } else if (formData.description.trim().length < 20) {
+      errors.description = 'Description must be at least 20 characters';
+    }
+
+    if (!formData.completionDate) {
+      errors.completionDate = 'Completion date is required';
+    }
+
+    if (formData.images.length === 0) {
+      errors.images = 'At least one project photo is required';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const clearFieldError = (field: keyof FormErrors) => {
+    if (formErrors[field]) {
+      setFormErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.description || !formData.category) {
-      toast.error('Please fill in all required fields');
+    if (!validateForm()) {
       return;
     }
 
@@ -229,6 +282,7 @@ export default function ProPortfolioPage() {
     setShowModal(false);
     setEditingId(null);
     setFormData(emptyFormData);
+    setFormErrors({});
   };
 
   const getCategoryName = (categoryId: string) => {
@@ -413,11 +467,18 @@ export default function ProPortfolioPage() {
                 <input
                   type="text"
                   value={formData.title}
-                  onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, title: e.target.value }));
+                    clearFieldError('title');
+                  }}
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    formErrors.title ? 'border-red-500 bg-red-50' : 'border-neutral-300'
+                  }`}
                   placeholder="e.g., Modern Kitchen Renovation"
-                  required
                 />
+                {formErrors.title && (
+                  <p className="mt-1 text-sm text-red-600">{formErrors.title}</p>
+                )}
               </div>
 
               {/* Category */}
@@ -427,9 +488,13 @@ export default function ProPortfolioPage() {
                 </label>
                 <select
                   value={formData.category}
-                  onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  required
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, category: e.target.value }));
+                    clearFieldError('category');
+                  }}
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    formErrors.category ? 'border-red-500 bg-red-50' : 'border-neutral-300'
+                  }`}
                   disabled={loadingCategories}
                 >
                   <option value="">{loadingCategories ? 'Loading...' : 'Select a category'}</option>
@@ -439,6 +504,9 @@ export default function ProPortfolioPage() {
                     </option>
                   ))}
                 </select>
+                {formErrors.category && (
+                  <p className="mt-1 text-sm text-red-600">{formErrors.category}</p>
+                )}
               </div>
 
               {/* Description */}
@@ -448,12 +516,19 @@ export default function ProPortfolioPage() {
                 </label>
                 <textarea
                   value={formData.description}
-                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, description: e.target.value }));
+                    clearFieldError('description');
+                  }}
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    formErrors.description ? 'border-red-500 bg-red-50' : 'border-neutral-300'
+                  }`}
                   rows={4}
                   placeholder="Describe the project, challenges, and results..."
-                  required
                 />
+                {formErrors.description && (
+                  <p className="mt-1 text-sm text-red-600">{formErrors.description}</p>
+                )}
               </div>
 
               {/* Completion Date */}
@@ -464,18 +539,27 @@ export default function ProPortfolioPage() {
                 <input
                   type="date"
                   value={formData.completionDate}
-                  onChange={(e) => setFormData(prev => ({ ...prev, completionDate: e.target.value }))}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  required
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, completionDate: e.target.value }));
+                    clearFieldError('completionDate');
+                  }}
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    formErrors.completionDate ? 'border-red-500 bg-red-50' : 'border-neutral-300'
+                  }`}
                 />
+                {formErrors.completionDate && (
+                  <p className="mt-1 text-sm text-red-600">{formErrors.completionDate}</p>
+                )}
               </div>
 
               {/* General Images */}
               <div>
                 <label className="block text-sm font-medium text-neutral-700 mb-2">
-                  Project Photos
+                  Project Photos *
                 </label>
-                <div className="border-2 border-dashed border-neutral-300 rounded-lg p-4">
+                <div className={`border-2 border-dashed rounded-lg p-4 ${
+                  formErrors.images ? 'border-red-400 bg-red-50' : 'border-neutral-300'
+                }`}>
                   <input
                     type="file"
                     multiple
@@ -489,8 +573,8 @@ export default function ProPortfolioPage() {
                     htmlFor="general-images"
                     className="flex flex-col items-center cursor-pointer"
                   >
-                    <Upload className="h-8 w-8 text-neutral-400 mb-2" />
-                    <span className="text-sm text-neutral-600">
+                    <Upload className={`h-8 w-8 mb-2 ${formErrors.images ? 'text-red-400' : 'text-neutral-400'}`} />
+                    <span className={`text-sm ${formErrors.images ? 'text-red-600' : 'text-neutral-600'}`}>
                       {uploading ? 'Uploading...' : 'Click to upload images'}
                     </span>
                   </label>
@@ -512,6 +596,9 @@ export default function ProPortfolioPage() {
                     </div>
                   )}
                 </div>
+                {formErrors.images && (
+                  <p className="mt-1 text-sm text-red-600">{formErrors.images}</p>
+                )}
               </div>
 
               {/* Before Images */}
