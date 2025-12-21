@@ -93,7 +93,7 @@ export const useProsSearchStore = create<ProsSearchState>((set, get) => ({
         isLoading: false,
       });
     } catch (error: any) {
-      console.error('Error fetching professionals:', error);
+      if (__DEV__) console.error('Error fetching professionals:', error);
       set({
         isLoading: false,
         error: error.message || 'Failed to load professionals',
@@ -127,7 +127,7 @@ export const useProsSearchStore = create<ProsSearchState>((set, get) => ({
         isLoadingMore: false,
       });
     } catch (error: any) {
-      console.error('Error loading more professionals:', error);
+      if (__DEV__) console.error('Error loading more professionals:', error);
       set({ isLoadingMore: false });
     }
   },

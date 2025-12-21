@@ -73,7 +73,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
         await get().loadHistory(data.conversationId);
       }
     } catch (error: any) {
-      console.error('Failed to initialize conversation:', error);
+      if (__DEV__) console.error('Failed to initialize conversation:', error);
       set({
         error: 'Failed to start conversation. Please try again.',
         isInitialized: true,
@@ -85,7 +85,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
     const { conversationId } = get();
 
     if (!conversationId) {
-      console.error('No conversation ID available');
+      if (__DEV__) console.error('No conversation ID available');
       set({ error: 'Please wait for the conversation to initialize' });
       return;
     }
@@ -126,7 +126,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
   },
 
   completeFunctionCall: (toolName: string, result: any) => {
-    console.log(`Function ${toolName} completed:`, result);
+    if (__DEV__) console.log(`Function ${toolName} completed:`, result);
     set({ currentToolCall: null });
   },
 
@@ -170,7 +170,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
         })),
       });
     } catch (error: any) {
-      console.error('Failed to load conversation history:', error);
+      if (__DEV__) console.error('Failed to load conversation history:', error);
       set({ error: 'Failed to load conversation history' });
     }
   },

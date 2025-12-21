@@ -64,6 +64,7 @@ dump.rdb
 data/
 !server/src/data/
 !shared/src/data/
+!mobile/src/data/
 !client/data/
 client/data/*
 !client/data/lead-form-data/

@@ -207,7 +207,7 @@ export const useMessagingStore = create<MessagingState>((set, get) => ({
         });
       }
     } catch (error) {
-      console.error('Failed to mark as read:', error);
+      if (__DEV__) console.error('Failed to mark as read:', error);
     }
   },
 
@@ -243,7 +243,7 @@ export const useMessagingStore = create<MessagingState>((set, get) => ({
       const count = await getUnreadCount();
       set({ totalUnread: count });
     } catch (error) {
-      console.error('Failed to refresh unread count:', error);
+      if (__DEV__) console.error('Failed to refresh unread count:', error);
     }
   },
 

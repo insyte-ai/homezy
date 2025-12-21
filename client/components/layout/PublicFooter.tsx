@@ -96,6 +96,16 @@ export function PublicFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/help" className="hover:text-gray-900">
+                  Help Center
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-gray-900">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
                 <Link href="/privacy" className="hover:text-gray-900">
                   Privacy Policy
                 </Link>

@@ -15,7 +15,7 @@ export const secureStorage = {
     try {
       await SecureStore.setItemAsync(key, value);
     } catch (error) {
-      console.error('SecureStore setItem error:', error);
+      if (__DEV__) console.error('SecureStore setItem error:', error);
       throw error;
     }
   },
@@ -24,7 +24,7 @@ export const secureStorage = {
     try {
       return await SecureStore.getItemAsync(key);
     } catch (error) {
-      console.error('SecureStore getItem error:', error);
+      if (__DEV__) console.error('SecureStore getItem error:', error);
       return null;
     }
   },
@@ -33,7 +33,7 @@ export const secureStorage = {
     try {
       await SecureStore.deleteItemAsync(key);
     } catch (error) {
-      console.error('SecureStore removeItem error:', error);
+      if (__DEV__) console.error('SecureStore removeItem error:', error);
     }
   },
 };
@@ -77,7 +77,7 @@ export const storage = {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem(key, jsonValue);
     } catch (error) {
-      console.error('AsyncStorage setItem error:', error);
+      if (__DEV__) console.error('AsyncStorage setItem error:', error);
       throw error;
     }
   },
@@ -87,7 +87,7 @@ export const storage = {
       const jsonValue = await AsyncStorage.getItem(key);
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (error) {
-      console.error('AsyncStorage getItem error:', error);
+      if (__DEV__) console.error('AsyncStorage getItem error:', error);
       return null;
     }
   },
@@ -96,7 +96,7 @@ export const storage = {
     try {
       await AsyncStorage.removeItem(key);
     } catch (error) {
-      console.error('AsyncStorage removeItem error:', error);
+      if (__DEV__) console.error('AsyncStorage removeItem error:', error);
     }
   },
 
@@ -104,7 +104,7 @@ export const storage = {
     try {
       await AsyncStorage.clear();
     } catch (error) {
-      console.error('AsyncStorage clear error:', error);
+      if (__DEV__) console.error('AsyncStorage clear error:', error);
     }
   },
 
@@ -112,7 +112,7 @@ export const storage = {
     try {
       return await AsyncStorage.getAllKeys();
     } catch (error) {
-      console.error('AsyncStorage getAllKeys error:', error);
+      if (__DEV__) console.error('AsyncStorage getAllKeys error:', error);
       return [];
     }
   },

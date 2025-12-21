@@ -1,0 +1,364 @@
+{
+  "serviceId": "cleaning",
+  "serviceName": "Cleaning",
+  "description": "Professional cleaning services",
+  "questions": [
+    {
+      "id": "type_cleaning",
+      "question": "What type of cleaning do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your cleaning needs",
+      "options": [
+        {
+          "value": "regular",
+          "label": "Regular house cleaning",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "deep",
+          "label": "Deep cleaning",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "move",
+          "label": "Move-in/move-out cleaning",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "construction",
+          "label": "Post-construction cleaning",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "vacation_rental",
+          "label": "Vacation rental turnover",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "spring",
+          "label": "Spring cleaning",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "areas_cleaning",
+      "question": "What areas need cleaning?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your cleaning needs",
+      "options": [
+        {
+          "value": "entire_home",
+          "label": "Entire home",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "kitchen",
+          "label": "Kitchen",
+          "icon": "🍳",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "bathrooms",
+          "label": "Bathrooms",
+          "icon": "🚿",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "bedrooms",
+          "label": "Bedrooms",
+          "icon": "🛏️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "living",
+          "label": "Living areas",
+          "icon": "🛋️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "windows",
+          "label": "Windows",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "balcony",
+          "label": "Balcony/terrace",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "garage",
+          "label": "Garage",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "size_property",
+      "question": "What is the size of your property?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your cleaning needs",
+      "options": [
+        {
+          "value": "studio_1br",
+          "label": "Studio/1 bedroom",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "2br",
+          "label": "2 bedrooms",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "3br",
+          "label": "3 bedrooms",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "4br",
+          "label": "4 bedrooms",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "5br_villa",
+          "label": "5+ bedrooms/villa",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "often_cleaning",
+      "question": "How often do you need cleaning?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your cleaning needs",
+      "options": [
+        {
+          "value": "one_time",
+          "label": "One-time service",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "weekly",
+          "label": "Weekly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "biweekly",
+          "label": "Bi-weekly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "monthly",
+          "label": "Monthly",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "on_demand",
+          "label": "On-demand",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "specialized_cleaning",
+      "question": "Do you need any specialized cleaning?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your cleaning needs",
+      "options": [
+        {
+          "value": "carpet",
+          "label": "Carpet cleaning",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "upholstery",
+          "label": "Sofa/upholstery cleaning",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "mattress",
+          "label": "Mattress cleaning",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "curtain",
+          "label": "Curtain cleaning",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "appliance",
+          "label": "Oven/appliance cleaning",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "tile_grout",
+          "label": "Tile & grout cleaning",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No specialized cleaning needed",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [
+            "specialized"
+          ],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "special_requirements",
+      "question": "Any special requirements?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your cleaning needs",
+      "options": [
+        {
+          "value": "eco_friendly",
+          "label": "Eco-friendly products",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "pet_safe",
+          "label": "Pet-safe products",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "allergy_friendly",
+          "label": "Allergy-friendly products",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "bring_supplies",
+          "label": "Bring all supplies",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "No special requirements",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [
+            "specialized"
+          ],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "cleaning.json"
+  }
+}

@@ -41,7 +41,7 @@ export const usePushNotifications = () => {
   // Register for push notifications
   const registerForPushNotifications = useCallback(async () => {
     if (!Device.isDevice) {
-      console.log('Push notifications require a physical device');
+      if (__DEV__) console.log('Push notifications require a physical device');
       return null;
     }
 
@@ -57,7 +57,7 @@ export const usePushNotifications = () => {
       }
 
       if (finalStatus !== 'granted') {
-        console.log('Push notification permission not granted');
+        if (__DEV__) console.log('Push notification permission not granted');
         return null;
       }
 
@@ -76,7 +76,7 @@ export const usePushNotifications = () => {
 
       return token;
     } catch (error) {
-      console.error('Error registering for push notifications:', error);
+      if (__DEV__) console.error('Error registering for push notifications:', error);
       return null;
     }
   }, []);
@@ -119,9 +119,9 @@ export const usePushNotifications = () => {
       });
 
       setIsRegistered(true);
-      console.log('Push token registered with backend');
+      if (__DEV__) console.log('Push token registered with backend');
     } catch (error) {
-      console.error('Failed to save push token to backend:', error);
+      if (__DEV__) console.error('Failed to save push token to backend:', error);
     }
   }, []);
 
@@ -135,9 +135,9 @@ export const usePushNotifications = () => {
       });
 
       setIsRegistered(false);
-      console.log('Push token removed from backend');
+      if (__DEV__) console.log('Push token removed from backend');
     } catch (error) {
-      console.error('Failed to remove push token from backend:', error);
+      if (__DEV__) console.error('Failed to remove push token from backend:', error);
     }
   }, [expoPushToken]);
 
@@ -145,7 +145,7 @@ export const usePushNotifications = () => {
   const handleNotificationResponse = useCallback((response: Notifications.NotificationResponse) => {
     const data = response.notification.request.content.data as PushNotificationData;
 
-    console.log('Notification tapped:', data);
+    if (__DEV__) console.log('Notification tapped:', data);
 
     // Navigate based on notification type
     if (data.type) {
@@ -237,7 +237,7 @@ export const usePushNotifications = () => {
     notificationListener.current = Notifications.addNotificationReceivedListener(
       (notification) => {
         setNotification(notification);
-        console.log('Notification received:', notification);
+        if (__DEV__) console.log('Notification received:', notification);
       }
     );
 

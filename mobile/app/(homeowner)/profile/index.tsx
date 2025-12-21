@@ -14,11 +14,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Avatar } from '../../src/components/ui';
-import { colors } from '../../src/theme/colors';
-import { spacing, borderRadius } from '../../src/theme/spacing';
-import { textStyles } from '../../src/theme/typography';
-import { useAuthStore } from '../../src/store/authStore';
+import Constants from 'expo-constants';
+import { Avatar } from '../../../src/components/ui';
+import { colors } from '../../../src/theme/colors';
+import { spacing, borderRadius } from '../../../src/theme/spacing';
+import { textStyles } from '../../../src/theme/typography';
+import { useAuthStore } from '../../../src/store/authStore';
 
 interface SettingsItemProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -74,27 +75,25 @@ export default function ProfileScreen() {
   };
 
   const handleEditProfile = () => {
-    // TODO: Navigate to edit profile screen
-    Alert.alert('Coming Soon', 'Edit profile feature coming soon!');
+    router.push('/(homeowner)/profile/edit');
   };
 
   const handleNotificationSettings = () => {
-    // TODO: Navigate to notification settings
-    Alert.alert('Coming Soon', 'Notification settings coming soon!');
+    router.push('/(homeowner)/profile/notifications');
   };
 
   const handlePrivacy = () => {
-    // TODO: Navigate to privacy settings
-    Alert.alert('Coming Soon', 'Privacy settings coming soon!');
+    router.push('/(homeowner)/profile/privacy');
   };
 
   const handleHelp = () => {
-    // TODO: Navigate to help/support
-    Alert.alert('Coming Soon', 'Help & support coming soon!');
+    router.push('/(homeowner)/profile/help');
   };
 
+  const appVersion = Constants.expoConfig?.version || '1.0.0';
+
   const handleAbout = () => {
-    Alert.alert('Homezy', 'Version 1.0.0\n\nYour home services companion.');
+    Alert.alert('Homezy', `Version ${appVersion}\n\nYour home services companion.`);
   };
 
   return (
@@ -176,7 +175,7 @@ export default function ProfileScreen() {
         </View>
 
         {/* Version */}
-        <Text style={styles.versionText}>Version 1.0.0</Text>
+        <Text style={styles.versionText}>Version {appVersion}</Text>
       </ScrollView>
     </SafeAreaView>
   );

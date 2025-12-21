@@ -1,0 +1,344 @@
+{
+  "serviceId": "landscaping",
+  "serviceName": "Landscaping",
+  "description": "Professional landscaping services",
+  "questions": [
+    {
+      "id": "type_landscaping_service",
+      "question": "What type of landscaping service do you need?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your landscaping needs",
+      "options": [
+        {
+          "value": "design",
+          "label": "Landscape design",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "installation",
+          "label": "Landscape installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "renovation",
+          "label": "Landscape renovation",
+          "icon": "❌",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "hardscape",
+          "label": "Hardscaping",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "softscape",
+          "label": "Softscaping",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "approximate_size_area",
+      "question": "What is the approximate size of the area to be landscaped?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.8,
+      "helpText": "This helps us match you with the right professional for your landscaping needs",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (under 100 sq. meters)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (100-500 sq. meters)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "large",
+          "label": "Large (500-1000 sq. meters)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "very_large",
+          "label": "Very large (over 1000 sq. meters)",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "elements_interested",
+      "question": "What elements are you interested in?",
+      "type": "multiple-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your landscaping needs",
+      "options": [
+        {
+          "value": "lawn",
+          "label": "Lawn installation/repair",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "garden",
+          "label": "Garden beds",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "trees",
+          "label": "Trees and shrubs",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "hardscape",
+          "label": "Hardscaping (patios, walkways)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "water",
+          "label": "Water features",
+          "icon": "♨️",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "lighting",
+          "label": "Outdoor lighting",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "irrigation",
+          "label": "Irrigation system",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "specific_style_preferences",
+      "question": "Do you have any specific style preferences?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your landscaping needs",
+      "options": [
+        {
+          "value": "modern",
+          "label": "Modern/Contemporary",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "traditional",
+          "label": "Traditional",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "mediterranean",
+          "label": "Mediterranean",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "tropical",
+          "label": "Tropical",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "desert",
+          "label": "Desert/Xeriscape",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "japanese",
+          "label": "Japanese/Zen",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "english",
+          "label": "English Garden",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "no_preference",
+          "label": "No specific style preference",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "specific_requirements_landscaping",
+      "question": "Do you have any specific requirements for the landscaping?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "This helps us match you with the right professional for your landscaping needs",
+      "options": [
+        {
+          "value": "low_maintenance",
+          "label": "Low maintenance",
+          "icon": "🛠️",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "water_efficient",
+          "label": "Water-efficient/drought-tolerant",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "child_friendly",
+          "label": "Child-friendly",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "pet_friendly",
+          "label": "Pet-friendly",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "privacy",
+          "label": "Privacy screening",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "shade",
+          "label": "Shade creation",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "edible",
+          "label": "Edible garden/food production",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "specific_materials_plants",
+      "question": "Do you have specific materials or plants in mind?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your landscaping needs",
+      "options": [
+        {
+          "value": "specific",
+          "label": "Yes, I know exactly what I want",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "preferences",
+          "label": "I have some preferences",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "need_recommendations",
+          "label": "No, I need recommendations",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "landscaping.json"
+  }
+}

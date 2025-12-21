@@ -73,7 +73,7 @@ export const useChatSocket = () => {
       });
 
       newSocket.on('connect', () => {
-        console.log('Chat socket connected:', newSocket.id);
+        if (__DEV__) console.log('Chat socket connected:', newSocket.id);
         setIsConnected(true);
         reconnectAttempts.current = 0;
 
@@ -84,7 +84,7 @@ export const useChatSocket = () => {
       });
 
       newSocket.on('disconnect', (reason) => {
-        console.log('Chat socket disconnected:', reason);
+        if (__DEV__) console.log('Chat socket disconnected:', reason);
         setIsConnected(false);
 
         if (reason === 'io server disconnect') {
@@ -93,7 +93,7 @@ export const useChatSocket = () => {
       });
 
       newSocket.on('connect_error', (error) => {
-        console.error('Chat socket connection error:', error);
+        if (__DEV__) console.error('Chat socket connection error:', error);
         reconnectAttempts.current += 1;
 
         if (reconnectAttempts.current >= maxReconnectAttempts) {
@@ -123,14 +123,14 @@ export const useChatSocket = () => {
 
       // Listen for errors
       newSocket.on('chat:error', ({ error, code }) => {
-        console.error('Chat error:', error, code);
+        if (__DEV__) console.error('Chat error:', error, code);
         setError(error || 'An error occurred');
         completeStreaming();
       });
 
       // Handle reconnection
       newSocket.on('reconnect', (attemptNumber) => {
-        console.log('Chat socket reconnected after', attemptNumber, 'attempts');
+        if (__DEV__) console.log('Chat socket reconnected after', attemptNumber, 'attempts');
         setError(null);
 
         // Rejoin conversation
@@ -140,7 +140,7 @@ export const useChatSocket = () => {
       });
 
       newSocket.on('reconnect_failed', () => {
-        console.error('Chat socket reconnection failed');
+        if (__DEV__) console.error('Chat socket reconnection failed');
         setError('Connection failed. Please try again.');
       });
 
@@ -160,7 +160,7 @@ export const useChatSocket = () => {
     const { conversationId, addUserMessage, setIsStreaming } = useChatStore.getState();
 
     if (!socketInstance || !conversationId) {
-      console.error('Socket or conversation not ready');
+      if (__DEV__) console.error('Socket or conversation not ready');
       setError('Please wait for connection to establish');
       return;
     }

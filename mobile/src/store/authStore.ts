@@ -47,11 +47,11 @@ export const useAuthStore = create<AuthState>()(
        * Initialize auth state from stored tokens
        */
       initialize: async () => {
-        console.log('[Auth] Initializing auth state');
+        if (__DEV__) console.log('[Auth] Initializing auth state');
 
         // Register callback for handling auth failures (token refresh failed)
         setAuthFailureCallback(() => {
-          console.log('[Auth] Token refresh failed, logging out');
+          if (__DEV__) console.log('[Auth] Token refresh failed, logging out');
           set({
             user: null,
             isAuthenticated: false,
@@ -62,14 +62,14 @@ export const useAuthStore = create<AuthState>()(
         const hasTokens = await tokenStorage.hasValidTokens();
 
         if (!hasTokens) {
-          console.log('[Auth] No tokens found, user not authenticated');
+          if (__DEV__) console.log('[Auth] No tokens found, user not authenticated');
           set({ isInitialized: true });
           return;
         }
 
         try {
           const user = await authService.getCurrentUser();
-          console.log('[Auth] Token valid, user authenticated:', user.email);
+          if (__DEV__) console.log('[Auth] Token valid, user authenticated:', user.email);
           set({
             user,
             isAuthenticated: true,
@@ -77,7 +77,7 @@ export const useAuthStore = create<AuthState>()(
           });
         } catch (error) {
           // Token is invalid or expired
-          console.log('[Auth] Token validation failed:', error);
+          if (__DEV__) console.log('[Auth] Token validation failed:', error);
           await tokenStorage.clearTokens();
           set({
             user: null,
@@ -91,13 +91,13 @@ export const useAuthStore = create<AuthState>()(
        * Login with email and password
        */
       login: async (credentials) => {
-        console.log('[Auth] Login attempt:', credentials.email);
+        if (__DEV__) console.log('[Auth] Login attempt:', credentials.email);
         set({ isLoading: true, error: null });
 
         try {
           const response = await authService.login(credentials);
 
-          console.log('[Auth] Login successful:', response.user.email);
+          if (__DEV__) console.log('[Auth] Login successful:', response.user.email);
           set({
             user: response.user,
             isAuthenticated: true,
@@ -106,7 +106,7 @@ export const useAuthStore = create<AuthState>()(
           });
         } catch (error) {
           const errorMessage = getErrorMessage(error);
-          console.log('[Auth] Login failed:', errorMessage);
+          if (__DEV__) console.log('[Auth] Login failed:', errorMessage);
 
           set({
             isLoading: false,
@@ -121,13 +121,13 @@ export const useAuthStore = create<AuthState>()(
        * Register a new user
        */
       register: async (data) => {
-        console.log('[Auth] Register attempt:', data.email, data.role);
+        if (__DEV__) console.log('[Auth] Register attempt:', data.email, data.role);
         set({ isLoading: true, error: null });
 
         try {
           const response = await authService.register(data);
 
-          console.log('[Auth] Registration successful:', response.user.email);
+          if (__DEV__) console.log('[Auth] Registration successful:', response.user.email);
           set({
             user: response.user,
             isAuthenticated: true,
@@ -136,7 +136,7 @@ export const useAuthStore = create<AuthState>()(
           });
         } catch (error) {
           const errorMessage = getErrorMessage(error);
-          console.log('[Auth] Registration failed:', errorMessage);
+          if (__DEV__) console.log('[Auth] Registration failed:', errorMessage);
 
           set({
             isLoading: false,
@@ -151,13 +151,13 @@ export const useAuthStore = create<AuthState>()(
        * Authenticate with Google
        */
       googleAuth: async (data) => {
-        console.log('[Auth] Google auth attempt:', data.role);
+        if (__DEV__) console.log('[Auth] Google auth attempt:', data.role);
         set({ isLoading: true, error: null });
 
         try {
           const response = await authService.googleAuth(data);
 
-          console.log('[Auth] Google auth successful:', response.user.email);
+          if (__DEV__) console.log('[Auth] Google auth successful:', response.user.email);
           set({
             user: response.user,
             isAuthenticated: true,
@@ -166,7 +166,7 @@ export const useAuthStore = create<AuthState>()(
           });
         } catch (error) {
           const errorMessage = getErrorMessage(error);
-          console.log('[Auth] Google auth failed:', errorMessage);
+          if (__DEV__) console.log('[Auth] Google auth failed:', errorMessage);
 
           set({
             isLoading: false,
@@ -181,11 +181,11 @@ export const useAuthStore = create<AuthState>()(
        * Logout user
        */
       logout: async () => {
-        console.log('[Auth] Logout');
+        if (__DEV__) console.log('[Auth] Logout');
         try {
           await authService.logout();
         } catch (error) {
-          console.log('[Auth] Logout API error (ignored):', error);
+          if (__DEV__) console.log('[Auth] Logout API error (ignored):', error);
         } finally {
           set({
             user: null,

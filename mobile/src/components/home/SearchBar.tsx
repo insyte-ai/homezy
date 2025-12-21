@@ -55,7 +55,7 @@ export function SearchBar({ onServiceSelect, placeholder = 'What do you need hel
         const data = await searchServices(text);
         setResults(data);
       } catch (err) {
-        console.error('Search error:', err);
+        if (__DEV__) console.error('Search error:', err);
         setResults([]);
       } finally {
         setIsLoading(false);

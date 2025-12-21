@@ -1,0 +1,153 @@
+{
+  "serviceId": "_generic",
+  "serviceName": "General Service",
+  "description": "Generic questionnaire for services without specific question sets",
+  "questions": [
+    {
+      "id": "work_type",
+      "question": "What type of work do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1.0,
+      "helpText": "This helps us understand the nature of your project",
+      "options": [
+        {
+          "value": "repair",
+          "label": "Repair existing",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": ["repair", "common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "install",
+          "label": "Install new",
+          "icon": "🆕",
+          "weight": 0.9,
+          "tags": ["installation", "common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "upgrade",
+          "label": "Upgrade existing",
+          "icon": "⬆️",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "inspection",
+          "label": "Inspection/Consultation",
+          "icon": "🔍",
+          "weight": 0.6,
+          "tags": ["inspection"],
+          "matchType": "partial"
+        },
+        {
+          "value": "emergency",
+          "label": "Emergency service",
+          "icon": "🚨",
+          "weight": 1.0,
+          "tags": ["emergency", "urgent", "high_priority"],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "project_size",
+      "question": "What's the size of this project?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 0.8,
+      "helpText": "This affects the timeline and type of professional needed",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small (few hours)",
+          "icon": "📏",
+          "weight": 0.6,
+          "tags": ["simple"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (1-2 days)",
+          "icon": "📐",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "large",
+          "label": "Large (several days)",
+          "icon": "📊",
+          "weight": 0.9,
+          "tags": ["complex"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "major",
+          "label": "Major project (weeks)",
+          "icon": "🏗️",
+          "weight": 1.0,
+          "tags": ["complex", "high_value"],
+          "matchType": "flexible"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❓",
+          "weight": 0.4,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    },
+    {
+      "id": "expertise_needed",
+      "question": "What level of expertise is needed?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.6,
+      "helpText": "Help us match you with professionals at the right skill level",
+      "options": [
+        {
+          "value": "basic",
+          "label": "Basic handyman level",
+          "icon": "🔨",
+          "weight": 0.6,
+          "tags": ["simple"],
+          "matchType": "partial"
+        },
+        {
+          "value": "skilled",
+          "label": "Skilled tradesperson",
+          "icon": "👷",
+          "weight": 0.8,
+          "tags": ["common"],
+          "matchType": "partial"
+        },
+        {
+          "value": "specialized",
+          "label": "Specialized/Licensed pro",
+          "icon": "🎓",
+          "weight": 1.0,
+          "tags": ["specialized", "complex"],
+          "matchType": "direct"
+        },
+        {
+          "value": "not_sure",
+          "label": "Not sure",
+          "icon": "❓",
+          "weight": 0.4,
+          "tags": [],
+          "matchType": "flexible"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-01-12",
+    "createdBy": "system"
+  }
+}

@@ -283,3 +283,77 @@ export const getProReviews = async (
   const response = await api.get(`/pros/${proId}/reviews`, { params });
   return response.data.data;
 };
+
+/**
+ * Verification document interface
+ */
+export interface VerificationDocument {
+  id: string;
+  type: 'emirates_id' | 'trade_license' | 'insurance' | 'certification';
+  fileName: string;
+  fileUrl: string;
+  status: 'pending' | 'approved' | 'rejected';
+  rejectionReason?: string;
+  uploadedAt: string;
+}
+
+/**
+ * Get verification documents
+ */
+export const getVerificationDocuments = async (): Promise<VerificationDocument[]> => {
+  const response = await api.get<{ success: boolean; data: { documents: VerificationDocument[] } }>('/pros/me/verification/documents');
+  return response.data.data.documents;
+};
+
+/**
+ * Upload verification document
+ */
+export const uploadVerificationDocument = async (
+  type: VerificationDocument['type'],
+  file: {
+    uri: string;
+    name: string;
+    mimeType: string;
+  },
+  onProgress?: (progress: number) => void
+): Promise<VerificationDocument> => {
+  const formData = new FormData();
+  formData.append('type', type);
+  formData.append('document', {
+    uri: file.uri,
+    name: file.name,
+    type: file.mimeType,
+  } as any);
+
+  const response = await api.post<{ success: boolean; data: { document: VerificationDocument } }>(
+    '/pros/me/verification/documents',
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress: (progressEvent) => {
+        if (onProgress && progressEvent.total) {
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          onProgress(progress);
+        }
+      },
+    }
+  );
+  return response.data.data.document;
+};
+
+/**
+ * Delete verification document
+ */
+export const deleteVerificationDocument = async (documentId: string): Promise<void> => {
+  await api.delete(`/pros/me/verification/documents/${documentId}`);
+};
+
+/**
+ * Submit verification request
+ */
+export const submitVerification = async (): Promise<{ status: string; message: string }> => {
+  const response = await api.post<{ success: boolean; data: { status: string; message: string } }>('/pros/me/verification/submit');
+  return response.data.data;
+};

@@ -12,15 +12,21 @@ import {
   TouchableOpacity,
   Switch,
   Alert,
+  Modal,
+  Linking,
+  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Card } from '../../../src/components/ui';
+import Constants from 'expo-constants';
+import { Card, Input, Button } from '../../../src/components/ui';
 import { colors } from '../../../src/theme/colors';
 import { spacing, borderRadius, layout } from '../../../src/theme/spacing';
 import { textStyles } from '../../../src/theme/typography';
 import { useAuthStore } from '../../../src/store/authStore';
+import { authService } from '../../../src/services/auth';
+import { api } from '../../../src/services/api';
 
 interface SettingRowProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -65,11 +71,81 @@ function SettingRow({ icon, title, subtitle, onPress, rightElement, danger }: Se
 }
 
 export default function SettingsScreen() {
-  const { user, logout } = useAuthStore();
+  const { user, logout, setUser } = useAuthStore();
+  const appVersion = Constants.expoConfig?.version || '1.0.0';
 
   const [pushEnabled, setPushEnabled] = useState(true);
   const [emailEnabled, setEmailEnabled] = useState(true);
   const [smsEnabled, setSmsEnabled] = useState(false);
+
+  // Personal Info Modal
+  const [showPersonalInfo, setShowPersonalInfo] = useState(false);
+  const [firstName, setFirstName] = useState(user?.firstName || '');
+  const [lastName, setLastName] = useState(user?.lastName || '');
+  const [phone, setPhone] = useState(user?.phone || '');
+  const [savingProfile, setSavingProfile] = useState(false);
+
+  // Change Password Modal
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [changingPassword, setChangingPassword] = useState(false);
+
+  const handleSaveProfile = async () => {
+    if (!firstName.trim() || !lastName.trim()) {
+      Alert.alert('Error', 'First name and last name are required');
+      return;
+    }
+
+    setSavingProfile(true);
+    try {
+      const updatedUser = await authService.updateProfile({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        phone: phone.trim() || undefined,
+      });
+      setUser(updatedUser);
+      setShowPersonalInfo(false);
+      Alert.alert('Success', 'Profile updated successfully');
+    } catch (error: any) {
+      Alert.alert('Error', error.message || 'Failed to update profile');
+    } finally {
+      setSavingProfile(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      Alert.alert('Error', 'New passwords do not match');
+      return;
+    }
+    if (newPassword.length < 8) {
+      Alert.alert('Error', 'Password must be at least 8 characters');
+      return;
+    }
+
+    setChangingPassword(true);
+    try {
+      await api.post('/auth/change-password', {
+        currentPassword,
+        newPassword,
+      });
+      setShowPasswordModal(false);
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      Alert.alert('Success', 'Password changed successfully');
+    } catch (error: any) {
+      Alert.alert('Error', error.response?.data?.message || 'Failed to change password');
+    } finally {
+      setChangingPassword(false);
+    }
+  };
 
   const handleLogout = () => {
     Alert.alert(
@@ -128,13 +204,13 @@ export default function SettingsScreen() {
             icon="person-outline"
             title="Personal Information"
             subtitle={user?.email}
-            onPress={() => Alert.alert('Coming Soon', 'Edit personal information will be available soon.')}
+            onPress={() => setShowPersonalInfo(true)}
           />
           <View style={styles.divider} />
           <SettingRow
             icon="lock-closed-outline"
             title="Change Password"
-            onPress={() => Alert.alert('Coming Soon', 'Change password will be available soon.')}
+            onPress={() => setShowPasswordModal(true)}
           />
         </Card>
 
@@ -190,26 +266,26 @@ export default function SettingsScreen() {
           <SettingRow
             icon="help-circle-outline"
             title="Help Center"
-            onPress={() => Alert.alert('Help', 'Visit help.homezy.ae for support.')}
+            onPress={() => Linking.openURL('https://www.homezy.co/help')}
           />
           <View style={styles.divider} />
           <SettingRow
             icon="chatbubble-ellipses-outline"
             title="Contact Support"
-            subtitle="support@homezy.ae"
-            onPress={() => Alert.alert('Contact', 'Email us at support@homezy.ae')}
+            subtitle="support@homezy.co"
+            onPress={() => Linking.openURL('mailto:support@homezy.co')}
           />
           <View style={styles.divider} />
           <SettingRow
             icon="document-text-outline"
             title="Terms of Service"
-            onPress={() => Alert.alert('Terms', 'Visit homezy.ae/terms for full terms.')}
+            onPress={() => Linking.openURL('https://www.homezy.co/terms')}
           />
           <View style={styles.divider} />
           <SettingRow
             icon="shield-outline"
             title="Privacy Policy"
-            onPress={() => Alert.alert('Privacy', 'Visit homezy.ae/privacy for our privacy policy.')}
+            onPress={() => Linking.openURL('https://www.homezy.co/privacy')}
           />
         </Card>
 
@@ -219,7 +295,7 @@ export default function SettingsScreen() {
           <SettingRow
             icon="information-circle-outline"
             title="Version"
-            rightElement={<Text style={styles.versionText}>1.0.0</Text>}
+            rightElement={<Text style={styles.versionText}>{appVersion}</Text>}
           />
         </Card>
 
@@ -242,6 +318,112 @@ export default function SettingsScreen() {
           />
         </Card>
       </ScrollView>
+
+      {/* Personal Information Modal */}
+      <Modal
+        visible={showPersonalInfo}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowPersonalInfo(false)}
+      >
+        <SafeAreaView style={styles.modalContainer}>
+          <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => setShowPersonalInfo(false)}>
+              <Text style={styles.modalCancel}>Cancel</Text>
+            </TouchableOpacity>
+            <Text style={styles.modalTitle}>Personal Information</Text>
+            <View style={{ width: 60 }} />
+          </View>
+          <ScrollView style={styles.modalContent}>
+            <Input
+              label="First Name"
+              placeholder="Enter first name"
+              value={firstName}
+              onChangeText={setFirstName}
+              required
+            />
+            <Input
+              label="Last Name"
+              placeholder="Enter last name"
+              value={lastName}
+              onChangeText={setLastName}
+              required
+            />
+            <Input
+              label="Email"
+              value={user?.email || ''}
+              editable={false}
+              hint="Email cannot be changed"
+            />
+            <Input
+              label="Phone"
+              placeholder="+971 50 123 4567"
+              value={phone}
+              onChangeText={setPhone}
+              keyboardType="phone-pad"
+            />
+            <Button
+              title="Save Changes"
+              onPress={handleSaveProfile}
+              loading={savingProfile}
+              fullWidth
+              style={styles.modalButton}
+            />
+          </ScrollView>
+        </SafeAreaView>
+      </Modal>
+
+      {/* Change Password Modal */}
+      <Modal
+        visible={showPasswordModal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowPasswordModal(false)}
+      >
+        <SafeAreaView style={styles.modalContainer}>
+          <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => setShowPasswordModal(false)}>
+              <Text style={styles.modalCancel}>Cancel</Text>
+            </TouchableOpacity>
+            <Text style={styles.modalTitle}>Change Password</Text>
+            <View style={{ width: 60 }} />
+          </View>
+          <ScrollView style={styles.modalContent}>
+            <Input
+              label="Current Password"
+              placeholder="Enter current password"
+              value={currentPassword}
+              onChangeText={setCurrentPassword}
+              secureTextEntry
+              required
+            />
+            <Input
+              label="New Password"
+              placeholder="Enter new password"
+              value={newPassword}
+              onChangeText={setNewPassword}
+              secureTextEntry
+              hint="Minimum 8 characters"
+              required
+            />
+            <Input
+              label="Confirm New Password"
+              placeholder="Confirm new password"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry
+              required
+            />
+            <Button
+              title="Update Password"
+              onPress={handleChangePassword}
+              loading={changingPassword}
+              fullWidth
+              style={styles.modalButton}
+            />
+          </ScrollView>
+        </SafeAreaView>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -331,5 +513,33 @@ const styles = StyleSheet.create({
   versionText: {
     ...textStyles.body,
     color: colors.text.tertiary,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: colors.background.primary,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: spacing[4],
+    paddingVertical: spacing[3],
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border.light,
+  },
+  modalCancel: {
+    ...textStyles.body,
+    color: colors.primary[600],
+  },
+  modalTitle: {
+    ...textStyles.h4,
+    color: colors.text.primary,
+  },
+  modalContent: {
+    flex: 1,
+    padding: spacing[4],
+  },
+  modalButton: {
+    marginTop: spacing[4],
   },
 });

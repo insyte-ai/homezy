@@ -2,7 +2,7 @@
  * Login screen
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -21,12 +21,26 @@ import { colors } from '../../src/theme/colors';
 import { spacing, layout } from '../../src/theme/spacing';
 import { textStyles } from '../../src/theme/typography';
 import { useAuthStore } from '../../src/store/authStore';
+import { useGoogleAuth } from '../../src/hooks/useGoogleAuth';
 
 export default function LoginScreen() {
-  const { login, isLoading, error, clearError } = useAuthStore();
+  const { login, isLoading, error, clearError, isAuthenticated } = useAuthStore();
+  const {
+    signIn: googleSignIn,
+    isLoading: googleLoading,
+    error: googleError,
+    isConfigured: googleConfigured,
+  } = useGoogleAuth({ role: 'homeowner' }); // Default to homeowner for login
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // Navigate after successful auth
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace('/');
+    }
+  }, [isAuthenticated]);
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -123,10 +137,17 @@ export default function LoginScreen() {
           </View>
 
           {/* Social Login */}
+          {googleError && (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{googleError}</Text>
+            </View>
+          )}
           <Button
             title="Continue with Google"
             variant="outline"
-            onPress={() => Alert.alert('Coming Soon', 'Google login will be available soon')}
+            onPress={googleSignIn}
+            loading={googleLoading}
+            disabled={!googleConfigured || isLoading}
             fullWidth
             leftIcon={
               <Ionicons name="logo-google" size={20} color={colors.text.primary} />

@@ -1,0 +1,310 @@
+{
+  "serviceId": "flooring",
+  "serviceName": "Flooring",
+  "description": "Professional flooring services",
+  "questions": [
+    {
+      "id": "type_flooring_interested",
+      "question": "What type of flooring are you interested in?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your flooring needs",
+      "options": [
+        {
+          "value": "hardwood",
+          "label": "Hardwood",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "laminate",
+          "label": "Laminate",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "vinyl",
+          "label": "Vinyl/LVP",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "tile",
+          "label": "Ceramic/porcelain tile",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "marble",
+          "label": "Marble/natural stone",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "carpet",
+          "label": "Carpet",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "epoxy",
+          "label": "Epoxy/concrete",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "need_advice",
+          "label": "Need advice on options",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "question": "What service do you need?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your flooring needs",
+      "options": [
+        {
+          "value": "new_install",
+          "label": "New flooring installation",
+          "icon": "🚰",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "replace",
+          "label": "Remove old and install new",
+          "icon": "🔄",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "repair",
+          "label": "Flooring repair",
+          "icon": "🔧",
+          "weight": 0.8,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "refinish",
+          "label": "Refinishing/polishing",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "removal_only",
+          "label": "Just removal of old flooring",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "approximate_area_size",
+      "question": "What is the approximate area size?",
+      "type": "single-choice",
+      "required": true,
+      "weight": 1,
+      "helpText": "This helps us match you with the right professional for your flooring needs",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small room (under 150 sq ft)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "medium",
+          "label": "Medium room (150-300 sq ft)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "large",
+          "label": "Large room (300-500 sq ft)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "multiple",
+          "label": "Multiple rooms (500-1000 sq ft)",
+          "icon": "📍",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        },
+        {
+          "value": "entire_home",
+          "label": "Entire home (1000+ sq ft)",
+          "icon": "•",
+          "weight": 0.7,
+          "tags": [],
+          "matchType": "direct"
+        }
+      ]
+    },
+    {
+      "id": "rooms_flooring",
+      "question": "Which rooms need flooring?",
+      "type": "multiple-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your flooring needs",
+      "options": [
+        {
+          "value": "living",
+          "label": "Living room",
+          "icon": "🛋️",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "bedrooms",
+          "label": "Bedrooms",
+          "icon": "🛏️",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "kitchen",
+          "label": "Kitchen",
+          "icon": "🍳",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "bathrooms",
+          "label": "Bathrooms",
+          "icon": "🚿",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "hallways",
+          "label": "Hallways/stairs",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "basement",
+          "label": "Basement",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "outdoor",
+          "label": "Outdoor/patio",
+          "icon": "🏡",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    },
+    {
+      "id": "current_flooring",
+      "question": "What is the current flooring?",
+      "type": "single-choice",
+      "required": false,
+      "weight": 0.4,
+      "helpText": "This helps us match you with the right professional for your flooring needs",
+      "options": [
+        {
+          "value": "tile",
+          "label": "Tile",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "carpet",
+          "label": "Carpet",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "hardwood",
+          "label": "Hardwood",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "vinyl",
+          "label": "Vinyl/linoleum",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "concrete",
+          "label": "Concrete",
+          "icon": "•",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        },
+        {
+          "value": "none",
+          "label": "None (new construction)",
+          "icon": "❌",
+          "weight": 0.5,
+          "tags": [],
+          "matchType": "partial"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "createdAt": "2025-12-16",
+    "createdBy": "auto-generator",
+    "sourceFile": "flooring.json"
+  }
+}

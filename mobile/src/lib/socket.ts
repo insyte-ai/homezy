@@ -49,17 +49,17 @@ class MessagingSocket {
    */
   async connect(): Promise<void> {
     if (this.socket?.connected) {
-      console.log('[Socket] Already connected');
+      if (__DEV__) console.log('[Socket] Already connected');
       return;
     }
 
     const token = await tokenStorage.getAccessToken();
     if (!token) {
-      console.log('[Socket] No token available, cannot connect');
+      if (__DEV__) console.log('[Socket] No token available, cannot connect');
       return;
     }
 
-    console.log('[Socket] Connecting to', SOCKET_URL);
+    if (__DEV__) console.log('[Socket] Connecting to', SOCKET_URL);
 
     this.socket = io(`${SOCKET_URL}/messaging`, {
       auth: { token },
@@ -80,22 +80,22 @@ class MessagingSocket {
     if (!this.socket) return;
 
     this.socket.on('connect', () => {
-      console.log('[Socket] Connected to messaging');
+      if (__DEV__) console.log('[Socket] Connected to messaging');
       this.reconnectAttempts = 0;
       this.emit('presence:online');
     });
 
     this.socket.on('disconnect', (reason) => {
-      console.log('[Socket] Disconnected:', reason);
+      if (__DEV__) console.log('[Socket] Disconnected:', reason);
     });
 
     this.socket.on('connect_error', (error) => {
-      console.error('[Socket] Connection error:', error.message);
+      if (__DEV__) console.error('[Socket] Connection error:', error.message);
       this.reconnectAttempts++;
     });
 
     this.socket.on('error', (error) => {
-      console.error('[Socket] Error:', error);
+      if (__DEV__) console.error('[Socket] Error:', error);
     });
 
     // Forward events to registered listeners
@@ -131,7 +131,7 @@ class MessagingSocket {
     if (this.socket) {
       this.socket.disconnect();
       this.socket = null;
-      console.log('[Socket] Disconnected');
+      if (__DEV__) console.log('[Socket] Disconnected');
     }
   }
 
@@ -147,7 +147,7 @@ class MessagingSocket {
    */
   joinConversation(conversationId: string): void {
     if (!this.socket?.connected) {
-      console.warn('[Socket] Not connected, cannot join conversation');
+      if (__DEV__) console.warn('[Socket] Not connected, cannot join conversation');
       return;
     }
     this.socket.emit('conversation:join', { conversationId });
@@ -210,7 +210,7 @@ class MessagingSocket {
       try {
         callback(data);
       } catch (error) {
-        console.error(`[Socket] Error in listener for ${event}:`, error);
+        if (__DEV__) console.error(`[Socket] Error in listener for ${event}:`, error);
       }
     });
   }

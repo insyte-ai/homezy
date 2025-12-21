@@ -2,7 +2,7 @@
  * Register screen
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -21,11 +21,12 @@ import { colors } from '../../src/theme/colors';
 import { spacing, borderRadius, layout } from '../../src/theme/spacing';
 import { textStyles } from '../../src/theme/typography';
 import { useAuthStore } from '../../src/store/authStore';
+import { useGoogleAuth } from '../../src/hooks/useGoogleAuth';
 
 type UserRole = 'homeowner' | 'pro';
 
 export default function RegisterScreen() {
-  const { register, isLoading, error, clearError } = useAuthStore();
+  const { register, isLoading, error, clearError, isAuthenticated } = useAuthStore();
 
   const [role, setRole] = useState<UserRole>('homeowner');
   const [firstName, setFirstName] = useState('');
@@ -34,6 +35,21 @@ export default function RegisterScreen() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  // Google auth with selected role
+  const {
+    signIn: googleSignIn,
+    isLoading: googleLoading,
+    error: googleError,
+    isConfigured: googleConfigured,
+  } = useGoogleAuth({ role });
+
+  // Navigate after successful auth
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace('/');
+    }
+  }, [isAuthenticated]);
 
   const handleRegister = async () => {
     // Validation
@@ -139,6 +155,32 @@ export default function RegisterScreen() {
                 Professional
               </Text>
             </TouchableOpacity>
+          </View>
+
+          {/* Google Sign Up */}
+          {googleError && (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{googleError}</Text>
+            </View>
+          )}
+          <Button
+            title={`Continue with Google as ${role === 'homeowner' ? 'Homeowner' : 'Professional'}`}
+            variant="outline"
+            onPress={googleSignIn}
+            loading={googleLoading}
+            disabled={!googleConfigured || isLoading}
+            fullWidth
+            leftIcon={
+              <Ionicons name="logo-google" size={20} color={colors.text.primary} />
+            }
+            style={styles.googleButton}
+          />
+
+          {/* Divider */}
+          <View style={styles.divider}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>or register with email</Text>
+            <View style={styles.dividerLine} />
           </View>
 
           {/* Form */}
@@ -311,6 +353,24 @@ const styles = StyleSheet.create({
   },
   roleTextActive: {
     color: colors.primary[600],
+  },
+  googleButton: {
+    marginBottom: spacing[4],
+  },
+  divider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing[4],
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.border.light,
+  },
+  dividerText: {
+    ...textStyles.caption,
+    color: colors.text.tertiary,
+    marginHorizontal: spacing[3],
   },
   form: {
     marginBottom: spacing[4],

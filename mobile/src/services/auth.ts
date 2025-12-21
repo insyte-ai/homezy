@@ -147,7 +147,7 @@ export const authService = {
       await api.post('/auth/logout');
     } catch (error) {
       // Ignore logout API errors - we'll clear tokens anyway
-      console.log('Logout API error (ignored):', error);
+      if (__DEV__) console.log('Logout API error (ignored):', error);
     } finally {
       await tokenStorage.clearTokens();
     }
