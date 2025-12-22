@@ -15,6 +15,77 @@ import { notificationService } from '../services/notification.service';
  */
 
 /**
+ * @route   POST /api/v1/pros/agreement
+ * @desc    Accept pro agreement during onboarding
+ * @access  Private (Pro only)
+ */
+export const acceptAgreement = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new AppError('Unauthorized', 401);
+    }
+
+    const { accepted, version } = req.body;
+
+    if (!accepted) {
+      throw new AppError('You must accept the agreement to continue', 400);
+    }
+
+    if (!version) {
+      throw new AppError('Agreement version is required', 400);
+    }
+
+    // Get client IP address
+    const ipAddress = req.ip || req.headers['x-forwarded-for'] || 'unknown';
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          'proProfile.agreement': {
+            accepted: true,
+            version,
+            acceptedAt: new Date(),
+            ipAddress: typeof ipAddress === 'string' ? ipAddress : ipAddress[0],
+          },
+        },
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!user) {
+      throw new AppError('User not found', 404);
+    }
+
+    if (user.role !== 'pro') {
+      throw new AppError('Only pros can access this endpoint', 403);
+    }
+
+    logger.info('Pro agreement accepted', {
+      userId,
+      version,
+      acceptedAt: new Date().toISOString(),
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Agreement accepted successfully',
+      data: {
+        agreement: user.proProfile?.agreement,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
  * @route   POST /api/v1/pros/onboarding
  * @desc    Complete pro onboarding and save initial profile data
  * @access  Private (Pro only)
@@ -44,7 +115,17 @@ export const completeOnboarding = async (
       categories,
       primaryEmirate,
       serviceRadius,
+      agreementAccepted,
+      agreementVersion,
     } = req.body;
+
+    // Validate agreement acceptance
+    if (!agreementAccepted) {
+      throw new AppError('You must accept the Pro Agreement to continue', 400);
+    }
+
+    // Get client IP address for audit trail
+    const ipAddress = req.ip || req.headers['x-forwarded-for'] || 'unknown';
 
     // Build service area from onboarding data
     const serviceArea = {
@@ -72,6 +153,12 @@ export const completeOnboarding = async (
           'proProfile.categories': categories,
           'proProfile.serviceAreas': [serviceArea],
           'proProfile.verificationStatus': 'pending',
+          'proProfile.agreement': {
+            accepted: true,
+            version: agreementVersion,
+            acceptedAt: new Date(),
+            ipAddress: typeof ipAddress === 'string' ? ipAddress : ipAddress[0],
+          },
         },
       },
       { new: true, runValidators: true }
@@ -102,6 +189,8 @@ export const completeOnboarding = async (
       businessName,
       businessType,
       categoriesCount: categories.length,
+      agreementVersion,
+      agreementAcceptedAt: new Date().toISOString(),
     });
 
     res.status(200).json({

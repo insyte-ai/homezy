@@ -255,6 +255,16 @@ export const updateProfessionalNotes = async (
   await api.put(`/admin/professionals/${id}/notes`, { notes });
 };
 
+export const updateTradeLicenseExpiry = async (
+  id: string,
+  tradeLicenseExpiry: string
+): Promise<{ tradeLicenseExpiry: string }> => {
+  const response = await api.put(`/admin/professionals/${id}/trade-license-expiry`, {
+    tradeLicenseExpiry,
+  });
+  return response.data.data;
+};
+
 // ==================== HOMEOWNERS ====================
 
 export const getHomeowners = async (

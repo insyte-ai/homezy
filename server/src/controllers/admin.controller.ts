@@ -236,6 +236,7 @@ export const getProfessionalById = async (req: Request, res: Response): Promise<
         number: proProfile.tradeLicenseNumber,
         documentUrl: tradeLicenseDoc?.url,
         status: tradeLicenseDoc?.status || 'pending',
+        expiryDate: proProfile.tradeLicenseExpiry,
       },
       vatNumber: proProfile.vatNumber,
       vatDocument: {
@@ -900,5 +901,64 @@ export const reloadKnowledgeBase = async (_req: Request, res: Response): Promise
       success: false,
       error: 'Failed to reload knowledge base',
     });
+  }
+};
+
+/**
+ * Update professional trade license expiry date
+ */
+export const updateTradeLicenseExpiry = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { tradeLicenseExpiry } = req.body;
+
+    if (!tradeLicenseExpiry) {
+      throw new BadRequestError('Trade license expiry date is required');
+    }
+
+    const expiryDate = new Date(tradeLicenseExpiry);
+    if (isNaN(expiryDate.getTime())) {
+      throw new BadRequestError('Invalid date format');
+    }
+
+    const professional = await User.findOne({ _id: id, role: 'pro' });
+
+    if (!professional) {
+      throw new NotFoundError('Professional not found');
+    }
+
+    if (!professional.proProfile) {
+      throw new BadRequestError('User is not a professional');
+    }
+
+    await User.updateOne(
+      { _id: id },
+      { $set: { 'proProfile.tradeLicenseExpiry': expiryDate } }
+    );
+
+    logger.info(`Trade license expiry updated for professional ${id}`, {
+      tradeLicenseExpiry: expiryDate.toISOString(),
+    });
+
+    res.json({
+      success: true,
+      message: 'Trade license expiry date updated successfully',
+      data: {
+        tradeLicenseExpiry: expiryDate,
+      },
+    });
+  } catch (error) {
+    logger.error('Error updating trade license expiry:', error);
+    if (error instanceof NotFoundError || error instanceof BadRequestError) {
+      res.status(error instanceof NotFoundError ? 404 : 400).json({
+        success: false,
+        error: error.message,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to update trade license expiry',
+      });
+    }
   }
 };

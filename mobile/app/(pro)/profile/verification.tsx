@@ -62,7 +62,7 @@ const STATUS_CONFIG: Record<VerificationStatus | 'unverified', {
     color: colors.success[600],
     bgColor: colors.success[50],
     title: 'Verified',
-    description: 'Your documents have been verified. You get 15% discount on lead claims!',
+    description: 'Your documents have been verified. Your business is now verified!',
   },
   rejected: {
     icon: 'close-circle',

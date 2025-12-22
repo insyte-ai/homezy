@@ -7,6 +7,7 @@ import {
   getProfessionalById,
   approveProfessional,
   rejectProfessional,
+  updateTradeLicenseExpiry,
   getHomeowners,
   getHomeownerById,
   getLeads,
@@ -31,6 +32,7 @@ router.get('/professionals', getProfessionals);
 router.get('/professionals/:id', getProfessionalById);
 router.post('/professionals/:id/approve', approveProfessional);
 router.post('/professionals/:id/reject', rejectProfessional);
+router.put('/professionals/:id/trade-license-expiry', updateTradeLicenseExpiry);
 
 // Homeowner management routes
 router.get('/homeowners', getHomeowners);

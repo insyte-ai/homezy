@@ -1235,6 +1235,340 @@ class EmailService {
       throw error;
     }
   }
+
+  /**
+   * Send trade license expiry warning email (7 days before)
+   */
+  async sendTradeLicenseExpiryWarning(
+    to: string,
+    data: {
+      professionalName: string;
+      businessName: string;
+      expiryDate: Date;
+      daysUntilExpiry: number;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const dashboardUrl = `${clientUrl}/pro/dashboard/verification`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+      sendSmtpEmail.subject = `Action Required: Trade License Expires in ${data.daysUntilExpiry} Days`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.professionalName }];
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #ffc107; color: #000; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
+            .info-box { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid #FFD700; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>⚠️ Trade License Expiring Soon</h1>
+            </div>
+            <div class="content">
+              <h2>Hi ${data.professionalName},</h2>
+              <p>This is a reminder that your trade license for <strong>${data.businessName}</strong> will expire soon.</p>
+
+              <div class="warning">
+                <strong>⏰ License Expires: ${data.expiryDate.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'long' })}</strong><br>
+                Only ${data.daysUntilExpiry} days remaining!
+              </div>
+
+              <div class="info-box">
+                <strong>What you need to do:</strong>
+                <ul style="margin: 10px 0;">
+                  <li>Renew your trade license with the relevant authority</li>
+                  <li>Upload the renewed license to your Homezy profile</li>
+                  <li>Our team will verify the updated documents</li>
+                </ul>
+              </div>
+
+              <p><strong>Important:</strong> If your license expires, your account may be temporarily suspended and you won't be able to claim new leads until a valid license is uploaded.</p>
+
+              <div style="text-align: center;">
+                <a href="${dashboardUrl}" class="button">Update License</a>
+              </div>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+              <p>Questions? Contact us at support@homezy.co</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        Trade License Expiring Soon
+
+        Hi ${data.professionalName},
+
+        This is a reminder that your trade license for ${data.businessName} will expire soon.
+
+        License Expires: ${data.expiryDate.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'long' })}
+        Only ${data.daysUntilExpiry} days remaining!
+
+        What you need to do:
+        - Renew your trade license with the relevant authority
+        - Upload the renewed license to your Homezy profile
+        - Our team will verify the updated documents
+
+        Important: If your license expires, your account may be temporarily suspended and you won't be able to claim new leads until a valid license is uploaded.
+
+        Update your license: ${dashboardUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Trade license expiry warning email sent', {
+        to,
+        expiryDate: data.expiryDate,
+        daysUntilExpiry: data.daysUntilExpiry,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending trade license expiry warning email', {
+        to,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Send trade license expired daily reminder email
+   */
+  async sendTradeLicenseExpiredReminder(
+    to: string,
+    data: {
+      professionalName: string;
+      businessName: string;
+      expiryDate: Date;
+      daysSinceExpiry: number;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const dashboardUrl = `${clientUrl}/pro/dashboard/verification`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+      sendSmtpEmail.subject = `Urgent: Your Trade License Has Expired`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.professionalName }];
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #ff6b6b; color: white; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: #ff6b6b; color: white; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .urgent { background: #ffebee; border-left: 4px solid #ff6b6b; padding: 15px; margin: 20px 0; }
+            .info-box { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid #FFD700; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>🚨 Trade License Expired</h1>
+            </div>
+            <div class="content">
+              <h2>Hi ${data.professionalName},</h2>
+              <p>Your trade license for <strong>${data.businessName}</strong> has expired.</p>
+
+              <div class="urgent">
+                <strong>❌ License Expired: ${data.expiryDate.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'long' })}</strong><br>
+                Expired ${data.daysSinceExpiry} day${data.daysSinceExpiry === 1 ? '' : 's'} ago
+              </div>
+
+              <div class="info-box">
+                <strong>⚠️ Account Impact:</strong>
+                <ul style="margin: 10px 0;">
+                  <li>You cannot claim new leads with an expired license</li>
+                  <li>Your profile may not appear in search results</li>
+                  <li>Existing leads and communications remain active</li>
+                </ul>
+              </div>
+
+              <p>Please renew your trade license and upload the updated document to restore full access to your Homezy account.</p>
+
+              <div style="text-align: center;">
+                <a href="${dashboardUrl}" class="button">Update License Now</a>
+              </div>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy. All rights reserved.</p>
+              <p>Questions? Contact us at support@homezy.co</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        Trade License Expired
+
+        Hi ${data.professionalName},
+
+        Your trade license for ${data.businessName} has expired.
+
+        License Expired: ${data.expiryDate.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'long' })}
+        Expired ${data.daysSinceExpiry} day${data.daysSinceExpiry === 1 ? '' : 's'} ago
+
+        Account Impact:
+        - You cannot claim new leads with an expired license
+        - Your profile may not appear in search results
+        - Existing leads and communications remain active
+
+        Please renew your trade license and upload the updated document to restore full access to your Homezy account.
+
+        Update your license: ${dashboardUrl}
+
+        © ${new Date().getFullYear()} Homezy. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Trade license expired reminder email sent', {
+        to,
+        expiryDate: data.expiryDate,
+        daysSinceExpiry: data.daysSinceExpiry,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending trade license expired reminder email', {
+        to,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Send admin notification about trade license expiry
+   */
+  async sendAdminTradeLicenseAlert(
+    to: string,
+    data: {
+      adminName: string;
+      professionalName: string;
+      businessName: string;
+      professionalId: string;
+      expiryDate: Date;
+      status: 'expiring' | 'expired';
+      daysRemaining?: number;
+      daysSinceExpiry?: number;
+    }
+  ): Promise<void> {
+    try {
+      const clientUrl = process.env.CLIENT_URL || 'http://localhost:3001';
+      const professionalUrl = `${clientUrl}/admin/professionals/${data.professionalId}`;
+
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+
+      const isExpired = data.status === 'expired';
+      sendSmtpEmail.subject = isExpired
+        ? `Alert: ${data.businessName} Trade License Expired`
+        : `Notice: ${data.businessName} Trade License Expiring in ${data.daysRemaining} Days`;
+      sendSmtpEmail.sender = this.sender;
+      sendSmtpEmail.to = [{ email: to, name: data.adminName }];
+
+      const headerColor = isExpired ? '#ff6b6b' : '#ffc107';
+      const headerText = isExpired ? 'white' : '#000';
+
+      sendSmtpEmail.htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: ${headerColor}; color: ${headerText}; padding: 30px 20px; text-align: center; }
+            .content { padding: 30px 20px; background-color: #f9f9f9; }
+            .button { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; text-decoration: none; border-radius: 8px; margin: 20px 0; font-weight: bold; }
+            .info-box { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid ${headerColor}; }
+            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>${isExpired ? '🚨 License Expired' : '⚠️ License Expiring Soon'}</h1>
+            </div>
+            <div class="content">
+              <h2>Admin Alert</h2>
+              <p>A professional's trade license requires attention:</p>
+
+              <div class="info-box">
+                <p><strong>Professional:</strong> ${data.professionalName}</p>
+                <p><strong>Business:</strong> ${data.businessName}</p>
+                <p><strong>Expiry Date:</strong> ${data.expiryDate.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'long' })}</p>
+                <p><strong>Status:</strong> ${isExpired
+                  ? `Expired ${data.daysSinceExpiry} day${data.daysSinceExpiry === 1 ? '' : 's'} ago`
+                  : `Expires in ${data.daysRemaining} days`}</p>
+              </div>
+
+              <div style="text-align: center;">
+                <a href="${professionalUrl}" class="button">View Professional</a>
+              </div>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Homezy Admin. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      sendSmtpEmail.textContent = `
+        Admin Alert: Trade License ${isExpired ? 'Expired' : 'Expiring Soon'}
+
+        A professional's trade license requires attention:
+
+        Professional: ${data.professionalName}
+        Business: ${data.businessName}
+        Expiry Date: ${data.expiryDate.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', dateStyle: 'long' })}
+        Status: ${isExpired
+          ? `Expired ${data.daysSinceExpiry} day${data.daysSinceExpiry === 1 ? '' : 's'} ago`
+          : `Expires in ${data.daysRemaining} days`}
+
+        View professional: ${professionalUrl}
+
+        © ${new Date().getFullYear()} Homezy Admin. All rights reserved.
+      `;
+
+      const result = await this.apiInstance.sendTransacEmail(sendSmtpEmail);
+      logger.info('Admin trade license alert email sent', {
+        to,
+        professionalId: data.professionalId,
+        status: data.status,
+        messageId: (result.body as any).messageId,
+      });
+    } catch (error: any) {
+      logger.error('Error sending admin trade license alert email', {
+        to,
+        professionalId: data.professionalId,
+        error: error.message,
+      });
+      throw error;
+    }
+  }
 }
 
 // Export singleton instance

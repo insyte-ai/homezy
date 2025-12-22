@@ -357,3 +357,28 @@ export const submitVerification = async (): Promise<{ status: string; message: s
   const response = await api.post<{ success: boolean; data: { status: string; message: string } }>('/pros/me/verification/submit');
   return response.data.data;
 };
+
+/**
+ * Pro Agreement interface
+ */
+export interface ProAgreement {
+  accepted: boolean;
+  version: string;
+  acceptedAt?: string;
+  ipAddress?: string;
+}
+
+/**
+ * Accept Pro Agreement
+ */
+export const acceptAgreement = async (data: {
+  accepted: boolean;
+  version: string;
+}): Promise<{ agreement: ProAgreement }> => {
+  const response = await api.post<{
+    success: boolean;
+    message: string;
+    data: { agreement: ProAgreement };
+  }>('/pros/agreement', data);
+  return response.data.data;
+};

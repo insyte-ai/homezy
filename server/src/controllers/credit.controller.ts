@@ -144,19 +144,11 @@ export const calculateCost = async (
   req: Request<{}, {}, CalculateCreditCostInput>,
   res: Response
 ): Promise<void> => {
-  const { budgetBracket, urgency, verificationStatus } = req.body;
-
-  // Use user's verification status if not provided (filter out 'rejected')
-  const userVerificationStatus = req.user?.proProfile?.verificationStatus;
-  const effectiveVerificationStatus =
-    verificationStatus ||
-    (userVerificationStatus === 'rejected' ? 'pending' : userVerificationStatus) ||
-    'pending';
+  const { budgetBracket, urgency } = req.body;
 
   const cost = creditService.calculateCreditCost({
     budgetBracket,
     urgency,
-    verificationStatus: effectiveVerificationStatus,
   });
 
   res.status(200).json({
@@ -165,7 +157,6 @@ export const calculateCost = async (
       cost,
       budgetBracket,
       urgency,
-      verificationStatus: effectiveVerificationStatus,
     },
   });
 };

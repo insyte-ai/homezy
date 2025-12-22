@@ -226,6 +226,8 @@ export const completeOnboarding = async (data: {
   categories: string[];
   primaryEmirate: string;
   serviceRadius?: number;
+  agreementAccepted: boolean;
+  agreementVersion: string;
 }): Promise<{ proProfile: ProProfile; slug: string }> => {
   const response = await api.post<{
     success: boolean;

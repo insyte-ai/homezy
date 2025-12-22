@@ -339,7 +339,7 @@ export default function ProDashboard() {
               </Text>
               <Text style={styles.verificationSubtitle}>
                 {user?.proProfile?.verificationStatus === 'approved'
-                  ? 'You get 15% discount on lead claims'
+                  ? 'Your business is verified'
                   : user?.proProfile?.verificationStatus === 'pending'
                   ? 'Your documents are under review'
                   : user?.proProfile?.verificationStatus === 'rejected'

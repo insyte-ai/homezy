@@ -24,6 +24,7 @@ import {
   approveProfessional,
   rejectProfessional,
   suspendProfessional,
+  updateTradeLicenseExpiry,
   ProfessionalDetails,
 } from '@/lib/services/admin';
 import toast from 'react-hot-toast';
@@ -39,12 +40,22 @@ const ProfessionalDetailPage: React.FC = () => {
   const [showRejectionDialog, setShowRejectionDialog] = useState(false);
   const [rejectionReason, setRejectionReason] = useState('');
   const [adminNotes, setAdminNotes] = useState('');
+  const [tradeLicenseExpiryInput, setTradeLicenseExpiryInput] = useState('');
+  const [isUpdatingExpiry, setIsUpdatingExpiry] = useState(false);
 
   useEffect(() => {
     if (professionalId) {
       fetchProfessionalDetails();
     }
   }, [professionalId]);
+
+  // Initialize expiry date input when professional data is loaded
+  useEffect(() => {
+    if (professional?.tradeLicense?.expiryDate) {
+      const date = new Date(professional.tradeLicense.expiryDate);
+      setTradeLicenseExpiryInput(date.toISOString().split('T')[0]);
+    }
+  }, [professional?.tradeLicense?.expiryDate]);
 
   const fetchProfessionalDetails = async () => {
     try {
@@ -98,6 +109,26 @@ const ProfessionalDetailPage: React.FC = () => {
       console.error('Error rejecting professional:', error);
       const errorMessage = error.response?.data?.message || 'Failed to reject professional';
       toast.error(errorMessage);
+    }
+  };
+
+  const handleUpdateTradeLicenseExpiry = async () => {
+    if (!professional || !tradeLicenseExpiryInput) {
+      toast.error('Please select an expiry date');
+      return;
+    }
+
+    setIsUpdatingExpiry(true);
+    try {
+      await updateTradeLicenseExpiry(professional.id, tradeLicenseExpiryInput);
+      toast.success('Trade license expiry date updated');
+      fetchProfessionalDetails();
+    } catch (error: any) {
+      console.error('Error updating trade license expiry:', error);
+      const errorMessage = error.response?.data?.message || 'Failed to update expiry date';
+      toast.error(errorMessage);
+    } finally {
+      setIsUpdatingExpiry(false);
     }
   };
 
@@ -397,14 +428,11 @@ const ProfessionalDetailPage: React.FC = () => {
                     {/* Trade License */}
                     {professional.tradeLicense && (
                       <div className="p-4 border border-neutral-200 rounded-lg">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mb-4">
                           <div className="flex-1">
                             <div className="text-sm font-medium text-neutral-900 mb-1">Trade License</div>
                             <div className="text-xs text-neutral-500">
                               {professional.tradeLicense.number && `License #: ${professional.tradeLicense.number}`}
-                            </div>
-                            <div className="text-xs text-neutral-500">
-                              {professional.tradeLicense.expiryDate && `Expires: ${new Date(professional.tradeLicense.expiryDate).toLocaleDateString()}`}
                             </div>
                           </div>
                           {professional.tradeLicense.documentUrl ? (
@@ -422,6 +450,38 @@ const ProfessionalDetailPage: React.FC = () => {
                               <XCircleIcon className="h-4 w-4 mr-2" />
                               Not Available
                             </span>
+                          )}
+                        </div>
+
+                        {/* Trade License Expiry Date Editor */}
+                        <div className="border-t border-neutral-200 pt-4">
+                          <label className="block text-sm font-medium text-neutral-700 mb-2">
+                            License Expiry Date
+                          </label>
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="date"
+                              value={tradeLicenseExpiryInput}
+                              onChange={(e) => setTradeLicenseExpiryInput(e.target.value)}
+                              className="flex-1 px-3 py-2 border border-neutral-300 rounded-md text-sm focus:ring-primary-500 focus:border-primary-500"
+                            />
+                            <button
+                              onClick={handleUpdateTradeLicenseExpiry}
+                              disabled={isUpdatingExpiry || !tradeLicenseExpiryInput}
+                              className="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-md hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              {isUpdatingExpiry ? 'Saving...' : 'Save'}
+                            </button>
+                          </div>
+                          {professional.tradeLicense.expiryDate && (
+                            <p className="mt-2 text-xs text-neutral-500">
+                              Current expiry: {new Date(professional.tradeLicense.expiryDate).toLocaleDateString()}
+                            </p>
+                          )}
+                          {!professional.tradeLicense.expiryDate && (
+                            <p className="mt-2 text-xs text-amber-600">
+                              No expiry date set. Please review the uploaded document and enter the expiry date.
+                            </p>
                           )}
                         </div>
                       </div>

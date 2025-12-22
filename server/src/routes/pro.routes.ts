@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  acceptAgreement,
   completeOnboarding,
   getMyProfile,
   previewMyProfile,
@@ -22,6 +23,7 @@ import {
   addPortfolioItemSchema,
   updatePortfolioItemSchema,
   updateFeaturedProjectsSchema,
+  proAgreementSchema,
 } from '../schemas/pro.schema';
 import { uploadDocument } from '../middleware/upload.middleware';
 
@@ -49,6 +51,15 @@ router.post(
   authorize('pro'),
   validate(onboardingSchema),
   completeOnboarding
+);
+
+// Accept pro agreement (for mobile or existing pros)
+router.post(
+  '/agreement',
+  authenticate,
+  authorize('pro'),
+  validate(proAgreementSchema),
+  acceptAgreement
 );
 
 // Get current pro's profile

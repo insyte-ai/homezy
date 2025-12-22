@@ -128,7 +128,7 @@ export default function BecomeAProPage() {
                 Enhanced Verification
               </h3>
               <p className="text-neutral-600">
-                Get verified for better visibility and 15% lower credit costs. Stand out from the competition.
+                Get verified for better visibility and priority placement. Stand out from the competition.
               </p>
             </div>
 
@@ -282,9 +282,6 @@ export default function BecomeAProPage() {
               <div><span className="font-medium">AED 50K-150K:</span> 75 credits</div>
               <div><span className="font-medium">AED 150K+:</span> 125 credits</div>
             </div>
-            <p className="mt-4 text-sm text-neutral-600">
-              <strong>Comprehensive verified pros get 15% discount</strong> on all lead claims
-            </p>
           </div>
         </ChatPanelAwareContainer>
       </section>

@@ -250,10 +250,6 @@ export default function ProVerificationPage() {
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-primary-600" />
-                Get 15% credit discount with comprehensive verification
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-primary-600" />
                 Priority placement in search results
               </li>
             </ul>

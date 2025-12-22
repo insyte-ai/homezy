@@ -9,6 +9,11 @@ dotenv.config();
 
 /**
  * Test script to verify credit system functionality
+ *
+ * Credit System Rules:
+ * - One-time welcome bonus: 20 free credits (expires in 3 months)
+ * - Paid credits: Never expire
+ * - FIFO: Free credits used first, then paid credits (oldest first)
  */
 async function testCreditSystem() {
   try {
@@ -50,20 +55,20 @@ async function testCreditSystem() {
     console.log('='.repeat(60));
 
     // Test 1: Get initial balance
-    console.log('\n1️⃣  Testing getBalance (should create with 100 free credits)...');
+    console.log('\n1️⃣  Testing getBalance (should create with 20 free credits)...');
     let balance = await creditService.getBalance(professionalId);
     console.log('✅ Balance created/retrieved:');
     console.log(`   - Total: ${balance.totalBalance} credits`);
     console.log(`   - Free: ${balance.freeCredits} credits`);
     console.log(`   - Paid: ${balance.paidCredits} credits`);
-    console.log(`   - Last Reset: ${balance.lastResetDate?.toISOString()}`);
 
-    // Test 2: Check transactions
+    // Test 2: Check transactions and expiry
     console.log('\n2️⃣  Checking transaction history...');
     const { transactions } = await creditService.getTransactions(professionalId, { limit: 10 });
     console.log(`✅ Found ${transactions.length} transaction(s):`);
     transactions.forEach((txn: any, idx: number) => {
-      console.log(`   ${idx + 1}. ${txn.type}: ${txn.amount > 0 ? '+' : ''}${txn.amount} (${txn.description})`);
+      const expiry = txn.expiresAt ? ` (expires: ${new Date(txn.expiresAt).toLocaleDateString()})` : ' (never expires)';
+      console.log(`   ${idx + 1}. ${txn.type}: ${txn.amount > 0 ? '+' : ''}${txn.amount} [${txn.creditType}]${expiry}`);
     });
 
     // Test 3: Spend some credits
@@ -79,29 +84,17 @@ async function testCreditSystem() {
     console.log(`   - Free credits: ${spendResult.balance.freeCredits}`);
     console.log(`   - Paid credits: ${spendResult.balance.paidCredits}`);
 
-    // Test 4: Monthly reset
-    console.log('\n4️⃣  Testing monthly reset...');
-    const resetBalance = await creditService.resetMonthlyCredits(professionalId);
-    console.log('✅ Monthly reset completed:');
-    console.log(`   - New balance: ${resetBalance.totalBalance} credits`);
-    console.log(`   - Free credits: ${resetBalance.freeCredits} (should be 100)`);
-    console.log(`   - Paid credits: ${resetBalance.paidCredits}`);
-    console.log(`   - Last reset: ${resetBalance.lastResetDate?.toISOString()}`);
-
-    // Test 5: Verify reset transaction
-    console.log('\n5️⃣  Verifying reset transaction...');
-    const resetTxn = await CreditTransaction.findOne({
-      professionalId,
-      type: 'monthly_reset',
-    }).sort({ createdAt: -1 });
-
-    if (resetTxn) {
-      console.log('✅ Reset transaction found:');
-      console.log(`   - Amount: ${resetTxn.amount > 0 ? '+' : ''}${resetTxn.amount}`);
-      console.log(`   - Description: ${resetTxn.description}`);
-      console.log(`   - Previous free credits: ${resetTxn.metadata?.previousFreeCredits}`);
-      console.log(`   - Balance after: ${resetTxn.balanceAfter}`);
-    }
+    // Test 4: Credit cost calculation
+    console.log('\n4️⃣  Testing credit cost calculation...');
+    const testCases = [
+      { budgetBracket: 'under-3k' as const, urgency: 'flexible' as const, verificationStatus: 'approved' as const },
+      { budgetBracket: '20k-50k' as const, urgency: 'emergency' as const, verificationStatus: 'approved' as const },
+      { budgetBracket: 'over-250k' as const, urgency: 'within-week' as const, verificationStatus: 'pending' as const },
+    ];
+    testCases.forEach(tc => {
+      const cost = creditService.calculateCreditCost(tc);
+      console.log(`   - Budget: ${tc.budgetBracket}, Urgency: ${tc.urgency}, Verified: ${tc.verificationStatus} → ${cost} credits`);
+    });
 
     // Summary
     console.log('\n' + '='.repeat(60));
@@ -111,8 +104,8 @@ async function testCreditSystem() {
     const allTransactions = await CreditTransaction.find({ professionalId }).sort({ createdAt: 1 });
 
     console.log(`Final Balance: ${finalBalance.totalBalance} credits`);
-    console.log(`  - Free: ${finalBalance.freeCredits}`);
-    console.log(`  - Paid: ${finalBalance.paidCredits}`);
+    console.log(`  - Free: ${finalBalance.freeCredits} (expires in 3 months from creation)`);
+    console.log(`  - Paid: ${finalBalance.paidCredits} (never expires)`);
     console.log(`\nTotal Transactions: ${allTransactions.length}`);
     allTransactions.forEach((txn: any, idx: number) => {
       const sign = txn.amount > 0 ? '+' : '';

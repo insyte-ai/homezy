@@ -523,6 +523,110 @@ class NotificationService {
       logger.error('Failed to notify pro of quote rejection', { error, proId, leadId });
     }
   }
+
+  /**
+   * Notify a pro that their trade license is expiring soon
+   */
+  async notifyProTradeLicenseExpiring(
+    proId: string,
+    businessName: string,
+    expiryDate: Date,
+    daysRemaining: number
+  ): Promise<void> {
+    try {
+      await this.createNotification({
+        recipient: proId,
+        recipientRole: 'pro',
+        type: NotificationType.TRADE_LICENSE_EXPIRING,
+        category: NotificationCategory.VERIFICATION,
+        priority: NotificationPriority.HIGH,
+        title: 'Trade License Expiring Soon',
+        message: `Your trade license for ${businessName} expires in ${daysRemaining} days. Please renew and upload the updated license.`,
+        data: { expiryDate: expiryDate.toISOString(), daysRemaining },
+        actionUrl: '/pro/dashboard/verification',
+      });
+    } catch (error) {
+      logger.error('Failed to notify pro of trade license expiring', { error, proId });
+    }
+  }
+
+  /**
+   * Notify a pro that their trade license has expired
+   */
+  async notifyProTradeLicenseExpired(
+    proId: string,
+    businessName: string,
+    expiryDate: Date,
+    daysSinceExpiry: number
+  ): Promise<void> {
+    try {
+      await this.createNotification({
+        recipient: proId,
+        recipientRole: 'pro',
+        type: NotificationType.TRADE_LICENSE_EXPIRED,
+        category: NotificationCategory.VERIFICATION,
+        priority: NotificationPriority.HIGH,
+        title: 'Trade License Expired',
+        message: `Your trade license for ${businessName} expired ${daysSinceExpiry} day${daysSinceExpiry === 1 ? '' : 's'} ago. Please renew to continue claiming leads.`,
+        data: { expiryDate: expiryDate.toISOString(), daysSinceExpiry },
+        actionUrl: '/pro/dashboard/verification',
+      });
+    } catch (error) {
+      logger.error('Failed to notify pro of trade license expired', { error, proId });
+    }
+  }
+
+  /**
+   * Notify admins about trade license expiry issues
+   */
+  async notifyAdminsTradeLicenseExpiry(
+    proId: string,
+    proName: string,
+    businessName: string,
+    expiryDate: Date,
+    status: 'expiring' | 'expired',
+    daysRemaining?: number,
+    daysSinceExpiry?: number
+  ): Promise<void> {
+    try {
+      const admins = await User.find({ role: 'admin' }).select('_id').lean();
+
+      if (admins.length === 0) {
+        logger.warn('No admin users found to notify about trade license expiry');
+        return;
+      }
+
+      const isExpired = status === 'expired';
+      const title = isExpired ? 'Trade License Expired' : 'Trade License Expiring Soon';
+      const message = isExpired
+        ? `${proName}'s trade license for ${businessName} expired ${daysSinceExpiry} day${daysSinceExpiry === 1 ? '' : 's'} ago`
+        : `${proName}'s trade license for ${businessName} expires in ${daysRemaining} days`;
+
+      await Promise.all(
+        admins.map((admin) =>
+          this.createNotification({
+            recipient: admin._id.toString(),
+            recipientRole: 'admin',
+            type: isExpired ? NotificationType.TRADE_LICENSE_EXPIRED : NotificationType.TRADE_LICENSE_EXPIRING,
+            category: NotificationCategory.VERIFICATION,
+            priority: NotificationPriority.HIGH,
+            title,
+            message,
+            data: { proId, expiryDate: expiryDate.toISOString(), status, daysRemaining, daysSinceExpiry },
+            actionUrl: `/admin/professionals/${proId}`,
+          })
+        )
+      );
+
+      logger.info('Admins notified of trade license expiry', {
+        proId,
+        status,
+        adminCount: admins.length,
+      });
+    } catch (error) {
+      logger.error('Failed to notify admins of trade license expiry', { error, proId });
+    }
+  }
 }
 
 export const notificationService = new NotificationService();

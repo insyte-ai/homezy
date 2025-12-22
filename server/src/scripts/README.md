@@ -2,42 +2,23 @@
 
 This directory contains background jobs and scripts for maintaining the Homezy platform.
 
-## Available Scripts
+## Credit System Overview
 
-### 1. Monthly Credits Reset
-
-**File:** `monthlyCreditsReset.ts`
-
-**Purpose:** Resets free credits to 100 for all verified professionals on the 1st of each month.
-
-**Schedule:** Run on the 1st of each month at 00:01 UTC
-**Cron Expression:** `1 0 1 * *`
-
-**Manual Execution:**
-```bash
-cd server
-npm run credits:reset
-```
-
-**Details:**
-- Targets all professionals with `verificationStatus` of `basic` or `comprehensive`
-- Sets `freeCredits` to exactly 100 (overwrites any remaining free credits)
-- Maintains `paidCredits` balance untouched
-- Creates a `monthly_reset` transaction record with previous balance info
-- Updates `lastResetDate` field in CreditBalance
-
-**Logic:**
-- If professional had 30 free credits → sets to 100 (+70 adjustment)
-- If professional had 120 free credits → sets to 100 (-20 adjustment)
-- Only affects free credits; paid credits remain unchanged
+### Credit Rules:
+- **Welcome Bonus:** One-time 20 free credits when a professional first accesses credits
+- **Free Credit Expiry:** 3 months from account creation
+- **Paid Credits:** Never expire
+- **FIFO Deduction:** Free credits used first (if not expired), then paid credits (oldest first)
 
 ---
 
-### 2. Credit Expiry
+## Available Scripts
+
+### 1. Credit Expiry
 
 **File:** `creditExpiry.ts`
 
-**Purpose:** Expires purchased credits that are 6 months old.
+**Purpose:** Expires free credits that are 3 months old.
 
 **Schedule:** Run daily at 02:00 UTC
 **Cron Expression:** `0 2 * * *`
@@ -50,12 +31,28 @@ npm run credits:expire
 
 **Details:**
 - Finds all `CreditTransaction` records with:
-  - `creditType: 'paid'`
+  - `creditType: 'free'`
   - `remainingAmount > 0`
   - `expiresAt <= now`
 - Deducts expired credits from professional balances
 - Creates `expiry` transaction records
 - Updates `remainingAmount` to 0 for expired transactions
+
+**Note:** Paid credits never expire and are not processed by this job.
+
+---
+
+### 2. Test Credits
+
+**File:** `testCredits.ts`
+
+**Purpose:** Test script to verify credit system functionality.
+
+**Manual Execution:**
+```bash
+cd server
+npm run credits:test
+```
 
 ---
 
@@ -68,37 +65,22 @@ npm run credits:expire
 crontab -e
 ```
 
-2. Add the following entries:
+2. Add the following entry:
 ```bash
-# Monthly credits reset (1st of month at 00:01 UTC)
-1 0 1 * * cd /path/to/homezy/server && npm run credits:reset >> /var/log/homezy-credits-reset.log 2>&1
-
 # Daily credit expiry (every day at 02:00 UTC)
 0 2 * * * cd /path/to/homezy/server && npm run credits:expire >> /var/log/homezy-credits-expire.log 2>&1
 ```
 
 ### Option 2: Using BullMQ (Recommended for Scalability)
 
-Add these jobs to your BullMQ worker:
+Add the job to your BullMQ worker:
 
 ```typescript
 import { Queue } from 'bullmq';
-import monthlyCreditsReset from './scripts/monthlyCreditsReset';
 import creditExpiry from './scripts/creditExpiry';
 
 // Define repeatable jobs
 const creditsQueue = new Queue('credits', { connection: redisConnection });
-
-// Monthly reset (1st of month at 00:01)
-creditsQueue.add(
-  'monthly-reset',
-  {},
-  {
-    repeat: {
-      pattern: '1 0 1 * *', // Cron pattern
-    },
-  }
-);
 
 // Daily expiry (02:00 daily)
 creditsQueue.add(
@@ -112,10 +94,6 @@ creditsQueue.add(
 );
 
 // Process jobs
-creditsQueue.process('monthly-reset', async () => {
-  return await monthlyCreditsReset();
-});
-
 creditsQueue.process('credit-expiry', async () => {
   return await creditExpiry();
 });
@@ -124,41 +102,16 @@ creditsQueue.process('credit-expiry', async () => {
 ### Option 3: Using Cloud Schedulers
 
 **AWS EventBridge:**
-- Create two scheduled rules with cron expressions
-- Configure Lambda functions to execute the scripts
+- Create a scheduled rule with cron expression
+- Configure Lambda function to execute the script
 
 **Google Cloud Scheduler:**
-- Create two Cloud Scheduler jobs
-- Point to Cloud Functions that execute the scripts
+- Create a Cloud Scheduler job
+- Point to Cloud Function that executes the script
 
 ---
 
 ## Testing
-
-### Test Monthly Reset Locally
-
-```bash
-# 1. Start your development environment
-npm run dev
-
-# 2. In another terminal, run the reset script
-npm run credits:reset
-```
-
-**Expected Output:**
-```
-Connected to MongoDB for monthly credits reset
-Found X verified professionals for credit reset
-Reset credits for professional: pro@example.com
-...
-Monthly credit reset completed: {
-  success: true,
-  totalProfessionals: X,
-  successCount: X,
-  errorCount: 0,
-  errors: []
-}
-```
 
 ### Test Credit Expiry Locally
 
@@ -175,6 +128,25 @@ Credit expiry job completed: {
 }
 ```
 
+### Test Credit System
+
+```bash
+npm run credits:test
+```
+
+**Expected Output:**
+```
+CREDIT SYSTEM TEST
+============================================================
+Professional: pro@example.com
+...
+Final Balance: 17 credits
+  - Free: 17 (expires in 3 months from creation)
+  - Paid: 0 (never expires)
+============================================================
+All tests passed!
+```
+
 ---
 
 ## Monitoring & Alerts
@@ -186,12 +158,12 @@ Credit expiry job completed: {
    - Check logs at `server/logs/` for execution history
 
 2. **Success Rate Tracking:**
-   - Monitor `successCount` vs `errorCount` in script output
-   - Set up alerts if `errorCount > 0`
+   - Monitor expired transaction counts
+   - Set up alerts on unexpected behavior
 
 3. **Database Checks:**
-   - Query `CreditBalance.lastResetDate` to ensure resets are happening
-   - Check `CreditTransaction` for `monthly_reset` and `expiry` types
+   - Query `CreditTransaction` for `expiry` type transactions
+   - Check `expiresAt` dates for upcoming expirations
 
 4. **Email Notifications:**
    - Consider sending admin emails on script completion
@@ -205,13 +177,9 @@ Credit expiry job completed: {
 - Check `MONGODB_URI` in `.env` file
 - Ensure MongoDB is running and accessible
 
-**Issue: No professionals found for reset**
-- Verify professionals have `verificationStatus: 'basic'` or `'comprehensive'`
-- Check User collection for verified professionals
-
 **Issue: Credits not expiring**
 - Verify `expiresAt` dates on `CreditTransaction` records
-- Ensure purchased credits have `expiresAt` set (6 months from purchase)
+- Ensure free credits have `expiresAt` set (3 months from creation)
 
 **Issue: Transaction failures**
 - Check MongoDB logs for errors
@@ -222,8 +190,7 @@ Credit expiry job completed: {
 
 ## Future Enhancements
 
-- [ ] Add email notifications to professionals when credits reset
-- [ ] Send warning emails 7 days before credits expire
+- [ ] Send warning emails 7 days before free credits expire
 - [ ] Create dashboard for viewing script execution history
 - [ ] Add Slack/Discord webhook notifications for admin alerts
-- [ ] Implement retry logic with exponential backoff for failed resets
+- [ ] Implement retry logic with exponential backoff for failed operations

@@ -33,6 +33,13 @@ export interface HomeownerProfile {
   primaryPropertyId?: string;
 }
 
+export interface ProAgreement {
+  accepted: boolean;
+  version: string;
+  acceptedAt?: Date;
+  ipAddress?: string;
+}
+
 export interface ProProfile {
   businessName: string;
   brandName?: string; // Optional brand/trading name if different from legal business name
@@ -70,6 +77,12 @@ export interface ProProfile {
   // Settings
   availability?: Availability;
   businessType?: 'sole-establishment' | 'llc' | 'general-partnership' | 'limited-partnership' | 'civil-company' | 'foreign-branch' | 'free-zone';
+
+  // Agreement
+  agreement?: ProAgreement;
+
+  // Trade License Details (admin-managed)
+  tradeLicenseExpiry?: Date;
 }
 
 export interface ServiceArea {

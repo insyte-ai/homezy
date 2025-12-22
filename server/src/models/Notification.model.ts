@@ -14,6 +14,8 @@ export enum NotificationType {
   QUOTE_REJECTED = 'quote_rejected',
   VERIFICATION_APPROVED = 'verification_approved',
   VERIFICATION_REJECTED = 'verification_rejected',
+  TRADE_LICENSE_EXPIRING = 'trade_license_expiring',
+  TRADE_LICENSE_EXPIRED = 'trade_license_expired',
 
   // Homeowner notifications
   QUOTE_RECEIVED = 'quote_received',

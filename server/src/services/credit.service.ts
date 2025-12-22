@@ -12,7 +12,6 @@ import mongoose from 'mongoose';
 interface CreditCostParams {
   budgetBracket: 'under-3k' | '3k-5k' | '5k-20k' | '20k-50k' | '50k-100k' | '100k-250k' | 'over-250k';
   urgency: 'flexible' | 'within-month' | 'within-week' | 'emergency';
-  verificationStatus: 'pending' | 'approved' | 'rejected';
 }
 
 interface AddCreditsParams {
@@ -44,7 +43,7 @@ interface SpendCreditsParams {
 
 /**
  * Credit cost calculation matrix
- * Base costs by budget bracket, multiplied by urgency, adjusted by verification discount
+ * Base costs by budget bracket, multiplied by urgency
  */
 const CREDIT_COST_MATRIX = {
   'under-3k': 3,
@@ -63,33 +62,22 @@ const URGENCY_MULTIPLIERS = {
   'emergency': 1.5,
 } as const;
 
-const VERIFICATION_DISCOUNTS = {
-  'pending': 0,
-  'approved': 0.1, // 10% discount for approved professionals
-  'rejected': 0,
-} as const;
-
 /**
- * Calculate credit cost for a lead based on budget, urgency, and verification
+ * Calculate credit cost for a lead based on budget and urgency
  */
 export const calculateCreditCost = (params: CreditCostParams): number => {
-  const { budgetBracket, urgency, verificationStatus } = params;
+  const { budgetBracket, urgency } = params;
 
   const baseCost = CREDIT_COST_MATRIX[budgetBracket];
   const urgencyMultiplier = URGENCY_MULTIPLIERS[urgency];
-  const verificationDiscount = VERIFICATION_DISCOUNTS[verificationStatus];
 
-  const costBeforeDiscount = Math.ceil(baseCost * urgencyMultiplier);
-  const finalCost = Math.ceil(costBeforeDiscount * (1 - verificationDiscount));
+  const finalCost = Math.ceil(baseCost * urgencyMultiplier);
 
   logger.debug('Credit cost calculated', {
     budgetBracket,
     urgency,
-    verificationStatus,
     baseCost,
     urgencyMultiplier,
-    verificationDiscount,
-    costBeforeDiscount,
     finalCost,
   });
 
@@ -98,13 +86,18 @@ export const calculateCreditCost = (params: CreditCostParams): number => {
 
 /**
  * Get credit balance for a professional
- * Creates balance record if it doesn't exist (with 20 free credits welcome bonus)
+ * Creates balance record if it doesn't exist (with one-time 20 free credits welcome bonus)
+ * Free credits expire in 3 months from creation
  */
 export const getBalance = async (professionalId: string) => {
   let balance = await CreditBalance.findOne({ professionalId });
 
   if (!balance) {
     const INITIAL_FREE_CREDITS = 20;
+
+    // Free credits expire 3 months from now
+    const freeCreditsExpiry = new Date();
+    freeCreditsExpiry.setMonth(freeCreditsExpiry.getMonth() + 3);
 
     // Create initial balance record with 20 free credits
     balance = await CreditBalance.create({
@@ -117,7 +110,7 @@ export const getBalance = async (professionalId: string) => {
       lastResetDate: new Date(),
     });
 
-    // Create initial credit transaction for welcome bonus
+    // Create initial credit transaction for welcome bonus with 3-month expiry
     await CreditTransaction.create({
       professionalId,
       type: 'bonus',
@@ -125,14 +118,16 @@ export const getBalance = async (professionalId: string) => {
       creditType: 'free',
       balanceBefore: 0,
       balanceAfter: INITIAL_FREE_CREDITS,
-      description: 'Welcome bonus - 20 free credits',
+      description: 'Welcome bonus - 20 free credits (valid for 3 months)',
+      expiresAt: freeCreditsExpiry,
       remainingAmount: INITIAL_FREE_CREDITS,
       metadata: {},
     });
 
     logger.info('Credit balance created with welcome bonus', {
       professionalId,
-      initialCredits: INITIAL_FREE_CREDITS
+      initialCredits: INITIAL_FREE_CREDITS,
+      expiresAt: freeCreditsExpiry,
     });
   }
 
@@ -242,14 +237,18 @@ export const spendCredits = async (params: SpendCreditsParams) => {
     let remainingToSpend = amount;
     const now = new Date();
 
-    // FIFO Strategy: Deduct free credits first, then paid credits (oldest first)
+    // FIFO Strategy: Deduct free credits first (if not expired), then paid credits (oldest first)
     // Get all transactions with remaining credits, sorted by priority
 
-    // 1. Free credits first (oldest first)
+    // 1. Free credits first (oldest first, exclude expired)
     const freeTransactions = await CreditTransaction.find({
       professionalId,
       creditType: 'free',
       remainingAmount: { $gt: 0 },
+      $or: [
+        { expiresAt: { $gt: now } }, // Not expired
+        { expiresAt: { $exists: false } }, // No expiry (legacy)
+      ],
     })
       .sort({ createdAt: 1 })
       .session(session);
@@ -271,16 +270,12 @@ export const spendCredits = async (params: SpendCreditsParams) => {
       });
     }
 
-    // 2. Paid credits (oldest first, exclude expired)
+    // 2. Paid credits (oldest first, paid credits never expire)
     if (remainingToSpend > 0) {
       const paidTransactions = await CreditTransaction.find({
         professionalId,
         creditType: 'paid',
         remainingAmount: { $gt: 0 },
-        $or: [
-          { expiresAt: { $gt: now } }, // Not expired
-          { expiresAt: { $exists: false } }, // No expiry
-        ],
       })
         .sort({ createdAt: 1 })
         .session(session);
@@ -361,7 +356,7 @@ export const spendCredits = async (params: SpendCreditsParams) => {
 
 /**
  * Refund credits (e.g., if lead claim fails after deduction)
- * Adds credits back as paid credits with same expiry as original
+ * Adds credits back as paid credits (paid credits never expire)
  */
 export const refundCredits = async (
   professionalId: string,
@@ -376,17 +371,13 @@ export const refundCredits = async (
     throw new BadRequestError('Refund amount must be positive');
   }
 
-  // Add as paid credits (since these were originally paid)
-  // Use 6 months from now as default expiry
-  const expiresAt = new Date();
-  expiresAt.setMonth(expiresAt.getMonth() + 6);
-
+  // Add as paid credits (paid credits don't expire)
   const result = await addCredits({
     professionalId,
     amount,
     creditType: 'paid',
     description: `Refund: ${reason}`,
-    expiresAt,
+    // No expiresAt - paid credits never expire
     metadata,
   });
 
@@ -450,6 +441,7 @@ export const getPurchaseByPaymentIntent = async (paymentIntentId: string) => {
 
 /**
  * Create a credit purchase record
+ * Paid credits never expire
  */
 export const createPurchase = async (params: {
   professionalId: string;
@@ -459,13 +451,9 @@ export const createPurchase = async (params: {
   stripePaymentIntentId: string;
   stripeSessionId?: string;
 }) => {
-  // Credits expire 6 months from purchase
-  const expiresAt = new Date();
-  expiresAt.setMonth(expiresAt.getMonth() + 6);
-
   const purchase = await CreditPurchase.create({
     ...params,
-    expiresAt,
+    // Paid credits don't expire
     status: 'pending',
   });
 
@@ -504,13 +492,13 @@ export const completePurchase = async (paymentIntentId: string) => {
     purchase.status = 'completed';
     await purchase.save({ session });
 
-    // Add credits to balance
+    // Add credits to balance (paid credits never expire)
     await addCredits({
       professionalId: purchase.professionalId,
       amount: purchase.credits,
       creditType: 'paid',
       description: `Credit purchase - ${purchase.packageId}`,
-      expiresAt: purchase.expiresAt,
+      // No expiresAt - paid credits never expire
       metadata: {
         packageId: purchase.packageId,
         purchaseId: (purchase._id as any).toString(),
@@ -538,14 +526,16 @@ export const completePurchase = async (paymentIntentId: string) => {
 };
 
 /**
- * Expire old credits (to be called by background job)
+ * Expire old free credits (to be called by background job)
+ * Only free credits expire (3 months), paid credits never expire
  */
 export const expireOldCredits = async () => {
   const now = new Date();
 
-  // Find all expired transactions with remaining credits
+  // Find all expired FREE credit transactions with remaining credits
+  // Paid credits don't expire
   const expiredTransactions = await CreditTransaction.find({
-    creditType: 'paid',
+    creditType: 'free',
     remainingAmount: { $gt: 0 },
     expiresAt: { $lte: now },
   });
@@ -562,26 +552,27 @@ export const expireOldCredits = async () => {
 
     // Update the balance
     const balance = await getBalance(txn.professionalId);
-    balance.paidCredits -= expiredAmount;
+    const balanceBefore = balance.totalBalance;
+    balance.freeCredits -= expiredAmount;
     balance.totalBalance -= expiredAmount;
     await balance.save();
 
     // Create expiry transaction record
     await CreditTransaction.create({
       professionalId: txn.professionalId,
-      type: 'spend',
+      type: 'expiry',
       amount: -expiredAmount,
-      creditType: 'paid',
-      balanceBefore: balance.totalBalance + expiredAmount,
+      creditType: 'free',
+      balanceBefore,
       balanceAfter: balance.totalBalance,
-      description: 'Credits expired',
+      description: 'Free credits expired',
       remainingAmount: 0,
       metadata: {
-        purchaseId: txn.metadata?.purchaseId,
+        originalTransactionId: (txn._id as any).toString(),
       },
     });
 
-    logger.info('Credits expired', {
+    logger.info('Free credits expired', {
       professionalId: txn.professionalId,
       amount: expiredAmount,
       transactionId: txn._id,
@@ -599,76 +590,6 @@ export const expireOldCredits = async () => {
   };
 };
 
-/**
- * Reset monthly free credits for a professional
- * Sets free credits to 20 every month (on 1st of month)
- */
-export const resetMonthlyCredits = async (professionalId: string) => {
-  const MONTHLY_FREE_CREDITS = 20;
-
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
-  try {
-    const balance = await getBalance(professionalId);
-    const previousFreeCredits = balance.freeCredits;
-
-    // Calculate the credit adjustment
-    const creditAdjustment = MONTHLY_FREE_CREDITS - previousFreeCredits;
-    const balanceBefore = balance.totalBalance;
-
-    // Set free credits to 20
-    balance.freeCredits = MONTHLY_FREE_CREDITS;
-    balance.totalBalance = balance.freeCredits + balance.paidCredits;
-    balance.lastResetDate = new Date();
-
-    // Update lifetime earned only if we're adding credits
-    if (creditAdjustment > 0) {
-      balance.lifetimeEarned += creditAdjustment;
-    }
-
-    await balance.save({ session });
-
-    // Create transaction record
-    await CreditTransaction.create(
-      [
-        {
-          professionalId,
-          type: 'monthly_reset',
-          amount: creditAdjustment,
-          creditType: 'free',
-          balanceBefore,
-          balanceAfter: balance.totalBalance,
-          description: `Monthly free credits reset to ${MONTHLY_FREE_CREDITS}`,
-          remainingAmount: MONTHLY_FREE_CREDITS, // All free credits are available
-          metadata: {
-            previousFreeCredits,
-          },
-        },
-      ],
-      { session }
-    );
-
-    await session.commitTransaction();
-
-    logger.info('Monthly credits reset', {
-      professionalId,
-      previousFreeCredits,
-      newFreeCredits: MONTHLY_FREE_CREDITS,
-      creditAdjustment,
-      newBalance: balance.totalBalance,
-    });
-
-    return balance;
-  } catch (error) {
-    await session.abortTransaction();
-    logger.error('Failed to reset monthly credits', error, { professionalId });
-    throw error;
-  } finally {
-    session.endSession();
-  }
-};
-
 export default {
   calculateCreditCost,
   getBalance,
@@ -680,5 +601,4 @@ export default {
   createPurchase,
   completePurchase,
   expireOldCredits,
-  resetMonthlyCredits,
 };

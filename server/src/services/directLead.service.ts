@@ -28,12 +28,11 @@ const mapUrgencyForCredits = (urgency: string): UrgencyForCredits => {
   return mapping[urgency] || 'flexible';
 };
 
-// Calculate credit cost for display (without verification discount)
+// Calculate credit cost for display
 const calculateDisplayCreditCost = (lead: { budgetBracket: string; urgency: string }): number => {
   return creditService.calculateCreditCost({
     budgetBracket: mapBudgetBracketForCredits(lead.budgetBracket),
     urgency: mapUrgencyForCredits(lead.urgency),
-    verificationStatus: 'pending', // Base cost without discount
   });
 };
 
@@ -235,7 +234,7 @@ export const acceptDirectLead = async (leadId: string, professionalId: string) =
   }
 
   // Calculate credit cost (same as marketplace claims)
-  const { creditCost } = calculateLeadCreditCost(lead, professional);
+  const { creditCost } = calculateLeadCreditCost(lead);
 
   // Check if professional has enough credits
   // TODO: Implement credit balance tracking in ProProfile
@@ -397,9 +396,9 @@ export const getMyCreatedDirectLeads = async (homeownerId: string) => {
 
 /**
  * Calculate credit cost for claiming a lead
- * Based on budget bracket, urgency, and professional's verification level
+ * Based on budget bracket and urgency
  */
-function calculateLeadCreditCost(lead: ILead, professional: any) {
+function calculateLeadCreditCost(lead: ILead) {
   const BUDGET_BRACKETS: Record<string, number> = {
     'under-3k': 3,
     '3k-5k': 4,
@@ -417,18 +416,11 @@ function calculateLeadCreditCost(lead: ILead, professional: any) {
     baseCost = Math.round(baseCost * 1.5);
   }
 
-  // Apply verification discount (15% off for comprehensive verified pros)
-  const verificationLevel = professional.proProfile?.verificationStatus;
-  if (verificationLevel === 'comprehensive') {
-    baseCost = Math.round(baseCost * 0.85);
-  }
-
   return {
     creditCost: baseCost,
     breakdown: {
       base: BUDGET_BRACKETS[lead.budgetBracket],
       urgencyMultiplier: lead.urgency === 'emergency' ? 1.5 : 1,
-      verificationDiscount: verificationLevel === 'comprehensive' ? 0.15 : 0,
     },
   };
 }

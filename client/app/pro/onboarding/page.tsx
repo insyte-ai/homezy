@@ -29,6 +29,9 @@ const BUSINESS_TYPES = [
   { value: 'free-zone', label: 'Free Zone LLC / Free Zone Establishment (FZE)' },
 ];
 
+// Current agreement version - update this when agreement changes
+const PRO_AGREEMENT_VERSION = '1.0';
+
 interface OnboardingData {
   // Step 1
   primaryCategory: string;
@@ -56,6 +59,9 @@ interface OnboardingData {
 
   // Step 5 - Portfolio
   portfolioFiles: File[];
+
+  // Step 6 - Agreement
+  agreementAccepted: boolean;
 }
 
 export default function ProOnboardingPage() {
@@ -101,6 +107,7 @@ export default function ProOnboardingPage() {
     tradeLicenseFile: null,
     vatTrnFile: null,
     portfolioFiles: [],
+    agreementAccepted: false,
   });
 
   // Fetch service categories from database
@@ -235,7 +242,7 @@ export default function ProOnboardingPage() {
 
     setError('');
     setFieldErrors({});
-    if (currentStep < 6) {
+    if (currentStep < 7) {
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -343,11 +350,11 @@ export default function ProOnboardingPage() {
   };
 
   const handleSkipToDashboard = async () => {
-    // Save progress if required fields are filled
+    // Save progress if required fields are filled AND agreement is accepted
     setIsSubmitting(true);
     try {
-      // Only save if we have minimum required data
-      if (formData.firstName && formData.lastName && formData.phone && formData.businessName && formData.primaryCategory && formData.primaryEmirate) {
+      // Only save if we have minimum required data including agreement acceptance
+      if (formData.firstName && formData.lastName && formData.phone && formData.businessName && formData.primaryCategory && formData.primaryEmirate && formData.agreementAccepted) {
         await completeOnboarding({
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -361,6 +368,8 @@ export default function ProOnboardingPage() {
           categories: [formData.primaryCategory, ...formData.additionalCategories],
           primaryEmirate: formData.primaryEmirate,
           serviceRadius: formData.serviceRadius,
+          agreementAccepted: formData.agreementAccepted,
+          agreementVersion: PRO_AGREEMENT_VERSION,
         });
       }
       router.push('/pro/dashboard');
@@ -408,6 +417,12 @@ export default function ProOnboardingPage() {
         return;
       }
 
+      if (!formData.agreementAccepted) {
+        setError('Please accept the Pro Agreement to continue');
+        setIsSubmitting(false);
+        return;
+      }
+
       console.log('[Onboarding] Submitting data:', {
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -432,6 +447,8 @@ export default function ProOnboardingPage() {
         categories: [formData.primaryCategory, ...formData.additionalCategories],
         primaryEmirate: formData.primaryEmirate,
         serviceRadius: formData.serviceRadius,
+        agreementAccepted: formData.agreementAccepted,
+        agreementVersion: PRO_AGREEMENT_VERSION,
       });
 
       // Upload business logo as profile photo if provided
@@ -484,9 +501,8 @@ export default function ProOnboardingPage() {
       toast.dismiss();
       toast.success('Onboarding completed! Your documents are under review.');
 
-      // Use full page reload to refresh user state (like Tradezy)
-      // This ensures the dashboard gets fresh user data from the server
-      window.location.href = '/pro/dashboard';
+      // Move to success step
+      setCurrentStep(7);
     } catch (err: any) {
       toast.dismiss();
       console.error('[Onboarding] Error:', err.response?.data || err.message);
@@ -531,7 +547,8 @@ export default function ProOnboardingPage() {
       case 3: return 'Where do you work?';
       case 4: return 'Upload verification documents';
       case 5: return 'Show off your work';
-      case 6: return 'You\'re all set!';
+      case 6: return 'Review and Accept Agreement';
+      case 7: return 'You\'re all set!';
       default: return '';
     }
   };
@@ -545,19 +562,21 @@ export default function ProOnboardingPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between mb-2">
             <div className="text-sm font-medium text-neutral-600">
-              Step {currentStep} of 6
+              Step {currentStep} of 7
             </div>
-            <button
-              onClick={handleSkipToDashboard}
-              className="text-sm text-neutral-600 hover:text-neutral-900"
-            >
-              Save and continue later
-            </button>
+            {currentStep < 6 && (
+              <button
+                onClick={handleSkipToDashboard}
+                className="text-sm text-neutral-600 hover:text-neutral-900"
+              >
+                Save and continue later
+              </button>
+            )}
           </div>
           <div className="w-full bg-neutral-200 rounded-full h-2">
             <div
               className="bg-primary-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${(currentStep / 6) * 100}%` }}
+              style={{ width: `${(currentStep / 7) * 100}%` }}
             />
           </div>
         </div>
@@ -590,6 +609,11 @@ export default function ProOnboardingPage() {
               {currentStep === 2 && "This helps us customize Homezy for your business and make recommendations."}
               {currentStep === 3 && "Your leads will match your availability, work areas, and other preferences."}
               {currentStep === 4 && "Homeowners prefer pros with a clear profile photo or logo."}
+            </p>
+          )}
+          {currentStep === 6 && (
+            <p className="text-neutral-600 mb-8">
+              Please review and accept the Homezy Pro Agreement to complete your registration.
             </p>
           )}
 
@@ -1056,7 +1080,6 @@ export default function ProOnboardingPage() {
                     <div className="mt-2 text-sm text-blue-800">
                       <p>Verified professionals get:</p>
                       <ul className="list-disc list-inside mt-2 space-y-1">
-                        <li>5-15% discount on lead costs</li>
                         <li>Higher visibility in search results</li>
                         <li>Trust badge on your profile</li>
                         <li>Access to premium leads</li>
@@ -1271,8 +1294,102 @@ export default function ProOnboardingPage() {
             </div>
           )}
 
-          {/* Step 6: Complete */}
+          {/* Step 6: Agreement */}
           {currentStep === 6 && (
+            <div className="space-y-6">
+              {/* Summary of what they're agreeing to */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <h3 className="font-semibold text-blue-900 mb-3">Key Terms Summary</h3>
+                <ul className="space-y-2 text-sm text-blue-800">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 mt-0.5 text-blue-600 flex-shrink-0" />
+                    <span><strong>Free Listing:</strong> No subscription fees to list your services on Homezy</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 mt-0.5 text-blue-600 flex-shrink-0" />
+                    <span><strong>Credit System:</strong> Pay only for leads you claim using credits</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 mt-0.5 text-blue-600 flex-shrink-0" />
+                    <span><strong>Direct Contact:</strong> Get homeowner details after claiming a lead</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 mt-0.5 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span><strong>Non-Refundable:</strong> Credits are non-refundable once a lead is claimed</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 mt-0.5 text-blue-600 flex-shrink-0" />
+                    <span><strong>UAE Law:</strong> Governed by UAE law, Dubai courts jurisdiction</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Full Agreement Link */}
+              <div className="text-center">
+                <a
+                  href="/pro/agreement"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium"
+                >
+                  <FileText className="w-5 h-5" />
+                  Read Full Agreement (opens in new tab)
+                </a>
+              </div>
+
+              {/* Agreement Checkbox */}
+              <div className="border-t border-neutral-200 pt-6">
+                <label className="flex items-start gap-3 cursor-pointer p-4 border-2 border-neutral-200 rounded-lg hover:border-primary-300 transition-colors bg-white">
+                  <input
+                    type="checkbox"
+                    checked={formData.agreementAccepted}
+                    onChange={(e) => setFormData({ ...formData, agreementAccepted: e.target.checked })}
+                    className="mt-1 h-5 w-5 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
+                  />
+                  <span className="text-neutral-700">
+                    I have read and agree to the{' '}
+                    <a
+                      href="/pro/agreement"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary-600 hover:text-primary-700 underline font-medium"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Homezy Pro Agreement
+                    </a>
+                    {' '}(Version {PRO_AGREEMENT_VERSION}) which governs my participation as a professional on Homezy.
+                  </span>
+                </label>
+                {!formData.agreementAccepted && error?.includes('Pro Agreement') && (
+                  <p className="mt-2 text-sm text-red-600">
+                    You must accept the Pro Agreement to continue
+                  </p>
+                )}
+              </div>
+
+              {/* Submit Button */}
+              <div className="flex justify-between pt-4">
+                <button
+                  onClick={handleBack}
+                  className="btn btn-outline"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handleComplete}
+                  disabled={isSubmitting || !formData.agreementAccepted}
+                  className="btn btn-primary px-8 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit & Create Account'}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 7: Success */}
+          {currentStep === 7 && (
             <div className="text-center py-8">
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1287,8 +1404,8 @@ export default function ProOnboardingPage() {
               </p>
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-8 max-w-lg mx-auto text-left">
                 <p className="text-sm text-amber-900">
-                  <strong>⏱️ What's next?</strong><br />
-                  Our team will review your trade license within 24-48 hours. Once approved, you'll receive Basic Verification (✓) and can start claiming leads with a 5% discount.
+                  <strong>What&apos;s next?</strong><br />
+                  Our team will review your trade license within 24-48 hours. Once approved, you&apos;ll receive Basic Verification and can start claiming leads with a 5% discount.
                 </p>
               </div>
 
@@ -1307,11 +1424,10 @@ export default function ProOnboardingPage() {
               )}
 
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8 max-w-xl mx-auto text-left">
-                <h3 className="font-semibold text-amber-900 mb-3">⏳ Complete Your Profile to Start Claiming Leads</h3>
+                <h3 className="font-semibold text-amber-900 mb-3">Complete Your Profile to Start Claiming Leads</h3>
                 <ul className="space-y-2 text-sm text-amber-900">
-                  <li>• Upload verification documents (license & insurance)</li>
                   <li>• Add your bio and tagline (30% more responses)</li>
-                  <li>• Upload portfolio photos (3x more quote requests)</li>
+                  <li>• Upload more portfolio photos (3x more quote requests)</li>
                   <li>• Set your pricing and availability</li>
                 </ul>
                 <p className="mt-3 text-sm text-amber-800">
@@ -1320,11 +1436,10 @@ export default function ProOnboardingPage() {
               </div>
 
               <button
-                onClick={handleComplete}
-                disabled={isSubmitting}
+                onClick={() => window.location.href = '/pro/dashboard'}
                 className="btn btn-primary px-8 py-3 text-lg"
               >
-                {isSubmitting ? 'Setting up...' : 'Go to Dashboard'}
+                Go to Dashboard
               </button>
             </div>
           )}

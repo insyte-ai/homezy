@@ -6,6 +6,7 @@ import type {
   User as UserType,
   HomeownerProfile,
   ProProfile,
+  ProAgreement,
   ServiceArea,
   VerificationDocument,
   PortfolioItem,
@@ -119,6 +120,13 @@ const ServiceAreaSchema = new Schema<ServiceArea>({
   extraTravelCost: Number,
 }, { _id: false });
 
+const ProAgreementSchema = new Schema<ProAgreement>({
+  accepted: { type: Boolean, required: true, default: false },
+  version: { type: String, required: true },
+  acceptedAt: { type: Date },
+  ipAddress: { type: String },
+}, { _id: false });
+
 const ProProfileSchema = new Schema<ProProfile>({
   businessName: { type: String, required: true },
   brandName: { type: String }, // Optional brand/trading name if different from legal business name
@@ -175,6 +183,16 @@ const ProProfileSchema = new Schema<ProProfile>({
   },
   tradeLicenseNumber: String,
   vatNumber: String,
+
+  // Pro Agreement
+  agreement: ProAgreementSchema,
+
+  // Trade License Details (admin-managed)
+  tradeLicenseExpiry: Date,
+
+  // Trade License Expiry Notification Tracking
+  tradeLicenseExpiryNotification7DaysSent: Date,
+  tradeLicenseExpiryNotificationDailySent: Date,
 }, { _id: false });
 
 const SavedSearchSchema = new Schema<SavedSearch>({

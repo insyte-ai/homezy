@@ -4,6 +4,7 @@ import { startSitemapJob } from './sitemap.job';
 import { startServiceReminderNotificationsJob } from './serviceReminderNotifications.job';
 import { startSeasonalRemindersJob } from './seasonalReminders.job';
 import { startServicePatternAnalysisJob } from './servicePatternAnalysis.job';
+import { startTradeLicenseExpiryJob } from './tradeLicenseExpiry.job';
 import { logger } from '../utils/logger';
 
 /**
@@ -30,6 +31,9 @@ export const initializeJobs = () => {
 
     // Start service pattern analysis job (weekly on Sundays)
     startServicePatternAnalysisJob();
+
+    // Start trade license expiry notification job (daily at 9 AM UAE)
+    startTradeLicenseExpiryJob();
 
     logger.info('All scheduled jobs initialized successfully');
   } catch (error: any) {

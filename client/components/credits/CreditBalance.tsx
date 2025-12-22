@@ -123,20 +123,15 @@ export const CreditBalance = () => {
         </div>
       )}
 
-      {/* Monthly Reset Info */}
+      {/* Credit Info */}
       <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
         <div className="flex items-center gap-2 mb-2">
           <TrendingUp className="h-4 w-4 text-primary-600" />
-          <h4 className="font-medium text-gray-900 dark:text-white">Monthly Free Credits</h4>
+          <h4 className="font-medium text-gray-900 dark:text-white">How Credits Work</h4>
         </div>
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          You receive 20 free credits every month on the 1st. Purchased credits expire 6 months after purchase.
+          New professionals receive 20 free credits as a welcome bonus (valid for 3 months). Purchased credits never expire.
         </p>
-        {balance.lastResetDate && (
-          <p className="text-xs text-gray-500 mt-2">
-            Last reset: {new Date(balance.lastResetDate).toLocaleDateString()}
-          </p>
-        )}
       </div>
     </div>
   );

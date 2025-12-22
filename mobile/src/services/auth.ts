@@ -60,6 +60,11 @@ export interface User {
     serviceAreas?: string[];
     rating?: number;
     reviewCount?: number;
+    agreement?: {
+      accepted: boolean;
+      version: string;
+      acceptedAt?: string;
+    };
   };
 }
 

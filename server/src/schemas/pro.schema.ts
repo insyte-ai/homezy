@@ -66,6 +66,11 @@ export const onboardingSchema = z.object({
   categories: z.array(z.string()).min(1, 'At least one category is required').max(10),
   primaryEmirate: z.string().min(1, 'Primary emirate is required'),
   serviceRadius: z.number().min(10).max(200).optional().default(50),
+  // Agreement acceptance
+  agreementAccepted: z.boolean().refine((val) => val === true, {
+    message: 'You must accept the Pro Agreement to continue',
+  }),
+  agreementVersion: z.string().min(1, 'Agreement version is required'),
 });
 
 // Pro Profile Update Schema - All fields optional for phased completion
@@ -121,6 +126,14 @@ export const updateFeaturedProjectsSchema = z.object({
   featuredProjects: z.array(z.string()).max(6, 'Maximum 6 featured projects allowed'),
 });
 
+// Pro Agreement Schema
+export const proAgreementSchema = z.object({
+  accepted: z.boolean().refine((val) => val === true, {
+    message: 'You must accept the agreement to continue',
+  }),
+  version: z.string().min(1, 'Agreement version is required'),
+});
+
 // UAE Emirates
 export const UAE_EMIRATES = [
   'Dubai',
@@ -139,3 +152,4 @@ export type UploadVerificationDocument = z.infer<typeof uploadVerificationDocume
 export type AddPortfolioItem = z.infer<typeof addPortfolioItemSchema>;
 export type UpdatePortfolioItem = z.infer<typeof updatePortfolioItemSchema>;
 export type UpdateFeaturedProjects = z.infer<typeof updateFeaturedProjectsSchema>;
+export type ProAgreementInput = z.infer<typeof proAgreementSchema>;

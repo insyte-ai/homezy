@@ -227,11 +227,6 @@ const CreditsPage = () => {
                       <span className="font-semibold text-gray-900">20 credits</span>
                     </div>
                   </div>
-                  <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                    <p className="text-xs text-blue-900">
-                      💡 Comprehensive verified professionals get 15% discount on all lead claims
-                    </p>
-                  </div>
                 </div>
 
                 {/* Quick Action */}
@@ -257,8 +252,7 @@ const CreditsPage = () => {
             <div className="space-y-6">
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <p className="text-sm text-blue-900">
-                  💡 <strong>Pro tip:</strong> Larger packages offer better value per credit.
-                  Purchased credits are valid for 6 months.
+                  💡 <strong>Pro tip:</strong> Larger packages offer better value per credit. Purchased credits never expire.
                 </p>
               </div>
 
