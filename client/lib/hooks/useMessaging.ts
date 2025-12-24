@@ -19,6 +19,7 @@ import {
   editMessage as editMsg,
   type Conversation,
   type Message,
+  type Attachment,
 } from '@/lib/services/messages';
 import { handleApiError } from '@/lib/utils/errorHandler';
 
@@ -63,7 +64,7 @@ interface UseMessagingReturn {
 
   // Handlers
   handleSelectConversation: (conversation: Conversation) => Promise<void>;
-  handleSendMessage: () => Promise<void>;
+  handleSendMessage: (attachments?: Attachment[]) => Promise<void>;
   handleTyping: () => void;
   handleEditMessage: (messageId: string) => Promise<void>;
   handleDeleteMessage: (messageId: string) => Promise<void>;
@@ -364,8 +365,11 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
   }, [selectedConversation, getOtherParticipant]);
 
   // Send message
-  const handleSendMessage = useCallback(async () => {
-    if (!newMessage.trim() || sending) return;
+  const handleSendMessage = useCallback(async (attachments?: Attachment[]) => {
+    const hasContent = newMessage.trim();
+    const hasAttachments = attachments && attachments.length > 0;
+
+    if ((!hasContent && !hasAttachments) || sending) return;
 
     // Handle pending conversation (new conversation from query params)
     if (pendingConversation && !selectedConversation) {
@@ -394,6 +398,7 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
             role: userRole === 'homeowner' ? 'pro' : 'homeowner',
           },
           content: messageContent,
+          attachments,
           isRead: false,
           isEdited: false,
           createdAt: new Date(),
@@ -408,6 +413,7 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
         const response = await sendMessage({
           recipientId: pendingConversation.recipientId,
           content: messageContent,
+          attachments,
           relatedLead: pendingConversation.leadId,
         });
 
@@ -465,6 +471,7 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
           role: userRole === 'homeowner' ? 'pro' : 'homeowner',
         },
         content: messageContent,
+        attachments,
         isRead: false,
         isEdited: false,
         createdAt: new Date(),
@@ -485,6 +492,7 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
       const response = await sendMessage({
         recipientId: otherParticipant.id,
         content: messageContent,
+        attachments,
         relatedLead: selectedConversation.relatedLead?.id,
       });
 

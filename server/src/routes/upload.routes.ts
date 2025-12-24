@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as uploadController from '../controllers/upload.controller';
-import { uploadImage, uploadDocument } from '../middleware/upload.middleware';
+import { uploadImage, uploadDocument, uploadMessageAttachment } from '../middleware/upload.middleware';
 import { asyncHandler } from '../middleware/errorHandler.middleware';
 import { rateLimitUpload } from '../middleware/rateLimit.middleware';
 import { authenticate, authorize } from '../middleware/auth.middleware';
@@ -72,6 +72,19 @@ router.post(
   rateLimitUpload,
   uploadImage.single('photo'),
   asyncHandler(uploadController.uploadProfilePhoto)
+);
+
+/**
+ * @route   POST /api/v1/upload/message-attachment
+ * @desc    Upload message attachment (images, videos, documents)
+ * @access  Private (authenticated users, rate limited)
+ */
+router.post(
+  '/message-attachment',
+  authenticate,
+  rateLimitUpload,
+  uploadMessageAttachment.single('file'),
+  asyncHandler(uploadController.uploadMessageAttachment)
 );
 
 export default router;

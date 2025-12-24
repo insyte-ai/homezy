@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useState, useRef } from 'react';
 import {
   MessageSquare,
   Search,
@@ -12,9 +13,17 @@ import {
   Check,
   CheckCheck,
   ArrowLeft,
+  Image as ImageIcon,
+  Video,
+  FileText,
+  X,
+  Loader2,
+  Download,
+  File,
 } from 'lucide-react';
 import { formatDistanceToNow, format, isSameDay } from 'date-fns';
-import type { Conversation, Message } from '@/lib/services/messages';
+import type { Conversation, Message, Attachment } from '@/lib/services/messages';
+import { uploadMessageAttachment } from '@/lib/services/messages';
 
 export type ColorScheme = 'primary' | 'blue';
 
@@ -23,6 +32,16 @@ interface PendingConversation {
   recipientId: string;
   recipientName: string;
   leadId?: string;
+}
+
+// Pending attachment state
+interface PendingAttachment {
+  file: File;
+  preview?: string;
+  type: 'image' | 'video' | 'document' | 'pdf';
+  uploading: boolean;
+  uploaded?: Attachment;
+  error?: string;
 }
 
 interface MessagesLayoutProps {
@@ -55,7 +74,7 @@ interface MessagesLayoutProps {
 
   // Handlers
   onSelectConversation: (conversation: Conversation) => void;
-  onSendMessage: () => void;
+  onSendMessage: (attachments?: Attachment[]) => void;
   onTyping: () => void;
   onEditMessage: (messageId: string) => void;
   onDeleteMessage: (messageId: string) => void;
@@ -139,6 +158,115 @@ export function MessagesLayout({
   containerClassName = '',
 }: MessagesLayoutProps) {
   const colors = colorClasses[colorScheme];
+
+  // Attachment state
+  const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
+  const [pendingAttachments, setPendingAttachments] = useState<PendingAttachment[]>([]);
+  const [uploadingAttachments, setUploadingAttachments] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+  const documentInputRef = useRef<HTMLInputElement>(null);
+
+  // Get file type from file
+  const getFileType = (file: File): 'image' | 'video' | 'document' | 'pdf' => {
+    if (file.type.startsWith('image/')) return 'image';
+    if (file.type.startsWith('video/')) return 'video';
+    if (file.type === 'application/pdf') return 'pdf';
+    return 'document';
+  };
+
+  // Handle file selection
+  const handleFileSelect = async (files: FileList | null, type: 'image' | 'video' | 'document') => {
+    if (!files || files.length === 0) return;
+    setShowAttachmentMenu(false);
+
+    const newAttachments: PendingAttachment[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const fileType = getFileType(file);
+
+      // Create preview for images and videos
+      let preview: string | undefined;
+      if (fileType === 'image' || fileType === 'video') {
+        preview = URL.createObjectURL(file);
+      }
+
+      newAttachments.push({
+        file,
+        preview,
+        type: fileType,
+        uploading: true,
+      });
+    }
+
+    setPendingAttachments(prev => [...prev, ...newAttachments]);
+    setUploadingAttachments(true);
+
+    // Upload all files
+    const updatedAttachments = await Promise.all(
+      newAttachments.map(async (attachment) => {
+        try {
+          const result = await uploadMessageAttachment(attachment.file);
+          return {
+            ...attachment,
+            uploading: false,
+            uploaded: {
+              type: result.type,
+              url: result.url,
+              filename: result.filename,
+              size: result.size,
+            },
+          };
+        } catch (error: any) {
+          return {
+            ...attachment,
+            uploading: false,
+            error: error.message || 'Upload failed',
+          };
+        }
+      })
+    );
+
+    setPendingAttachments(prev => {
+      const existingCount = prev.length - newAttachments.length;
+      return [...prev.slice(0, existingCount), ...updatedAttachments];
+    });
+    setUploadingAttachments(false);
+  };
+
+  // Remove pending attachment
+  const removePendingAttachment = (index: number) => {
+    setPendingAttachments(prev => {
+      const attachment = prev[index];
+      if (attachment.preview) {
+        URL.revokeObjectURL(attachment.preview);
+      }
+      return prev.filter((_, i) => i !== index);
+    });
+  };
+
+  // Handle send with attachments
+  const handleSendWithAttachments = () => {
+    const uploadedAttachments = pendingAttachments
+      .filter(a => a.uploaded && !a.error)
+      .map(a => a.uploaded!);
+
+    onSendMessage(uploadedAttachments.length > 0 ? uploadedAttachments : undefined);
+
+    // Clean up previews
+    pendingAttachments.forEach(a => {
+      if (a.preview) URL.revokeObjectURL(a.preview);
+    });
+    setPendingAttachments([]);
+  };
+
+  // Format file size
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
 
   // Filter conversations by search query
   const filteredConversations = conversations.filter((conversation) => {
@@ -431,16 +559,87 @@ export function MessagesLayout({
                                   </div>
                                 ) : (
                                   <div
-                                    className={`group relative px-4 py-2 rounded-2xl ${
+                                    className={`group relative rounded-2xl overflow-hidden ${
                                       isSender
                                         ? `${colors.bg} text-white rounded-br-md`
                                         : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm rounded-bl-md'
                                     }`}
                                   >
-                                    <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                                    {/* Attachments */}
+                                    {message.attachments && message.attachments.length > 0 && (
+                                      <div className={`${message.content ? '' : ''}`}>
+                                        {message.attachments.map((attachment, idx) => (
+                                          <div key={idx}>
+                                            {attachment.type === 'image' ? (
+                                              <a
+                                                href={attachment.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="block"
+                                              >
+                                                <img
+                                                  src={attachment.url}
+                                                  alt={attachment.filename}
+                                                  className="max-w-[280px] max-h-[280px] object-cover rounded-t-2xl"
+                                                />
+                                              </a>
+                                            ) : attachment.type === 'video' ? (
+                                              <video
+                                                src={attachment.url}
+                                                controls
+                                                className="max-w-[280px] max-h-[280px] rounded-t-2xl"
+                                              />
+                                            ) : (
+                                              <a
+                                                href={attachment.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`flex items-center gap-3 p-3 ${
+                                                  isSender
+                                                    ? 'bg-black/10 hover:bg-black/20'
+                                                    : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                } transition-colors`}
+                                              >
+                                                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                                                  attachment.type === 'pdf' ? 'bg-red-500' : 'bg-blue-500'
+                                                }`}>
+                                                  {attachment.type === 'pdf' ? (
+                                                    <FileText className="w-5 h-5 text-white" />
+                                                  ) : (
+                                                    <File className="w-5 h-5 text-white" />
+                                                  )}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                  <p className={`text-sm font-medium truncate ${
+                                                    isSender ? 'text-white' : 'text-gray-900 dark:text-white'
+                                                  }`}>
+                                                    {attachment.filename}
+                                                  </p>
+                                                  <p className={`text-xs ${
+                                                    isSender ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'
+                                                  }`}>
+                                                    {formatFileSize(attachment.size)}
+                                                  </p>
+                                                </div>
+                                                <Download className={`w-5 h-5 flex-shrink-0 ${
+                                                  isSender ? 'text-white/70' : 'text-gray-400'
+                                                }`} />
+                                              </a>
+                                            )}
+                                          </div>
+                                        ))}
+                                      </div>
+                                    )}
+
+                                    {/* Message content */}
+                                    {message.content && (
+                                      <p className="whitespace-pre-wrap break-words px-4 py-2">{message.content}</p>
+                                    )}
 
                                     <div
-                                      className={`flex items-center gap-1.5 mt-1 text-xs ${
+                                      className={`flex items-center gap-1.5 text-xs px-4 pb-2 ${
+                                        !message.content && message.attachments?.length ? 'pt-2' : ''
+                                      } ${
                                         isSender ? colors.textLight : 'text-gray-500 dark:text-gray-400'
                                       }`}
                                     >
@@ -495,10 +694,149 @@ export function MessagesLayout({
 
             {/* Message Input */}
             <div className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4">
+              {/* Hidden file inputs */}
+              <input
+                ref={imageInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                className="hidden"
+                onChange={(e) => handleFileSelect(e.target.files, 'image')}
+              />
+              <input
+                ref={videoInputRef}
+                type="file"
+                accept="video/*"
+                multiple
+                className="hidden"
+                onChange={(e) => handleFileSelect(e.target.files, 'video')}
+              />
+              <input
+                ref={documentInputRef}
+                type="file"
+                accept=".pdf,.doc,.docx,.xls,.xlsx"
+                multiple
+                className="hidden"
+                onChange={(e) => handleFileSelect(e.target.files, 'document')}
+              />
+
+              {/* Pending attachments preview */}
+              {pendingAttachments.length > 0 && (
+                <div className="mb-3 max-w-3xl mx-auto">
+                  <div className="flex flex-wrap gap-2">
+                    {pendingAttachments.map((attachment, index) => (
+                      <div
+                        key={index}
+                        className="relative group bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden"
+                      >
+                        {attachment.type === 'image' && attachment.preview ? (
+                          <div className="w-20 h-20 relative">
+                            <img
+                              src={attachment.preview}
+                              alt={attachment.file.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ) : attachment.type === 'video' && attachment.preview ? (
+                          <div className="w-20 h-20 relative bg-gray-800 flex items-center justify-center">
+                            <Video className="w-8 h-8 text-white" />
+                          </div>
+                        ) : (
+                          <div className="w-20 h-20 flex flex-col items-center justify-center p-2">
+                            <FileText className="w-8 h-8 text-gray-500 dark:text-gray-400" />
+                            <span className="text-xs text-gray-500 dark:text-gray-400 truncate w-full text-center mt-1">
+                              {attachment.file.name.split('.').pop()?.toUpperCase()}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Upload status overlay */}
+                        {attachment.uploading && (
+                          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <Loader2 className="w-6 h-6 text-white animate-spin" />
+                          </div>
+                        )}
+
+                        {/* Error overlay */}
+                        {attachment.error && (
+                          <div className="absolute inset-0 bg-red-500/80 flex items-center justify-center">
+                            <X className="w-6 h-6 text-white" />
+                          </div>
+                        )}
+
+                        {/* Remove button */}
+                        <button
+                          onClick={() => removePendingAttachment(index)}
+                          className="absolute top-1 right-1 bg-black/60 hover:bg-black/80 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="flex items-end gap-3 max-w-3xl mx-auto">
-                <button className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 flex-shrink-0">
-                  <Paperclip className="w-5 h-5" />
-                </button>
+                {/* Attachment button with menu */}
+                <div className="relative">
+                  <button
+                    onClick={() => setShowAttachmentMenu(!showAttachmentMenu)}
+                    className={`text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 flex-shrink-0 transition-colors ${showAttachmentMenu ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
+                  >
+                    <Paperclip className="w-5 h-5" />
+                  </button>
+
+                  {/* Attachment menu (WhatsApp-style) */}
+                  {showAttachmentMenu && (
+                    <>
+                      {/* Backdrop */}
+                      <div
+                        className="fixed inset-0 z-10"
+                        onClick={() => setShowAttachmentMenu(false)}
+                      />
+
+                      {/* Menu */}
+                      <div className="absolute bottom-full left-0 mb-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-20 min-w-[180px]">
+                        <button
+                          onClick={() => {
+                            imageInputRef.current?.click();
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center">
+                            <ImageIcon className="w-5 h-5 text-white" />
+                          </div>
+                          <span className="text-gray-900 dark:text-white font-medium">Photos</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            videoInputRef.current?.click();
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <div className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center">
+                            <Video className="w-5 h-5 text-white" />
+                          </div>
+                          <span className="text-gray-900 dark:text-white font-medium">Videos</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            documentInputRef.current?.click();
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                            <FileText className="w-5 h-5 text-white" />
+                          </div>
+                          <span className="text-gray-900 dark:text-white font-medium">Documents</span>
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
 
                 <div className="flex-1 relative">
                   <textarea
@@ -510,7 +848,7 @@ export function MessagesLayout({
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
-                        onSendMessage();
+                        handleSendWithAttachments();
                       }
                     }}
                     placeholder="Type a message..."
@@ -521,11 +859,15 @@ export function MessagesLayout({
                 </div>
 
                 <button
-                  onClick={onSendMessage}
-                  disabled={!newMessage.trim() || sending}
+                  onClick={handleSendWithAttachments}
+                  disabled={(!newMessage.trim() && pendingAttachments.filter(a => a.uploaded).length === 0) || sending || uploadingAttachments}
                   className={`${colors.bg} text-white p-2.5 rounded-full ${colors.bgHover} disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex-shrink-0`}
                 >
-                  <Send className="w-5 h-5" />
+                  {uploadingAttachments ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Send className="w-5 h-5" />
+                  )}
                 </button>
               </div>
             </div>

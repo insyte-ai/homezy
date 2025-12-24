@@ -6,7 +6,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
  */
 
 export interface IUserMessageAttachment {
-  type: 'image' | 'document' | 'pdf';
+  type: 'image' | 'document' | 'pdf' | 'video';
   url: string;
   filename: string;
   size: number; // in bytes
@@ -36,7 +36,7 @@ export interface IUserMessage extends Document {
 const UserMessageAttachmentSchema = new Schema<IUserMessageAttachment>({
   type: {
     type: String,
-    enum: ['image', 'document', 'pdf'],
+    enum: ['image', 'document', 'pdf', 'video'],
     required: true,
   },
   url: { type: String, required: true },
@@ -67,7 +67,8 @@ const UserMessageSchema = new Schema<IUserMessage>(
     },
     content: {
       type: String,
-      required: true,
+      required: false, // Optional when attachments are present
+      default: '',
       maxlength: 5000,
     },
     attachments: [UserMessageAttachmentSchema],

@@ -6,23 +6,36 @@ import { z } from 'zod';
 
 /**
  * Schema for sending a message (body)
+ * Either content or attachments must be provided
  */
-export const sendUserMessageSchema = z.object({
-  recipientId: z.string().min(1, 'Recipient ID is required'),
-  content: z.string().min(1, 'Message content is required').max(5000, 'Message too long'),
-  attachments: z
-    .array(
-      z.object({
-        type: z.enum(['image', 'document', 'pdf']),
-        url: z.string().url('Invalid URL'),
-        filename: z.string(),
-        size: z.number().max(10 * 1024 * 1024, 'File too large (max 10MB)'),
-        publicId: z.string().optional(),
-      })
-    )
-    .optional(),
-  relatedLead: z.string().optional(),
-});
+export const sendUserMessageSchema = z
+  .object({
+    recipientId: z.string().min(1, 'Recipient ID is required'),
+    content: z.string().max(5000, 'Message too long').optional().default(''),
+    attachments: z
+      .array(
+        z.object({
+          type: z.enum(['image', 'document', 'pdf', 'video']),
+          url: z.string().url('Invalid URL'),
+          filename: z.string(),
+          size: z.number().max(25 * 1024 * 1024, 'File too large (max 25MB)'),
+          publicId: z.string().optional(),
+        })
+      )
+      .optional(),
+    relatedLead: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      const hasContent = data.content && data.content.trim().length > 0;
+      const hasAttachments = data.attachments && data.attachments.length > 0;
+      return hasContent || hasAttachments;
+    },
+    {
+      message: 'Either message content or attachments are required',
+      path: ['content'],
+    }
+  );
 
 /**
  * Schema for getting conversations (query params)

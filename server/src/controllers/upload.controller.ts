@@ -233,10 +233,75 @@ export const uploadProfilePhoto = async (
   }
 };
 
+/**
+ * Upload message attachment (image or document)
+ */
+export const uploadMessageAttachment = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    if (!req.file) {
+      res.status(400).json({
+        success: false,
+        message: 'No file uploaded',
+      });
+      return;
+    }
+
+    const isImage = req.file.mimetype.startsWith('image/');
+    const isPdf = req.file.mimetype === 'application/pdf';
+    const isVideo = req.file.mimetype.startsWith('video/');
+
+    let url: string;
+    let type: 'image' | 'document' | 'pdf' | 'video';
+
+    if (isImage) {
+      url = await uploadImage(req.file.buffer, 'message-attachments');
+      type = 'image';
+    } else if (isPdf) {
+      url = await uploadDocument(req.file.buffer, 'message-attachments', req.file.mimetype);
+      type = 'pdf';
+    } else if (isVideo) {
+      url = await uploadDocument(req.file.buffer, 'message-attachments', req.file.mimetype);
+      type = 'video';
+    } else {
+      url = await uploadDocument(req.file.buffer, 'message-attachments', req.file.mimetype);
+      type = 'document';
+    }
+
+    logger.info('Message attachment uploaded successfully', {
+      url,
+      type,
+      filename: req.file.originalname,
+      size: req.file.size,
+      userId: req.user?.id,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Attachment uploaded successfully',
+      data: {
+        url,
+        type,
+        filename: req.file.originalname,
+        size: req.file.size,
+      },
+    });
+  } catch (error: any) {
+    logger.error('Error uploading message attachment:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to upload attachment',
+    });
+  }
+};
+
 export default {
   uploadLeadImage,
   uploadVerificationDoc,
   uploadQuoteDocument,
   uploadPortfolioImages,
   uploadProfilePhoto,
+  uploadMessageAttachment,
 };

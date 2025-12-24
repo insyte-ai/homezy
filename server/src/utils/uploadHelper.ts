@@ -87,7 +87,7 @@ const saveToLocalStorage = async (
 };
 
 /**
- * Upload document (PDF or image) to Cloudinary or local filesystem
+ * Upload document (PDF, image, video, or office doc) to Cloudinary or local filesystem
  */
 export const uploadDocument = async (
   buffer: Buffer,
@@ -102,14 +102,22 @@ export const uploadDocument = async (
 
     // For production, upload to Cloudinary
     return new Promise((resolve, reject) => {
-      const resourceType = mimeType === 'application/pdf' ? 'raw' : 'image';
+      const isVideo = mimeType.startsWith('video/');
+      const isImage = mimeType.startsWith('image/');
+      const isPdf = mimeType === 'application/pdf';
+
+      // Determine resource type for Cloudinary
+      let resourceType: 'image' | 'video' | 'raw' = 'raw';
+      if (isImage) resourceType = 'image';
+      if (isVideo) resourceType = 'video';
+
       const uploadOptions: any = {
         folder: `homezy/${folder}`,
         resource_type: resourceType,
       };
 
-      // Only add transformations for images, not PDFs
-      if (resourceType === 'image') {
+      // Only add transformations for images, not videos/PDFs/docs
+      if (isImage) {
         uploadOptions.transformation = [
           { width: 1200, height: 1200, crop: 'limit' },
           { quality: 'auto' },
@@ -137,6 +145,29 @@ export const uploadDocument = async (
 };
 
 /**
+ * Get file extension from mime type
+ */
+const getExtensionFromMimeType = (mimeType: string): string => {
+  const mimeToExt: Record<string, string> = {
+    'application/pdf': 'pdf',
+    'image/jpeg': 'jpg',
+    'image/jpg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'image/gif': 'gif',
+    'video/mp4': 'mp4',
+    'video/quicktime': 'mov',
+    'video/x-msvideo': 'avi',
+    'video/webm': 'webm',
+    'application/msword': 'doc',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+    'application/vnd.ms-excel': 'xls',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+  };
+  return mimeToExt[mimeType] || 'bin';
+};
+
+/**
  * Save document to local storage for development
  */
 const saveDocumentToLocalStorage = async (
@@ -150,14 +181,16 @@ const saveDocumentToLocalStorage = async (
 
     const timestamp = Date.now();
     const randomString = Math.random().toString(36).substring(7);
-    const extension = mimeType === 'application/pdf' ? 'pdf' : 'jpg';
+    const extension = getExtensionFromMimeType(mimeType);
     const filename = `${timestamp}-${randomString}.${extension}`;
     const filepath = path.join(uploadsDir, filename);
 
-    // Process images with sharp, save PDFs as-is
-    if (mimeType === 'application/pdf') {
-      await fs.writeFile(filepath, buffer);
-    } else {
+    const isImage = mimeType.startsWith('image/');
+    const isVideo = mimeType.startsWith('video/');
+    const isPdf = mimeType === 'application/pdf';
+
+    // Process images with sharp, save videos/PDFs/docs as-is
+    if (isImage && !mimeType.includes('gif')) {
       const processedBuffer = await sharp(buffer)
         .flatten({ background: '#ffffff' })
         .resize(1200, 1200, {
@@ -169,6 +202,9 @@ const saveDocumentToLocalStorage = async (
         .toBuffer();
 
       await fs.writeFile(filepath, processedBuffer);
+    } else {
+      // Save videos, PDFs, GIFs, and other docs as-is
+      await fs.writeFile(filepath, buffer);
     }
 
     // Return a URL that can be served by the backend

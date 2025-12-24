@@ -14,11 +14,21 @@ import { io, Socket } from 'socket.io-client';
 
 // Types
 export interface Attachment {
-  type: 'image' | 'document' | 'pdf';
+  type: 'image' | 'document' | 'pdf' | 'video';
   url: string;
   filename: string;
   size: number;
   publicId?: string;
+}
+
+export interface UploadAttachmentResponse {
+  success: boolean;
+  data: {
+    url: string;
+    type: 'image' | 'document' | 'pdf' | 'video';
+    filename: string;
+    size: number;
+  };
 }
 
 export interface Message {
@@ -182,6 +192,21 @@ export const archiveConversation = async (conversationId: string) => {
 export const getUnreadCount = async () => {
   const response = await api.get('/messages/unread-count');
   return response.data;
+};
+
+/**
+ * Upload a message attachment (image, video, or document)
+ */
+export const uploadMessageAttachment = async (file: File): Promise<UploadAttachmentResponse['data']> => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await api.post<UploadAttachmentResponse>('/upload/message-attachment', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data.data;
 };
 
 // ============================================================================

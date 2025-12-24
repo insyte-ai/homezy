@@ -65,3 +65,49 @@ export const uploadDocument = multer({
   },
   fileFilter: documentFileFilter,
 });
+
+// File filter for message attachments (images, videos, PDFs, docs)
+const messageAttachmentFileFilter = (
+  _req: Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback
+) => {
+  const allowedMimeTypes = [
+    // Images
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+    'image/webp',
+    'image/gif',
+    // Videos
+    'video/mp4',
+    'video/quicktime',
+    'video/x-msvideo',
+    'video/webm',
+    // Documents
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  ];
+
+  if (allowedMimeTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(
+      new Error(
+        'Invalid file type. Allowed: images, videos (MP4, MOV, WebM), PDFs, and Office documents.'
+      )
+    );
+  }
+};
+
+// Configure multer for message attachments
+export const uploadMessageAttachment = multer({
+  storage,
+  limits: {
+    fileSize: 25 * 1024 * 1024, // 25MB limit for message attachments (videos can be larger)
+  },
+  fileFilter: messageAttachmentFileFilter,
+});

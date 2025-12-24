@@ -43,9 +43,9 @@ const aiLimiter = new RateLimiterRedis({
 const uploadLimiter = new RateLimiterRedis({
   storeClient: rateLimitRedis,
   keyPrefix: 'rl:upload',
-  points: 10, // 10 uploads
+  points: 50, // 50 uploads
   duration: 3600, // Per hour
-  blockDuration: 3600, // Block for 1 hour
+  blockDuration: 300, // Block for 5 minutes if exceeded
 });
 
 /**
