@@ -7,6 +7,7 @@ import { create } from 'zustand';
 import {
   Conversation,
   Message,
+  MessageAttachment,
   getConversations,
   getMessages,
   sendMessage as sendMessageApi,
@@ -40,7 +41,7 @@ interface MessagingState {
   // Actions
   loadConversations: () => Promise<void>;
   loadMessages: (conversationId: string, loadMore?: boolean) => Promise<void>;
-  sendMessage: (recipientId: string, content: string, relatedLead?: string) => Promise<void>;
+  sendMessage: (recipientId: string, content: string, relatedLead?: string, attachments?: MessageAttachment[]) => Promise<void>;
   markConversationAsRead: (conversationId: string) => Promise<void>;
   setActiveConversation: (conversationId: string | null) => void;
   refreshUnreadCount: () => Promise<void>;
@@ -128,12 +129,13 @@ export const useMessagingStore = create<MessagingState>((set, get) => ({
   /**
    * Send a message
    */
-  sendMessage: async (recipientId: string, content: string, relatedLead?: string) => {
+  sendMessage: async (recipientId: string, content: string, relatedLead?: string, attachments?: MessageAttachment[]) => {
     try {
       const result = await sendMessageApi({
         recipientId,
         content,
         relatedLead,
+        attachments,
       });
 
       // Add message to local state immediately

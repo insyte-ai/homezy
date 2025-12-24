@@ -15,17 +15,47 @@ import {
   Platform,
   ActivityIndicator,
   Alert,
+  Image,
+  Modal,
+  Pressable,
+  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import * as DocumentPicker from 'expo-document-picker';
 import { Avatar } from '../../../src/components/ui';
 import { colors } from '../../../src/theme/colors';
 import { spacing, borderRadius, layout } from '../../../src/theme/spacing';
 import { textStyles } from '../../../src/theme/typography';
 import { useMessagingStore } from '../../../src/store/messagingStore';
 import { useAuthStore } from '../../../src/store/authStore';
-import { Message, Conversation, getConversations } from '../../../src/services/messaging';
+import {
+  Message,
+  Conversation,
+  MessageAttachment,
+  getConversations,
+  uploadMessageAttachment,
+} from '../../../src/services/messaging';
+
+// Pending attachment type
+interface PendingAttachment {
+  uri: string;
+  filename: string;
+  mimeType: string;
+  type: 'image' | 'video' | 'document' | 'pdf';
+  uploading: boolean;
+  uploaded?: MessageAttachment;
+  error?: string;
+}
+
+// Format file size
+const formatFileSize = (bytes: number): string => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+};
 
 function MessageBubble({
   message,
@@ -49,6 +79,13 @@ function MessageBubble({
     });
   };
 
+  const handleOpenAttachment = (url: string) => {
+    Linking.openURL(url);
+  };
+
+  const hasAttachments = message.attachments && message.attachments.length > 0;
+  const hasContent = message.content && message.content.trim().length > 0;
+
   return (
     <View style={[styles.messageBubbleContainer, isOwnMessage && styles.ownMessageContainer]}>
       {!isOwnMessage && showAvatar && (
@@ -60,16 +97,100 @@ function MessageBubble({
         style={[
           styles.messageBubble,
           isOwnMessage ? styles.ownMessageBubble : styles.otherMessageBubble,
+          hasAttachments && !hasContent && styles.attachmentOnlyBubble,
         ]}
       >
-        <Text
-          style={[
-            styles.messageText,
-            isOwnMessage ? styles.ownMessageText : styles.otherMessageText,
-          ]}
-        >
-          {message.content}
-        </Text>
+        {/* Attachments */}
+        {hasAttachments && (
+          <View style={styles.attachmentsContainer}>
+            {message.attachments.map((attachment, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => handleOpenAttachment(attachment.url)}
+                activeOpacity={0.8}
+              >
+                {attachment.type === 'image' ? (
+                  <Image
+                    source={{ uri: attachment.url }}
+                    style={styles.attachmentImage}
+                    resizeMode="cover"
+                  />
+                ) : attachment.type === 'video' ? (
+                  <View style={styles.videoAttachment}>
+                    <Ionicons name="play-circle" size={48} color="#fff" />
+                    <Text style={styles.videoLabel}>Video</Text>
+                  </View>
+                ) : (
+                  <View
+                    style={[
+                      styles.documentAttachment,
+                      isOwnMessage
+                        ? styles.ownDocumentAttachment
+                        : styles.otherDocumentAttachment,
+                    ]}
+                  >
+                    <View
+                      style={[
+                        styles.documentIcon,
+                        attachment.type === 'pdf'
+                          ? styles.pdfIcon
+                          : styles.docIcon,
+                      ]}
+                    >
+                      <Ionicons
+                        name={attachment.type === 'pdf' ? 'document-text' : 'document'}
+                        size={20}
+                        color="#fff"
+                      />
+                    </View>
+                    <View style={styles.documentInfo}>
+                      <Text
+                        style={[
+                          styles.documentName,
+                          isOwnMessage
+                            ? styles.ownDocumentName
+                            : styles.otherDocumentName,
+                        ]}
+                        numberOfLines={1}
+                      >
+                        {attachment.filename}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.documentSize,
+                          isOwnMessage
+                            ? styles.ownDocumentSize
+                            : styles.otherDocumentSize,
+                        ]}
+                      >
+                        {formatFileSize(attachment.size)}
+                      </Text>
+                    </View>
+                    <Ionicons
+                      name="download-outline"
+                      size={20}
+                      color={isOwnMessage ? 'rgba(255,255,255,0.7)' : colors.text.tertiary}
+                    />
+                  </View>
+                )}
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
+        {/* Message content */}
+        {hasContent && (
+          <Text
+            style={[
+              styles.messageText,
+              isOwnMessage ? styles.ownMessageText : styles.otherMessageText,
+              hasAttachments && styles.messageTextWithAttachment,
+            ]}
+          >
+            {message.content}
+          </Text>
+        )}
+
         <View style={styles.messageFooter}>
           <Text
             style={[
@@ -139,10 +260,129 @@ export default function ConversationScreen() {
   const [inputText, setInputText] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [isLoadingConversation, setIsLoadingConversation] = useState(true);
+  const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
+  const [pendingAttachments, setPendingAttachments] = useState<PendingAttachment[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const flatListRef = useRef<FlatList>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isTypingRef = useRef(false);
+
+  // Get file type from mime type
+  const getFileType = (mimeType: string): 'image' | 'video' | 'document' | 'pdf' => {
+    if (mimeType.startsWith('image/')) return 'image';
+    if (mimeType.startsWith('video/')) return 'video';
+    if (mimeType === 'application/pdf') return 'pdf';
+    return 'document';
+  };
+
+  // Handle picking photos
+  const handlePickPhoto = async () => {
+    setShowAttachmentMenu(false);
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsMultipleSelection: true,
+      quality: 0.8,
+    });
+
+    if (!result.canceled && result.assets.length > 0) {
+      await uploadAttachments(result.assets.map((asset) => ({
+        uri: asset.uri,
+        filename: asset.fileName || `photo_${Date.now()}.jpg`,
+        mimeType: asset.mimeType || 'image/jpeg',
+        type: 'image' as const,
+        uploading: true,
+      })));
+    }
+  };
+
+  // Handle picking videos
+  const handlePickVideo = async () => {
+    setShowAttachmentMenu(false);
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['videos'],
+      allowsMultipleSelection: false,
+      quality: 0.8,
+    });
+
+    if (!result.canceled && result.assets.length > 0) {
+      const asset = result.assets[0];
+      await uploadAttachments([{
+        uri: asset.uri,
+        filename: asset.fileName || `video_${Date.now()}.mp4`,
+        mimeType: asset.mimeType || 'video/mp4',
+        type: 'video' as const,
+        uploading: true,
+      }]);
+    }
+  };
+
+  // Handle picking documents
+  const handlePickDocument = async () => {
+    setShowAttachmentMenu(false);
+
+    const result = await DocumentPicker.getDocumentAsync({
+      type: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+      multiple: true,
+    });
+
+    if (!result.canceled && result.assets.length > 0) {
+      await uploadAttachments(result.assets.map((asset) => ({
+        uri: asset.uri,
+        filename: asset.name,
+        mimeType: asset.mimeType || 'application/pdf',
+        type: getFileType(asset.mimeType || 'application/pdf'),
+        uploading: true,
+      })));
+    }
+  };
+
+  // Upload attachments
+  const uploadAttachments = async (attachments: PendingAttachment[]) => {
+    setPendingAttachments((prev) => [...prev, ...attachments]);
+    setIsUploading(true);
+
+    const uploadedAttachments = await Promise.all(
+      attachments.map(async (attachment) => {
+        try {
+          const result = await uploadMessageAttachment(
+            attachment.uri,
+            attachment.filename,
+            attachment.mimeType
+          );
+          return {
+            ...attachment,
+            uploading: false,
+            uploaded: {
+              type: result.type,
+              url: result.url,
+              filename: result.filename,
+              size: result.size,
+            },
+          };
+        } catch (error: any) {
+          return {
+            ...attachment,
+            uploading: false,
+            error: error.message || 'Upload failed',
+          };
+        }
+      })
+    );
+
+    setPendingAttachments((prev) => {
+      const existingCount = prev.length - attachments.length;
+      return [...prev.slice(0, existingCount), ...uploadedAttachments];
+    });
+    setIsUploading(false);
+  };
+
+  // Remove pending attachment
+  const removePendingAttachment = (index: number) => {
+    setPendingAttachments((prev) => prev.filter((_, i) => i !== index));
+  };
 
   // Load conversation details
   useEffect(() => {
@@ -211,10 +451,17 @@ export default function ConversationScreen() {
 
   // Handle send message
   const handleSend = async () => {
-    if (!inputText.trim() || !otherUserId || isSending) return;
+    const hasContent = inputText.trim().length > 0;
+    const uploadedAttachments = pendingAttachments
+      .filter((a) => a.uploaded && !a.error)
+      .map((a) => a.uploaded!);
+    const hasAttachments = uploadedAttachments.length > 0;
+
+    if ((!hasContent && !hasAttachments) || !otherUserId || isSending || isUploading) return;
 
     const messageContent = inputText.trim();
     setInputText('');
+    setPendingAttachments([]);
     setIsSending(true);
 
     // Stop typing indicator
@@ -227,7 +474,8 @@ export default function ConversationScreen() {
       await sendMessage(
         otherUserId,
         messageContent,
-        conversation?.relatedLead?.id
+        conversation?.relatedLead?.id,
+        uploadedAttachments.length > 0 ? uploadedAttachments : undefined
       );
     } catch (error) {
       Alert.alert('Error', 'Failed to send message. Please try again.');
@@ -380,8 +628,61 @@ export default function ConversationScreen() {
           </View>
         )}
 
+        {/* Pending Attachments Preview */}
+        {pendingAttachments.length > 0 && (
+          <View style={styles.pendingAttachmentsContainer}>
+            {pendingAttachments.map((attachment, index) => (
+              <View key={index} style={styles.pendingAttachment}>
+                {attachment.type === 'image' ? (
+                  <Image
+                    source={{ uri: attachment.uri }}
+                    style={styles.pendingAttachmentImage}
+                  />
+                ) : attachment.type === 'video' ? (
+                  <View style={styles.pendingAttachmentVideo}>
+                    <Ionicons name="videocam" size={24} color="#fff" />
+                  </View>
+                ) : (
+                  <View style={styles.pendingAttachmentDoc}>
+                    <Ionicons name="document" size={24} color={colors.primary[500]} />
+                  </View>
+                )}
+
+                {/* Upload status */}
+                {attachment.uploading && (
+                  <View style={styles.uploadingOverlay}>
+                    <ActivityIndicator size="small" color="#fff" />
+                  </View>
+                )}
+
+                {/* Error indicator */}
+                {attachment.error && (
+                  <View style={styles.errorOverlay}>
+                    <Ionicons name="alert-circle" size={20} color="#fff" />
+                  </View>
+                )}
+
+                {/* Remove button */}
+                <TouchableOpacity
+                  style={styles.removeAttachmentButton}
+                  onPress={() => removePendingAttachment(index)}
+                >
+                  <Ionicons name="close" size={16} color="#fff" />
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+        )}
+
         {/* Input Area */}
         <View style={styles.inputContainer}>
+          <TouchableOpacity
+            style={styles.attachButton}
+            onPress={() => setShowAttachmentMenu(true)}
+          >
+            <Ionicons name="attach" size={24} color={colors.text.secondary} />
+          </TouchableOpacity>
+
           <TextInput
             style={styles.textInput}
             placeholder="Type a message..."
@@ -392,11 +693,14 @@ export default function ConversationScreen() {
             maxLength={2000}
           />
           <TouchableOpacity
-            style={[styles.sendButton, !inputText.trim() && styles.sendButtonDisabled]}
+            style={[
+              styles.sendButton,
+              (!inputText.trim() && pendingAttachments.filter(a => a.uploaded).length === 0) && styles.sendButtonDisabled,
+            ]}
             onPress={handleSend}
-            disabled={!inputText.trim() || isSending}
+            disabled={(!inputText.trim() && pendingAttachments.filter(a => a.uploaded).length === 0) || isSending || isUploading}
           >
-            {isSending ? (
+            {isSending || isUploading ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
               <Ionicons name="send" size={20} color="#fff" />
@@ -404,6 +708,51 @@ export default function ConversationScreen() {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
+
+      {/* Attachment Menu Modal */}
+      <Modal
+        visible={showAttachmentMenu}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowAttachmentMenu(false)}
+      >
+        <Pressable
+          style={styles.modalOverlay}
+          onPress={() => setShowAttachmentMenu(false)}
+        >
+          <View style={styles.attachmentMenu}>
+            <TouchableOpacity
+              style={styles.attachmentOption}
+              onPress={handlePickPhoto}
+            >
+              <View style={[styles.attachmentOptionIcon, { backgroundColor: '#9C27B0' }]}>
+                <Ionicons name="image" size={24} color="#fff" />
+              </View>
+              <Text style={styles.attachmentOptionText}>Photos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.attachmentOption}
+              onPress={handlePickVideo}
+            >
+              <View style={[styles.attachmentOptionIcon, { backgroundColor: '#E91E63' }]}>
+                <Ionicons name="videocam" size={24} color="#fff" />
+              </View>
+              <Text style={styles.attachmentOptionText}>Videos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.attachmentOption}
+              onPress={handlePickDocument}
+            >
+              <View style={[styles.attachmentOptionIcon, { backgroundColor: '#2196F3' }]}>
+                <Ionicons name="document" size={24} color="#fff" />
+              </View>
+              <Text style={styles.attachmentOptionText}>Documents</Text>
+            </TouchableOpacity>
+          </View>
+        </Pressable>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -588,5 +937,181 @@ const styles = StyleSheet.create({
   },
   sendButtonDisabled: {
     backgroundColor: colors.neutral[300],
+  },
+  attachButton: {
+    padding: spacing[2],
+    marginRight: spacing[1],
+  },
+  // Attachment styles
+  attachmentsContainer: {
+    marginBottom: spacing[1],
+  },
+  attachmentImage: {
+    width: 200,
+    height: 200,
+    borderRadius: borderRadius.md,
+    marginBottom: spacing[1],
+  },
+  videoAttachment: {
+    width: 200,
+    height: 150,
+    borderRadius: borderRadius.md,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing[1],
+  },
+  videoLabel: {
+    color: '#fff',
+    fontSize: 12,
+    marginTop: spacing[1],
+  },
+  documentAttachment: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing[2],
+    borderRadius: borderRadius.md,
+    marginBottom: spacing[1],
+    minWidth: 200,
+  },
+  ownDocumentAttachment: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+  },
+  otherDocumentAttachment: {
+    backgroundColor: colors.background.tertiary,
+  },
+  documentIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: borderRadius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing[2],
+  },
+  pdfIcon: {
+    backgroundColor: '#EF4444',
+  },
+  docIcon: {
+    backgroundColor: '#3B82F6',
+  },
+  documentInfo: {
+    flex: 1,
+    marginRight: spacing[2],
+  },
+  documentName: {
+    ...textStyles.caption,
+    fontWeight: '500',
+  },
+  ownDocumentName: {
+    color: '#fff',
+  },
+  otherDocumentName: {
+    color: colors.text.primary,
+  },
+  documentSize: {
+    ...textStyles.caption,
+    fontSize: 10,
+    marginTop: 2,
+  },
+  ownDocumentSize: {
+    color: 'rgba(255,255,255,0.7)',
+  },
+  otherDocumentSize: {
+    color: colors.text.tertiary,
+  },
+  attachmentOnlyBubble: {
+    padding: spacing[1],
+  },
+  messageTextWithAttachment: {
+    marginTop: spacing[1],
+  },
+  // Pending attachments
+  pendingAttachmentsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: layout.screenPadding,
+    paddingVertical: spacing[2],
+    gap: spacing[2],
+    borderTopWidth: 1,
+    borderTopColor: colors.border.light,
+  },
+  pendingAttachment: {
+    width: 60,
+    height: 60,
+    borderRadius: borderRadius.md,
+    overflow: 'hidden',
+  },
+  pendingAttachmentImage: {
+    width: '100%',
+    height: '100%',
+  },
+  pendingAttachmentVideo: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pendingAttachmentDoc: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: colors.background.secondary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  uploadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  errorOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(239,68,68,0.8)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  removeAttachmentButton: {
+    position: 'absolute',
+    top: 2,
+    right: 2,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  // Attachment menu modal
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
+  },
+  attachmentMenu: {
+    backgroundColor: colors.background.primary,
+    borderTopLeftRadius: borderRadius.xl,
+    borderTopRightRadius: borderRadius.xl,
+    paddingTop: spacing[4],
+    paddingBottom: spacing[6],
+    paddingHorizontal: spacing[4],
+  },
+  attachmentOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: spacing[3],
+  },
+  attachmentOptionIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing[4],
+  },
+  attachmentOptionText: {
+    ...textStyles.body,
+    color: colors.text.primary,
+    fontWeight: '500',
   },
 });
