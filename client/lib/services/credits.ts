@@ -140,7 +140,15 @@ export const getPackages = async (): Promise<CreditPackage[]> => {
  * Create Stripe checkout session
  */
 export const createCheckout = async (packageId: string): Promise<CheckoutResponse['data']> => {
-  const response = await api.post<CheckoutResponse>('/credits/checkout', { packageId });
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+  const successUrl = `${baseUrl}/pro/dashboard/credits?session_id={CHECKOUT_SESSION_ID}`;
+  const cancelUrl = `${baseUrl}/pro/dashboard/credits`;
+
+  const response = await api.post<CheckoutResponse>('/credits/checkout', {
+    packageId,
+    successUrl,
+    cancelUrl,
+  });
   return response.data.data;
 };
 

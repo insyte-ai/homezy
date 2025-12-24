@@ -148,7 +148,16 @@ export const getPackages = async (): Promise<CreditPackage[]> => {
  * Create Stripe checkout session
  */
 export const createCheckout = async (packageId: string): Promise<CheckoutResponse['data']> => {
-  const response = await api.post<CheckoutResponse>('/credits/checkout', { packageId });
+  // Mobile opens Stripe in browser and redirects back to web
+  const webBaseUrl = 'https://homezy.co';
+  const successUrl = `${webBaseUrl}/pro/dashboard/credits?session_id={CHECKOUT_SESSION_ID}`;
+  const cancelUrl = `${webBaseUrl}/pro/dashboard/credits`;
+
+  const response = await api.post<CheckoutResponse>('/credits/checkout', {
+    packageId,
+    successUrl,
+    cancelUrl,
+  });
   return response.data.data;
 };
 
