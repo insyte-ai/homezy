@@ -77,7 +77,7 @@ export const createApp = (): Application => {
     express.raw({ type: 'application/json' }),
     async (req, res, next) => {
       // @ts-expect-error - Dynamic import to avoid circular dependency
-      const { handleWebhook } = await import('./controllers/credit.controller');
+      const { handleWebhook } = await import('./controllers/credit.controller.js');
       return handleWebhook(req, res).catch(next);
     }
   );
