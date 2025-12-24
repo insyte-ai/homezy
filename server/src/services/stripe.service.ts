@@ -143,7 +143,7 @@ export const createCheckoutSession = async (params: {
 
     return {
       sessionId: session.id,
-      url: session.url,
+      checkoutUrl: session.url,
       package: package_,
     };
   } catch (error: any) {
