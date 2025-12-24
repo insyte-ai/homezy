@@ -326,7 +326,8 @@ export function useMessaging({ userRole }: UseMessagingOptions): UseMessagingRet
 
     try {
       const response = await getMessages(conversation.id, { limit: 100 });
-      setMessages(response.data.messages);
+      // API returns newest-first, reverse for chronological display (oldest at top)
+      setMessages([...response.data.messages].reverse());
       await markAsRead(conversation.id);
 
       // Update unread count locally

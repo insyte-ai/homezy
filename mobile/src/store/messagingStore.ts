@@ -113,7 +113,9 @@ export const useMessagingStore = create<MessagingState>((set, get) => ({
       });
 
       set({
-        messages: loadMore ? [...data.messages, ...messages] : data.messages,
+        // Newest-first order: new messages at start, older at end
+        // When loading more (older), append to end of array
+        messages: loadMore ? [...messages, ...data.messages] : data.messages,
         hasMoreMessages: data.pagination.hasMore,
         oldestMessageId: data.pagination.oldestMessageId,
         messagesLoading: false,
@@ -138,10 +140,10 @@ export const useMessagingStore = create<MessagingState>((set, get) => ({
         attachments,
       });
 
-      // Add message to local state immediately
+      // Add message to local state immediately (prepend for newest-first order)
       const { messages, conversations } = get();
       set({
-        messages: [...messages, result.message],
+        messages: [result.message, ...messages],
       });
 
       // Update conversation's last message
@@ -305,13 +307,19 @@ export const useMessagingStore = create<MessagingState>((set, get) => ({
   /**
    * Handle new message from socket
    */
-  handleNewMessage: (data: NewMessageEvent) => {
+  handleNewMessage: (data: NewMessageEvent | NewMessageEvent['message']) => {
     const { activeConversationId, messages, conversations, totalUnread } = get();
-    const newMessage = data.message;
+    // Handle both formats: { message: {...} } or direct message object
+    const newMessage = 'message' in data ? data.message : data;
 
-    // If we're in this conversation, add the message
+    if (!newMessage?.conversationId) {
+      if (__DEV__) console.warn('[Messaging] Invalid message received:', data);
+      return;
+    }
+
+    // If we're in this conversation, add the message (prepend for newest-first order)
     if (activeConversationId === newMessage.conversationId) {
-      set({ messages: [...messages, newMessage as unknown as Message] });
+      set({ messages: [newMessage as unknown as Message, ...messages] });
     }
 
     // Update conversation list

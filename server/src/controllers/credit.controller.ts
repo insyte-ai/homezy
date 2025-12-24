@@ -237,6 +237,44 @@ export const refundCreditsManually = async (
 };
 
 /**
+ * Verify and complete a checkout session (fallback for webhook)
+ * Used when user returns from Stripe checkout to verify payment
+ * @route POST /api/v1/credits/verify-session
+ * @access Private (Pro only)
+ */
+export const verifyCheckoutSession = async (req: Request, res: Response): Promise<void> => {
+  const professionalId = (req.user!._id as any).toString();
+  const { sessionId } = req.body;
+
+  if (!sessionId) {
+    res.status(400).json({
+      success: false,
+      message: 'Session ID is required',
+    });
+    return;
+  }
+
+  try {
+    const result = await stripeService.verifyAndCompleteSession(sessionId, professionalId);
+
+    res.status(200).json({
+      success: true,
+      message: result.alreadyCompleted ? 'Purchase already completed' : 'Purchase completed successfully',
+      data: {
+        credits: result.credits,
+        alreadyCompleted: result.alreadyCompleted,
+      },
+    });
+  } catch (error: any) {
+    logger.error('Session verification failed', error, { sessionId, professionalId });
+    res.status(400).json({
+      success: false,
+      message: error.message || 'Failed to verify session',
+    });
+  }
+};
+
+/**
  * Get purchase history for the current professional
  * @route GET /api/v1/credits/purchases
  * @access Private (Pro only)
@@ -268,4 +306,5 @@ export default {
   addCreditsManually,
   refundCreditsManually,
   getPurchases,
+  verifyCheckoutSession,
 };

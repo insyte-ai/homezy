@@ -10,6 +10,7 @@ import {
   getTransactions,
   getPackages,
   createCheckout,
+  verifyCheckoutSession,
   type CreditPackage,
   type CreditTransaction,
 } from '@/lib/services/credits';
@@ -25,14 +26,27 @@ const CreditsPage = () => {
   const [loadingPackages, setLoadingPackages] = useState(true);
   const [loadingTransactions, setLoadingTransactions] = useState(true);
 
-  // Check for success parameter from Stripe redirect
+  // Check for success parameter from Stripe redirect and verify the session
   useEffect(() => {
     const sessionId = searchParams.get('session_id');
     if (sessionId) {
-      toast.success('🎉 Credits added successfully! Your purchase has been completed.', {
-        duration: 5000,
-      });
-      router.replace('/pro/dashboard/credits');
+      const verifySession = async () => {
+        try {
+          const result = await verifyCheckoutSession(sessionId);
+          if (result.alreadyCompleted) {
+            toast.success('Your purchase was already completed!', { duration: 4000 });
+          } else {
+            toast.success(`🎉 ${result.credits} credits added successfully!`, { duration: 5000 });
+          }
+          // Refresh transactions and balance
+          fetchTransactions();
+        } catch (error: any) {
+          console.error('Failed to verify session:', error);
+          toast.error(error.response?.data?.message || 'Failed to verify purchase. Please contact support.');
+        }
+        router.replace('/pro/dashboard/credits');
+      };
+      verifySession();
     }
   }, [searchParams, router]);
 

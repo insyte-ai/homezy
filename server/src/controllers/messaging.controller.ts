@@ -208,12 +208,12 @@ export const getMessages = async (req: Request, res: Response): Promise<void> =>
   res.status(200).json({
     success: true,
     data: {
-      messages: messages.reverse(), // Return in chronological order
+      messages, // Newest-first for inverted FlatList on mobile
       pagination: {
         total,
         limit: Number(limit),
         hasMore: messages.length === Number(limit),
-        oldestMessageId: messages.length > 0 ? messages[0].id : null,
+        oldestMessageId: messages.length > 0 ? messages[messages.length - 1].id : null,
       },
     },
   });

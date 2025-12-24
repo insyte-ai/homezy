@@ -106,7 +106,8 @@ export default function ProConversationPage({ params }: PageProps) {
       try {
         setLoading(true);
         const response = await getMessages(conversationId, { limit: 100 });
-        setMessages(response.data.messages);
+        // API returns newest-first, reverse for chronological display (oldest at top)
+        setMessages([...response.data.messages].reverse());
 
         // Mark as read when opening conversation
         await markAsRead(conversationId);
@@ -131,7 +132,10 @@ export default function ProConversationPage({ params }: PageProps) {
     joinConversation(conversationId);
 
     // Handler for new messages
-    const handleNewMessage = (message: Message) => {
+    const handleNewMessage = (data: { message: Message } | Message) => {
+      // Handle both wrapped { message } and direct message format
+      const message = 'message' in data ? data.message : data;
+
       if (message.conversationId === conversationId) {
         setMessages((prev) => {
           // Avoid duplicates

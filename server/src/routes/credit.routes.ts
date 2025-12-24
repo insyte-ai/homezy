@@ -9,6 +9,7 @@ import {
   addCreditsManually,
   refundCreditsManually,
   getPurchases,
+  verifyCheckoutSession,
 } from '../controllers/credit.controller';
 import { authenticate, authorize } from '../middleware/auth.middleware';
 import { validate } from '../middleware/validation.middleware';
@@ -69,6 +70,9 @@ router.post(
   validate(calculateCreditCostSchema),
   calculateCost
 );
+
+// Verify checkout session (fallback for webhook)
+router.post('/verify-session', authenticate, authorize('pro'), verifyCheckoutSession);
 
 /**
  * Admin Routes

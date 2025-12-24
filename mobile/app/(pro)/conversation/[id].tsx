@@ -578,7 +578,7 @@ export default function ConversationScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={0}
       >
-        {/* Messages List */}
+        {/* Messages List - inverted so newest messages appear at bottom */}
         <FlatList
           ref={flatListRef}
           data={messages}
@@ -600,10 +600,10 @@ export default function ConversationScreen() {
           }}
           contentContainerStyle={styles.messagesContent}
           showsVerticalScrollIndicator={false}
-          inverted={false}
+          inverted={true}
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.3}
-          ListHeaderComponent={
+          ListFooterComponent={
             messagesLoading && hasMoreMessages ? (
               <View style={styles.loadingMore}>
                 <ActivityIndicator size="small" color={colors.primary[500]} />
@@ -612,7 +612,7 @@ export default function ConversationScreen() {
           }
           ListEmptyComponent={
             !messagesLoading ? (
-              <View style={styles.emptyContainer}>
+              <View style={[styles.emptyContainer, { transform: [{ scaleY: -1 }] }]}>
                 <Ionicons name="chatbubbles-outline" size={48} color={colors.text.tertiary} />
                 <Text style={styles.emptyText}>No messages yet</Text>
                 <Text style={styles.emptySubtext}>Start the conversation!</Text>

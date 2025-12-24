@@ -152,10 +152,28 @@ export const createCheckout = async (packageId: string): Promise<CheckoutRespons
   return response.data.data;
 };
 
+export interface VerifySessionResponse {
+  success: boolean;
+  message: string;
+  data: {
+    credits: number;
+    alreadyCompleted: boolean;
+  };
+}
+
+/**
+ * Verify and complete checkout session (fallback for webhook)
+ */
+export const verifyCheckoutSession = async (sessionId: string): Promise<VerifySessionResponse['data']> => {
+  const response = await api.post<VerifySessionResponse>('/credits/verify-session', { sessionId });
+  return response.data.data;
+};
+
 export default {
   getBalance,
   getTransactions,
   getPurchases,
   getPackages,
   createCheckout,
+  verifyCheckoutSession,
 };

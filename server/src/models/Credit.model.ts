@@ -8,7 +8,7 @@ export interface ICreditTransaction extends Document {
   balanceBefore: number;
   balanceAfter: number;
   description: string;
-  expiresAt?: Date; // For purchased credits (6 months from purchase)
+  expiresAt?: Date; // Only for free credits (3 months) - paid credits never expire
   remainingAmount: number; // For FIFO tracking - how many credits from this transaction are left
   metadata?: {
     leadId?: string;
@@ -42,7 +42,6 @@ export interface ICreditPurchase extends Document {
   stripePaymentIntentId: string;
   stripeSessionId?: string;
   status: 'pending' | 'completed' | 'failed' | 'refunded';
-  expiresAt: Date; // Credits expire 6 months from purchase
 }
 
 const CreditTransactionSchema = new Schema<ICreditTransaction>(
@@ -204,11 +203,6 @@ const CreditPurchaseSchema = new Schema<ICreditPurchase>(
       default: 'pending',
       index: true,
     },
-    expiresAt: {
-      type: Date,
-      required: true,
-      index: true,
-    },
   },
   {
     timestamps: true,
@@ -231,7 +225,7 @@ CreditTransactionSchema.index({ creditType: 1, expiresAt: 1 }); // For FIFO dedu
 CreditTransactionSchema.index({ professionalId: 1, remainingAmount: 1 }); // For finding available credits
 CreditBalanceSchema.index({ professionalId: 1 }, { unique: true });
 CreditPurchaseSchema.index({ professionalId: 1, createdAt: -1 });
-CreditPurchaseSchema.index({ status: 1, expiresAt: 1 }); // For expiry jobs
+CreditPurchaseSchema.index({ status: 1 }); // For querying by status
 
 export const CreditTransaction: Model<ICreditTransaction> = mongoose.model<ICreditTransaction>(
   'CreditTransaction',

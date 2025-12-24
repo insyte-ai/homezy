@@ -393,11 +393,94 @@ export const refundPayment = async (
   }
 };
 
+/**
+ * Verify and complete a checkout session (fallback for webhook)
+ * Called when user returns from Stripe checkout to verify payment was successful
+ */
+export const verifyAndCompleteSession = async (
+  sessionId: string,
+  professionalId: string
+): Promise<{ credits: number; alreadyCompleted: boolean }> => {
+  try {
+    // Retrieve the session from Stripe
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    // Verify the session belongs to this professional
+    if (session.client_reference_id !== professionalId) {
+      throw new BadRequestError('Session does not belong to this user');
+    }
+
+    // Check payment status
+    if (session.payment_status !== 'paid') {
+      throw new BadRequestError('Payment has not been completed');
+    }
+
+    const { metadata } = session;
+    if (!metadata) {
+      throw new BadRequestError('Session metadata is missing');
+    }
+
+    const { packageId, credits, priceAED } = metadata;
+    const paymentIntentId = session.payment_intent as string;
+
+    if (!paymentIntentId) {
+      throw new BadRequestError('No payment intent in session');
+    }
+
+    // Import credit service functions (dynamic import to avoid circular dependency)
+    // @ts-expect-error - Dynamic import to avoid circular dependency
+    const { getPurchaseByPaymentIntent, createPurchase, completePurchase } = await import('./credit.service');
+
+    // Check if purchase already exists
+    let purchase = await getPurchaseByPaymentIntent(paymentIntentId);
+
+    if (purchase) {
+      // Purchase exists - check if already completed
+      if (purchase.status === 'completed') {
+        logger.info('Session already verified and completed', {
+          sessionId,
+          professionalId,
+          credits: parseInt(credits),
+        });
+        return { credits: parseInt(credits), alreadyCompleted: true };
+      }
+
+      // Complete the pending purchase
+      await completePurchase(paymentIntentId);
+    } else {
+      // Create and complete purchase (webhook didn't fire)
+      await createPurchase({
+        professionalId,
+        packageId,
+        credits: parseInt(credits),
+        priceAED: parseFloat(priceAED),
+        stripePaymentIntentId: paymentIntentId,
+        stripeSessionId: sessionId,
+      });
+
+      await completePurchase(paymentIntentId);
+    }
+
+    logger.info('Session verified and purchase completed', {
+      sessionId,
+      professionalId,
+      credits: parseInt(credits),
+      packageId,
+    });
+
+    return { credits: parseInt(credits), alreadyCompleted: false };
+  } catch (error: any) {
+    logger.error('Failed to verify checkout session', error, { sessionId, professionalId });
+    throw error;
+  }
+};
+
 export default {
   createCheckoutSession,
   handleWebhookEvent,
   getOrCreateCustomer,
   getPaymentIntent,
   refundPayment,
+  verifyAndCompleteSession,
   CREDIT_PACKAGES,
 };

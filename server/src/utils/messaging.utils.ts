@@ -84,8 +84,12 @@ export const getUserById = async (userId: string) => {
 };
 
 /**
- * Broadcast message to socket rooms
+ * Broadcast message to recipient only
  * Used by HTTP controller after saving a message
+ *
+ * Note: We only emit to the recipient, not the sender. The sender already
+ * has the message from the API response - sending it again via socket
+ * would cause duplicate messages in their UI.
  */
 export const broadcastMessage = (
   io: any,
@@ -95,12 +99,12 @@ export const broadcastMessage = (
 ) => {
   const messagingNamespace = io.of('/messaging');
 
-  // Broadcast to conversation room (all participants viewing this conversation)
+  // Send new message to recipient's user room (for real-time delivery)
   messagingNamespace
-    .to(`conversation:${conversationId}`)
-    .emit('message:new', message);
+    .to(`user:${recipientId}`)
+    .emit('message:new', { message });
 
-  // Notify recipient's personal room (for notification badge updates)
+  // Also send notification event (for badge updates when not in conversation)
   messagingNamespace
     .to(`user:${recipientId}`)
     .emit('message:notification', {
