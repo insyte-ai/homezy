@@ -266,8 +266,7 @@ const handlePaymentIntentSucceeded = async (paymentIntent: Stripe.PaymentIntent)
 
   try {
     // Import here to avoid circular dependency
-    // @ts-expect-error - Dynamic import to avoid circular dependency
-    const { completePurchase } = await import('./credit.service');
+    const { completePurchase } = await import('./credit.service.js');
 
     await completePurchase(paymentIntentId);
 
@@ -428,8 +427,7 @@ export const verifyAndCompleteSession = async (
     }
 
     // Import credit service functions (dynamic import to avoid circular dependency)
-    // @ts-expect-error - Dynamic import to avoid circular dependency
-    const { getPurchaseByPaymentIntent, createPurchase, completePurchase } = await import('./credit.service');
+    const { getPurchaseByPaymentIntent, createPurchase, completePurchase } = await import('./credit.service.js');
 
     // Check if purchase already exists
     let purchase = await getPurchaseByPaymentIntent(paymentIntentId);
