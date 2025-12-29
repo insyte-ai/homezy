@@ -22,7 +22,7 @@ const authLimiter = new RateLimiterRedis({
   storeClient: rateLimitRedis,
   keyPrefix: 'rl:auth',
   points: 30, // 30 attempts
-  duration: 900, // Per 15 minutes
+  duration: 300, // Per 5 minutes (shorter window, faster reset)
   blockDuration: 60, // Block for 1 minute if exceeded
 });
 
