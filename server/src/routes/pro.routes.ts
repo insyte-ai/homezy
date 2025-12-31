@@ -15,6 +15,13 @@ import {
   getProAnalytics,
   getMatchingPros,
 } from '../controllers/pro.controller';
+import {
+  createPhoto,
+  listMyPhotos,
+  updatePhoto,
+  deletePhoto,
+  togglePublish,
+} from '../controllers/ideas.controller';
 import { authenticate, authorize } from '../middleware/auth.middleware';
 import { validate } from '../middleware/validation.middleware';
 import {
@@ -140,6 +147,50 @@ router.post(
   authorize('pro'),
   uploadDocument.single('document'),
   uploadVerificationDocument
+);
+
+// ============================================================================
+// Portfolio Photos (Ideas)
+// ============================================================================
+
+// List my photos
+router.get(
+  '/me/photos',
+  authenticate,
+  authorize('pro'),
+  listMyPhotos
+);
+
+// Create a new photo
+router.post(
+  '/me/photos',
+  authenticate,
+  authorize('pro'),
+  createPhoto
+);
+
+// Update a photo
+router.patch(
+  '/me/photos/:photoId',
+  authenticate,
+  authorize('pro'),
+  updatePhoto
+);
+
+// Delete a photo
+router.delete(
+  '/me/photos/:photoId',
+  authenticate,
+  authorize('pro'),
+  deletePhoto
+);
+
+// Toggle publish status
+router.post(
+  '/me/photos/:photoId/publish',
+  authenticate,
+  authorize('pro'),
+  togglePublish
 );
 
 export default router;

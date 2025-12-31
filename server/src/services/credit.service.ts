@@ -551,7 +551,7 @@ export const expireOldCredits = async () => {
     await txn.save();
 
     // Update the balance
-    const balance = await getBalance(txn.professionalId);
+    const balance = await getBalance(txn.professionalId.toString());
     const balanceBefore = balance.totalBalance;
     balance.freeCredits -= expiredAmount;
     balance.totalBalance -= expiredAmount;

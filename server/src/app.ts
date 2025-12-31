@@ -33,6 +33,9 @@ import serviceHistoryRoutes from './routes/serviceHistory.routes';
 import serviceReminderRoutes from './routes/serviceReminder.routes';
 import expenseRoutes from './routes/expense.routes';
 
+// Ideas routes
+import ideasRoutes from './routes/ideas.routes';
+
 /**
  * Create and configure Express application
  */
@@ -153,6 +156,9 @@ export const createApp = (): Application => {
   app.use(`/api/${env.API_VERSION}/service-history`, serviceHistoryRoutes);
   app.use(`/api/${env.API_VERSION}/service-reminders`, serviceReminderRoutes);
   app.use(`/api/${env.API_VERSION}/expenses`, expenseRoutes);
+
+  // Ideas routes
+  app.use(`/api/${env.API_VERSION}/ideas`, ideasRoutes);
 
   // Nested route: /leads/:leadId/quotes
   app.use(`/api/${env.API_VERSION}/leads/:leadId/quotes`, leadQuoteRouter);

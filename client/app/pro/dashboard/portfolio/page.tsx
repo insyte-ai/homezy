@@ -6,6 +6,7 @@ import { getAllSubservices, SubService } from '@/lib/services/serviceData';
 import type { PortfolioItem } from '@homezy/shared';
 import { Plus, Edit2, Trash2, Star, X, Upload, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { IdeasPhotoManager } from '@/components/portfolio/IdeasPhotoManager';
 
 interface PortfolioFormData {
   title: string;
@@ -440,6 +441,9 @@ export default function ProPortfolioPage() {
             </div>
           </div>
         )}
+
+        {/* Ideas Photo Manager */}
+        <IdeasPhotoManager />
       </div>
 
       {/* Add/Edit Modal */}

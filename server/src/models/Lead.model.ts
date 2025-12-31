@@ -67,7 +67,8 @@ const ServiceAnswersSchema = new Schema<ServiceAnswers>({
 const LeadSchema = new Schema<ILead>(
   {
     homeownerId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
       index: true,
     },

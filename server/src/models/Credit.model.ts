@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface ICreditTransaction extends Document {
-  professionalId: string;
+  professionalId: mongoose.Types.ObjectId | string;
   type: 'purchase' | 'spend' | 'refund' | 'bonus' | 'monthly_reset' | 'expiry';
   amount: number;
   creditType: 'free' | 'paid'; // Track if free or paid credits
@@ -47,7 +47,8 @@ export interface ICreditPurchase extends Document {
 const CreditTransactionSchema = new Schema<ICreditTransaction>(
   {
     professionalId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
       index: true,
     },

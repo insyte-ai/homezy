@@ -10,7 +10,6 @@ import {
   Eye,
   Save,
   AlertCircle,
-  ExternalLink,
   Plus,
   X,
   Camera,
@@ -21,13 +20,17 @@ import {
   Clock,
   XCircle,
   Image as ImageIcon,
+  ShieldCheck,
+  FolderOpen,
 } from 'lucide-react';
 import { getMyProfile, updateMyProfile, uploadProfilePhoto } from '@/lib/services/professional';
+import { getAllSubservices, SubService } from '@/lib/services/serviceData';
 import type { PortfolioItem } from '@homezy/shared';
 import { CharacterCounter } from '@/components/pro/CharacterCounter';
+import { IdeasPhotoManager } from '@/components/portfolio/IdeasPhotoManager';
 import toast from 'react-hot-toast';
 
-type Tab = 'basic' | 'services' | 'pricing' | 'availability' | 'links';
+type Tab = 'basic' | 'services' | 'pricing' | 'availability' | 'portfolio' | 'verification';
 
 type AvailabilityMode = 'business_hours' | 'any_time';
 
@@ -154,7 +157,6 @@ export default function ProProfilePage() {
 
   // Language input
   const [newLanguage, setNewLanguage] = useState('');
-  const [newNeighborhood, setNewNeighborhood] = useState('');
 
   // Availability state
   const [availabilityMode, setAvailabilityMode] = useState<AvailabilityMode>('business_hours');
@@ -173,19 +175,86 @@ export default function ProProfilePage() {
   // Form validation errors
   const [bioError, setBioError] = useState<string>('');
 
+  // Service categories state
+  const [availableServices, setAvailableServices] = useState<SubService[]>([]);
+  const [serviceSearch, setServiceSearch] = useState('');
+  const [showServiceDropdown, setShowServiceDropdown] = useState(false);
+
   const tabs = [
     { id: 'basic' as Tab, name: 'Basic Info', icon: User },
     { id: 'services' as Tab, name: 'Services & Areas', icon: Briefcase },
     { id: 'pricing' as Tab, name: 'Pricing', icon: DollarSign },
     { id: 'availability' as Tab, name: 'Availability', icon: Calendar },
-    { id: 'links' as Tab, name: 'Portfolio & Verification', icon: ExternalLink },
+    { id: 'portfolio' as Tab, name: 'Portfolio', icon: FolderOpen },
+    { id: 'verification' as Tab, name: 'Verification', icon: ShieldCheck },
   ];
 
   const emirates = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain'];
 
   useEffect(() => {
     fetchProfile();
+    loadAvailableServices();
   }, []);
+
+  const loadAvailableServices = async () => {
+    try {
+      const services = await getAllSubservices();
+      setAvailableServices(services.sort((a, b) => a.name.localeCompare(b.name)));
+    } catch (error) {
+      console.error('Failed to load services:', error);
+    }
+  };
+
+  // Filter services for dropdown (exclude already selected by ID)
+  // Uses same logic as homepage SearchBar - searches name, category, keywords, and service types
+  const filteredServices = availableServices
+    .map((service) => {
+      // If no search query, include all non-selected services
+      if (!serviceSearch.trim()) {
+        return !formData.categories.includes(service.id) ? service : null;
+      }
+
+      // Skip already selected services
+      if (formData.categories.includes(service.id)) return null;
+
+      const query = serviceSearch.toLowerCase();
+      const nameMatch = service.name.toLowerCase().includes(query);
+      const categoryMatch = service.category?.toLowerCase().includes(query);
+      const matchedKeyword = service.keywords?.find((keyword) =>
+        keyword.toLowerCase().includes(query)
+      );
+      const matchedType = service.serviceTypes?.find((type) =>
+        type.name.toLowerCase().includes(query)
+      );
+
+      if (nameMatch || categoryMatch || matchedKeyword || matchedType) {
+        return {
+          ...service,
+          matchedKeyword: matchedKeyword || null,
+          matchedType: matchedType?.name || null,
+        };
+      }
+      return null;
+    })
+    .filter((service): service is NonNullable<typeof service> => service !== null);
+
+  // Helper to get service name by ID
+  const getServiceName = (serviceId: string): string => {
+    const service = availableServices.find((s) => s.id === serviceId);
+    return service?.name || serviceId;
+  };
+
+  const addCategory = (serviceId: string) => {
+    if (!formData.categories.includes(serviceId)) {
+      handleChange('categories', [...formData.categories, serviceId]);
+    }
+    setServiceSearch('');
+    setShowServiceDropdown(false);
+  };
+
+  const removeCategory = (serviceId: string) => {
+    handleChange('categories', formData.categories.filter((c) => c !== serviceId));
+  };
 
   const fetchProfile = async () => {
     try {
@@ -359,8 +428,7 @@ export default function ProProfilePage() {
     try {
       setSaving(true);
 
-      // Only send editable fields (exclude categories which are set during onboarding)
-      // Don't send serviceAreas if empty - they should be managed in the Services tab
+      // Send editable fields including categories
       const updateData: any = {
         businessName: formData.businessName,
         tagline: formData.tagline,
@@ -368,6 +436,7 @@ export default function ProProfilePage() {
         yearsInBusiness: formData.yearsInBusiness,
         teamSize: formData.teamSize,
         languages: formData.languages,
+        categories: formData.categories,
         hourlyRateMin: formData.hourlyRateMin,
         hourlyRateMax: formData.hourlyRateMax,
         minimumProjectSize: formData.minimumProjectSize,
@@ -453,39 +522,26 @@ export default function ProProfilePage() {
     handleChange('languages', formData.languages.filter((l) => l !== lang));
   };
 
-  const addServiceArea = () => {
-    handleChange('serviceAreas', [
-      ...formData.serviceAreas,
-      { emirate: 'Dubai', neighborhoods: [], serviceRadius: 50, willingToTravelOutside: false },
-    ]);
-  };
-
-  const removeServiceArea = (index: number) => {
-    handleChange('serviceAreas', formData.serviceAreas.filter((_, i) => i !== index));
-  };
-
-  const updateServiceArea = (index: number, field: string, value: any) => {
-    const updated = [...formData.serviceAreas];
-    updated[index] = { ...updated[index], [field]: value };
-    handleChange('serviceAreas', updated);
-  };
-
-  const addNeighborhood = (areaIndex: number) => {
-    if (newNeighborhood.trim()) {
-      const updated = [...formData.serviceAreas];
-      updated[areaIndex].neighborhoods.push(newNeighborhood.trim());
-      handleChange('serviceAreas', updated);
-      setNewNeighborhood('');
+  // Add an emirate to service areas
+  const addServiceEmirate = (emirate: string) => {
+    const alreadyAdded = formData.serviceAreas.some((area) => area.emirate === emirate);
+    if (!alreadyAdded) {
+      handleChange('serviceAreas', [
+        ...formData.serviceAreas,
+        { emirate, neighborhoods: [], willingToTravelOutside: false },
+      ]);
     }
   };
 
-  const removeNeighborhood = (areaIndex: number, neighborhoodIndex: number) => {
-    const updated = [...formData.serviceAreas];
-    updated[areaIndex].neighborhoods = updated[areaIndex].neighborhoods.filter(
-      (_, i) => i !== neighborhoodIndex
-    );
-    handleChange('serviceAreas', updated);
+  // Remove an emirate from service areas
+  const removeServiceEmirate = (emirate: string) => {
+    handleChange('serviceAreas', formData.serviceAreas.filter((area) => area.emirate !== emirate));
   };
+
+  // Get list of emirates not yet added
+  const availableEmirates = emirates.filter(
+    (emirate) => !formData.serviceAreas.some((area) => area.emirate === emirate)
+  );
 
   // Availability functions
   const openScheduleEditor = () => {
@@ -820,174 +876,151 @@ export default function ProProfilePage() {
           {activeTab === 'services' && (
             <div className="space-y-6">
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Service Categories</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Service Categories</h3>
                 <p className="text-sm text-gray-600 mb-4">
-                  These were set during onboarding. To modify, please contact support.
+                  Select all the services you offer. This helps homeowners find you.
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {formData.categories.map((category, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-primary-100 text-neutral-900 rounded-full text-sm font-medium"
-                    >
-                      {category}
-                    </span>
-                  ))}
+
+                {/* Search and add services */}
+                <div className="relative mb-4">
+                  <input
+                    type="text"
+                    value={serviceSearch}
+                    onChange={(e) => {
+                      setServiceSearch(e.target.value);
+                      setShowServiceDropdown(true);
+                    }}
+                    onFocus={() => setShowServiceDropdown(true)}
+                    onBlur={() => {
+                      // Delay to allow click on dropdown item
+                      setTimeout(() => setShowServiceDropdown(false), 200);
+                    }}
+                    placeholder="Search and add services..."
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                  {showServiceDropdown && filteredServices.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto">
+                      {!serviceSearch && (
+                        <div className="px-4 py-2 text-xs text-gray-500 bg-gray-50 border-b sticky top-0">
+                          {filteredServices.length} services available - type to filter
+                        </div>
+                      )}
+                      {filteredServices.map((service) => (
+                        <button
+                          key={service.id}
+                          type="button"
+                          onClick={() => addCategory(service.id)}
+                          className="w-full px-4 py-2 text-left text-sm hover:bg-primary-50 hover:text-primary-700 transition-colors"
+                        >
+                          <div className="font-medium">{service.name}</div>
+                          <div className="text-xs text-gray-400">
+                            {service.category && `${service.category} • `}
+                            {service.group || 'Home Service'}
+                            {(service.matchedKeyword || service.matchedType) && (
+                              <span className="text-primary-600 font-medium">
+                                {' • '}{service.matchedKeyword || service.matchedType}
+                              </span>
+                            )}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {showServiceDropdown && serviceSearch && filteredServices.length === 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
+                      <div className="px-4 py-3 text-sm text-gray-500">
+                        No services found matching "{serviceSearch}"
+                      </div>
+                    </div>
+                  )}
                 </div>
+
+                {/* Selected categories */}
+                <div className="flex flex-wrap gap-2">
+                  {formData.categories.length === 0 ? (
+                    <p className="text-sm text-gray-500">No services selected yet. Search above to add services.</p>
+                  ) : (
+                    formData.categories.map((categoryId) => (
+                      <span
+                        key={categoryId}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-primary-100 text-primary-800 rounded-full text-sm font-medium"
+                      >
+                        {getServiceName(categoryId)}
+                        <button
+                          onClick={() => removeCategory(categoryId)}
+                          className="hover:bg-primary-200 rounded-full p-0.5 transition-colors"
+                          title="Remove service"
+                        >
+                          <X className="h-3.5 w-3.5" />
+                        </button>
+                      </span>
+                    ))
+                  )}
+                </div>
+
+                {formData.categories.length > 0 && (
+                  <p className="text-xs text-gray-500 mt-3">
+                    {formData.categories.length} service{formData.categories.length !== 1 ? 's' : ''} selected
+                  </p>
+                )}
               </div>
 
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Service Areas</h3>
-                  <button
-                    onClick={addServiceArea}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition text-sm"
-                  >
-                    <Plus className="h-4 w-4" />
-                    Add Area
-                  </button>
-                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Service Areas</h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Select the emirates where you provide services.
+                </p>
 
-                <div className="space-y-4">
-                  {formData.serviceAreas.map((area, index) => (
-                    <div
-                      key={index}
-                      className="border border-gray-200 rounded-lg p-4 space-y-4"
+                {/* Emirate selection dropdown */}
+                {availableEmirates.length > 0 && (
+                  <div className="mb-4">
+                    <select
+                      value=""
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          addServiceEmirate(e.target.value);
+                        }
+                      }}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                     >
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1 grid grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                              Emirate
-                            </label>
-                            <select
-                              value={area.emirate}
-                              onChange={(e) =>
-                                updateServiceArea(index, 'emirate', e.target.value)
-                              }
-                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                            >
-                              {emirates.map((emirate) => (
-                                <option key={emirate} value={emirate}>
-                                  {emirate}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
+                      <option value="">Add an emirate...</option>
+                      {availableEmirates.map((emirate) => (
+                        <option key={emirate} value={emirate}>
+                          {emirate}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
 
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                              Service Radius (km)
-                            </label>
-                            <input
-                              type="number"
-                              value={area.serviceRadius || ''}
-                              onChange={(e) =>
-                                updateServiceArea(
-                                  index,
-                                  'serviceRadius',
-                                  parseInt(e.target.value) || 0
-                                )
-                              }
-                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                              placeholder="50"
-                            />
-                          </div>
-                        </div>
-
+                {/* Selected emirates as chips */}
+                <div className="flex flex-wrap gap-2">
+                  {formData.serviceAreas.length === 0 ? (
+                    <p className="text-sm text-gray-500">No emirates selected yet. Select from the dropdown above.</p>
+                  ) : (
+                    formData.serviceAreas.map((area) => (
+                      <span
+                        key={area.emirate}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-primary-100 text-primary-800 rounded-full text-sm font-medium"
+                      >
+                        {area.emirate}
                         <button
-                          onClick={() => removeServiceArea(index)}
-                          className="ml-4 p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                          onClick={() => removeServiceEmirate(area.emirate)}
+                          className="hover:bg-primary-200 rounded-full p-0.5 transition-colors"
+                          title="Remove emirate"
                         >
-                          <X className="h-5 w-5" />
+                          <X className="h-3.5 w-3.5" />
                         </button>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Neighborhoods (optional)
-                        </label>
-                        <div className="flex gap-2 mb-2">
-                          <input
-                            type="text"
-                            value={newNeighborhood}
-                            onChange={(e) => setNewNeighborhood(e.target.value)}
-                            onKeyDown={(e) =>
-                              e.key === 'Enter' &&
-                              (e.preventDefault(), addNeighborhood(index))
-                            }
-                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                            placeholder="e.g., Downtown, Marina"
-                          />
-                          <button
-                            onClick={() => addNeighborhood(index)}
-                            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
-                          >
-                            <Plus className="h-5 w-5" />
-                          </button>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {area.neighborhoods.map((neighborhood, nIndex) => (
-                            <span
-                              key={nIndex}
-                              className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm"
-                            >
-                              {neighborhood}
-                              <button
-                                onClick={() => removeNeighborhood(index, nIndex)}
-                                className="hover:bg-gray-200 rounded-full p-0.5"
-                              >
-                                <X className="h-3 w-3" />
-                              </button>
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-4">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={area.willingToTravelOutside}
-                            onChange={(e) =>
-                              updateServiceArea(
-                                index,
-                                'willingToTravelOutside',
-                                e.target.checked
-                              )
-                            }
-                            className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
-                          />
-                          <span className="text-sm text-gray-700">
-                            Willing to travel outside service area
-                          </span>
-                        </label>
-
-                        {area.willingToTravelOutside && (
-                          <input
-                            type="number"
-                            value={area.extraTravelCost || ''}
-                            onChange={(e) =>
-                              updateServiceArea(
-                                index,
-                                'extraTravelCost',
-                                parseInt(e.target.value) || 0
-                              )
-                            }
-                            className="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                            placeholder="Extra cost"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  ))}
-
-                  {formData.serviceAreas.length === 0 && (
-                    <p className="text-gray-500 text-center py-8">
-                      No service areas added yet. Click "Add Area" to get started.
-                    </p>
+                      </span>
+                    ))
                   )}
                 </div>
+
+                {formData.serviceAreas.length > 0 && (
+                  <p className="text-xs text-gray-500 mt-3">
+                    {formData.serviceAreas.length} emirate{formData.serviceAreas.length !== 1 ? 's' : ''} selected
+                  </p>
+                )}
               </div>
             </div>
           )}
@@ -1224,17 +1257,20 @@ export default function ProProfilePage() {
             </div>
           )}
 
-          {/* Links Tab */}
-          {activeTab === 'links' && (
+          {/* Portfolio Tab */}
+          {activeTab === 'portfolio' && (
             <div className="space-y-6">
-              {/* Portfolio Section */}
+              {/* Ideas Photos Section */}
+              <IdeasPhotoManager />
+
+              {/* Traditional Portfolio Projects */}
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Portfolio</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">Project Portfolio</h3>
                     <p className="text-sm text-gray-600">
                       {portfolio.length === 0
-                        ? 'Add photos of your completed projects to showcase your work'
+                        ? 'Add detailed project case studies to showcase your work'
                         : `${portfolio.length} project${portfolio.length !== 1 ? 's' : ''} • ${featuredProjects.length} featured`}
                     </p>
                   </div>
@@ -1242,52 +1278,64 @@ export default function ProProfilePage() {
                     href="/pro/dashboard/portfolio"
                     className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition text-sm"
                   >
-                    {portfolio.length === 0 ? 'Add Projects' : 'Manage'}
-                    <ExternalLink className="h-4 w-4" />
+                    <Plus className="h-4 w-4" />
+                    {portfolio.length === 0 ? 'Add Project' : 'Manage Projects'}
                   </Link>
                 </div>
 
                 {portfolio.length > 0 ? (
-                  <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
-                    {portfolio.slice(0, 6).map((item) => (
-                      <div key={item.id} className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {portfolio.slice(0, 8).map((item) => (
+                      <div key={item.id} className="group relative aspect-square rounded-lg overflow-hidden bg-gray-100">
                         {item.images && item.images.length > 0 ? (
                           <img
                             src={item.images[0]}
                             alt={item.title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                           />
                         ) : (
                           <div className="flex items-center justify-center h-full">
-                            <ImageIcon className="h-6 w-6 text-gray-400" />
+                            <ImageIcon className="h-8 w-8 text-gray-400" />
                           </div>
                         )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="absolute bottom-2 left-2 right-2">
+                            <p className="text-white text-sm font-medium truncate">{item.title}</p>
+                            {item.category && (
+                              <p className="text-white/80 text-xs truncate">{item.category}</p>
+                            )}
+                          </div>
+                        </div>
                         {featuredProjects.includes(item.id) && (
-                          <div className="absolute top-1 right-1 bg-yellow-500 rounded-full p-0.5">
+                          <div className="absolute top-2 right-2 bg-yellow-500 rounded-full p-1">
                             <CheckCircle className="h-3 w-3 text-white" />
                           </div>
                         )}
                       </div>
                     ))}
-                    {portfolio.length > 6 && (
-                      <Link
-                        href="/pro/dashboard/portfolio"
-                        className="aspect-square rounded-lg bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-600 hover:bg-gray-200 transition"
-                      >
-                        +{portfolio.length - 6} more
-                      </Link>
-                    )}
                   </div>
                 ) : (
                   <div className="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center">
-                    <ImageIcon className="mx-auto h-10 w-10 text-gray-400 mb-2" />
-                    <p className="text-sm text-gray-500">No projects yet</p>
-                    <p className="text-xs text-gray-400 mt-1">Pros with portfolios get 3x more responses</p>
+                    <ImageIcon className="mx-auto h-12 w-12 text-gray-400 mb-3" />
+                    <p className="text-gray-600 font-medium">No projects yet</p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Add detailed project case studies with before/after photos
+                    </p>
+                    <Link
+                      href="/pro/dashboard/portfolio"
+                      className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition text-sm"
+                    >
+                      <Plus className="h-4 w-4" />
+                      Add Your First Project
+                    </Link>
                   </div>
                 )}
               </div>
+            </div>
+          )}
 
-              {/* Verification Section */}
+          {/* Verification Tab */}
+          {activeTab === 'verification' && (
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -1417,11 +1465,10 @@ export default function ProProfilePage() {
                   </div>
                 )}
               </div>
-            </div>
           )}
 
-          {/* Save Button (not shown for links or availability - they have their own) */}
-          {activeTab !== 'links' && activeTab !== 'availability' && (
+          {/* Save Button (not shown for portfolio, verification, or availability - they have their own) */}
+          {activeTab !== 'portfolio' && activeTab !== 'verification' && activeTab !== 'availability' && (
             <div className="flex items-center justify-end gap-4 mt-6">
               {saved && !hasChanges && (
                 <span className="text-sm text-green-600 font-medium animate-fade-in">

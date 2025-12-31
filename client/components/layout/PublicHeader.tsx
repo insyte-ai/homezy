@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useAuthStore } from '@/store/authStore';
 import { useChatPanelStore } from '@/store/chatPanelStore';
 import { ServicesDropdown } from '@/components/navigation/ServicesDropdown';
+import { IdeasDropdown } from '@/components/navigation/IdeasDropdown';
 import {
   ChevronDown,
   LayoutDashboard,
@@ -220,8 +221,9 @@ export function PublicHeader() {
                   href="/pros"
                   className="text-sm text-gray-600 hover:text-gray-900 font-medium"
                 >
-                  Browse Professionals
+                  Find Pros
                 </Link>
+                <IdeasDropdown />
                 <Link
                   href="/lead-marketplace"
                   className="text-sm text-gray-600 hover:text-gray-900 font-medium"
