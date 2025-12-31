@@ -43,7 +43,7 @@ export const MessageInput = ({ onSend, disabled, placeholder }: MessageInputProp
   };
 
   return (
-    <div className="border-t border-gray-200 bg-white py-4">
+    <div className="border-t border-gray-200 bg-white py-4 flex-shrink-0">
       <div className="flex items-end gap-2">
         <textarea
           ref={textareaRef}

@@ -13,7 +13,7 @@ export const WelcomeSection = ({ onSendMessage }: WelcomeSectionProps) => {
   ];
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+    <div className="flex-1 overflow-y-auto flex flex-col items-center justify-start md:justify-center px-4 py-6 md:py-12">
       <div className="max-w-2xl text-center space-y-6">
         {/* Logo/Icon */}
         <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full">

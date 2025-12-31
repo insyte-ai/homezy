@@ -85,7 +85,7 @@ export const ChatInterface = () => {
   }
 
   return (
-    <div className="h-full flex flex-col w-full px-4 lg:px-6">
+    <div className="h-full flex flex-col w-full px-4 lg:px-6 overflow-hidden">
       {/* Connection Status Indicator (only show when disconnected) */}
       {!isConnected && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-2 mb-4">

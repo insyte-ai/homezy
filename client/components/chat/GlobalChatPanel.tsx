@@ -21,7 +21,7 @@ export function GlobalChatPanel() {
     <>
       {/* Desktop Panel */}
       <div
-        className={`hidden lg:block fixed top-0 right-0 h-screen transition-transform duration-300 ease-in-out z-50 ${
+        className={`hidden xl:block fixed top-0 right-0 h-screen transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-[calc(100%-48px)]'
         }`}
         style={{ width: '40vw', minWidth: '400px' }}
@@ -80,11 +80,11 @@ export function GlobalChatPanel() {
       </div>
     </div>
 
-      {/* Mobile Chat Overlay */}
+      {/* Mobile/Tablet Chat Overlay */}
       {showMobileChat && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden">
-          <div className="bg-white h-full flex flex-col">
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 flex items-center justify-between">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 xl:hidden">
+          <div className="bg-white h-[100dvh] flex flex-col">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 flex items-center justify-between flex-shrink-0">
               <div>
                 <h3 className="text-lg font-semibold flex items-center gap-2">
                   <MessageCircle className="h-5 w-5" />
@@ -101,20 +101,21 @@ export function GlobalChatPanel() {
                 <X className="h-6 w-6 text-white" />
               </button>
             </div>
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-y-auto min-h-0">
               <ChatInterface />
             </div>
           </div>
         </div>
       )}
 
-      {/* Mobile Chat FAB */}
+      {/* Mobile/Tablet Chat FAB */}
       {!showMobileChat && (
         <button
           onClick={() => setShowMobileChat(true)}
-          className="lg:hidden fixed bottom-6 right-6 bg-primary-600 text-white rounded-full p-4 shadow-lg hover:bg-primary-700 transition-colors z-40"
+          className="xl:hidden fixed bottom-6 right-6 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-full pl-4 pr-5 py-3 shadow-xl hover:from-primary-600 hover:to-primary-700 hover:shadow-2xl transition-all z-[60] flex items-center gap-2"
         >
           <MessageCircle className="h-6 w-6" />
+          <span className="font-semibold text-sm">Home GPT</span>
         </button>
       )}
     </>
