@@ -64,7 +64,7 @@ export function IdeasDropdown() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute left-0 top-full -mt-px bg-white shadow-xl border border-gray-200 rounded-b-lg z-50 p-6">
+        <div className="absolute left-[-300px] top-full -mt-px bg-white shadow-xl border border-gray-200 rounded-b-lg z-50 p-6">
           <div className="flex gap-8">
             {CATEGORY_GROUPS.map((group) => (
               <div key={group.title} className="min-w-[140px]">

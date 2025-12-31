@@ -14,7 +14,14 @@ import {
   FileText,
   MessageSquare,
   Settings,
-  LogOut
+  LogOut,
+  Users,
+  Briefcase,
+  BookOpen,
+  Menu,
+  X,
+  LayoutGrid,
+  Lightbulb
 } from 'lucide-react';
 
 export function PublicHeader() {
@@ -22,6 +29,7 @@ export function PublicHeader() {
   const { isAuthenticated, user, logout } = useAuthStore();
   const { isOpen: isChatPanelOpen } = useChatPanelStore();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Redirect pros and admins away from public pages to their respective dashboards
@@ -79,6 +87,15 @@ export function PublicHeader() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
           <div className="flex justify-between items-center h-16">
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 -ml-2 text-gray-600 hover:text-gray-900"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+
             {/* Logo */}
             <Link href="/" className="flex items-center gap-0.5">
               <Image
@@ -210,7 +227,7 @@ export function PublicHeader() {
           </div>
         </div>
 
-        {/* Secondary Navigation Bar */}
+        {/* Secondary Navigation Bar - Desktop */}
         <div className="hidden lg:block border-t border-gray-200 bg-white">
           <div className={`container-custom transition-all duration-300 ${isChatPanelOpen ? 'lg:pr-[40vw]' : 'lg:pr-14'}`}>
             <div className="flex items-center justify-between h-12">
@@ -219,15 +236,17 @@ export function PublicHeader() {
                 <ServicesDropdown />
                 <Link
                   href="/pros"
-                  className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 font-medium"
                 >
+                  <Users className="h-4 w-4" />
                   Find Pros
                 </Link>
                 <IdeasDropdown />
                 <Link
                   href="/lead-marketplace"
-                  className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 font-medium"
                 >
+                  <Briefcase className="h-4 w-4" />
                   Browse Jobs
                 </Link>
               </div>
@@ -236,14 +255,78 @@ export function PublicHeader() {
               <div>
                 <Link
                   href="/resources/center"
-                  className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 font-medium"
                 >
+                  <BookOpen className="h-4 w-4" />
                   Resource Center
                 </Link>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden border-t border-gray-200 bg-white">
+            <nav className="container-custom py-4">
+              <div className="space-y-1">
+                <Link
+                  href="/services"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gray-50 rounded-lg"
+                >
+                  <LayoutGrid className="h-5 w-5 text-gray-400" />
+                  <span className="font-medium">All Services</span>
+                </Link>
+                <Link
+                  href="/pros"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gray-50 rounded-lg"
+                >
+                  <Users className="h-5 w-5 text-gray-400" />
+                  <span className="font-medium">Find Pros</span>
+                </Link>
+                <Link
+                  href="/ideas"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gray-50 rounded-lg"
+                >
+                  <Lightbulb className="h-5 w-5 text-gray-400" />
+                  <span className="font-medium">Ideas</span>
+                </Link>
+                <Link
+                  href="/lead-marketplace"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gray-50 rounded-lg"
+                >
+                  <Briefcase className="h-5 w-5 text-gray-400" />
+                  <span className="font-medium">Browse Jobs</span>
+                </Link>
+                <Link
+                  href="/resources/center"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gray-50 rounded-lg"
+                >
+                  <BookOpen className="h-5 w-5 text-gray-400" />
+                  <span className="font-medium">Resource Center</span>
+                </Link>
+              </div>
+
+              {/* Mobile-only links */}
+              {!isAuthenticated && (
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <Link
+                    href="/become-a-pro"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gray-50 rounded-lg"
+                  >
+                    <span className="font-medium">Become a Pro</span>
+                  </Link>
+                </div>
+              )}
+            </nav>
+          </div>
+        )}
       </header>
     </>
   );
