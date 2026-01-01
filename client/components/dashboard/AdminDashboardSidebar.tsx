@@ -20,6 +20,7 @@ import {
   ArrowRightOnRectangleIcon,
   SparklesIcon,
   BookOpenIcon,
+  PhotoIcon,
 } from '@heroicons/react/24/outline';
 
 interface NavItem {
@@ -54,6 +55,7 @@ export function AdminDashboardSidebar() {
     { name: 'Professionals', href: '/admin/professionals', icon: BriefcaseIcon },
     { name: 'Homeowners', href: '/admin/homeowners', icon: UserGroupIcon },
     { name: 'Leads', href: '/admin/leads', icon: DocumentTextIcon },
+    { name: 'Ideas', href: '/admin/ideas', icon: PhotoIcon },
     { name: 'Credits', href: '/admin/credits', icon: CreditCardIcon },
     { name: 'Resources', href: '/admin/resources', icon: BookOpenIcon },
     { name: 'Analytics', href: '/admin/analytics', icon: ChartBarIcon },

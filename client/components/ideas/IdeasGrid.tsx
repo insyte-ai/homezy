@@ -2,11 +2,11 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { PhotoCard } from './PhotoCard';
-import type { PortfolioPhoto } from '@homezy/shared';
+import type { IdeasPhoto } from '@homezy/shared';
 import { Loader2 } from 'lucide-react';
 
 interface IdeasGridProps {
-  photos: PortfolioPhoto[];
+  photos: IdeasPhoto[];
   savedPhotoIds?: Set<string>;
   onSave?: (photoId: string) => void;
   onLoadMore?: () => void;

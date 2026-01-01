@@ -8,14 +8,38 @@
 type WithId<T> = T & { _id: any };
 
 /**
- * Transform a lean document by converting _id to id
+ * Recursively transform an object, converting _id to id at all levels
+ */
+const transformRecursive = (obj: any): any => {
+  if (obj === null || obj === undefined) return obj;
+  if (Array.isArray(obj)) {
+    return obj.map(transformRecursive);
+  }
+  if (typeof obj === 'object') {
+    // Check if it's a Date or ObjectId-like (has toHexString)
+    if (obj instanceof Date || typeof obj.toHexString === 'function') {
+      return obj;
+    }
+    const { _id, __v, ...rest } = obj;
+    const result: any = {};
+    // Transform nested objects first
+    for (const key of Object.keys(rest)) {
+      result[key] = transformRecursive(rest[key]);
+    }
+    // Add id if _id exists
+    if (_id) {
+      result.id = _id.toString();
+    }
+    return result;
+  }
+  return obj;
+};
+
+/**
+ * Transform a lean document by converting _id to id (recursively for nested objects)
  */
 export const transformLeanDoc = <T extends WithId<any>>(doc: T): Omit<T, '_id'> & { id: string } => {
-  const { _id, __v, ...rest } = doc as any;
-  return {
-    ...rest,
-    id: _id.toString(),
-  };
+  return transformRecursive(doc);
 };
 
 /**

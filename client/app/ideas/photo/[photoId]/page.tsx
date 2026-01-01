@@ -260,7 +260,7 @@ export default function PhotoDetailPage() {
 
               {/* CTA buttons */}
               <div className="mt-6 space-y-3">
-                {photo.proSlug && (
+                {photo.professionalId && photo.proSlug && (
                   <Link
                     href={`/pros/${photo.professionalId}/${photo.proSlug}`}
                     className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium"
@@ -269,12 +269,6 @@ export default function PhotoDetailPage() {
                     <ExternalLink className="h-4 w-4" />
                   </Link>
                 )}
-                <Link
-                  href={`/get-quotes?proId=${photo.professionalId}`}
-                  className="flex items-center justify-center gap-2 w-full px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
-                >
-                  Request Quote
-                </Link>
               </div>
             </div>
           </div>

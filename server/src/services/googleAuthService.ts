@@ -141,8 +141,6 @@ export const findOrCreateGoogleUser = async (
         serviceAreas: [],
         verificationStatus: 'pending',
         verificationDocuments: [],
-        portfolio: [],
-        featuredProjects: [],
         rating: 0,
         reviewCount: 0,
         projectsCompleted: 0,

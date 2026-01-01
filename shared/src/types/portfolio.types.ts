@@ -12,48 +12,33 @@ import type { RoomCategory } from '../constants/roomCategories';
 export const PHOTO_TYPES = ['main', 'before', 'after'] as const;
 export type PhotoType = (typeof PHOTO_TYPES)[number];
 
+export const ADMIN_PHOTO_STATUSES = ['active', 'removed', 'flagged'] as const;
+export type AdminPhotoStatus = (typeof ADMIN_PHOTO_STATUSES)[number];
+
 // ============================================================================
-// Portfolio Photo
+// Ideas Photo (for Ideas page display)
 // ============================================================================
 
-export interface PortfolioPhoto {
+export interface IdeasPhoto {
   id: string;
+  projectId: string;
   professionalId: string;
-  portfolioItemId?: string; // Link to existing PortfolioItem
-
-  // Image data
   imageUrl: string;
   thumbnailUrl?: string;
-
-  // Categorization
   roomCategories: RoomCategory[];
-  serviceCategory?: string; // Link to existing service category
-
-  // Photo metadata
   photoType: PhotoType;
   caption?: string;
-
-  // Project info
-  projectTitle?: string;
-  projectDescription?: string;
-
-  // Denormalized pro info (for faster reads)
+  projectTitle: string;
+  projectDescription: string;
   businessName: string;
   proSlug?: string;
   proProfilePhoto?: string;
   proVerificationStatus: 'pending' | 'approved' | 'rejected';
-
-  // Engagement metrics
   saveCount: number;
   viewCount: number;
-
-  // Status
   isPublished: boolean;
   publishedAt?: Date;
-
-  // Timestamps
   createdAt: Date;
-  updatedAt: Date;
 }
 
 // ============================================================================
@@ -73,29 +58,6 @@ export interface PhotoSave {
 // API Request/Response Types
 // ============================================================================
 
-export interface CreatePortfolioPhotoInput {
-  imageUrl: string;
-  thumbnailUrl?: string;
-  roomCategories: RoomCategory[];
-  serviceCategory?: string;
-  photoType?: PhotoType;
-  caption?: string;
-  projectTitle?: string;
-  projectDescription?: string;
-  portfolioItemId?: string;
-  isPublished?: boolean;
-}
-
-export interface UpdatePortfolioPhotoInput {
-  roomCategories?: RoomCategory[];
-  serviceCategory?: string;
-  photoType?: PhotoType;
-  caption?: string;
-  projectTitle?: string;
-  projectDescription?: string;
-  isPublished?: boolean;
-}
-
 export interface IdeasListParams {
   category?: RoomCategory;
   sort?: 'newest' | 'popular';
@@ -104,20 +66,151 @@ export interface IdeasListParams {
 }
 
 export interface IdeasListResponse {
-  photos: PortfolioPhoto[];
+  photos: IdeasPhoto[];
   nextCursor?: string;
   hasMore: boolean;
   total: number;
 }
 
 export interface PhotoDetailResponse {
-  photo: PortfolioPhoto;
-  relatedPhotos: PortfolioPhoto[];
-  projectPhotos: PortfolioPhoto[];
+  photo: IdeasPhoto;
+  relatedPhotos: IdeasPhoto[];
+  projectPhotos: IdeasPhoto[];
   isSaved?: boolean;
 }
 
 export interface CategoryCount {
   category: RoomCategory;
   count: number;
+}
+
+// ============================================================================
+// Pro Project Types
+// ============================================================================
+
+export interface ProProjectPhoto {
+  id: string;
+  imageUrl: string;
+  thumbnailUrl?: string;
+  photoType: PhotoType;
+  caption?: string;
+  roomCategories: RoomCategory[];
+  displayOrder: number;
+
+  // Ideas Publishing
+  isPublishedToIdeas: boolean;
+  publishedAt?: Date;
+
+  // Admin Moderation
+  adminStatus: AdminPhotoStatus;
+  adminRemovedAt?: Date;
+  adminRemovedBy?: string;
+  adminRemovalReason?: string;
+
+  // Engagement metrics
+  saveCount: number;
+  viewCount: number;
+
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ProProject {
+  id: string;
+  professionalId: string;
+
+  // Project Details
+  name: string;
+  description: string;
+  serviceCategory: string;
+  completionDate: Date;
+
+  // Denormalized pro info for Ideas page
+  businessName: string;
+  proSlug?: string;
+  proProfilePhoto?: string;
+  proVerificationStatus: 'pending' | 'approved' | 'rejected';
+
+  // Photos
+  photos: ProProjectPhoto[];
+
+  // Computed
+  photoCount?: number;
+  publishedPhotoCount?: number;
+
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// ============================================================================
+// Pro Project API Types
+// ============================================================================
+
+export interface CreateProProjectInput {
+  name: string;
+  description: string;
+  serviceCategory: string;
+  completionDate: Date | string;
+}
+
+export interface UpdateProProjectInput {
+  name?: string;
+  description?: string;
+  serviceCategory?: string;
+  completionDate?: Date | string;
+}
+
+export interface AddProjectPhotoInput {
+  imageUrl: string;
+  thumbnailUrl?: string;
+  photoType?: PhotoType;
+  caption?: string;
+  roomCategories: RoomCategory[];
+  isPublishedToIdeas?: boolean;
+}
+
+export interface UpdateProjectPhotoInput {
+  photoType?: PhotoType;
+  caption?: string;
+  roomCategories?: RoomCategory[];
+  displayOrder?: number;
+  isPublishedToIdeas?: boolean;
+}
+
+export interface AdminPhotoStatusUpdate {
+  adminStatus: AdminPhotoStatus;
+  removalReason?: string;
+}
+
+// Admin Ideas List Response
+export interface AdminIdeasPhoto {
+  id: string;
+  photoId: string;
+  projectId: string;
+  projectName: string;
+  professionalId: string;
+  businessName: string;
+  proSlug?: string;
+  imageUrl: string;
+  thumbnailUrl?: string;
+  roomCategories: RoomCategory[];
+  adminStatus: AdminPhotoStatus;
+  isPublishedToIdeas: boolean;
+  saveCount: number;
+  viewCount: number;
+  createdAt: Date;
+}
+
+export interface AdminIdeasListResponse {
+  photos: AdminIdeasPhoto[];
+  nextCursor?: string;
+  hasMore: boolean;
+  total: number;
+}
+
+export interface AdminIdeasStats {
+  totalPublished: number;
+  totalFlagged: number;
+  totalRemoved: number;
+  totalProjects: number;
 }

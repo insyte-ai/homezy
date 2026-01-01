@@ -9,7 +9,6 @@ import type {
   ProAgreement,
   ServiceArea,
   VerificationDocument,
-  PortfolioItem,
   Availability,
   WeeklySchedule,
   SavedSearch,
@@ -83,18 +82,6 @@ const AvailabilitySchema = new Schema<Availability>({
   bufferTimeMinutes: { type: Number, default: 30 },
 }, { _id: false });
 
-const PortfolioItemSchema = new Schema<PortfolioItem>({
-  id: { type: String, required: true },
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  category: { type: String, required: true },
-  images: [{ type: String }],
-  beforeImages: [{ type: String }],
-  afterImages: [{ type: String }],
-  completionDate: { type: Date, required: true },
-  isFeatured: { type: Boolean, default: false },
-});
-
 const VerificationDocumentSchema = new Schema<VerificationDocument>({
   type: {
     type: String,
@@ -153,10 +140,6 @@ const ProProfileSchema = new Schema<ProProfile>({
     default: 'pending',
   },
   verificationDocuments: { type: [VerificationDocumentSchema], default: [] },
-
-  // Portfolio
-  portfolio: { type: [PortfolioItemSchema], default: [] },
-  featuredProjects: { type: [String], default: [] },
 
   // Pricing
   hourlyRateMin: Number,

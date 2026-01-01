@@ -16,6 +16,7 @@ import {
   reloadKnowledgeBase,
   getKnowledgeBaseStats,
 } from '../controllers/admin.controller';
+import * as adminIdeasController from '../controllers/admin.ideas.controller';
 
 const router = Router();
 
@@ -48,5 +49,32 @@ router.get('/credits', getCreditTransactions);
 // Knowledge base management routes
 router.get('/knowledge-base/stats', getKnowledgeBaseStats);
 router.post('/knowledge-base/reload', reloadKnowledgeBase);
+
+// ============================================================================
+// Ideas Moderation Routes
+// ============================================================================
+
+// Get moderation statistics
+router.get('/ideas/stats', adminIdeasController.getStats);
+
+// List all photos for moderation
+router.get('/ideas/photos', adminIdeasController.listPhotos);
+
+// Bulk update photo status
+router.post('/ideas/photos/bulk-status', adminIdeasController.bulkUpdateStatus);
+
+// Bulk publish/unpublish to Ideas
+router.post('/ideas/photos/bulk-publish', adminIdeasController.bulkPublish);
+router.post('/ideas/photos/bulk-unpublish', adminIdeasController.bulkUnpublish);
+
+// Get a single photo
+router.get('/ideas/photos/:projectId/:photoId', adminIdeasController.getPhoto);
+
+// Update photo status (remove/restore/flag)
+router.patch('/ideas/photos/:projectId/:photoId/status', adminIdeasController.updatePhotoStatus);
+
+// Publish/unpublish a photo to Ideas
+router.post('/ideas/photos/:projectId/:photoId/publish', adminIdeasController.publishPhoto);
+router.post('/ideas/photos/:projectId/:photoId/unpublish', adminIdeasController.unpublishPhoto);
 
 export default router;

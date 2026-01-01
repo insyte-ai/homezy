@@ -6,30 +6,17 @@ import {
   previewMyProfile,
   getProProfile,
   updateProfile,
-  addPortfolioItem,
-  updatePortfolioItem,
-  deletePortfolioItem,
-  updateFeaturedProjects,
   uploadVerificationDocument,
   searchPros,
   getProAnalytics,
   getMatchingPros,
 } from '../controllers/pro.controller';
-import {
-  createPhoto,
-  listMyPhotos,
-  updatePhoto,
-  deletePhoto,
-  togglePublish,
-} from '../controllers/ideas.controller';
+import * as projectController from '../controllers/project.controller';
 import { authenticate, authorize } from '../middleware/auth.middleware';
 import { validate } from '../middleware/validation.middleware';
 import {
   onboardingSchema,
   updateProProfileSchema,
-  addPortfolioItemSchema,
-  updatePortfolioItemSchema,
-  updateFeaturedProjectsSchema,
   proAgreementSchema,
 } from '../schemas/pro.schema';
 import { uploadDocument } from '../middleware/upload.middleware';
@@ -105,41 +92,6 @@ router.put(
   updateProfile
 );
 
-// Add portfolio item
-router.post(
-  '/me/portfolio',
-  authenticate,
-  authorize('pro'),
-  validate(addPortfolioItemSchema),
-  addPortfolioItem
-);
-
-// Update portfolio item
-router.put(
-  '/me/portfolio/:itemId',
-  authenticate,
-  authorize('pro'),
-  validate(updatePortfolioItemSchema),
-  updatePortfolioItem
-);
-
-// Delete portfolio item
-router.delete(
-  '/me/portfolio/:itemId',
-  authenticate,
-  authorize('pro'),
-  deletePortfolioItem
-);
-
-// Update featured projects
-router.put(
-  '/me/featured-projects',
-  authenticate,
-  authorize('pro'),
-  validate(updateFeaturedProjectsSchema),
-  updateFeaturedProjects
-);
-
 // Upload verification document
 router.post(
   '/me/verification/upload',
@@ -150,47 +102,87 @@ router.post(
 );
 
 // ============================================================================
-// Portfolio Photos (Ideas)
+// Pro Projects (Unified Portfolio System)
 // ============================================================================
 
-// List my photos
+// Get project statistics
 router.get(
-  '/me/photos',
+  '/me/projects/stats',
   authenticate,
   authorize('pro'),
-  listMyPhotos
+  projectController.getProjectStats
 );
 
-// Create a new photo
+// List all projects
+router.get(
+  '/me/projects',
+  authenticate,
+  authorize('pro'),
+  projectController.listProjects
+);
+
+// Create a new project
 router.post(
-  '/me/photos',
+  '/me/projects',
   authenticate,
   authorize('pro'),
-  createPhoto
+  projectController.createProject
 );
 
-// Update a photo
-router.patch(
-  '/me/photos/:photoId',
+// Get a single project
+router.get(
+  '/me/projects/:projectId',
   authenticate,
   authorize('pro'),
-  updatePhoto
+  projectController.getProject
 );
 
-// Delete a photo
+// Update a project
+router.put(
+  '/me/projects/:projectId',
+  authenticate,
+  authorize('pro'),
+  projectController.updateProject
+);
+
+// Delete a project
 router.delete(
-  '/me/photos/:photoId',
+  '/me/projects/:projectId',
   authenticate,
   authorize('pro'),
-  deletePhoto
+  projectController.deleteProject
 );
 
-// Toggle publish status
+// Add photos to a project
 router.post(
-  '/me/photos/:photoId/publish',
+  '/me/projects/:projectId/photos',
   authenticate,
   authorize('pro'),
-  togglePublish
+  projectController.addPhotos
+);
+
+// Update a photo in a project
+router.patch(
+  '/me/projects/:projectId/photos/:photoId',
+  authenticate,
+  authorize('pro'),
+  projectController.updatePhoto
+);
+
+// Delete a photo from a project
+router.delete(
+  '/me/projects/:projectId/photos/:photoId',
+  authenticate,
+  authorize('pro'),
+  projectController.deletePhoto
+);
+
+// Toggle publish status for a photo
+router.post(
+  '/me/projects/:projectId/photos/:photoId/toggle-publish',
+  authenticate,
+  authorize('pro'),
+  projectController.togglePhotoPublish
 );
 
 export default router;

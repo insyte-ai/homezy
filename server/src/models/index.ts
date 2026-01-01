@@ -19,5 +19,5 @@ export { ServiceReminder, IServiceReminder } from './ServiceReminder.model';
 export { Expense, IExpense } from './Expense.model';
 
 // Portfolio & Ideas Models
-export { PortfolioPhoto, IPortfolioPhoto } from './PortfolioPhoto.model';
 export { PhotoSave, IPhotoSave } from './PhotoSave.model';
+export { Project, IProject, IProjectPhoto } from './Project.model';

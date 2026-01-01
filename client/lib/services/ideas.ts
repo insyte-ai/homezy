@@ -1,23 +1,19 @@
 import { api } from '../api';
 import type {
-  PortfolioPhoto,
+  IdeasPhoto,
   RoomCategory,
   IdeasListResponse,
   PhotoDetailResponse,
   CategoryCount,
-  CreatePortfolioPhotoInput,
-  UpdatePortfolioPhotoInput,
 } from '@homezy/shared';
 
 // Re-export types for convenience
 export type {
-  PortfolioPhoto,
+  IdeasPhoto,
   RoomCategory,
   IdeasListResponse,
   PhotoDetailResponse,
   CategoryCount,
-  CreatePortfolioPhotoInput,
-  UpdatePortfolioPhotoInput,
 };
 
 // ============================================================================
@@ -85,60 +81,10 @@ export async function unsavePhoto(photoId: string): Promise<void> {
  * Get user's saved photos
  */
 export async function getSavedPhotos(params: { limit?: number; cursor?: string } = {}): Promise<{
-  photos: PortfolioPhoto[];
+  photos: IdeasPhoto[];
   nextCursor?: string;
   hasMore: boolean;
 }> {
   const response = await api.get('/ideas/saved', { params });
   return response.data.data;
-}
-
-// ============================================================================
-// Pro Photo Management
-// ============================================================================
-
-/**
- * List professional's photos
- */
-export async function listMyPhotos(params: {
-  isPublished?: boolean;
-  limit?: number;
-  offset?: number;
-} = {}): Promise<{ photos: PortfolioPhoto[]; total: number }> {
-  const response = await api.get('/pros/me/photos', { params });
-  return response.data.data;
-}
-
-/**
- * Create a new portfolio photo
- */
-export async function createPhoto(input: CreatePortfolioPhotoInput): Promise<PortfolioPhoto> {
-  const response = await api.post('/pros/me/photos', input);
-  return response.data.data.photo;
-}
-
-/**
- * Update a portfolio photo
- */
-export async function updatePhoto(
-  photoId: string,
-  input: UpdatePortfolioPhotoInput
-): Promise<PortfolioPhoto> {
-  const response = await api.patch(`/pros/me/photos/${photoId}`, input);
-  return response.data.data.photo;
-}
-
-/**
- * Delete a portfolio photo
- */
-export async function deletePhoto(photoId: string): Promise<void> {
-  await api.delete(`/pros/me/photos/${photoId}`);
-}
-
-/**
- * Toggle publish status
- */
-export async function togglePublish(photoId: string): Promise<PortfolioPhoto> {
-  const response = await api.post(`/pros/me/photos/${photoId}/publish`);
-  return response.data.data.photo;
 }

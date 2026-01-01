@@ -4,11 +4,11 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, User, Share2 } from 'lucide-react';
-import type { PortfolioPhoto } from '@homezy/shared';
+import type { IdeasPhoto } from '@homezy/shared';
 import toast from 'react-hot-toast';
 
 interface PhotoCardProps {
-  photo: PortfolioPhoto;
+  photo: IdeasPhoto;
   onSave?: (photoId: string) => void;
   isSaved?: boolean;
   priority?: boolean;
@@ -134,7 +134,7 @@ export function PhotoCard({ photo, onSave, isSaved = false, priority = false }: 
       {/* Pro info bar - always visible at bottom */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-8">
         <Link
-          href={photo.proSlug ? `/pros/${photo.professionalId}/${photo.proSlug}` : '#'}
+          href={photo.professionalId && photo.proSlug ? `/pros/${photo.professionalId}/${photo.proSlug}` : '#'}
           className="flex items-center gap-2 text-white hover:underline"
           onClick={(e) => e.stopPropagation()}
         >

@@ -19,18 +19,27 @@ import {
   CheckCircle,
   Clock,
   XCircle,
-  Image as ImageIcon,
   ShieldCheck,
-  FolderOpen,
+  Images,
+  TrendingUp,
+  Heart,
 } from 'lucide-react';
 import { getMyProfile, updateMyProfile, uploadProfilePhoto } from '@/lib/services/professional';
 import { getAllSubservices, SubService } from '@/lib/services/serviceData';
-import type { PortfolioItem } from '@homezy/shared';
 import { CharacterCounter } from '@/components/pro/CharacterCounter';
-import { IdeasPhotoManager } from '@/components/portfolio/IdeasPhotoManager';
+import { ProjectCard, ProjectModal, PhotoManager } from '@/components/projects';
+import {
+  listProjects,
+  createProject,
+  updateProject,
+  deleteProject,
+  getProjectStats,
+  type ProjectStatsResponse,
+} from '@/lib/services/projects';
+import type { ProProject, CreateProProjectInput, UpdateProProjectInput } from '@homezy/shared';
 import toast from 'react-hot-toast';
 
-type Tab = 'basic' | 'services' | 'pricing' | 'availability' | 'portfolio' | 'verification';
+type Tab = 'basic' | 'services' | 'pricing' | 'availability' | 'verification' | 'portfolio';
 
 type AvailabilityMode = 'business_hours' | 'any_time';
 
@@ -164,9 +173,7 @@ export default function ProProfilePage() {
   const [editingSchedule, setEditingSchedule] = useState(false);
   const [tempSchedule, setTempSchedule] = useState<WeeklySchedule>(DEFAULT_SCHEDULE);
 
-  // Portfolio & Verification state
-  const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
-  const [featuredProjects, setFeaturedProjects] = useState<string[]>([]);
+  // Verification state
   const [verificationDocuments, setVerificationDocuments] = useState<VerificationDocument[]>([]);
   const [verificationStatus, setVerificationStatus] = useState<string>('pending');
   const [uploadingDoc, setUploadingDoc] = useState<Record<string, boolean>>({});
@@ -180,12 +187,20 @@ export default function ProProfilePage() {
   const [serviceSearch, setServiceSearch] = useState('');
   const [showServiceDropdown, setShowServiceDropdown] = useState(false);
 
+  // Portfolio state
+  const [projects, setProjects] = useState<ProProject[]>([]);
+  const [portfolioStats, setPortfolioStats] = useState<ProjectStatsResponse | null>(null);
+  const [portfolioLoading, setPortfolioLoading] = useState(false);
+  const [showProjectModal, setShowProjectModal] = useState(false);
+  const [editingProject, setEditingProject] = useState<ProProject | null>(null);
+  const [viewingProject, setViewingProject] = useState<ProProject | null>(null);
+
   const tabs = [
     { id: 'basic' as Tab, name: 'Basic Info', icon: User },
     { id: 'services' as Tab, name: 'Services & Areas', icon: Briefcase },
     { id: 'pricing' as Tab, name: 'Pricing', icon: DollarSign },
     { id: 'availability' as Tab, name: 'Availability', icon: Calendar },
-    { id: 'portfolio' as Tab, name: 'Portfolio', icon: FolderOpen },
+    { id: 'portfolio' as Tab, name: 'Portfolio', icon: Images },
     { id: 'verification' as Tab, name: 'Verification', icon: ShieldCheck },
   ];
 
@@ -195,6 +210,82 @@ export default function ProProfilePage() {
     fetchProfile();
     loadAvailableServices();
   }, []);
+
+  // Load portfolio when tab is switched to portfolio
+  useEffect(() => {
+    if (activeTab === 'portfolio' && projects.length === 0 && !portfolioLoading) {
+      loadPortfolioData();
+    }
+  }, [activeTab]);
+
+  const loadPortfolioData = async () => {
+    try {
+      setPortfolioLoading(true);
+      const [projectsData, statsData] = await Promise.all([
+        listProjects(),
+        getProjectStats(),
+      ]);
+      setProjects(projectsData.projects);
+      setPortfolioStats(statsData);
+    } catch (error) {
+      console.error('Failed to load portfolio:', error);
+      toast.error('Failed to load portfolio');
+    } finally {
+      setPortfolioLoading(false);
+    }
+  };
+
+  // Portfolio handlers
+  const handleCreateProject = async (input: CreateProProjectInput) => {
+    const project = await createProject(input);
+    setProjects((prev) => [project, ...prev]);
+    await loadPortfolioData(); // Refresh stats
+    toast.success('Project created successfully');
+  };
+
+  const handleUpdateProject = async (input: UpdateProProjectInput) => {
+    if (!editingProject) return;
+    const updated = await updateProject(editingProject.id, input);
+    setProjects((prev) =>
+      prev.map((p) => (p.id === editingProject.id ? updated : p))
+    );
+    toast.success('Project updated successfully');
+    setEditingProject(null);
+  };
+
+  const handleDeleteProject = async (projectId: string) => {
+    if (!confirm('Are you sure you want to delete this project and all its photos?')) {
+      return;
+    }
+
+    try {
+      await deleteProject(projectId);
+      setProjects((prev) => prev.filter((p) => p.id !== projectId));
+      await loadPortfolioData(); // Refresh stats
+      toast.success('Project deleted successfully');
+    } catch (error) {
+      toast.error('Failed to delete project');
+    }
+  };
+
+  const handleProjectUpdate = (updatedProject: ProProject) => {
+    setProjects((prev) =>
+      prev.map((p) => (p.id === updatedProject.id ? updatedProject : p))
+    );
+    if (viewingProject?.id === updatedProject.id) {
+      setViewingProject(updatedProject);
+    }
+  };
+
+  const openEditModal = (project: ProProject) => {
+    setEditingProject(project);
+    setShowProjectModal(true);
+  };
+
+  const closeProjectModal = () => {
+    setShowProjectModal(false);
+    setEditingProject(null);
+  };
 
   const loadAvailableServices = async () => {
     try {
@@ -290,9 +381,7 @@ export default function ProProfilePage() {
         setAvailabilityMode('business_hours');
       }
 
-      // Load portfolio and verification data
-      setPortfolio(proProfile?.portfolio || []);
-      setFeaturedProjects(proProfile?.featuredProjects || []);
+      // Load verification data
       setVerificationDocuments(proProfile?.verificationDocuments || []);
       setVerificationStatus(proProfile?.verificationStatus || 'pending');
 
@@ -1257,83 +1346,6 @@ export default function ProProfilePage() {
             </div>
           )}
 
-          {/* Portfolio Tab */}
-          {activeTab === 'portfolio' && (
-            <div className="space-y-6">
-              {/* Ideas Photos Section */}
-              <IdeasPhotoManager />
-
-              {/* Traditional Portfolio Projects */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Project Portfolio</h3>
-                    <p className="text-sm text-gray-600">
-                      {portfolio.length === 0
-                        ? 'Add detailed project case studies to showcase your work'
-                        : `${portfolio.length} project${portfolio.length !== 1 ? 's' : ''} • ${featuredProjects.length} featured`}
-                    </p>
-                  </div>
-                  <Link
-                    href="/pro/dashboard/portfolio"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition text-sm"
-                  >
-                    <Plus className="h-4 w-4" />
-                    {portfolio.length === 0 ? 'Add Project' : 'Manage Projects'}
-                  </Link>
-                </div>
-
-                {portfolio.length > 0 ? (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {portfolio.slice(0, 8).map((item) => (
-                      <div key={item.id} className="group relative aspect-square rounded-lg overflow-hidden bg-gray-100">
-                        {item.images && item.images.length > 0 ? (
-                          <img
-                            src={item.images[0]}
-                            alt={item.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                          />
-                        ) : (
-                          <div className="flex items-center justify-center h-full">
-                            <ImageIcon className="h-8 w-8 text-gray-400" />
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="absolute bottom-2 left-2 right-2">
-                            <p className="text-white text-sm font-medium truncate">{item.title}</p>
-                            {item.category && (
-                              <p className="text-white/80 text-xs truncate">{item.category}</p>
-                            )}
-                          </div>
-                        </div>
-                        {featuredProjects.includes(item.id) && (
-                          <div className="absolute top-2 right-2 bg-yellow-500 rounded-full p-1">
-                            <CheckCircle className="h-3 w-3 text-white" />
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center">
-                    <ImageIcon className="mx-auto h-12 w-12 text-gray-400 mb-3" />
-                    <p className="text-gray-600 font-medium">No projects yet</p>
-                    <p className="text-sm text-gray-500 mt-1">
-                      Add detailed project case studies with before/after photos
-                    </p>
-                    <Link
-                      href="/pro/dashboard/portfolio"
-                      className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition text-sm"
-                    >
-                      <Plus className="h-4 w-4" />
-                      Add Your First Project
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
           {/* Verification Tab */}
           {activeTab === 'verification' && (
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -1467,8 +1479,157 @@ export default function ProProfilePage() {
               </div>
           )}
 
-          {/* Save Button (not shown for portfolio, verification, or availability - they have their own) */}
-          {activeTab !== 'portfolio' && activeTab !== 'verification' && activeTab !== 'availability' && (
+          {/* Portfolio Tab */}
+          {activeTab === 'portfolio' && (
+            <div className="space-y-6">
+              {/* Stats Overview */}
+              {portfolioStats && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <div className="flex items-center gap-2 text-gray-500 mb-1">
+                      <Images className="h-4 w-4" />
+                      <span className="text-sm">Projects</span>
+                    </div>
+                    <p className="text-2xl font-semibold text-gray-900">{portfolioStats.totalProjects}</p>
+                  </div>
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <div className="flex items-center gap-2 text-gray-500 mb-1">
+                      <Camera className="h-4 w-4" />
+                      <span className="text-sm">Published Photos</span>
+                    </div>
+                    <p className="text-2xl font-semibold text-gray-900">{portfolioStats.publishedPhotos}</p>
+                  </div>
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <div className="flex items-center gap-2 text-gray-500 mb-1">
+                      <Eye className="h-4 w-4" />
+                      <span className="text-sm">Total Views</span>
+                    </div>
+                    <p className="text-2xl font-semibold text-gray-900">{portfolioStats.totalViews.toLocaleString()}</p>
+                  </div>
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <div className="flex items-center gap-2 text-gray-500 mb-1">
+                      <Heart className="h-4 w-4" />
+                      <span className="text-sm">Total Saves</span>
+                    </div>
+                    <p className="text-2xl font-semibold text-gray-900">{portfolioStats.totalSaves.toLocaleString()}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Header with Add Button */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Your Projects</h3>
+                  <p className="text-sm text-gray-600">
+                    Showcase your work to attract more clients
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowProjectModal(true)}
+                  className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition"
+                >
+                  <Plus className="h-4 w-4" />
+                  Add Project
+                </button>
+              </div>
+
+              {/* Loading State */}
+              {portfolioLoading && (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary-600" />
+                </div>
+              )}
+
+              {/* Empty State */}
+              {!portfolioLoading && projects.length === 0 && (
+                <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+                  <Images className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No projects yet</h3>
+                  <p className="text-gray-600 mb-4">
+                    Add your first project to start showcasing your work on the Ideas page.
+                  </p>
+                  <button
+                    onClick={() => setShowProjectModal(true)}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Create Your First Project
+                  </button>
+                </div>
+              )}
+
+              {/* Viewing a Project's Photos */}
+              {viewingProject ? (
+                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <button
+                        onClick={() => setViewingProject(null)}
+                        className="text-sm text-primary-600 hover:text-primary-700 font-medium mb-2"
+                      >
+                        ← Back to Projects
+                      </button>
+                      <h3 className="text-lg font-semibold text-gray-900">{viewingProject.name}</h3>
+                      <p className="text-sm text-gray-600">{viewingProject.description}</p>
+                    </div>
+                  </div>
+                  <PhotoManager
+                    project={viewingProject}
+                    onClose={() => setViewingProject(null)}
+                    onProjectUpdate={handleProjectUpdate}
+                  />
+                </div>
+              ) : (
+                /* Project List */
+                !portfolioLoading && projects.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {projects.map((project) => (
+                      <ProjectCard
+                        key={project.id}
+                        project={project}
+                        onEdit={openEditModal}
+                        onDelete={handleDeleteProject}
+                        onViewPhotos={setViewingProject}
+                      />
+                    ))}
+                  </div>
+                )
+              )}
+
+              {/* Pro Tip */}
+              {!portfolioLoading && projects.length > 0 && !viewingProject && (
+                <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                  <div className="flex gap-3">
+                    <TrendingUp className="h-5 w-5 text-primary-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm text-primary-900">
+                      <p className="font-medium mb-1">Pro Tip</p>
+                      <p className="text-neutral-900">
+                        Professionals with 10+ photos get 3x more quote requests. Add before & after photos to showcase your transformation skills.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Project Modal */}
+          {showProjectModal && (
+            <ProjectModal
+              project={editingProject}
+              onClose={closeProjectModal}
+              onSave={async (input) => {
+                if (editingProject) {
+                  await handleUpdateProject(input as UpdateProProjectInput);
+                } else {
+                  await handleCreateProject(input as CreateProProjectInput);
+                }
+              }}
+            />
+          )}
+
+          {/* Save Button (not shown for verification or availability or portfolio - they have their own) */}
+          {activeTab !== 'verification' && activeTab !== 'availability' && activeTab !== 'portfolio' && (
             <div className="flex items-center justify-end gap-4 mt-6">
               {saved && !hasChanges && (
                 <span className="text-sm text-green-600 font-medium animate-fade-in">

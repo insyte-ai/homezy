@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as ideasService from '../services/ideas.service';
-import { NotFoundError, UnauthorizedError } from '../middleware/errorHandler.middleware';
+import { NotFoundError } from '../middleware/errorHandler.middleware';
 import type { RoomCategory } from '@homezy/shared';
 
 // ============================================================================
@@ -56,8 +56,8 @@ export async function getPhotoById(
     // Get related photos and project photos
     const [relatedPhotos, projectPhotos, isSaved] = await Promise.all([
       ideasService.getRelatedPhotos(photoId, photo.roomCategories, 8),
-      photo.portfolioItemId
-        ? ideasService.getProjectPhotos(photo.portfolioItemId, photoId, 8)
+      photo.projectId
+        ? ideasService.getProjectPhotos(photo.projectId, photoId, 8)
         : Promise.resolve([]),
       userId ? ideasService.isPhotoSaved(photoId, userId) : Promise.resolve(false),
     ]);
@@ -195,155 +195,6 @@ export async function getSavedPhotos(
     res.json({
       success: true,
       data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
-// ============================================================================
-// Pro Photo Management
-// ============================================================================
-
-/**
- * Create a new portfolio photo
- * POST /api/pros/me/photos
- */
-export async function createPhoto(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> {
-  try {
-    const user = req.user!;
-
-    if (!user.proProfile) {
-      throw new UnauthorizedError('Only professionals can upload photos');
-    }
-
-    const photo = await ideasService.createPhoto(
-      user.id,
-      {
-        businessName: user.proProfile.businessName,
-        slug: user.proProfile.slug,
-        profilePhoto: user.profilePhoto,
-        verificationStatus: user.proProfile.verificationStatus,
-      },
-      req.body
-    );
-
-    res.status(201).json({
-      success: true,
-      data: { photo },
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
-/**
- * List professional's photos
- * GET /api/pros/me/photos
- */
-export async function listMyPhotos(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> {
-  try {
-    const userId = req.user!.id;
-    const { isPublished, limit, offset } = req.query;
-
-    const result = await ideasService.listProPhotos(userId, {
-      isPublished: isPublished === 'true' ? true : isPublished === 'false' ? false : undefined,
-      limit: limit ? parseInt(limit as string) : undefined,
-      offset: offset ? parseInt(offset as string) : undefined,
-    });
-
-    res.json({
-      success: true,
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
-/**
- * Update a portfolio photo
- * PATCH /api/pros/me/photos/:photoId
- */
-export async function updatePhoto(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> {
-  try {
-    const userId = req.user!.id;
-    const { photoId } = req.params;
-
-    const photo = await ideasService.updatePhoto(photoId, userId, req.body);
-    if (!photo) {
-      throw new NotFoundError('Photo not found');
-    }
-
-    res.json({
-      success: true,
-      data: { photo },
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
-/**
- * Delete a portfolio photo
- * DELETE /api/pros/me/photos/:photoId
- */
-export async function deletePhoto(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> {
-  try {
-    const userId = req.user!.id;
-    const { photoId } = req.params;
-
-    const deleted = await ideasService.deletePhoto(photoId, userId);
-    if (!deleted) {
-      throw new NotFoundError('Photo not found');
-    }
-
-    res.json({
-      success: true,
-      message: 'Photo deleted',
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
-/**
- * Toggle publish status
- * POST /api/pros/me/photos/:photoId/publish
- */
-export async function togglePublish(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> {
-  try {
-    const userId = req.user!.id;
-    const { photoId } = req.params;
-
-    const photo = await ideasService.togglePublish(photoId, userId);
-    if (!photo) {
-      throw new NotFoundError('Photo not found');
-    }
-
-    res.json({
-      success: true,
-      data: { photo },
     });
   } catch (error) {
     next(error);

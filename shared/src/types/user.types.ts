@@ -58,10 +58,6 @@ export interface ProProfile {
   verificationStatus: 'pending' | 'approved' | 'rejected';
   verificationDocuments?: VerificationDocument[];
 
-  // Portfolio
-  portfolio?: PortfolioItem[];
-  featuredProjects?: string[]; // IDs of featured portfolio items
-
   // Pricing
   hourlyRateMin?: number;
   hourlyRateMax?: number;
@@ -100,18 +96,6 @@ export interface VerificationDocument {
   uploadedAt: Date;
   reviewedAt?: Date;
   reviewNotes?: string;
-}
-
-export interface PortfolioItem {
-  id: string;
-  title: string;
-  description: string;
-  category: ServiceCategoryId;
-  images: string[];
-  beforeImages?: string[];
-  afterImages?: string[];
-  completionDate: Date;
-  isFeatured: boolean;
 }
 
 export interface Availability {

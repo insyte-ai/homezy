@@ -4,7 +4,7 @@
  */
 
 import { api } from '../api';
-import type { ProProfile, PortfolioItem } from '@homezy/shared';
+import type { ProProfile, ProProject } from '@homezy/shared';
 
 // ==================== Types ====================
 
@@ -18,6 +18,7 @@ export interface PublicProfileResponse {
       profilePhoto?: string;
       proProfile: ProProfile;
     };
+    projects?: ProProject[];
   };
 }
 
@@ -92,37 +93,6 @@ export interface UpdateProfileResponse {
   data: {
     proProfile: ProProfile;
     slug?: string;
-  };
-}
-
-export interface PortfolioItemInput {
-  title: string;
-  description: string;
-  category: string;
-  images: string[];
-  beforeImages?: string[];
-  afterImages?: string[];
-  completionDate: Date | string;
-  isFeatured?: boolean;
-}
-
-export interface PortfolioItemResponse {
-  success: boolean;
-  message: string;
-  data: {
-    portfolioItem: PortfolioItem;
-  };
-}
-
-export interface FeaturedProjectsInput {
-  projectIds: string[];
-}
-
-export interface FeaturedProjectsResponse {
-  success: boolean;
-  message: string;
-  data: {
-    featuredProjects: string[];
   };
 }
 
@@ -293,106 +263,6 @@ export const uploadProfilePhoto = async (file: File): Promise<string> => {
   }
 };
 
-// ==================== Portfolio Functions ====================
-
-/**
- * Add a new portfolio item
- * @param data - Portfolio item data
- * @returns Created portfolio item
- */
-export const addPortfolioItem = async (
-  data: PortfolioItemInput
-): Promise<PortfolioItem> => {
-  const response = await api.post<PortfolioItemResponse>('/pros/me/portfolio', data);
-  return response.data.data.portfolioItem;
-};
-
-/**
- * Update an existing portfolio item
- * @param itemId - Portfolio item ID
- * @param data - Updated portfolio data
- * @returns Updated portfolio item
- */
-export const updatePortfolioItem = async (
-  itemId: string,
-  data: Partial<PortfolioItemInput>
-): Promise<PortfolioItem> => {
-  const response = await api.put<PortfolioItemResponse>(
-    `/pros/me/portfolio/${itemId}`,
-    data
-  );
-  return response.data.data.portfolioItem;
-};
-
-/**
- * Delete a portfolio item
- * @param itemId - Portfolio item ID
- */
-export const deletePortfolioItem = async (itemId: string): Promise<void> => {
-  await api.delete(`/pros/me/portfolio/${itemId}`);
-};
-
-/**
- * Update featured projects
- * @param projectIds - Array of portfolio item IDs to feature (max 6)
- * @returns Updated featured projects array
- */
-export const updateFeaturedProjects = async (
-  projectIds: string[]
-): Promise<string[]> => {
-  const response = await api.put<FeaturedProjectsResponse>('/pros/me/featured-projects', {
-    projectIds,
-  });
-  return response.data.data.featuredProjects;
-};
-
-/**
- * Upload portfolio images (multiple)
- * @param files - Array of image files
- * @returns Array of uploaded image URLs
- *
- * @todo IMPLEMENTATION REQUIRED
- * This function requires a backend upload endpoint to be implemented.
- * The endpoint should:
- * - Accept multipart/form-data with an 'images' field (array)
- * - Validate file types (JPEG, PNG, WebP)
- * - Validate file sizes (max 5MB each)
- * - Validate total number of files (max 10 per request)
- * - Store the files (e.g., AWS S3, Cloudinary, local storage)
- * - Return an array of URLs for the uploaded files
- *
- * Backend endpoint needed: POST /api/upload/portfolio-images
- */
-export const uploadPortfolioImages = async (files: File[]): Promise<string[]> => {
-  const formData = new FormData();
-  files.forEach((file) => {
-    formData.append('images', file);
-  });
-
-  try {
-    const response = await api.post<{ success: boolean; data: { urls: string[] } }>(
-      '/upload/portfolio-images',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-
-    return response.data.data.urls;
-  } catch (error) {
-    // Provide helpful error message if endpoint doesn't exist
-    if (error && typeof error === 'object' && 'response' in error) {
-      const axiosError = error as { response?: { status?: number } };
-      if (axiosError.response?.status === 404) {
-        throw new Error('Upload endpoint not implemented. Please implement POST /api/upload/portfolio-images on the backend.');
-      }
-    }
-    throw error;
-  }
-};
-
 // ==================== Verification Functions ====================
 
 /**
@@ -480,13 +350,6 @@ const professionalService = {
   getMyProfile,
   updateMyProfile,
   uploadProfilePhoto,
-
-  // Portfolio
-  addPortfolioItem,
-  updatePortfolioItem,
-  deletePortfolioItem,
-  updateFeaturedProjects,
-  uploadPortfolioImages,
 
   // Verification
   uploadVerificationDocument,

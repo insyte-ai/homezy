@@ -9,21 +9,20 @@ import {
   MapPin,
   Clock,
   ArrowLeft,
-  MessageSquare,
-  Phone,
-  Mail,
   CheckCircle,
   Briefcase,
   Users,
   Globe,
   Award,
   Shield,
-  ExternalLink,
   Eye,
+  Images,
 } from 'lucide-react';
 import { getMyProfilePreview } from '@/lib/services/professional';
+import { listProjects } from '@/lib/services/projects';
 import { VerificationBadges } from '@/components/pro/VerificationBadges';
 import { ProfileStats } from '@/components/pro/ProfileStats';
+import type { ProProject } from '@homezy/shared';
 import toast from 'react-hot-toast';
 
 export default function ProfilePreviewPage() {
@@ -31,17 +30,22 @@ export default function ProfilePreviewPage() {
 
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
+  const [projects, setProjects] = useState<ProProject[]>([]);
   const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
-    fetchProfile();
+    fetchData();
   }, []);
 
-  const fetchProfile = async () => {
+  const fetchData = async () => {
     try {
       setLoading(true);
-      const data = await getMyProfilePreview();
-      setProfile(data.professional);
+      const [profileData, projectsData] = await Promise.all([
+        getMyProfilePreview(),
+        listProjects(),
+      ]);
+      setProfile(profileData.professional);
+      setProjects(projectsData.projects);
     } catch (error: any) {
       console.error('Failed to load profile preview:', error);
       toast.error('Unable to load profile preview');
@@ -90,6 +94,16 @@ export default function ProfilePreviewPage() {
 
   const { proProfile } = profile;
   const sections = ['about', 'services', 'portfolio', 'verification'];
+
+  // Helper to check if URL is localhost
+  const isLocalhostUrl = (url: string) => {
+    try {
+      const parsed = new URL(url);
+      return parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+    } catch {
+      return false;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -363,115 +377,80 @@ export default function ProfilePreviewPage() {
             {activeSection === 'portfolio' && (
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Portfolio</h2>
-                {proProfile.portfolio && proProfile.portfolio.length > 0 ? (
+                {projects.length > 0 ? (
                   <div className="space-y-8">
-                    {proProfile.portfolio.map((item: any, index: number) => (
-                      <div
-                        key={item.id || index}
-                        className="border border-gray-200 rounded-lg overflow-hidden"
-                      >
-                        {/* Project Header */}
-                        <div className="p-4 border-b border-gray-100 bg-gray-50">
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                {item.title}
-                                {item.isFeatured && (
-                                  <span className="bg-yellow-500 text-white px-2 py-0.5 rounded text-xs font-medium">
-                                    Featured
-                                  </span>
-                                )}
-                              </h3>
-                              <p className="text-sm text-gray-500 mt-1">
-                                {item.category} • Completed {new Date(item.completionDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                              </p>
+                    {projects.map((project) => {
+                      const publishedPhotos = project.photos.filter(p => p.isPublishedToIdeas);
+                      return (
+                        <div
+                          key={project.id}
+                          className="border border-gray-200 rounded-lg overflow-hidden"
+                        >
+                          {/* Project Header */}
+                          <div className="p-4 border-b border-gray-100 bg-gray-50">
+                            <div className="flex items-start justify-between">
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900">
+                                  {project.name}
+                                </h3>
+                                <p className="text-sm text-gray-500 mt-1">
+                                  {project.serviceCategory} • Completed {new Date(project.completionDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                                </p>
+                              </div>
+                              {publishedPhotos.length > 0 && (
+                                <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-medium">
+                                  {publishedPhotos.length} on Ideas
+                                </span>
+                              )}
                             </div>
+                            {project.description && (
+                              <p className="text-gray-700 mt-3">{project.description}</p>
+                            )}
                           </div>
-                          {item.description && (
-                            <p className="text-gray-700 mt-3">{item.description}</p>
-                          )}
-                        </div>
 
-                        {/* Project Images */}
-                        <div className="p-4 space-y-4">
-                          {/* Main Images */}
-                          {item.images && item.images.length > 0 && (
-                            <div>
-                              <h4 className="text-sm font-medium text-gray-700 mb-2">Project Photos</h4>
-                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                {item.images.map((img: string, imgIndex: number) => (
-                                  <div key={imgIndex} className="aspect-square rounded-lg overflow-hidden border border-gray-200">
-                                    <div className="relative w-full h-full">
-                                      <Image
-                                        src={img}
-                                        alt={`${item.title} - Photo ${imgIndex + 1}`}
-                                        fill
-                                        className="object-cover"
-                                        unoptimized={img.includes('localhost')}
-                                      />
-                                    </div>
+                          {/* Project Photos */}
+                          <div className="p-4">
+                            {project.photos.length > 0 ? (
+                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                {project.photos.slice(0, 8).map((photo) => (
+                                  <div key={photo.id} className="aspect-square rounded-lg overflow-hidden border border-gray-200 relative">
+                                    <Image
+                                      src={photo.thumbnailUrl || photo.imageUrl}
+                                      alt={photo.caption || project.name}
+                                      fill
+                                      className="object-cover"
+                                      unoptimized={isLocalhostUrl(photo.thumbnailUrl || photo.imageUrl)}
+                                    />
+                                    {photo.photoType !== 'main' && (
+                                      <span className="absolute bottom-1 left-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded capitalize">
+                                        {photo.photoType}
+                                      </span>
+                                    )}
                                   </div>
                                 ))}
+                                {project.photos.length > 8 && (
+                                  <div className="aspect-square rounded-lg border border-gray-200 bg-gray-100 flex items-center justify-center">
+                                    <span className="text-gray-600 font-medium">
+                                      +{project.photos.length - 8} more
+                                    </span>
+                                  </div>
+                                )}
                               </div>
-                            </div>
-                          )}
-
-                          {/* Before/After Images */}
-                          {((item.beforeImages && item.beforeImages.length > 0) || (item.afterImages && item.afterImages.length > 0)) && (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              {/* Before Images */}
-                              {item.beforeImages && item.beforeImages.length > 0 && (
-                                <div>
-                                  <h4 className="text-sm font-medium text-gray-700 mb-2">Before</h4>
-                                  <div className="grid grid-cols-2 gap-2">
-                                    {item.beforeImages.map((img: string, imgIndex: number) => (
-                                      <div key={imgIndex} className="aspect-square rounded-lg overflow-hidden border border-gray-200">
-                                        <div className="relative w-full h-full">
-                                          <Image
-                                            src={img}
-                                            alt={`${item.title} - Before ${imgIndex + 1}`}
-                                            fill
-                                            className="object-cover"
-                                            unoptimized={img.includes('localhost')}
-                                          />
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-
-                              {/* After Images */}
-                              {item.afterImages && item.afterImages.length > 0 && (
-                                <div>
-                                  <h4 className="text-sm font-medium text-gray-700 mb-2">After</h4>
-                                  <div className="grid grid-cols-2 gap-2">
-                                    {item.afterImages.map((img: string, imgIndex: number) => (
-                                      <div key={imgIndex} className="aspect-square rounded-lg overflow-hidden border border-gray-200">
-                                        <div className="relative w-full h-full">
-                                          <Image
-                                            src={img}
-                                            alt={`${item.title} - After ${imgIndex + 1}`}
-                                            fill
-                                            className="object-cover"
-                                            unoptimized={img.includes('localhost')}
-                                          />
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          )}
+                            ) : (
+                              <p className="text-gray-500 text-sm italic">No photos added yet</p>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
-                  <p className="text-gray-500 italic text-center py-12">
-                    No portfolio items yet.
-                  </p>
+                  <div className="text-center py-12">
+                    <Images className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                    <p className="text-gray-500 italic">
+                      No projects yet. Add projects to showcase your work.
+                    </p>
+                  </div>
                 )}
               </div>
             )}

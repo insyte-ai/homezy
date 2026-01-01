@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
-import { completeOnboarding, uploadVerificationDocument, uploadPortfolioImages, addPortfolioItem, uploadProfilePhoto } from '@/lib/services/professional';
+import { completeOnboarding, uploadVerificationDocument, uploadProfilePhoto } from '@/lib/services/professional';
 import { getAllSubservices, SubService } from '@/lib/services/serviceData';
 import toast from 'react-hot-toast';
 import { Upload, FileText, CheckCircle } from 'lucide-react';
@@ -57,10 +57,7 @@ interface OnboardingData {
   tradeLicenseFile: File | null;
   vatTrnFile: File | null;
 
-  // Step 5 - Portfolio
-  portfolioFiles: File[];
-
-  // Step 6 - Agreement
+  // Step 5 - Agreement
   agreementAccepted: boolean;
 }
 
@@ -106,7 +103,6 @@ export default function ProOnboardingPage() {
     serviceRadius: 50,
     tradeLicenseFile: null,
     vatTrnFile: null,
-    portfolioFiles: [],
     agreementAccepted: false,
   });
 
@@ -242,7 +238,7 @@ export default function ProOnboardingPage() {
 
     setError('');
     setFieldErrors({});
-    if (currentStep < 7) {
+    if (currentStep < 6) {
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -278,54 +274,6 @@ export default function ProOnboardingPage() {
     } else {
       setFormData({ ...formData, vatTrnFile: file });
     }
-  };
-
-  const handlePortfolioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
-    const validVideoTypes = ['video/mp4', 'video/quicktime', 'video/webm'];
-    const validTypes = [...validImageTypes, ...validVideoTypes];
-    const maxFileSize = 50 * 1024 * 1024; // 50MB for videos
-    const maxFiles = 10;
-
-    const newFiles: File[] = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-
-      if (!validTypes.includes(file.type)) {
-        setError(`"${file.name}" is not a supported format. Use JPEG, PNG, WebP, GIF, MP4, MOV, or WebM.`);
-        return;
-      }
-
-      if (file.size > maxFileSize) {
-        setError(`"${file.name}" is too large. Maximum file size is 50MB.`);
-        return;
-      }
-
-      newFiles.push(file);
-    }
-
-    const totalFiles = formData.portfolioFiles.length + newFiles.length;
-    if (totalFiles > maxFiles) {
-      setError(`You can upload up to ${maxFiles} files. You have ${formData.portfolioFiles.length} already.`);
-      return;
-    }
-
-    setError('');
-    setFormData({ ...formData, portfolioFiles: [...formData.portfolioFiles, ...newFiles] });
-
-    // Reset input so the same file can be selected again if removed
-    e.target.value = '';
-  };
-
-  const removePortfolioFile = (index: number) => {
-    setFormData({
-      ...formData,
-      portfolioFiles: formData.portfolioFiles.filter((_, i) => i !== index),
-    });
   };
 
   const handleBusinessLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -473,36 +421,11 @@ export default function ProOnboardingPage() {
       // Upload VAT TRN certificate
       await uploadVerificationDocument(formData.vatTrnFile, 'vat');
 
-      // Upload portfolio images if any were added
-      if (formData.portfolioFiles.length > 0) {
-        toast.dismiss();
-        toast.loading('Uploading portfolio images...');
-
-        try {
-          const imageUrls = await uploadPortfolioImages(formData.portfolioFiles);
-
-          // Create a portfolio item with the uploaded images
-          const primaryCategoryName = serviceCategories.find(c => c.id === formData.primaryCategory)?.name || 'Work Samples';
-          await addPortfolioItem({
-            title: `${primaryCategoryName} - Sample Work`,
-            description: 'Work samples uploaded during onboarding. Edit this project to add more details about your work.',
-            category: formData.primaryCategory,
-            images: imageUrls,
-            completionDate: new Date().toISOString(),
-          });
-        } catch (portfolioError) {
-          console.error('[Onboarding] Portfolio upload error:', portfolioError);
-          // Don't fail the whole onboarding if portfolio upload fails
-          toast.dismiss();
-          toast.error('Portfolio images could not be uploaded. You can add them later from your dashboard.');
-        }
-      }
-
       toast.dismiss();
       toast.success('Onboarding completed! Your documents are under review.');
 
       // Move to success step
-      setCurrentStep(7);
+      setCurrentStep(6);
     } catch (err: any) {
       toast.dismiss();
       console.error('[Onboarding] Error:', err.response?.data || err.message);
@@ -546,9 +469,8 @@ export default function ProOnboardingPage() {
       case 2: return 'Tell us about your business';
       case 3: return 'Where do you work?';
       case 4: return 'Upload verification documents';
-      case 5: return 'Show off your work';
-      case 6: return 'Review and Accept Agreement';
-      case 7: return 'You\'re all set!';
+      case 5: return 'Review and Accept Agreement';
+      case 6: return 'You\'re all set!';
       default: return '';
     }
   };
@@ -562,9 +484,9 @@ export default function ProOnboardingPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between mb-2">
             <div className="text-sm font-medium text-neutral-600">
-              Step {currentStep} of 7
+              Step {currentStep} of 6
             </div>
-            {currentStep < 6 && (
+            {currentStep < 5 && (
               <button
                 onClick={handleSkipToDashboard}
                 className="text-sm text-neutral-600 hover:text-neutral-900"
@@ -576,7 +498,7 @@ export default function ProOnboardingPage() {
           <div className="w-full bg-neutral-200 rounded-full h-2">
             <div
               className="bg-primary-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${(currentStep / 7) * 100}%` }}
+              style={{ width: `${(currentStep / 6) * 100}%` }}
             />
           </div>
         </div>
@@ -611,7 +533,7 @@ export default function ProOnboardingPage() {
               {currentStep === 4 && "Homeowners prefer pros with a clear profile photo or logo."}
             </p>
           )}
-          {currentStep === 6 && (
+          {currentStep === 5 && (
             <p className="text-neutral-600 mb-8">
               Please review and accept the Homezy Pro Agreement to complete your registration.
             </p>
@@ -1195,107 +1117,8 @@ export default function ProOnboardingPage() {
             </div>
           )}
 
-          {/* Step 5: Portfolio */}
+          {/* Step 5: Agreement */}
           {currentStep === 5 && (
-            <div className="space-y-6">
-              <p className="text-neutral-600">
-                Upload photos and videos to showcase your work. This helps homeowners see the quality of your services.
-              </p>
-
-              {/* Upload suggestions */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h4 className="text-sm font-semibold text-blue-900 mb-2">What to upload:</h4>
-                <ul className="text-sm text-blue-800 space-y-1">
-                  <li>• <strong>Before & after photos</strong> of completed projects</li>
-                  <li>• Photos of your <strong>team at work</strong></li>
-                  <li>• Your <strong>workspace or equipment</strong></li>
-                  <li>• Short <strong>video clips</strong> showcasing your skills</li>
-                </ul>
-              </div>
-
-              {/* Upload area */}
-              <div className="border-2 border-dashed border-neutral-300 rounded-lg p-6 hover:border-primary-400 transition-colors">
-                <label className="cursor-pointer block text-center">
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,video/mp4,video/quicktime,video/webm"
-                    onChange={handlePortfolioUpload}
-                    className="hidden"
-                  />
-                  <Upload className="mx-auto h-12 w-12 text-neutral-400" />
-                  <p className="mt-3 text-sm font-medium text-primary-600 hover:text-primary-500">
-                    Click to upload photos or videos
-                  </p>
-                  <p className="mt-1 text-xs text-neutral-500">
-                    JPEG, PNG, WebP, GIF, MP4, MOV, WebM (max 50MB each, up to 10 files)
-                  </p>
-                </label>
-              </div>
-
-              {/* Uploaded files preview */}
-              {formData.portfolioFiles.length > 0 && (
-                <div>
-                  <h4 className="text-sm font-medium text-neutral-900 mb-3">
-                    Uploaded files ({formData.portfolioFiles.length}/10)
-                  </h4>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {formData.portfolioFiles.map((file, index) => (
-                      <div
-                        key={index}
-                        className="relative group border border-neutral-200 rounded-lg overflow-hidden bg-neutral-100"
-                      >
-                        {file.type.startsWith('video/') ? (
-                          <div className="aspect-square flex items-center justify-center bg-neutral-800">
-                            <video
-                              src={URL.createObjectURL(file)}
-                              className="max-h-full max-w-full"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="bg-black/50 rounded-full p-2">
-                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                                </svg>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="aspect-square">
-                            <img
-                              src={URL.createObjectURL(file)}
-                              alt={`Portfolio ${index + 1}`}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => removePortfolioFile(index)}
-                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-1">
-                          <p className="text-xs text-white truncate">{file.name}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                <p className="text-sm text-amber-900">
-                  💡 <strong>Pro tip:</strong> Professionals with portfolio photos get 3x more quote requests from homeowners.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Step 6: Agreement */}
-          {currentStep === 6 && (
             <div className="space-y-6">
               {/* Summary of what they're agreeing to */}
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
@@ -1388,8 +1211,8 @@ export default function ProOnboardingPage() {
             </div>
           )}
 
-          {/* Step 7: Success */}
-          {currentStep === 7 && (
+          {/* Step 6: Success */}
+          {currentStep === 6 && (
             <div className="text-center py-8">
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1445,7 +1268,7 @@ export default function ProOnboardingPage() {
           )}
 
           {/* Navigation Buttons */}
-          {currentStep < 6 && (
+          {currentStep < 5 && (
             <div className="flex justify-between mt-8 pt-6 border-t border-neutral-200">
               <button
                 onClick={handleBack}
@@ -1459,7 +1282,7 @@ export default function ProOnboardingPage() {
                 onClick={handleNext}
                 className="btn btn-primary"
               >
-                {currentStep === 4 ? 'Continue' : currentStep === 5 ? (formData.portfolioFiles.length > 0 ? 'Next' : 'Skip for now') : 'Next'}
+                {currentStep === 4 ? 'Continue' : 'Next'}
               </button>
             </div>
           )}

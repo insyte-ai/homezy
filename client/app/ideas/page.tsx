@@ -7,7 +7,7 @@ import { PublicFooter } from '@/components/layout/PublicFooter';
 import { CategoryPills } from '@/components/ideas/CategoryPills';
 import { IdeasGrid } from '@/components/ideas/IdeasGrid';
 import { listIdeas, getCategoryCounts, savePhoto, unsavePhoto } from '@/lib/services/ideas';
-import type { PortfolioPhoto, RoomCategory, CategoryCount } from '@homezy/shared';
+import type { IdeasPhoto, RoomCategory, CategoryCount } from '@homezy/shared';
 import { useAuthStore } from '@/store/authStore';
 import { ArrowUpDown, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -18,7 +18,7 @@ function IdeasContent() {
   const { user } = useAuthStore();
 
   // State
-  const [photos, setPhotos] = useState<PortfolioPhoto[]>([]);
+  const [photos, setPhotos] = useState<IdeasPhoto[]>([]);
   const [categoryCounts, setCategoryCounts] = useState<CategoryCount[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);

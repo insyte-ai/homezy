@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowLeft,
   Plus,
@@ -21,6 +22,8 @@ import {
   Loader2,
   Star,
   X,
+  Bookmark,
+  Grid3X3,
 } from 'lucide-react';
 import { getDefaultProject } from '@/lib/services/homeProjects';
 import {
@@ -33,7 +36,9 @@ import {
   type ResourceType,
   type CreateResourceInput,
 } from '@/lib/services/projectResources';
-import { RESOURCE_TYPES } from '@homezy/shared';
+import { getSavedPhotos, unsavePhoto, type IdeasPhoto } from '@/lib/services/ideas';
+import { RESOURCE_TYPES, getRoomCategoryLabel } from '@homezy/shared';
+import toast from 'react-hot-toast';
 
 const iconMap: Record<string, typeof Lightbulb> = {
   Lightbulb,
@@ -56,11 +61,23 @@ interface ResourceFormState {
   price?: number;
 }
 
+type TabType = 'collection' | 'saved';
+
 export default function IdeasPage() {
+  // Tab state
+  const [activeTab, setActiveTab] = useState<TabType>('saved');
+
+  // Collection tab state
   const [projectId, setProjectId] = useState<string | null>(null);
   const [resources, setResources] = useState<ProjectResource[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Saved Ideas tab state
+  const [savedPhotos, setSavedPhotos] = useState<IdeasPhoto[]>([]);
+  const [savedPhotosLoading, setSavedPhotosLoading] = useState(false);
+  const [savedPhotosLoaded, setSavedPhotosLoaded] = useState(false);
+  const [unsavingPhotoId, setUnsavingPhotoId] = useState<string | null>(null);
 
   // Filters
   const [typeFilter, setTypeFilter] = useState<ResourceType | 'all'>('all');
@@ -84,6 +101,13 @@ export default function IdeasPage() {
     loadData();
   }, []);
 
+  // Load saved photos when tab switches to 'saved'
+  useEffect(() => {
+    if (activeTab === 'saved' && !savedPhotosLoaded) {
+      loadSavedPhotos();
+    }
+  }, [activeTab, savedPhotosLoaded]);
+
   const loadData = async () => {
     try {
       setIsLoading(true);
@@ -101,6 +125,34 @@ export default function IdeasPage() {
       setError('Failed to load ideas. Please try again.');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const loadSavedPhotos = async () => {
+    try {
+      setSavedPhotosLoading(true);
+      const data = await getSavedPhotos({ limit: 50 });
+      setSavedPhotos(data.photos);
+      setSavedPhotosLoaded(true);
+    } catch (err) {
+      console.error('Failed to load saved photos:', err);
+      toast.error('Failed to load saved ideas');
+    } finally {
+      setSavedPhotosLoading(false);
+    }
+  };
+
+  const handleUnsavePhoto = async (photoId: string) => {
+    try {
+      setUnsavingPhotoId(photoId);
+      await unsavePhoto(photoId);
+      setSavedPhotos(savedPhotos.filter((p) => p.id !== photoId));
+      toast.success('Removed from saved ideas');
+    } catch (err) {
+      console.error('Failed to unsave photo:', err);
+      toast.error('Failed to remove from saved ideas');
+    } finally {
+      setUnsavingPhotoId(null);
     }
   };
 
@@ -211,17 +263,72 @@ export default function IdeasPage() {
           <div>
             <h1 className="text-2xl font-bold text-gray-900">My Ideas</h1>
             <p className="text-gray-600 mt-1">
-              Save inspiration, products, vendors, and more
+              {activeTab === 'saved'
+                ? 'Photos you saved from the Ideas gallery'
+                : 'Save inspiration, products, vendors, and more'}
             </p>
           </div>
         </div>
-        <button
-          onClick={() => setShowAddForm(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-        >
-          <Plus className="h-4 w-4" />
-          Add Item
-        </button>
+        {activeTab === 'collection' && (
+          <button
+            onClick={() => setShowAddForm(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+          >
+            <Plus className="h-4 w-4" />
+            Add Item
+          </button>
+        )}
+        {activeTab === 'saved' && (
+          <Link
+            href="/ideas"
+            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+          >
+            <Grid3X3 className="h-4 w-4" />
+            Browse Ideas
+          </Link>
+        )}
+      </div>
+
+      {/* Tabs */}
+      <div className="border-b border-gray-200">
+        <nav className="flex gap-8">
+          <button
+            onClick={() => setActiveTab('saved')}
+            className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
+              activeTab === 'saved'
+                ? 'border-primary-600 text-primary-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <Bookmark className="h-4 w-4" />
+              Saved Ideas
+              {savedPhotos.length > 0 && (
+                <span className="bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full text-xs">
+                  {savedPhotos.length}
+                </span>
+              )}
+            </span>
+          </button>
+          <button
+            onClick={() => setActiveTab('collection')}
+            className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
+              activeTab === 'collection'
+                ? 'border-primary-600 text-primary-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <Lightbulb className="h-4 w-4" />
+              My Collection
+              {resources.length > 0 && (
+                <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">
+                  {resources.length}
+                </span>
+              )}
+            </span>
+          </button>
+        </nav>
       </div>
 
       {error && (
@@ -230,6 +337,100 @@ export default function IdeasPage() {
         </div>
       )}
 
+      {/* Saved Ideas Tab Content */}
+      {activeTab === 'saved' && (
+        <>
+          {savedPhotosLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary-600" />
+            </div>
+          ) : savedPhotos.length === 0 ? (
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+              <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <Bookmark className="h-8 w-8 text-gray-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No saved ideas yet</h3>
+              <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                Browse the Ideas gallery and save photos you love to see them here.
+              </p>
+              <Link
+                href="/ideas"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+              >
+                <Grid3X3 className="h-4 w-4" />
+                Browse Ideas
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {savedPhotos.map((photo) => (
+                <div
+                  key={photo.id}
+                  className="group relative bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+                >
+                  <Link href={`/ideas/photo/${photo.id}`}>
+                    <div className="relative aspect-[4/3]">
+                      <Image
+                        src={photo.thumbnailUrl || photo.imageUrl}
+                        alt={photo.caption || photo.projectTitle || 'Saved idea'}
+                        fill
+                        className="object-cover"
+                        unoptimized={(photo.thumbnailUrl || photo.imageUrl).includes('localhost')}
+                      />
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                    </div>
+                  </Link>
+
+                  {/* Photo info */}
+                  <div className="p-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0 flex-1">
+                        {photo.projectTitle && (
+                          <p className="text-sm font-medium text-gray-900 truncate">
+                            {photo.projectTitle}
+                          </p>
+                        )}
+                        {photo.roomCategories && photo.roomCategories.length > 0 && (
+                          <p className="text-xs text-gray-500 truncate">
+                            {photo.roomCategories
+                              .map((cat) => getRoomCategoryLabel(cat))
+                              .join(', ')}
+                          </p>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => handleUnsavePhoto(photo.id)}
+                        disabled={unsavingPhotoId === photo.id}
+                        className="p-1.5 text-red-500 hover:text-red-600 hover:bg-red-50 rounded transition-colors shrink-0"
+                        title="Remove from saved"
+                      >
+                        {unsavingPhotoId === photo.id ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <Heart className="h-4 w-4 fill-current" />
+                        )}
+                      </button>
+                    </div>
+                    {photo.businessName && (
+                      <Link
+                        href={photo.professionalId && photo.proSlug ? `/pros/${photo.professionalId}/${photo.proSlug}` : '#'}
+                        className="text-xs text-primary-600 hover:text-primary-700 mt-1 block truncate"
+                      >
+                        by {photo.businessName}
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Collection Tab Content */}
+      {activeTab === 'collection' && (
+        <>
       {/* Search and Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
@@ -518,6 +719,8 @@ export default function IdeasPage() {
             );
           })}
         </div>
+      )}
+        </>
       )}
     </div>
   );

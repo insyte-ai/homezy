@@ -372,3 +372,100 @@ export const exportHomeowners = async (
   });
   return response.data;
 };
+
+// ==================== IDEAS MODERATION ====================
+
+import type {
+  AdminIdeasPhoto,
+  AdminIdeasListResponse,
+  AdminIdeasStats,
+  AdminPhotoStatus,
+  RoomCategory,
+} from '@homezy/shared';
+
+export interface ListIdeasPhotosParams {
+  limit?: number;
+  cursor?: string;
+  professionalId?: string;
+  roomCategory?: RoomCategory;
+  adminStatus?: AdminPhotoStatus;
+  publishedToIdeas?: boolean;
+  sort?: 'newest' | 'popular' | 'mostSaved';
+}
+
+export const getIdeasStats = async (): Promise<AdminIdeasStats> => {
+  const response = await api.get('/admin/ideas/stats');
+  return response.data.data.stats;
+};
+
+export const listIdeasPhotos = async (
+  params: ListIdeasPhotosParams = {}
+): Promise<AdminIdeasListResponse> => {
+  const response = await api.get('/admin/ideas/photos', { params });
+  return response.data.data;
+};
+
+export const getIdeasPhoto = async (
+  projectId: string,
+  photoId: string
+): Promise<AdminIdeasPhoto> => {
+  const response = await api.get(`/admin/ideas/photos/${projectId}/${photoId}`);
+  return response.data.data.photo;
+};
+
+export const updateIdeasPhotoStatus = async (
+  projectId: string,
+  photoId: string,
+  adminStatus: AdminPhotoStatus,
+  removalReason?: string
+): Promise<void> => {
+  await api.patch(`/admin/ideas/photos/${projectId}/${photoId}/status`, {
+    adminStatus,
+    removalReason,
+  });
+};
+
+export const bulkUpdateIdeasPhotoStatus = async (
+  photos: Array<{ projectId: string; photoId: string }>,
+  adminStatus: AdminPhotoStatus,
+  removalReason?: string
+): Promise<{ updatedCount: number }> => {
+  const response = await api.post('/admin/ideas/photos/bulk-status', {
+    photos,
+    adminStatus,
+    removalReason,
+  });
+  return response.data.data;
+};
+
+// Publish a photo to Ideas
+export const publishPhotoToIdeas = async (
+  projectId: string,
+  photoId: string
+): Promise<void> => {
+  await api.post(`/admin/ideas/photos/${projectId}/${photoId}/publish`);
+};
+
+// Unpublish a photo from Ideas
+export const unpublishPhotoFromIdeas = async (
+  projectId: string,
+  photoId: string
+): Promise<void> => {
+  await api.post(`/admin/ideas/photos/${projectId}/${photoId}/unpublish`);
+};
+
+// Bulk publish photos to Ideas
+export const bulkPublishToIdeas = async (
+  photos: Array<{ projectId: string; photoId: string }>
+): Promise<{ updatedCount: number }> => {
+  const response = await api.post('/admin/ideas/photos/bulk-publish', { photos });
+  return response.data.data;
+};
+
+// Bulk unpublish photos from Ideas
+export const bulkUnpublishFromIdeas = async (
+  photos: Array<{ projectId: string; photoId: string }>
+): Promise<{ updatedCount: number }> => {
+  const response = await api.post('/admin/ideas/photos/bulk-unpublish', { photos });
+  return response.data.data;
+};

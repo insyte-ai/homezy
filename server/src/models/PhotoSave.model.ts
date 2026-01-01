@@ -11,7 +11,6 @@ const PhotoSaveSchema = new Schema<IPhotoSave>(
   {
     photoId: {
       type: Schema.Types.ObjectId,
-      ref: 'PortfolioPhoto',
       required: true,
       index: true,
     },

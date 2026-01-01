@@ -14,19 +14,6 @@ export const serviceAreaSchema = z.object({
   extraTravelCost: z.number().min(0).optional(),
 });
 
-// Portfolio Item Schema
-export const portfolioItemSchema = z.object({
-  id: z.string().optional(), // Generated on server if not provided
-  title: z.string().min(1, 'Title is required').max(100),
-  description: z.string().min(10, 'Description must be at least 10 characters').max(500),
-  category: z.string().min(1, 'Category is required'),
-  images: z.array(z.string().url()).min(1, 'At least one image is required').max(10),
-  beforeImages: z.array(z.string().url()).optional().default([]),
-  afterImages: z.array(z.string().url()).optional().default([]),
-  completionDate: z.coerce.date(),
-  isFeatured: z.boolean().optional().default(false),
-});
-
 // Weekly Schedule Schema
 const dayScheduleSchema = z.object({
   isAvailable: z.boolean().default(false),
@@ -115,17 +102,6 @@ export const uploadVerificationDocumentSchema = z.object({
   url: z.string().url('Invalid document URL'),
 });
 
-// Add Portfolio Item Schema
-export const addPortfolioItemSchema = portfolioItemSchema.omit({ id: true });
-
-// Update Portfolio Item Schema
-export const updatePortfolioItemSchema = portfolioItemSchema.partial().required({ id: true });
-
-// Update Featured Projects Schema
-export const updateFeaturedProjectsSchema = z.object({
-  featuredProjects: z.array(z.string()).max(6, 'Maximum 6 featured projects allowed'),
-});
-
 // Pro Agreement Schema
 export const proAgreementSchema = z.object({
   accepted: z.boolean().refine((val) => val === true, {
@@ -149,7 +125,4 @@ export const UAE_EMIRATES = [
 export type OnboardingInput = z.infer<typeof onboardingSchema>;
 export type UpdateProProfile = z.infer<typeof updateProProfileSchema>;
 export type UploadVerificationDocument = z.infer<typeof uploadVerificationDocumentSchema>;
-export type AddPortfolioItem = z.infer<typeof addPortfolioItemSchema>;
-export type UpdatePortfolioItem = z.infer<typeof updatePortfolioItemSchema>;
-export type UpdateFeaturedProjects = z.infer<typeof updateFeaturedProjectsSchema>;
 export type ProAgreementInput = z.infer<typeof proAgreementSchema>;

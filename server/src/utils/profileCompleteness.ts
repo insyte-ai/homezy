@@ -22,12 +22,11 @@ export interface ProfileCompletenessResult {
  * Section weights (must sum to 100)
  */
 const SECTION_WEIGHTS = {
-  basicInfo: 25, // Business name, tagline, bio, years in business, team size, languages
-  services: 15, // Categories, service areas
+  basicInfo: 30, // Business name, tagline, bio, years in business, team size, languages
+  services: 20, // Categories, service areas
   pricing: 10, // Hourly rates or minimum project size
-  portfolio: 20, // At least 5 portfolio items
-  verification: 25, // Basic or comprehensive verification
-  availability: 5, // Has availability schedule set
+  verification: 30, // Basic or comprehensive verification
+  availability: 10, // Has availability schedule set
 };
 
 /**
@@ -112,23 +111,7 @@ export function calculateProfileCompleteness(
   totalWeight += SECTION_WEIGHTS.pricing;
   if (hasPricing) completedWeight += SECTION_WEIGHTS.pricing;
 
-  // 4. Portfolio (20 points)
-  const portfolioCount = profile.portfolio?.length || 0;
-  const hasPortfolio = portfolioCount >= 1;
-
-  sectionDetails.portfolio = {
-    completed: hasPortfolio,
-    weight: SECTION_WEIGHTS.portfolio,
-    items: [
-      hasPortfolio
-        ? `✓ Portfolio items (${portfolioCount})`
-        : `✗ At least 1 portfolio item required`,
-    ],
-  };
-  totalWeight += SECTION_WEIGHTS.portfolio;
-  if (hasPortfolio) completedWeight += SECTION_WEIGHTS.portfolio;
-
-  // 5. Verification (25 points) - Based on documents uploaded (not admin approval)
+  // 4. Verification (30 points) - Based on documents uploaded (not admin approval)
   const documentCount = profile.verificationDocuments?.length || 0;
   const hasRequiredDocuments = documentCount >= 2;
   const isVerified = profile.verificationStatus === 'approved';
@@ -215,7 +198,6 @@ function formatSectionName(key: string): string {
     basicInfo: 'Basic Information',
     services: 'Services & Areas',
     pricing: 'Pricing',
-    portfolio: 'Portfolio',
     verification: 'Verification',
     availability: 'Availability',
   };
@@ -235,7 +217,7 @@ export function getProfileNextSteps(
   const steps: Array<{ priority: number; section: string; action: string; link: string }> =
     [];
 
-  // Priority order: Verification > Portfolio > Basic Info > Services > Pricing > Availability > Additional
+  // Priority order: Verification > Basic Info > Services > Pricing > Availability
   if (!completeness.sectionDetails.verification.completed) {
     steps.push({
       priority: 1,
@@ -245,18 +227,9 @@ export function getProfileNextSteps(
     });
   }
 
-  if (!completeness.sectionDetails.portfolio.completed) {
-    steps.push({
-      priority: 2,
-      section: 'Portfolio',
-      action: 'Add at least 1 portfolio project',
-      link: '/pro/dashboard/portfolio',
-    });
-  }
-
   if (!completeness.sectionDetails.basicInfo.completed) {
     steps.push({
-      priority: 3,
+      priority: 2,
       section: 'Basic Information',
       action: 'Complete profile info (tagline, bio, years in business, team size, languages)',
       link: '/pro/dashboard/profile',
@@ -265,7 +238,7 @@ export function getProfileNextSteps(
 
   if (!completeness.sectionDetails.services.completed) {
     steps.push({
-      priority: 4,
+      priority: 3,
       section: 'Services',
       action: 'Add service areas and categories',
       link: '/pro/dashboard/profile#services',
@@ -274,7 +247,7 @@ export function getProfileNextSteps(
 
   if (!completeness.sectionDetails.pricing.completed) {
     steps.push({
-      priority: 5,
+      priority: 4,
       section: 'Pricing',
       action: 'Set hourly rates or minimum project size',
       link: '/pro/dashboard/profile#pricing',
@@ -283,7 +256,7 @@ export function getProfileNextSteps(
 
   if (!completeness.sectionDetails.availability.completed) {
     steps.push({
-      priority: 6,
+      priority: 5,
       section: 'Availability',
       action: 'Set your availability schedule',
       link: '/pro/dashboard/profile#availability',
