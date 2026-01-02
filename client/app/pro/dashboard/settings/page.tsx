@@ -196,9 +196,9 @@ export default function SettingsPage() {
                   <button
                     onClick={handleSaveProfile}
                     disabled={loading}
-                    className="flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50"
+                    className="flex items-center gap-2 px-4 py-1.5 sm:px-6 sm:py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50 text-xs sm:text-sm"
                   >
-                    <Save className="h-4 w-4" />
+                    <Save className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     Save Changes
                   </button>
                 </div>
@@ -262,9 +262,9 @@ export default function SettingsPage() {
                   <button
                     onClick={handleSaveNotifications}
                     disabled={loading}
-                    className="flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50"
+                    className="flex items-center gap-2 px-4 py-1.5 sm:px-6 sm:py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50 text-xs sm:text-sm"
                   >
-                    <Save className="h-4 w-4" />
+                    <Save className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     Save Preferences
                   </button>
                 </div>
@@ -331,9 +331,9 @@ export default function SettingsPage() {
                       <button
                         onClick={handleChangePassword}
                         disabled={loading}
-                        className="flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50"
+                        className="flex items-center gap-2 px-4 py-1.5 sm:px-6 sm:py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50 text-xs sm:text-sm"
                       >
-                        <Lock className="h-4 w-4" />
+                        <Lock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                         Change Password
                       </button>
                     </div>
@@ -346,8 +346,8 @@ export default function SettingsPage() {
                     <p className="text-sm text-gray-600 mb-4">
                       Once you delete your account, there is no going back. Please be certain.
                     </p>
-                    <button className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition">
-                      <Trash2 className="h-4 w-4" />
+                    <button className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition text-xs sm:text-sm">
+                      <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                       Delete Account
                     </button>
                   </div>
@@ -387,9 +387,9 @@ export default function SettingsPage() {
 
                   <button
                     disabled={loading}
-                    className="flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50"
+                    className="flex items-center gap-2 px-4 py-1.5 sm:px-6 sm:py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50 text-xs sm:text-sm"
                   >
-                    <Save className="h-4 w-4" />
+                    <Save className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     Save Preferences
                   </button>
                 </div>

@@ -39,9 +39,9 @@ export function StartConversationButton({
   };
 
   const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-sm',
-    lg: 'px-6 py-3 text-base',
+    sm: 'px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm',
+    md: 'px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm',
+    lg: 'px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base',
   };
 
   const variantClasses = {
@@ -61,7 +61,7 @@ export function StartConversationButton({
       className={`${buttonClass} ${className}`}
       title={`Message ${recipientName}`}
     >
-      <MessageSquare className={size === 'sm' ? 'h-4 w-4' : 'h-5 w-5'} />
+      <MessageSquare className={size === 'sm' ? 'h-3.5 w-3.5 sm:h-4 sm:w-4' : 'h-4 w-4 sm:h-5 sm:w-5'} />
       {variant !== 'icon' && <span>Message</span>}
     </button>
   );

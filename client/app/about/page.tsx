@@ -238,14 +238,14 @@ export default function AboutPage() {
               Whether you need help with a home project or you&apos;re a professional looking
               to grow your business, Homezy is here to help.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/" className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium inline-flex items-center justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Link href="/" className="bg-white text-gray-900 hover:bg-gray-100 px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg font-medium inline-flex items-center justify-center text-sm sm:text-base">
                 Find a Professional
-                <ArrowRightIcon className="ml-2 h-4 w-4" />
+                <ArrowRightIcon className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Link>
-              <Link href="/become-a-pro" className="border border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-medium inline-flex items-center justify-center transition-colors">
+              <Link href="/become-a-pro" className="border border-white text-white hover:bg-white hover:text-gray-900 px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg font-medium inline-flex items-center justify-center transition-colors text-sm sm:text-base">
                 Become a Pro
-                <ArrowRightIcon className="ml-2 h-4 w-4" />
+                <ArrowRightIcon className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Link>
             </div>
           </div>

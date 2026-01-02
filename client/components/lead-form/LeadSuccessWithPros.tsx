@@ -177,7 +177,7 @@ export function LeadSuccessWithPros({
           </p>
           <button
             onClick={() => router.push(isGuest ? '/' : '/dashboard')}
-            className="px-6 py-2 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-600 transition-colors"
+            className="px-4 py-1.5 sm:px-6 sm:py-2 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-600 transition-colors text-xs sm:text-sm"
           >
             {isGuest ? 'Go to Homepage' : 'Go to Dashboard'}
           </button>

@@ -111,16 +111,16 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                 <Link
                   href="/auth/register"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
+                  className="inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors text-sm sm:text-base"
                 >
                   Find a Pro
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>
                 <Link
                   href="/"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg border-2 border-gray-300 hover:border-primary-500 hover:text-primary-600 transition-colors"
+                  className="inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 bg-white text-gray-900 font-semibold rounded-lg border-2 border-gray-300 hover:border-primary-500 hover:text-primary-600 transition-colors text-sm sm:text-base"
                 >
-                  <MessageCircle className="mr-2 h-5 w-5" />
+                  <MessageCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   Chat with Home GPT
                 </Link>
               </div>
@@ -238,19 +238,19 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <p className="text-lg text-white/90 mb-8">
               Connect with verified professionals in minutes. Get free quotes and compare options.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Link
                 href="/auth/register"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+                className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-white text-primary-700 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg text-sm sm:text-base"
               >
                 Find a Pro Now
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white border-2 border-white font-bold rounded-lg hover:bg-white/20 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-white/10 text-white border-2 border-white font-bold rounded-lg hover:bg-white/20 transition-colors text-sm sm:text-base"
               >
-                <MessageCircle className="mr-2 h-5 w-5" />
+                <MessageCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 Get AI Assistance
               </Link>
             </div>

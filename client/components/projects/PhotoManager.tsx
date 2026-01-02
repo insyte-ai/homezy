@@ -171,37 +171,38 @@ export function PhotoManager({ project, onClose, onProjectUpdate }: PhotoManager
   const removedCount = photos.filter((p) => p && p.adminStatus === 'removed').length;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="border-b px-6 py-4 flex items-center justify-between flex-shrink-0">
-          <div className="flex items-center gap-3">
+        <div className="border-b px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={onClose}
-              className="flex items-center gap-1 text-neutral-600 hover:text-neutral-900 px-3 py-1.5 rounded-lg hover:bg-neutral-100 transition-colors"
+              className="flex items-center gap-1 text-neutral-600 hover:text-neutral-900 px-2 sm:px-3 py-1.5 rounded-lg hover:bg-neutral-100 transition-colors"
             >
               <ChevronLeft className="h-5 w-5" />
-              <span className="text-sm font-medium">Back</span>
+              <span className="text-sm font-medium hidden sm:inline">Back</span>
             </button>
-            <div className="border-l pl-3 ml-1">
-              <h2 className="text-xl font-bold text-neutral-900">{project.name}</h2>
-              <p className="text-sm text-neutral-600">
+            <div className="border-l pl-2 sm:pl-3 ml-1">
+              <h2 className="text-base sm:text-xl font-bold text-neutral-900 line-clamp-1">{project.name}</h2>
+              <p className="text-xs sm:text-sm text-neutral-600">
                 {photos.length} photo{photos.length !== 1 ? 's' : ''} |{' '}
                 {publishedCount} on Ideas
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowUploadModal(true)}
-              className="btn btn-primary flex items-center gap-2"
+              className="btn btn-primary flex items-center justify-center gap-2 flex-1 sm:flex-none text-sm sm:text-base"
             >
-              <Upload className="h-5 w-5" />
-              Add Photos
+              <Upload className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="sm:hidden">Add</span>
+              <span className="hidden sm:inline">Add Photos</span>
             </button>
             <button
               onClick={onClose}
-              className="btn btn-secondary"
+              className="btn btn-secondary flex-1 sm:flex-none text-sm sm:text-base"
             >
               Done
             </button>
@@ -209,43 +210,43 @@ export function PhotoManager({ project, onClose, onProjectUpdate }: PhotoManager
         </div>
 
         {/* Stats bar */}
-        <div className="bg-neutral-50 border-b px-6 py-3 flex gap-6 flex-shrink-0">
-          <div className="text-sm">
+        <div className="bg-neutral-50 border-b px-4 sm:px-6 py-2 sm:py-3 flex flex-wrap gap-3 sm:gap-6 flex-shrink-0">
+          <div className="text-xs sm:text-sm">
             <span className="text-neutral-500">Total:</span>{' '}
             <span className="font-medium text-neutral-700">{photos.length}</span>
           </div>
-          <div className="text-sm">
+          <div className="text-xs sm:text-sm">
             <span className="text-neutral-500">On Ideas:</span>{' '}
             <span className="font-medium text-green-600">{publishedCount}</span>
           </div>
           {removedCount > 0 && (
-            <div className="text-sm">
-              <span className="text-neutral-500">Removed by Admin:</span>{' '}
+            <div className="text-xs sm:text-sm">
+              <span className="text-neutral-500">Removed:</span>{' '}
               <span className="font-medium text-red-600">{removedCount}</span>
             </div>
           )}
         </div>
 
         {/* Photos Grid */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
           {photos.length === 0 ? (
-            <div className="text-center py-12 border-2 border-dashed border-neutral-300 rounded-lg">
-              <ImageIcon className="mx-auto h-12 w-12 text-neutral-400 mb-4" />
-              <h3 className="text-lg font-medium text-neutral-900 mb-2">
+            <div className="text-center py-8 sm:py-12 border-2 border-dashed border-neutral-300 rounded-lg px-4">
+              <ImageIcon className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-neutral-400 mb-3 sm:mb-4" />
+              <h3 className="text-base sm:text-lg font-medium text-neutral-900 mb-2">
                 No photos yet
               </h3>
-              <p className="text-neutral-600 mb-4">
-                Add photos to showcase this project in your portfolio
+              <p className="text-sm sm:text-base text-neutral-600 mb-4">
+                Add photos to showcase this project
               </p>
               <button
                 onClick={() => setShowUploadModal(true)}
-                className="btn btn-primary"
+                className="btn btn-primary text-sm sm:text-base"
               >
                 Upload Photos
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
               {photos.filter(Boolean).map((photo) => (
                 <div
                   key={photo.id}
@@ -414,19 +415,19 @@ function UploadModal({
   onUpload: () => void;
 }) {
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4">
-      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
-          <h2 className="text-xl font-bold">Add Photos</h2>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-2 sm:p-4">
+      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+          <h2 className="text-lg sm:text-xl font-bold">Add Photos</h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600"
           >
-            <X className="h-6 w-6" />
+            <X className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-5 sm:space-y-6">
           {/* File upload */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -447,19 +448,19 @@ function UploadModal({
                 className="flex flex-col items-center cursor-pointer"
               >
                 <Upload className="h-8 w-8 text-gray-400 mb-2" />
-                <span className="text-sm text-gray-600">
+                <span className="text-xs sm:text-sm text-gray-600 text-center">
                   Click to select images (JPEG, PNG, WebP, max 5MB each)
                 </span>
               </label>
 
               {pendingFiles.length > 0 && (
-                <div className="grid grid-cols-4 gap-2 mt-4">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mt-4">
                   {pendingFiles.map((file, index) => (
                     <div key={index} className="relative group">
                       <img
                         src={URL.createObjectURL(file)}
                         alt=""
-                        className="w-full h-20 object-cover rounded"
+                        className="w-full h-16 sm:h-20 object-cover rounded"
                       />
                       <button
                         type="button"
@@ -480,13 +481,13 @@ function UploadModal({
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Photo Type
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {(['main', 'before', 'after'] as PhotoType[]).map((type) => (
                 <button
                   key={type}
                   type="button"
                   onClick={() => onPhotoTypeChange(type)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm font-medium transition-colors ${
                     photoType === type
                       ? 'bg-primary-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -503,13 +504,13 @@ function UploadModal({
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Room Categories * (select all that apply)
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {ROOM_CATEGORY_CONFIG.map((cat) => (
                 <button
                   key={cat.id}
                   type="button"
                   onClick={() => onToggleCategory(cat.id)}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                     selectedCategories.includes(cat.id)
                       ? 'bg-primary-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -532,33 +533,33 @@ function UploadModal({
             <textarea
               value={caption}
               onChange={(e) => onCaptionChange(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+              className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
               rows={2}
               placeholder="Describe the photo..."
             />
           </div>
 
           {/* Info */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-900">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+            <p className="text-xs sm:text-sm text-blue-900">
               Photos will be added to your portfolio. Our team reviews photos and may
               feature them on the Ideas page for homeowners to discover.
             </p>
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3 pt-4 border-t">
+          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 pt-4 border-t">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              className="flex-1 px-4 py-2.5 sm:py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm sm:text-base"
               disabled={uploading}
             >
               Cancel
             </button>
             <button
               onClick={onUpload}
-              className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2.5 sm:py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center justify-center gap-2 text-sm sm:text-base"
               disabled={uploading || pendingFiles.length === 0}
             >
               {uploading ? (
@@ -605,16 +606,16 @@ function EditPhotoModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4">
-      <div className="bg-white rounded-lg max-w-lg w-full">
-        <div className="border-b px-6 py-4 flex items-center justify-between">
-          <h2 className="text-lg font-bold">Edit Photo</h2>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-2 sm:p-4">
+      <div className="bg-white rounded-lg max-w-lg w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+          <h2 className="text-base sm:text-lg font-bold">Edit Photo</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
-            <X className="h-6 w-6" />
+            <X className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-5 sm:space-y-6">
           {/* Preview */}
           <div className="relative aspect-video bg-neutral-100 rounded-lg overflow-hidden">
             <Image
@@ -631,13 +632,13 @@ function EditPhotoModal({
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Photo Type
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {(['main', 'before', 'after'] as PhotoType[]).map((type) => (
                 <button
                   key={type}
                   type="button"
                   onClick={() => setPhotoType(type)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm font-medium transition-colors ${
                     photoType === type
                       ? 'bg-primary-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -654,13 +655,13 @@ function EditPhotoModal({
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Room Categories
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {ROOM_CATEGORY_CONFIG.map((cat) => (
                 <button
                   key={cat.id}
                   type="button"
                   onClick={() => toggleCategory(cat.id)}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                     selectedCategories.includes(cat.id)
                       ? 'bg-primary-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -683,16 +684,16 @@ function EditPhotoModal({
             <textarea
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+              className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
               rows={2}
               placeholder="Describe the photo..."
             />
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3">
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              className="flex-1 px-4 py-2.5 sm:py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm sm:text-base"
             >
               Cancel
             </button>
@@ -704,7 +705,7 @@ function EditPhotoModal({
                   photoType,
                 })
               }
-              className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+              className="flex-1 px-4 py-2.5 sm:py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm sm:text-base"
               disabled={selectedCategories.length === 0}
             >
               Save Changes

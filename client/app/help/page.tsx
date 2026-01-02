@@ -278,28 +278,28 @@ export default function HelpPage() {
               <p className="text-gray-600 mb-8">
                 Our support team is ready to assist you with any questions.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <a
                   href="mailto:support@homezy.co"
-                  className="inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors text-sm sm:text-base"
                 >
-                  <EnvelopeIcon className="w-5 h-5" />
+                  <EnvelopeIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                   Email Support
                 </a>
                 <a
                   href="https://wa.me/971507730455"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-medium hover:bg-green-700 transition-colors text-sm sm:text-base"
                 >
-                  <ChatBubbleLeftRightIcon className="w-5 h-5" />
+                  <ChatBubbleLeftRightIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                   WhatsApp
                 </a>
                 <a
                   href="tel:+971507730455"
-                  className="inline-flex items-center justify-center gap-2 bg-gray-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-900 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-medium hover:bg-gray-900 transition-colors text-sm sm:text-base"
                 >
-                  <PhoneIcon className="w-5 h-5" />
+                  <PhoneIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                   Call Us
                 </a>
               </div>

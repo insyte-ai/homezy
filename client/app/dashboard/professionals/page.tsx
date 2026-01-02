@@ -11,7 +11,9 @@ import {
   Users,
   CheckCircle,
   Award,
-  MessageCircle
+  MessageCircle,
+  ChevronDown,
+  X
 } from 'lucide-react';
 import { searchProfessionals, type SearchProsParams } from '@/lib/services/professional';
 import type { ProProfile } from '@homezy/shared';
@@ -36,6 +38,7 @@ export default function ProfessionalsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedEmirate, setSelectedEmirate] = useState('all');
   const [minRating, setMinRating] = useState<number | undefined>(undefined);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,6 +47,13 @@ export default function ProfessionalsPage() {
   // Lead form state
   const [selectedProfessional, setSelectedProfessional] = useState<Professional | null>(null);
   const [showLeadForm, setShowLeadForm] = useState(false);
+
+  // Calculate active filter count
+  const activeFilterCount = [
+    selectedCategory !== 'all',
+    selectedEmirate !== 'all',
+    minRating !== undefined,
+  ].filter(Boolean).length;
 
   const categories = [
     'All Categories',
@@ -151,142 +161,197 @@ export default function ProfessionalsPage() {
   return (
     <div>
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Find Professionals</h1>
-        <p className="text-gray-600">
+      <div className="mb-4 sm:mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">Find Professionals</h1>
+        <p className="text-sm sm:text-base text-gray-600">
           Search for a service or browse by category to find verified professionals in the UAE.
         </p>
       </div>
 
       {/* Search Bar - Prominent */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 mb-4 sm:mb-6">
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
           <input
             type="text"
-            placeholder="Search for a service (e.g., plumbing, electrical, painting)..."
+            placeholder="Search for a service..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-base"
+            className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
           />
         </div>
       </div>
 
-      {/* Main Content with Sidebar */}
-      <div className="flex flex-col xl:flex-row gap-6">
-        {/* Sidebar Filters */}
-        <aside className="xl:w-64 flex-shrink-0">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sticky top-4">
-            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Filter className="h-4 w-4" />
-              Filters
-            </h3>
-
-            {/* Category Filter */}
-            <div className="mb-6">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Service Category</h4>
-              <div className="space-y-2 max-h-80 overflow-y-auto">
-                {categories.map((cat) => {
-                  const catValue = cat.toLowerCase().replace(/\s+/g, ' ');
-                  const isSelected = selectedCategory === catValue;
-
-                  return (
-                    <button
-                      key={cat}
-                      onClick={() => setSelectedCategory(isSelected ? 'all' : catValue)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition ${
-                        isSelected
-                          ? 'bg-primary-50 text-primary-700 font-medium'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Location Filter */}
-            <div className="mb-6 pb-6 border-b border-gray-200">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Location</h4>
-              <select
-                value={selectedEmirate}
-                onChange={(e) => setSelectedEmirate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
-              >
-                {emirates.map((emirate) => (
-                  <option key={emirate} value={emirate.toLowerCase().replace(/\s+/g, ' ')}>
-                    {emirate}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Rating Filter */}
-            <div className="mb-4">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Minimum Rating</h4>
-              <select
-                value={minRating || 'all'}
-                onChange={(e) => setMinRating(e.target.value === 'all' ? undefined : parseFloat(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
-              >
-                <option value="all">All Ratings</option>
-                <option value="4.5">4.5+ Stars</option>
-                <option value="4.0">4.0+ Stars</option>
-                <option value="3.5">3.5+ Stars</option>
-              </select>
-            </div>
-
-            {/* Results Count */}
-            {totalResults > 0 && (
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-sm text-gray-600">
-                  <span className="font-medium text-gray-900">{totalResults}</span> professional{totalResults !== 1 ? 's' : ''} found
-                </p>
-              </div>
-            )}
-
-            {/* Reset Filters */}
-            {(selectedCategory !== 'all' || selectedEmirate !== 'all' || minRating || searchQuery) && (
-              <button
-                onClick={() => {
-                  setSelectedCategory('all');
-                  setSelectedEmirate('all');
-                  setMinRating(undefined);
-                  setSearchQuery('');
-                }}
-                className="w-full mt-4 px-3 py-2 text-sm text-primary-600 hover:bg-primary-50 rounded-lg transition"
-              >
-                Reset All Filters
-              </button>
+      {/* Filter Toggle Button */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-4 sm:mb-6">
+        <button
+          onClick={() => setFiltersOpen(!filtersOpen)}
+          className="w-full px-4 py-3 flex items-center justify-between"
+        >
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
+            <span className="font-medium text-gray-900 text-sm sm:text-base">Filters</span>
+            {activeFilterCount > 0 && (
+              <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium bg-primary-100 text-primary-700 rounded-full">
+                {activeFilterCount}
+              </span>
             )}
           </div>
-        </aside>
+          <div className="flex items-center gap-2">
+            {totalResults > 0 && (
+              <span className="text-xs sm:text-sm text-gray-500">
+                {totalResults} result{totalResults !== 1 ? 's' : ''}
+              </span>
+            )}
+            <ChevronDown
+              className={`h-4 w-4 sm:h-5 sm:w-5 text-gray-500 transition-transform duration-200 ${
+                filtersOpen ? 'rotate-180' : ''
+              }`}
+            />
+          </div>
+        </button>
 
-        {/* Main Content Area */}
-        <div className="flex-1">
-          {/* Results */}
+        {/* Collapsible Filter Content */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            filtersOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="px-4 pb-4 border-t border-gray-200">
+            <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Category Filter */}
+              <div>
+                <h4 className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Service Category</h4>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-xs sm:text-sm"
+                >
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat.toLowerCase().replace(/\s+/g, ' ')}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Location Filter */}
+              <div>
+                <h4 className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Location</h4>
+                <select
+                  value={selectedEmirate}
+                  onChange={(e) => setSelectedEmirate(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-xs sm:text-sm"
+                >
+                  {emirates.map((emirate) => (
+                    <option key={emirate} value={emirate.toLowerCase().replace(/\s+/g, ' ')}>
+                      {emirate}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Rating Filter */}
+              <div>
+                <h4 className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Minimum Rating</h4>
+                <select
+                  value={minRating || 'all'}
+                  onChange={(e) => setMinRating(e.target.value === 'all' ? undefined : parseFloat(e.target.value))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-xs sm:text-sm"
+                >
+                  <option value="all">All Ratings</option>
+                  <option value="4.5">4.5+ Stars</option>
+                  <option value="4.0">4.0+ Stars</option>
+                  <option value="3.5">3.5+ Stars</option>
+                </select>
+              </div>
+
+              {/* Reset Button */}
+              <div className="flex items-end">
+                {(selectedCategory !== 'all' || selectedEmirate !== 'all' || minRating) ? (
+                  <button
+                    onClick={() => {
+                      setSelectedCategory('all');
+                      setSelectedEmirate('all');
+                      setMinRating(undefined);
+                    }}
+                    className="w-full px-3 py-2 text-xs sm:text-sm text-primary-600 hover:bg-primary-50 border border-primary-200 rounded-lg transition flex items-center justify-center gap-1.5"
+                  >
+                    <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Clear Filters
+                  </button>
+                ) : (
+                  <div className="w-full px-3 py-2 text-xs sm:text-sm text-gray-400 border border-gray-200 rounded-lg text-center">
+                    No filters applied
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Active Filter Pills */}
+            {activeFilterCount > 0 && (
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
+                {selectedCategory !== 'all' && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary-50 text-primary-700 text-xs sm:text-sm rounded-full">
+                    {categories.find(c => c.toLowerCase().replace(/\s+/g, ' ') === selectedCategory) || selectedCategory}
+                    <button
+                      onClick={() => setSelectedCategory('all')}
+                      className="ml-1 hover:text-primary-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedEmirate !== 'all' && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary-50 text-primary-700 text-xs sm:text-sm rounded-full">
+                    {emirates.find(e => e.toLowerCase().replace(/\s+/g, ' ') === selectedEmirate) || selectedEmirate}
+                    <button
+                      onClick={() => setSelectedEmirate('all')}
+                      className="ml-1 hover:text-primary-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                {minRating && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary-50 text-primary-700 text-xs sm:text-sm rounded-full">
+                    {minRating}+ Stars
+                    <button
+                      onClick={() => setMinRating(undefined)}
+                      className="ml-1 hover:text-primary-900"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Results */}
+      <div>
           {loading ? (
-            <div className={`grid gap-4 ${isChatPanelOpen ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+            <div className={`grid gap-3 sm:gap-4 ${isChatPanelOpen ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 animate-pulse">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full mb-4"></div>
-                  <div className="h-5 bg-gray-200 rounded w-3/4 mb-3"></div>
-                  <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                <div key={i} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 animate-pulse">
+                  <div className="w-12 h-12 sm:w-20 sm:h-20 bg-gray-200 rounded-full mb-3 sm:mb-4"></div>
+                  <div className="h-4 sm:h-5 bg-gray-200 rounded w-3/4 mb-2 sm:mb-3"></div>
+                  <div className="h-3 sm:h-4 bg-gray-200 rounded w-full mb-2"></div>
+                  <div className="h-3 sm:h-4 bg-gray-200 rounded w-2/3"></div>
                 </div>
               ))}
             </div>
           ) : !professionals || professionals.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-gray-400" />
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-7 w-7 sm:h-8 sm:w-8 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
                 No Professionals Found
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
                 No professionals match your current filters. Try adjusting your search criteria or request quotes to get matched automatically.
               </p>
               <Link href="/dashboard/create-request" className="btn btn-primary inline-flex items-center gap-2">
@@ -421,7 +486,6 @@ export default function ProfessionalsPage() {
               })}
             </div>
           )}
-        </div>
       </div>
 
       {/* Direct Lead Form Modal */}

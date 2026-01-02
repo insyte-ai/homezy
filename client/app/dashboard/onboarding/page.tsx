@@ -196,14 +196,14 @@ export default function OnboardingPage() {
               <div className="space-y-3">
                 <button
                   onClick={goNext}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm sm:text-base"
                 >
                   Get Started
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
                 <button
                   onClick={handleSkip}
-                  className="w-full px-6 py-3 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="w-full px-4 py-2.5 sm:px-6 sm:py-3 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors text-sm sm:text-base"
                 >
                   I'll do this later
                 </button>
@@ -446,17 +446,17 @@ export default function OnboardingPage() {
                   <button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 transition-colors font-medium"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 transition-colors font-medium text-sm sm:text-base"
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
                         Creating...
                       </>
                     ) : (
                       <>
                         Complete Setup
-                        <ArrowRight className="h-5 w-5" />
+                        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                       </>
                     )}
                   </button>
@@ -481,14 +481,14 @@ export default function OnboardingPage() {
               <div className="space-y-3">
                 <button
                   onClick={handleComplete}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm sm:text-base"
                 >
                   Go to My Home
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
                 <Link
                   href="/dashboard/my-home/projects/new"
-                  className="block w-full px-6 py-3 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors font-medium"
+                  className="block w-full px-4 py-2.5 sm:px-6 sm:py-3 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors font-medium text-sm sm:text-base text-center"
                 >
                   Create Your First Project
                 </Link>

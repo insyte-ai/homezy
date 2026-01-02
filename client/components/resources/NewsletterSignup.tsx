@@ -65,9 +65,9 @@ export function NewsletterSignup({
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
             >
-              {status === 'loading' ? '...' : <ArrowRight className="h-4 w-4" />}
+              {status === 'loading' ? '...' : <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />}
             </button>
           </form>
         )}
@@ -109,14 +109,14 @@ export function NewsletterSignup({
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-primary-50 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="px-4 py-2 sm:px-6 sm:py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-primary-50 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 text-sm sm:text-base"
             >
               {status === 'loading' ? (
                 'Subscribing...'
               ) : (
                 <>
                   Subscribe
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </>
               )}
             </button>

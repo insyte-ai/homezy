@@ -28,10 +28,10 @@ export default function AllServicesPage() {
           </p>
           <Link
             href="/auth/register"
-            className="inline-flex items-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
+            className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors text-sm sm:text-base"
           >
             Get Started
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
           </Link>
         </div>
       </section>
@@ -119,20 +119,20 @@ export default function AllServicesPage() {
           <p className="text-lg text-gray-800 mb-8">
             Our AI assistant can help you find the perfect professional for any project
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+              className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-white text-gray-900 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg text-sm sm:text-base"
             >
               Chat with Home GPT
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Link>
             <Link
               href="/auth/register"
-              className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors text-sm sm:text-base"
             >
               Post Your Project
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Link>
           </div>
         </div>

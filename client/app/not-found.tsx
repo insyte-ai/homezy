@@ -31,16 +31,16 @@ export default function NotFound() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/"
-                className="inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium"
+                className="inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm sm:text-base"
               >
-                <Home className="h-5 w-5" />
+                <Home className="h-4 w-4 sm:h-5 sm:w-5" />
                 Go Home
               </Link>
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center gap-2 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                className="inline-flex items-center justify-center gap-2 border border-gray-300 text-gray-700 px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium text-sm sm:text-base"
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-4 w-4 sm:h-5 sm:w-5" />
                 Browse Services
               </Link>
             </div>

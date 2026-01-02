@@ -201,16 +201,16 @@ export default function ArticlePage() {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <button
                 onClick={handleShare}
-                className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-xs sm:text-sm"
               >
-                <Share2 className="h-4 w-4" />
+                <Share2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 Share
               </button>
-              <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-                <Bookmark className="h-4 w-4" />
+              <button className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-xs sm:text-sm">
+                <Bookmark className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 Save
               </button>
             </div>

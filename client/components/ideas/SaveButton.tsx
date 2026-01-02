@@ -33,15 +33,15 @@ export function SaveButton({
   const [count, setCount] = useState(saveCount);
 
   const sizeClasses = {
-    sm: 'h-4 w-4',
-    md: 'h-5 w-5',
-    lg: 'h-6 w-6',
+    sm: 'h-3.5 w-3.5 sm:h-4 sm:w-4',
+    md: 'h-4 w-4 sm:h-5 sm:w-5',
+    lg: 'h-5 w-5 sm:h-6 sm:w-6',
   };
 
   const buttonSizeClasses = {
-    sm: 'p-1.5',
-    md: 'p-2',
-    lg: 'p-2.5',
+    sm: 'p-1 sm:p-1.5',
+    md: 'p-1.5 sm:p-2',
+    lg: 'p-2 sm:p-2.5',
   };
 
   const handleSave = async () => {
@@ -76,7 +76,7 @@ export function SaveButton({
       <button
         onClick={handleSave}
         disabled={isLoading}
-        className={`flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition-colors ${
+        className={`flex items-center gap-1.5 sm:gap-2 rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium transition-colors ${
           isSaved
             ? 'bg-red-50 text-red-600 hover:bg-red-100'
             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -89,7 +89,7 @@ export function SaveButton({
         )}
         <span>{isSaved ? 'Saved' : 'Save'}</span>
         {showCount && count > 0 && (
-          <span className="text-sm opacity-75">({count})</span>
+          <span className="text-xs sm:text-sm opacity-75">({count})</span>
         )}
       </button>
     );
