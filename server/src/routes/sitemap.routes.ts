@@ -3,6 +3,8 @@ import Service from '../models/Service.model';
 import User from '../models/User.model';
 import Lead from '../models/Lead.model';
 import Resource, { ResourceStatus, ResourceCategory } from '../models/Resource.model';
+import { ProjectResource } from '../models/ProjectResource.model';
+import { ROOM_CATEGORIES } from '@homezy/shared';
 
 const router = Router();
 const BASE_URL = process.env.BASE_URL || 'https://homezy.co';
@@ -50,6 +52,13 @@ router.get('/sitemap.xml', async (_req: Request, res: Response) => {
       <lastmod>${new Date().toISOString()}</lastmod>
     </sitemap>`;
 
+    // Ideas sitemap
+    xml += `
+    <sitemap>
+      <loc>${BASE_URL}/sitemap-ideas.xml</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+    </sitemap>`;
+
     xml += '</sitemapindex>';
 
     res.header('Content-Type', 'application/xml');
@@ -73,6 +82,7 @@ router.get('/sitemap-main.xml', async (_req: Request, res: Response) => {
       { url: '/pros', changefreq: 'daily', priority: 0.8 },
       { url: '/become-a-pro', changefreq: 'monthly', priority: 0.8 },
       { url: '/create-request', changefreq: 'monthly', priority: 0.7 },
+      { url: '/ideas', changefreq: 'daily', priority: 0.8 },
       { url: '/resources/center', changefreq: 'weekly', priority: 0.8 },
       { url: '/resources/homeowner', changefreq: 'weekly', priority: 0.7 },
       { url: '/resources/pro', changefreq: 'weekly', priority: 0.7 },
@@ -302,6 +312,67 @@ router.get('/sitemap-resources.xml', async (_req: Request, res: Response) => {
 });
 
 // ==========================================
+// IDEAS SITEMAP
+// ==========================================
+router.get('/sitemap-ideas.xml', async (_req: Request, res: Response) => {
+  try {
+    // Get all published photos with their categories
+    const photos = await ProjectResource.find({
+      type: 'photo',
+      isPublished: true,
+    })
+      .select('_id roomCategories updatedAt createdAt')
+      .lean();
+
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+    // Main ideas page
+    xml += `
+      <url>
+        <loc>${BASE_URL}/ideas</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+      </url>`;
+
+    // Category pages (/ideas?category=kitchen, etc.)
+    ROOM_CATEGORIES.forEach((category) => {
+      xml += `
+      <url>
+        <loc>${BASE_URL}/ideas?category=${category}</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+      </url>`;
+    });
+
+    // Individual photo pages
+    photos.forEach((photo: any) => {
+      const lastmod = photo.updatedAt
+        ? new Date(photo.updatedAt).toISOString()
+        : photo.createdAt
+          ? new Date(photo.createdAt).toISOString()
+          : new Date().toISOString();
+      xml += `
+      <url>
+        <loc>${BASE_URL}/ideas/photo/${photo._id}</loc>
+        <lastmod>${lastmod}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+      </url>`;
+    });
+
+    xml += '</urlset>';
+
+    res.header('Content-Type', 'application/xml');
+    res.header('Cache-Control', 'public, max-age=43200');
+    res.send(xml);
+  } catch (error) {
+    console.error('Error generating ideas sitemap:', error);
+    res.status(500).send('Error generating sitemap');
+  }
+});
+
+// ==========================================
 // ROBOTS.TXT
 // ==========================================
 router.get('/robots.txt', async (_req: Request, res: Response) => {
@@ -318,6 +389,8 @@ router.get('/robots.txt', async (_req: Request, res: Response) => {
     txt += 'Allow: /lead-marketplace/*\n';
     txt += 'Allow: /resources\n';
     txt += 'Allow: /resources/*\n';
+    txt += 'Allow: /ideas\n';
+    txt += 'Allow: /ideas/*\n';
     txt += 'Allow: /become-a-pro\n';
     txt += 'Allow: /create-request\n';
     txt += 'Allow: /about\n';
