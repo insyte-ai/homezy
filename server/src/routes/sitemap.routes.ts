@@ -3,7 +3,7 @@ import Service from '../models/Service.model';
 import User from '../models/User.model';
 import Lead from '../models/Lead.model';
 import Resource, { ResourceStatus, ResourceCategory } from '../models/Resource.model';
-import { ProjectResource } from '../models/ProjectResource.model';
+import { Project } from '../models/Project.model';
 import { ROOM_CATEGORIES } from '@homezy/shared';
 
 const router = Router();
@@ -316,13 +316,24 @@ router.get('/sitemap-resources.xml', async (_req: Request, res: Response) => {
 // ==========================================
 router.get('/sitemap-ideas.xml', async (_req: Request, res: Response) => {
   try {
-    // Get all published photos with their categories
-    const photos = await ProjectResource.find({
-      type: 'photo',
-      isPublished: true,
-    })
-      .select('_id roomCategories updatedAt createdAt')
-      .lean();
+    // Get all published photos from Projects using aggregation
+    const photos = await Project.aggregate([
+      { $unwind: '$photos' },
+      {
+        $match: {
+          'photos.isPublishedToIdeas': true,
+          'photos.adminStatus': 'active',
+        },
+      },
+      {
+        $project: {
+          photoId: '$photos._id',
+          updatedAt: '$photos.updatedAt',
+          createdAt: '$photos.createdAt',
+          publishedAt: '$photos.publishedAt',
+        },
+      },
+    ]);
 
     let xml = '<?xml version="1.0" encoding="UTF-8"?>';
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
@@ -347,14 +358,16 @@ router.get('/sitemap-ideas.xml', async (_req: Request, res: Response) => {
 
     // Individual photo pages
     photos.forEach((photo: any) => {
-      const lastmod = photo.updatedAt
-        ? new Date(photo.updatedAt).toISOString()
-        : photo.createdAt
-          ? new Date(photo.createdAt).toISOString()
-          : new Date().toISOString();
+      const lastmod = photo.publishedAt
+        ? new Date(photo.publishedAt).toISOString()
+        : photo.updatedAt
+          ? new Date(photo.updatedAt).toISOString()
+          : photo.createdAt
+            ? new Date(photo.createdAt).toISOString()
+            : new Date().toISOString();
       xml += `
       <url>
-        <loc>${BASE_URL}/ideas/photo/${photo._id}</loc>
+        <loc>${BASE_URL}/ideas/photo/${photo.photoId}</loc>
         <lastmod>${lastmod}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
